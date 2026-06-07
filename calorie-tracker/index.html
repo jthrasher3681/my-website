@@ -766,7 +766,7 @@
             <input class="input add-name" id="add-name" placeholder="What did you eat?" value="${escapeHtml(state.name)}"/>
             <input class="input add-cal" id="add-cal" inputmode="numeric" placeholder="cal" value="${escapeHtml(state.cal)}"/>
           </div>
-          <button class="add-btn" id="add-btn" ${valid ? "" : "disabled"}>
+          <button class="add-btn" id="add-btn" data-action="add-entry" ${valid ? "" : "disabled"}>
             ${I.plus} Add to log
           </button>
         </section>
@@ -997,6 +997,9 @@
           render();
           break;
         }
+        case "add-entry":
+          addEntry();
+          break;
       }
     }
 
