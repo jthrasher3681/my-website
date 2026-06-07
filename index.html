@@ -3,37 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thrasher Co Home Page</title>
+  <title>Thrasher Co</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    :root {
+      --bg: #fafaf7;
+      --surface: #ffffff;
+      --ink: #111111;
+      --ink-soft: #4b4b4b;
+      --ink-mute: #8a8a85;
+      --line: #e8e6df;
+      --accent: #c75c2e;
+      --accent-soft: #f5e9df;
     }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: Arial, Helvetica, sans-serif;
-      color: #1f2937;
-      background: #f8fafc;
-      line-height: 1.6;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
     }
 
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
+    a { color: inherit; text-decoration: none; }
 
-    .container {
-      width: min(1100px, 92%);
+    .wrap {
+      width: min(1180px, 92%);
       margin: 0 auto;
     }
 
+    /* Header */
     header {
-      background: #ffffff;
-      border-bottom: 1px solid #e5e7eb;
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 20;
+      background: rgba(250, 250, 247, 0.85);
+      backdrop-filter: saturate(140%) blur(10px);
+      -webkit-backdrop-filter: saturate(140%) blur(10px);
+      border-bottom: 1px solid var(--line);
     }
 
     .nav {
@@ -43,360 +56,514 @@
       padding: 18px 0;
     }
 
-    .logo {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: #0f172a;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--ink);
+      color: var(--bg);
+      display: grid;
+      place-items: center;
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
     }
 
     .nav-links {
       display: flex;
-      gap: 22px;
-      font-size: 0.95rem;
-      color: #475569;
+      gap: 28px;
+      font-size: 0.92rem;
+      color: var(--ink-soft);
     }
 
-    .nav-links a:hover {
-      color: #0f172a;
+    .nav-links a {
+      transition: color 0.2s ease;
     }
 
+    .nav-links a:hover { color: var(--ink); }
+
+    /* Hero */
     .hero {
-      padding: 90px 0;
-      background: linear-gradient(135deg, #e0f2fe 0%, #f8fafc 60%);
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 48px;
-      align-items: center;
+      padding: 120px 0 90px;
     }
 
     .eyebrow {
-      display: inline-block;
-      margin-bottom: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: var(--ink-soft);
+      margin-bottom: 28px;
       padding: 6px 12px;
+      border: 1px solid var(--line);
       border-radius: 999px;
-      background: #dbeafe;
-      color: #1d4ed8;
-      font-size: 0.85rem;
-      font-weight: 700;
+      background: var(--surface);
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #16a34a;
+      box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.18);
     }
 
     h1 {
-      font-size: clamp(2.4rem, 5vw, 4.5rem);
-      line-height: 1.05;
-      color: #0f172a;
-      margin-bottom: 22px;
+      font-family: 'Instrument Serif', serif;
+      font-weight: 400;
+      font-size: clamp(2.8rem, 6vw, 5.2rem);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      max-width: 14ch;
+      margin-bottom: 24px;
     }
 
-    .hero p {
-      font-size: 1.15rem;
-      color: #475569;
-      max-width: 620px;
-      margin-bottom: 30px;
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--ink-soft);
+      max-width: 52ch;
+      margin-bottom: 36px;
     }
 
     .button-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 14px;
+      gap: 10px;
     }
 
     .btn {
-      display: inline-block;
-      padding: 14px 22px;
-      border-radius: 10px;
-      font-weight: 700;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.12);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
     }
 
     .btn-primary {
-      background: #2563eb;
-      color: #ffffff;
+      background: var(--ink);
+      color: var(--bg);
     }
 
-    .btn-secondary {
-      background: #ffffff;
-      color: #0f172a;
-      border: 1px solid #cbd5e1;
+    .btn-primary:hover {
+      background: #000;
+      transform: translateY(-1px);
     }
 
-    .hero-card {
-      background: #ffffff;
-      border-radius: 24px;
-      padding: 30px;
-      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
-      border: 1px solid #e2e8f0;
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink);
+      border-color: var(--line);
     }
 
-    .hero-card h2 {
-      color: #0f172a;
-      margin-bottom: 14px;
-      font-size: 1.4rem;
+    .btn-ghost:hover {
+      background: var(--surface);
+      border-color: var(--ink-mute);
     }
 
-    .hero-card ul {
-      list-style: none;
-      display: grid;
-      gap: 14px;
-      color: #475569;
+    .arrow {
+      display: inline-block;
+      transition: transform 0.2s ease;
     }
 
-    .hero-card li::before {
-      content: "✓";
-      color: #16a34a;
-      font-weight: 800;
-      margin-right: 8px;
-    }
+    .btn:hover .arrow { transform: translateX(3px); }
 
+    /* Section structure */
     section {
-      padding: 72px 0;
+      padding: 80px 0;
     }
 
-    .section-heading {
-      text-align: center;
-      max-width: 720px;
-      margin: 0 auto 42px;
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      margin-bottom: 40px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
     }
 
-    .section-heading h2 {
-      font-size: 2rem;
-      color: #0f172a;
-      margin-bottom: 12px;
+    .section-head h2 {
+      font-family: 'Instrument Serif', serif;
+      font-weight: 400;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      letter-spacing: -0.01em;
     }
 
-    .section-heading p {
-      color: #64748b;
-      font-size: 1.05rem;
+    .section-label {
+      font-size: 0.82rem;
+      color: var(--ink-mute);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
     }
 
-    .cards {
+    /* Tile grid — the main hub */
+    .tiles {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
+      gap: 16px;
     }
 
-    .card {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
+    .tile {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 240px;
+      padding: 24px;
+      background: var(--surface);
+      border: 1px solid var(--line);
       border-radius: 18px;
-      padding: 26px;
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      overflow: hidden;
     }
 
-    .card h3 {
-      color: #0f172a;
-      margin-bottom: 10px;
+    .tile:hover {
+      transform: translateY(-3px);
+      border-color: var(--ink);
+      box-shadow: 0 18px 40px -20px rgba(17, 17, 17, 0.18);
+    }
+
+    .tile-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 60px;
+    }
+
+    .tile-tag {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-mute);
+    }
+
+    .tile-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      display: grid;
+      place-items: center;
+      font-family: 'Instrument Serif', serif;
       font-size: 1.2rem;
     }
 
-    .card p {
-      color: #64748b;
+    .tile h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
     }
 
-    .about {
-      background: #ffffff;
+    .tile p {
+      font-size: 0.92rem;
+      color: var(--ink-soft);
+      margin-bottom: 16px;
     }
 
+    .tile-go {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.88rem;
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .tile-go .arrow { transition: transform 0.2s ease; }
+    .tile:hover .tile-go .arrow { transform: translateX(4px); }
+
+    .tile.placeholder {
+      background: transparent;
+      border-style: dashed;
+      color: var(--ink-mute);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      min-height: 240px;
+    }
+
+    .tile.placeholder:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* About */
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 44px;
-      align-items: center;
+      gap: 60px;
+      align-items: start;
     }
 
-    .about h2 {
-      font-size: 2rem;
-      color: #0f172a;
+    .about-text p {
+      color: var(--ink-soft);
       margin-bottom: 16px;
+      font-size: 1.02rem;
     }
 
-    .about p {
-      color: #475569;
-      margin-bottom: 16px;
-    }
-
-    .stats {
+    .about-list {
+      list-style: none;
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
     }
 
-    .stat {
-      background: #f1f5f9;
-      border-radius: 16px;
-      padding: 22px;
+    .about-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 22px;
+      background: var(--surface);
     }
 
-    .stat strong {
-      display: block;
-      font-size: 1.6rem;
-      color: #2563eb;
+    .about-list .k {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-mute);
     }
 
-    .cta {
-      background: #0f172a;
-      color: #ffffff;
+    .about-list .v {
+      font-weight: 500;
+    }
+
+    /* Contact CTA */
+    .contact {
+      padding: 100px 0 120px;
+    }
+
+    .contact-inner {
+      background: var(--ink);
+      color: var(--bg);
+      border-radius: 24px;
+      padding: 64px 48px;
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
 
-    .cta h2 {
-      font-size: 2.2rem;
-      margin-bottom: 14px;
+    .contact-inner::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 80% 0%, rgba(199, 92, 46, 0.35), transparent 50%);
+      pointer-events: none;
     }
 
-    .cta p {
-      color: #cbd5e1;
-      max-width: 640px;
-      margin: 0 auto 28px;
+    .contact h2 {
+      font-family: 'Instrument Serif', serif;
+      font-weight: 400;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+      position: relative;
     }
 
+    .contact p {
+      color: #c9c9c4;
+      max-width: 48ch;
+      margin: 0 auto 32px;
+      position: relative;
+    }
+
+    .contact .btn-primary {
+      background: var(--bg);
+      color: var(--ink);
+      position: relative;
+    }
+
+    .contact .btn-primary:hover {
+      background: #fff;
+    }
+
+    /* Footer */
     footer {
-      background: #020617;
-      color: #94a3b8;
-      padding: 26px 0;
-      text-align: center;
-      font-size: 0.95rem;
+      border-top: 1px solid var(--line);
+      padding: 28px 0;
     }
 
-    @media (max-width: 800px) {
-      .hero-grid,
-      .about-grid,
-      .cards {
-        grid-template-columns: 1fr;
-      }
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.88rem;
+      color: var(--ink-mute);
+    }
 
-      .hero {
-        padding: 62px 0;
-      }
+    .footer-links {
+      display: flex;
+      gap: 22px;
+    }
 
-      .nav {
-        align-items: flex-start;
-        gap: 12px;
-      }
+    .footer-links a:hover { color: var(--ink); }
 
-      .nav-links {
-        display: none;
-      }
+    /* Responsive */
+    @media (max-width: 900px) {
+      .tiles { grid-template-columns: repeat(2, 1fr); }
+      .about-grid { grid-template-columns: 1fr; gap: 32px; }
+      .hero { padding: 80px 0 60px; }
+      .section-head { flex-direction: column; align-items: flex-start; }
+      .contact-inner { padding: 48px 28px; }
+    }
+
+    @media (max-width: 580px) {
+      .tiles { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .footer-row { flex-direction: column; gap: 12px; }
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="container nav">
-      <div class="logo">Thrasher Co</div>
-      <nav class="nav-links">
-        <a href="#services">Services</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </nav>
+    <div class="wrap nav">
+      <a class="brand" href="#">
+        <span class="brand-mark">T</span>
+        <span>Thrasher Co</span>
+      </a>
     </div>
   </header>
 
   <main>
     <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <span class="eyebrow">Reliable. Simple. Professional.</span>
-          <h1>A clear landing page for your business or project.</h1>
-          <p>
-            Use this section to explain what you offer, who you help, and why someone should contact you. Keep it short, direct, and easy to understand.
-          </p>
-          <div class="button-row">
-            <a class="btn btn-primary" href="#contact">Contact Us</a>
-            <a class="btn btn-secondary" href="#services">See What We Do</a>
+      <div class="wrap">
+        <h1>A home for the things <em>I'm building.</em></h1>
+        <p class="hero-sub">
+          Thrasher Co is the umbrella for my projects, products, and side experiments. Pick a tile below to jump into whatever's running today.
+        </p>
+        <div class="button-row">
+          <a class="btn btn-primary" href="#projects">
+            Browse projects <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="section-label">01 — Projects</div>
+            <h2>What's live right now</h2>
+          </div>
+          <div class="section-label">Updated continuously</div>
+        </div>
+
+        <div class="tiles">
+          <a class="tile" href="/calorie-tracker/">
+            <div class="tile-top">
+              <span class="tile-tag">Web App</span>
+              <span class="tile-icon">C</span>
+            </div>
+            <div>
+              <h3>Calorie Tracker</h3>
+              <p>Log meals and track daily intake against your targets.</p>
+              <span class="tile-go">Open <span class="arrow">→</span></span>
+            </div>
+          </a>
+
+          <a class="tile" href="/tobacco-briefing/">
+            <div class="tile-top">
+              <span class="tile-tag">Briefing</span>
+              <span class="tile-icon">T</span>
+            </div>
+            <div>
+              <h3>Daily Tobacco Briefing</h3>
+              <p>ITG, Altria, and RJR news & pricing — Alabama-focused, Southeast coverage.</p>
+              <span class="tile-go">Open <span class="arrow">→</span></span>
+            </div>
+          </a>
+
+          <a class="tile" href="#">
+            <div class="tile-top">
+              <span class="tile-tag">Tool</span>
+              <span class="tile-icon">C</span>
+            </div>
+            <div>
+              <h3>Project Three</h3>
+              <p>Short description of what this app does and who it's for.</p>
+              <span class="tile-go">Open <span class="arrow">→</span></span>
+            </div>
+          </a>
+
+          <div class="tile placeholder">
+            <div>
+              <div style="font-size: 1.6rem; margin-bottom: 6px;">+</div>
+              <div style="font-size: 0.9rem;">More coming soon</div>
+            </div>
+          </div>
+          <div class="tile placeholder">
+            <div>
+              <div style="font-size: 1.6rem; margin-bottom: 6px;">+</div>
+              <div style="font-size: 0.9rem;">More coming soon</div>
+            </div>
+          </div>
+          <div class="tile placeholder">
+            <div>
+              <div style="font-size: 1.6rem; margin-bottom: 6px;">+</div>
+              <div style="font-size: 0.9rem;">More coming soon</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="section-label">02 — About</div>
+            <h2>A bit about Thrasher Co</h2>
           </div>
         </div>
 
-        <div class="hero-card">
-          <h2>What we help with</h2>
-          <ul>
-            <li>Custom service or product description</li>
-            <li>Fast response and clear communication</li>
-            <li>Practical solutions for real business needs</li>
-            <li>Simple process from first call to delivery</li>
+        <div class="about-grid">
+          <div class="about-text">
+            <p>
+              Thrasher Co is a personal holding for the work I do for fun — occasional weekend experiments.
+            </p>
+          </div>
+
+          <ul class="about-list">
+            <li><span class="k">Focus</span><span class="v">Web apps & products</span></li>
+            <li><span class="k">Started</span><span class="v">2025</span></li>
+            <li><span class="k">Status</span><span class="v">Active</span></li>
           </ul>
         </div>
       </div>
     </section>
 
-    <section id="services">
-      <div class="container">
-        <div class="section-heading">
-          <h2>Services / Products</h2>
-          <p>Replace these cards with the main things your business offers.</p>
-        </div>
-
-        <div class="cards">
-          <div class="card">
-            <h3>Service One</h3>
-            <p>Briefly describe your first product, service, or main offer. Focus on the benefit to the customer.</p>
-          </div>
-          <div class="card">
-            <h3>Service Two</h3>
-            <p>Briefly describe your second product, service, or category. Keep the language simple and direct.</p>
-          </div>
-          <div class="card">
-            <h3>Service Three</h3>
-            <p>Briefly describe your third product, service, or specialty. This section should be easy to scan.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="about" class="about">
-      <div class="container about-grid">
-        <div>
-          <h2>Built around trust and clear communication.</h2>
-          <p>
-            Use this area to tell visitors who you are, what makes your business different, and what kind of customers you serve.
-          </p>
-          <p>
-            You do not need a long story here. A few honest sentences are usually better than a giant block of text.
-          </p>
-        </div>
-
-        <div class="stats">
-          <div class="stat">
-            <strong>01</strong>
-            Simple process
-          </div>
-          <div class="stat">
-            <strong>02</strong>
-            Reliable support
-          </div>
-          <div class="stat">
-            <strong>03</strong>
-            Practical solutions
-          </div>
-          <div class="stat">
-            <strong>04</strong>
-            Professional results
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="cta">
-      <div class="container">
-        <h2>Ready to get started?</h2>
-        <p>
-          Add your phone number, email, or a simple contact form link here. Make it easy for people to take the next step.
-        </p>
-        <a class="btn btn-primary" href="mailto:you@example.com">Email Us</a>
-      </div>
-    </section>
   </main>
 
   <footer>
-    <div class="container">
-      © 2026 Thrasher Co. All rights reserved.
+    <div class="wrap footer-row">
+      <div>© 2026 Thrasher Co</div>
+      <div class="footer-links">
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+      </div>
     </div>
   </footer>
 </body>

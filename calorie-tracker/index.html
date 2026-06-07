@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calorie Tracker — Thrasher Co</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Hanken+Grotesque:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F4EEE2;
+      --surface: #FCFAF4;
+      --ink: #2B2622;
+      --sub: #8A8175;
+      --accent: #C2674A;
+      --accent-soft: #EAD8CD;
+      --green: #5E7A57;
+      --over: #B06A2C;
+      --track: #E7DECF;
+      --line: #EBE3D5;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      min-height: 100%;
+      font-family: 'Hanken Grotesque', system-ui, sans-serif;
+      color: var(--ink);
+      background: radial-gradient(120% 60% at 50% 0%, #FBF6EC 0%, var(--bg) 55%);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    input, button, select { font: inherit; color: inherit; }
+    input:focus, select:focus { outline: none; }
+    ::placeholder { color: var(--sub); opacity: .7; }
+    button { cursor: pointer; border: none; background: none; }
+
+    .app {
+      width: 100%;
+      max-width: 28rem;
+      padding: 48px 20px 128px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes rowIn {
+      from { opacity: 0; transform: translateX(-10px); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes pop {
+      0% { transform: scale(.96); }
+      60% { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      animation: fadeUp .5s ease both;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .header h1 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 2.125rem;
+      font-weight: 600;
+      line-height: 1.05;
+      margin-top: 6px;
+    }
+
+    .icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      color: var(--sub);
+      display: grid;
+      place-items: center;
+      transition: color .15s ease;
+    }
+
+    .icon-btn.active { color: var(--accent); }
+    .header-buttons { display: flex; gap: 8px; }
+
+    /* Card base */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      animation: fadeUp .5s ease both;
+    }
+
+    /* Ring */
+    .ring-card {
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 18px 40px -28px rgba(43,38,34,0.35);
+      animation-delay: .06s;
+    }
+
+    .ring {
+      position: relative;
+      width: 200px;
+      height: 200px;
+    }
+
+    .ring svg { display: block; }
+
+    .ring-track { stroke: var(--track); }
+    .ring-progress {
+      transition: stroke-dashoffset .7s cubic-bezier(.22,1,.36,1), stroke .4s ease;
+    }
+
+    .ring-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ring-total {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 3.25rem;
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    .ring-of {
+      font-size: 0.875rem;
+      color: var(--sub);
+      margin-top: 4px;
+    }
+
+    .remaining {
+      margin-top: 20px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--green);
+    }
+    .remaining.over { color: var(--over); }
+
+    .maintenance {
+      margin-top: 4px;
+      font-size: 0.875rem;
+      color: var(--sub);
+    }
+
+    /* Week */
+    .week-card {
+      padding: 20px;
+      animation-delay: .1s;
+    }
+
+    .week-card h2,
+    .today-section h2 {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--sub);
+      margin-bottom: 16px;
+    }
+
+    .today-section h2 { padding-left: 4px; margin-bottom: 8px; }
+
+    .week-chart {
+      position: relative;
+      height: 104px;
+    }
+
+    .week-goal-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      border-top: 1px dashed var(--accent-soft);
+    }
+
+    .week-bars {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+    .week-col {
+      width: 34px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .week-num {
+      font-size: 0.625rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .week-bar {
+      width: 14px;
+      border-radius: 7px;
+      transition: height .6s cubic-bezier(.22,1,.36,1);
+    }
+
+    .week-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+
+    .week-label {
+      width: 34px;
+      text-align: center;
+      font-size: 0.6875rem;
+      font-weight: 500;
+      color: var(--sub);
+    }
+
+    .week-label.today { color: var(--accent); font-weight: 700; }
+
+    .week-stats {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: stretch;
+    }
+
+    .week-stat { flex: 1; display: flex; flex-direction: column; }
+    .week-stat-divider {
+      width: 1px;
+      margin: 0 16px;
+      background: var(--line);
+    }
+    .week-stat-label { font-size: 0.75rem; color: var(--sub); }
+    .week-stat-value {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+    .week-stat-value.green { color: var(--green); }
+    .week-stat-value.over { color: var(--over); font-size: 1.25rem; }
+
+    .week-stat-cta {
+      margin-top: 4px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-align: left;
+    }
+
+    .week-note {
+      font-size: 0.75rem;
+      margin-top: 12px;
+      color: var(--sub);
+    }
+
+    /* Add entry */
+    .add-card {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      animation-delay: .12s;
+    }
+
+    .add-row { display: flex; gap: 12px; }
+
+    .input {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      border-radius: 16px;
+      padding: 12px 16px;
+      font-size: 1rem;
+    }
+
+    .add-name { flex: 1; }
+    .add-cal { width: 80px; text-align: center; padding: 12px; }
+
+    .add-btn {
+      background: var(--accent);
+      color: var(--surface);
+      border-radius: 16px;
+      padding: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background .2s ease;
+    }
+
+    .add-btn:disabled {
+      background: var(--accent-soft);
+      color: var(--sub);
+      cursor: not-allowed;
+    }
+
+    /* Today */
+    .today-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      animation: fadeUp .5s ease both;
+      animation-delay: .18s;
+    }
+
+    .today-empty {
+      border-radius: 24px;
+      padding: 32px 20px;
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--sub);
+      background: var(--surface);
+      border: 1px dashed var(--line);
+    }
+
+    .entry {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .entry.just-added { animation: rowIn .35s ease both; }
+
+    .entry-name {
+      font-weight: 500;
+      padding-right: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .entry-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .entry-cal {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--sub);
+    }
+
+    .entry-del {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      color: var(--sub);
+      border-radius: 999px;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(43,38,34,0.35);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 50;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 28rem;
+      background: var(--surface);
+      padding: 24px;
+      border-radius: 24px 24px 0 0;
+      animation: pop .25s ease both;
+      max-height: 92vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .modal h3 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .modal-sub {
+      font-size: 0.875rem;
+      color: var(--sub);
+      margin-bottom: 20px;
+      margin-top: -8px;
+    }
+
+    .modal-close {
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      color: var(--sub);
+    }
+
+    .goal-input {
+      width: 100%;
+      text-align: center;
+      font-size: 1.125rem;
+      margin-bottom: 16px;
+    }
+
+    .save-btn {
+      width: 100%;
+      background: var(--accent);
+      color: var(--surface);
+      border-radius: 16px;
+      padding: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    /* Profile modal pieces */
+    .seg {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .seg-btn {
+      flex: 1;
+      background: var(--bg);
+      color: var(--sub);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px;
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+
+    .seg-btn.active {
+      background: var(--accent);
+      color: var(--surface);
+      border-color: var(--accent);
+    }
+
+    .field-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .field { flex: 1; display: flex; flex-direction: column; }
+    .field span { font-size: 0.75rem; color: var(--sub); }
+    .field .input { margin-top: 4px; width: 100%; }
+
+    .height-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .height-input {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 0 16px;
+    }
+
+    .height-input input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 12px 0;
+      font-size: 1rem;
+    }
+
+    .height-input span { font-size: 0.875rem; color: var(--sub); }
+
+    .field-block { display: block; margin-bottom: 20px; }
+    .field-block span { font-size: 0.75rem; color: var(--sub); }
+
+    .select {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      border-radius: 16px;
+      padding: 12px 16px;
+      font-size: 1rem;
+      margin-top: 4px;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .modal-foot-note {
+      font-size: 0.75rem;
+      color: var(--sub);
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    @media (min-width: 640px) {
+      .modal-overlay { align-items: center; }
+      .modal { border-radius: 24px; margin: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app" id="app"></div>
+
+  <script>
+    // ---------- Palette is in CSS vars ----------
+    const SEED = [
+      { id: "seed-2026-06-01", name: "Net total", calories: 1620, date: new Date(2026, 5, 1, 12).toISOString() },
+      { id: "seed-2026-06-02", name: "Net total", calories: 1680, date: new Date(2026, 5, 2, 12).toISOString() },
+      { id: "seed-2026-06-03", name: "Net total", calories: 1605, date: new Date(2026, 5, 3, 12).toISOString() },
+      { id: "seed-2026-06-04", name: "Net total", calories: 1745, date: new Date(2026, 5, 4, 12).toISOString() },
+    ];
+
+    const ACTIVITY = [
+      { label: "Sedentary (little exercise)", mult: 1.2 },
+      { label: "Lightly active (1–3 days/wk)", mult: 1.375 },
+      { label: "Moderately active (3–5 days/wk)", mult: 1.55 },
+      { label: "Very active (6–7 days/wk)", mult: 1.725 },
+    ];
+
+    // ---------- Storage ----------
+    const store = {
+      get(key, fallback) {
+        try {
+          const v = localStorage.getItem(key);
+          return v == null ? fallback : JSON.parse(v);
+        } catch { return fallback; }
+      },
+      set(key, value) {
+        try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
+      }
+    };
+
+    // ---------- State ----------
+    const savedEntries = store.get("entries", []);
+    const userEntries = savedEntries.filter(e => !String(e.id).startsWith("seed-"));
+
+    const state = {
+      entries: [...userEntries, ...SEED],
+      goal: store.get("goal", 2000),
+      profile: store.get("profile", null),
+      name: "",
+      cal: "",
+      justAdded: null,
+      showSettings: false,
+      showProfile: false,
+      goalDraft: "",
+      pDraft: { sex: "male", age: "", ft: "", inch: "", weight: "", activity: 1.375 },
+    };
+
+    function persist() {
+      store.set("entries", state.entries);
+      store.set("goal", state.goal);
+      store.set("profile", state.profile);
+    }
+
+    // ---------- Helpers ----------
+    const sameDay = (iso) => new Date(iso).toDateString() === new Date().toDateString();
+    const sameDayAs = (iso, d) => new Date(iso).toDateString() === d.toDateString();
+
+    function computeTDEE(p) {
+      if (!p || !p.age || !p.heightIn || !p.weightLb) return null;
+      const kg = p.weightLb * 0.453592;
+      const cm = p.heightIn * 2.54;
+      const base = p.sex === "female" ? -161 : 5;
+      const bmr = 10 * kg + 6.25 * cm - 5 * p.age + base;
+      return Math.round(bmr * (p.activity || 1.375));
+    }
+
+    function uuid() {
+      if (crypto.randomUUID) return crypto.randomUUID();
+      return "id-" + Date.now() + "-" + Math.random().toString(36).slice(2, 8);
+    }
+
+    function escapeHtml(s) {
+      return String(s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    // ---------- Icons (inline SVG) ----------
+    const I = {
+      flame: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>',
+      user: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+      sliders: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>',
+      plus: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>',
+      x: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
+      trash: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>',
+    };
+
+    // ---------- Render ----------
+    function render() {
+      const app = document.getElementById("app");
+
+      const todays = state.entries
+        .filter(e => sameDay(e.date))
+        .sort((a, b) => new Date(b.date) - new Date(a.date));
+      const total = todays.reduce((s, e) => s + e.calories, 0);
+      const remaining = state.goal - total;
+      const over = remaining < 0;
+      const pct = Math.min(total / Math.max(state.goal, 1), 1);
+
+      const weekDays = Array.from({ length: 7 }, (_, i) => {
+        const d = new Date();
+        d.setHours(0, 0, 0, 0);
+        d.setDate(d.getDate() - (6 - i));
+        return d;
+      });
+      const dayTotal = (d) => state.entries.filter(e => sameDayAs(e.date, d)).reduce((s, e) => s + e.calories, 0);
+      const weekMax = Math.max(state.goal, ...weekDays.map(dayTotal), 1) * 1.12;
+
+      const maintenance = computeTDEE(state.profile);
+      const loggedTotals = weekDays.map(dayTotal).filter(t => t > 0);
+      const weekAvg = loggedTotals.length ? Math.round(loggedTotals.reduce((a, b) => a + b, 0) / loggedTotals.length) : 0;
+      const weekAvgDeficit = maintenance && weekAvg ? maintenance - weekAvg : null;
+      const todayDeficit = maintenance && total > 0 ? maintenance - total : null;
+
+      const dateLabel = new Date().toLocaleDateString(undefined, {
+        weekday: "long", month: "long", day: "numeric"
+      });
+
+      const size = 200, sw = 16;
+      const r = (size - sw) / 2;
+      const circ = 2 * Math.PI * r;
+      const ringStroke = over ? "var(--over)" : "var(--accent)";
+
+      const valid = state.name.trim() && Number(state.cal) > 0;
+
+      app.innerHTML = `
+        <header class="header">
+          <div>
+            <div class="eyebrow">${I.flame}<span>Daily Log</span></div>
+            <h1>${escapeHtml(dateLabel)}</h1>
+          </div>
+          <div class="header-buttons">
+            <button class="icon-btn ${state.profile ? "active" : ""}" data-action="open-profile" aria-label="Profile">${I.user}</button>
+            <button class="icon-btn" data-action="open-settings" aria-label="Settings">${I.sliders}</button>
+          </div>
+        </header>
+
+        <section class="card ring-card">
+          <div class="ring">
+            <svg width="${size}" height="${size}">
+              <circle class="ring-track" cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke-width="${sw}"/>
+              <circle class="ring-progress" cx="${size/2}" cy="${size/2}" r="${r}" fill="none"
+                stroke="${ringStroke}" stroke-width="${sw}" stroke-linecap="round"
+                stroke-dasharray="${circ}" stroke-dashoffset="${circ * (1 - pct)}"
+                transform="rotate(-90 ${size/2} ${size/2})"/>
+            </svg>
+            <div class="ring-center">
+              <span class="ring-total">${total}</span>
+              <span class="ring-of">of ${state.goal} cal</span>
+            </div>
+          </div>
+          <div class="remaining ${over ? "over" : ""}">
+            ${over ? `${-remaining} cal over goal` : `${remaining} cal remaining`}
+          </div>
+          ${maintenance ? `
+            <div class="maintenance">
+              ${todayDeficit == null
+                ? `Maintenance ~${maintenance} cal/day`
+                : todayDeficit >= 0
+                  ? `${todayDeficit} cal deficit today`
+                  : `${-todayDeficit} cal surplus today`}
+            </div>` : ""}
+        </section>
+
+        <section class="card week-card">
+          <h2>This week</h2>
+          <div class="week-chart">
+            <div class="week-goal-line" style="bottom: ${(state.goal / weekMax) * 80}px;"></div>
+            <div class="week-bars">
+              ${weekDays.map(d => {
+                const tot = dayTotal(d);
+                const isToday = d.toDateString() === new Date().toDateString();
+                const isOver = tot > state.goal;
+                const h = tot > 0 ? Math.max((tot / weekMax) * 80, 6) : 0;
+                const barColor = isOver ? "var(--over)" : isToday ? "var(--accent)" : "var(--green)";
+                return `
+                  <div class="week-col">
+                    <span class="week-num" style="color: ${tot ? "var(--ink)" : "transparent"};">${tot || "0"}</span>
+                    <div class="week-bar" style="height: ${h}px; background: ${barColor}; opacity: ${tot ? 1 : 0};"></div>
+                  </div>`;
+              }).join("")}
+            </div>
+          </div>
+          <div class="week-labels">
+            ${weekDays.map(d => {
+              const isToday = d.toDateString() === new Date().toDateString();
+              return `<span class="week-label ${isToday ? "today" : ""}">${d.toLocaleDateString(undefined, { weekday: "narrow" })}</span>`;
+            }).join("")}
+          </div>
+          <div class="week-stats">
+            <div class="week-stat">
+              <span class="week-stat-label">Avg calories / day</span>
+              <span class="week-stat-value">${weekAvg ? weekAvg.toLocaleString() : "—"}</span>
+            </div>
+            <div class="week-stat-divider"></div>
+            <div class="week-stat">
+              <span class="week-stat-label">Avg deficit / day</span>
+              ${weekAvgDeficit == null
+                ? `<button class="week-stat-cta" data-action="open-profile">Set up profile →</button>`
+                : weekAvgDeficit >= 0
+                  ? `<span class="week-stat-value green">${weekAvgDeficit.toLocaleString()}</span>`
+                  : `<span class="week-stat-value over">+${Math.abs(weekAvgDeficit).toLocaleString()} over</span>`}
+            </div>
+          </div>
+          ${maintenance ? `
+            <div class="week-note">
+              Maintenance estimated at ~${maintenance.toLocaleString()} cal/day. Deficit = maintenance minus calories eaten.
+            </div>` : ""}
+        </section>
+
+        <section class="card add-card">
+          <div class="add-row">
+            <input class="input add-name" id="add-name" placeholder="What did you eat?" value="${escapeHtml(state.name)}"/>
+            <input class="input add-cal" id="add-cal" inputmode="numeric" placeholder="cal" value="${escapeHtml(state.cal)}"/>
+          </div>
+          <button class="add-btn" id="add-btn" ${valid ? "" : "disabled"}>
+            ${I.plus} Add to log
+          </button>
+        </section>
+
+        <section class="today-section">
+          <h2>Today</h2>
+          ${todays.length === 0
+            ? `<div class="today-empty">Nothing logged yet — add your first item above.</div>`
+            : todays.map(e => `
+              <div class="entry ${e.id === state.justAdded ? "just-added" : ""}">
+                <span class="entry-name">${escapeHtml(e.name)}</span>
+                <div class="entry-right">
+                  <span class="entry-cal">${e.calories} cal</span>
+                  <button class="entry-del" data-action="delete" data-id="${escapeHtml(e.id)}" aria-label="Delete ${escapeHtml(e.name)}">${I.trash}</button>
+                </div>
+              </div>`).join("")}
+        </section>
+
+        ${state.showSettings ? renderSettingsModal() : ""}
+        ${state.showProfile ? renderProfileModal() : ""}
+      `;
+
+      wireEvents();
+      state.justAdded = null;
+    }
+
+    function renderSettingsModal() {
+      return `
+        <div class="modal-overlay" data-action="close-settings">
+          <div class="modal" data-stop>
+            <div class="modal-header">
+              <h3>Daily goal</h3>
+              <button class="modal-close" data-action="close-settings" aria-label="Close">${I.x}</button>
+            </div>
+            <input class="input goal-input" id="goal-input" inputmode="numeric" value="${escapeHtml(state.goalDraft)}"/>
+            <button class="save-btn" data-action="save-goal">Save goal</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderProfileModal() {
+      const p = state.pDraft;
+      return `
+        <div class="modal-overlay" data-action="close-profile">
+          <div class="modal" data-stop>
+            <div class="modal-header">
+              <h3>Your stats</h3>
+              <button class="modal-close" data-action="close-profile" aria-label="Close">${I.x}</button>
+            </div>
+            <p class="modal-sub">Used to estimate maintenance calories and your deficit.</p>
+
+            <div class="seg">
+              ${["male", "female"].map(s => `
+                <button class="seg-btn ${p.sex === s ? "active" : ""}" data-action="set-sex" data-value="${s}">${s}</button>
+              `).join("")}
+            </div>
+
+            <div class="field-row">
+              <label class="field">
+                <span>Age</span>
+                <input class="input" id="p-age" inputmode="numeric" placeholder="yrs" value="${escapeHtml(p.age)}"/>
+              </label>
+              <label class="field">
+                <span>Weight</span>
+                <input class="input" id="p-weight" inputmode="decimal" placeholder="lb" value="${escapeHtml(p.weight)}"/>
+              </label>
+            </div>
+
+            <div class="field-block">
+              <span>Height</span>
+              <div class="height-row">
+                <div class="height-input">
+                  <input id="p-ft" inputmode="numeric" placeholder="5" value="${escapeHtml(p.ft)}"/>
+                  <span>ft</span>
+                </div>
+                <div class="height-input">
+                  <input id="p-inch" inputmode="numeric" placeholder="10" value="${escapeHtml(p.inch)}"/>
+                  <span>in</span>
+                </div>
+              </div>
+            </div>
+
+            <label class="field-block">
+              <span>Activity level</span>
+              <select class="select" id="p-activity">
+                ${ACTIVITY.map(a => `<option value="${a.mult}" ${Number(p.activity) === a.mult ? "selected" : ""}>${a.label}</option>`).join("")}
+              </select>
+            </label>
+
+            <button class="save-btn" data-action="save-profile">Save</button>
+            <p class="modal-foot-note">Estimate via the Mifflin–St Jeor formula — a starting point, not medical advice.</p>
+          </div>
+        </div>
+      `;
+    }
+
+    // ---------- Events ----------
+    function wireEvents() {
+      const app = document.getElementById("app");
+
+      // Live inputs (no re-render on each keystroke for add form)
+      const nameInput = document.getElementById("add-name");
+      const calInput = document.getElementById("add-cal");
+      if (nameInput) {
+        nameInput.addEventListener("input", (e) => {
+          state.name = e.target.value;
+          updateAddBtn();
+        });
+        nameInput.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") addEntry();
+        });
+      }
+      if (calInput) {
+        calInput.addEventListener("input", (e) => {
+          state.cal = e.target.value.replace(/[^0-9]/g, "");
+          if (e.target.value !== state.cal) e.target.value = state.cal;
+          updateAddBtn();
+        });
+        calInput.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") addEntry();
+        });
+      }
+
+      const goalInput = document.getElementById("goal-input");
+      if (goalInput) {
+        goalInput.addEventListener("input", (e) => {
+          state.goalDraft = e.target.value.replace(/[^0-9]/g, "");
+          if (e.target.value !== state.goalDraft) e.target.value = state.goalDraft;
+        });
+      }
+
+      // Profile inputs
+      const pAge = document.getElementById("p-age");
+      if (pAge) pAge.addEventListener("input", (e) => {
+        state.pDraft.age = e.target.value.replace(/[^0-9]/g, "");
+        if (e.target.value !== state.pDraft.age) e.target.value = state.pDraft.age;
+      });
+      const pWeight = document.getElementById("p-weight");
+      if (pWeight) pWeight.addEventListener("input", (e) => {
+        state.pDraft.weight = e.target.value.replace(/[^0-9.]/g, "");
+        if (e.target.value !== state.pDraft.weight) e.target.value = state.pDraft.weight;
+      });
+      const pFt = document.getElementById("p-ft");
+      if (pFt) pFt.addEventListener("input", (e) => {
+        state.pDraft.ft = e.target.value.replace(/[^0-9]/g, "");
+        if (e.target.value !== state.pDraft.ft) e.target.value = state.pDraft.ft;
+      });
+      const pInch = document.getElementById("p-inch");
+      if (pInch) pInch.addEventListener("input", (e) => {
+        state.pDraft.inch = e.target.value.replace(/[^0-9]/g, "");
+        if (e.target.value !== state.pDraft.inch) e.target.value = state.pDraft.inch;
+      });
+      const pAct = document.getElementById("p-activity");
+      if (pAct) pAct.addEventListener("change", (e) => {
+        state.pDraft.activity = Number(e.target.value);
+      });
+
+      // Click delegation
+      app.addEventListener("click", onClick);
+    }
+
+    function onClick(e) {
+      const stop = e.target.closest("[data-stop]");
+      const actionEl = e.target.closest("[data-action]");
+      if (!actionEl) return;
+      const action = actionEl.dataset.action;
+      // Modal overlays only fire close when clicked on overlay itself (not inner content)
+      if ((action === "close-settings" || action === "close-profile") && stop && stop !== actionEl) return;
+
+      switch (action) {
+        case "open-settings":
+          state.goalDraft = String(state.goal);
+          state.showSettings = true;
+          render();
+          break;
+        case "close-settings":
+          state.showSettings = false;
+          render();
+          break;
+        case "save-goal": {
+          const g = Math.round(Number(state.goalDraft));
+          if (g > 0) state.goal = g;
+          state.showSettings = false;
+          persist();
+          render();
+          break;
+        }
+        case "open-profile":
+          if (state.profile) {
+            state.pDraft = {
+              sex: state.profile.sex,
+              age: String(state.profile.age),
+              ft: String(Math.floor(state.profile.heightIn / 12)),
+              inch: String(state.profile.heightIn % 12),
+              weight: String(state.profile.weightLb),
+              activity: state.profile.activity,
+            };
+          }
+          state.showProfile = true;
+          render();
+          break;
+        case "close-profile":
+          state.showProfile = false;
+          render();
+          break;
+        case "set-sex":
+          state.pDraft.sex = actionEl.dataset.value;
+          render();
+          break;
+        case "save-profile": {
+          const p = state.pDraft;
+          const age = Number(p.age);
+          const heightIn = Number(p.ft || 0) * 12 + Number(p.inch || 0);
+          const weightLb = Number(p.weight);
+          if (age > 0 && heightIn > 0 && weightLb > 0) {
+            state.profile = { sex: p.sex, age, heightIn, weightLb, activity: Number(p.activity) };
+          }
+          state.showProfile = false;
+          persist();
+          render();
+          break;
+        }
+        case "delete": {
+          const id = actionEl.dataset.id;
+          state.entries = state.entries.filter(en => en.id !== id);
+          persist();
+          render();
+          break;
+        }
+      }
+    }
+
+    function updateAddBtn() {
+      const btn = document.getElementById("add-btn");
+      if (!btn) return;
+      const valid = state.name.trim() && Number(state.cal) > 0;
+      btn.disabled = !valid;
+    }
+
+    function addEntry() {
+      const valid = state.name.trim() && Number(state.cal) > 0;
+      if (!valid) return;
+      const entry = {
+        id: uuid(),
+        name: state.name.trim(),
+        calories: Math.round(Number(state.cal)),
+        date: new Date().toISOString(),
+      };
+      state.entries.push(entry);
+      state.justAdded = entry.id;
+      state.name = "";
+      state.cal = "";
+      persist();
+      render();
+    }
+
+    render();
+  </script>
+</body>
+</html>
