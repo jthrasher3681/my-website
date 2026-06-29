@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Daily Market Brief — 2026-06-26 · Thrasher Co</title>
+<meta name="description" content="A quick read on where the US market opens Friday: a tech-led pullback as AI sentiment wobbles, against a still-hot inflation backdrop."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fafaf7;--surface:#fff;--ink:#111;--ink-soft:#4b4b4b;--ink-mute:#8a8a85;--line:#e8e6df;--accent:#2e6fc7;--accent-soft:#e0ebf7}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{width:min(820px,92%);margin:0 auto}
+.wrap-wide{width:min(1180px,92%);margin:0 auto}
+header{position:sticky;top:0;z-index:20;background:rgba(250,250,247,.85);backdrop-filter:saturate(140%) blur(10px);-webkit-backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
+.brand-mark{width:28px;height:28px;border-radius:8px;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-family:'Instrument Serif',serif;font-size:1.1rem}
+.nav-links{display:flex;gap:24px;font-size:.92rem;color:var(--ink-soft)}.nav-links a{color:var(--ink-soft)}.nav-links a:hover{color:var(--ink);text-decoration:none}
+.post{padding:64px 0 40px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;color:var(--ink-soft);margin-bottom:22px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);text-transform:uppercase;letter-spacing:.06em}
+.dot{width:6px;height:6px;border-radius:50%;background:#16a34a;box-shadow:0 0 0 3px rgba(22,163,74,.18)}
+.post h1{font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(2.2rem,5vw,3.4rem);line-height:1.05;letter-spacing:-.02em;margin-bottom:10px}
+.post .meta{color:var(--ink-mute);font-size:.92rem;margin-bottom:36px}
+.post h2{font-family:'Instrument Serif',serif;font-weight:400;font-size:1.7rem;letter-spacing:-.01em;margin:40px 0 14px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.post h3{font-size:1.08rem;margin:26px 0 8px}
+.post p{color:var(--ink-soft);margin:0 0 16px}
+.post ul,.post ol{color:var(--ink-soft);margin:0 0 18px 1.2em}
+.post li{margin-bottom:8px}
+.post strong{color:var(--ink)}
+.post em{color:var(--accent);font-style:italic}
+.post hr{border:none;border-top:1px solid var(--line);margin:32px 0}
+.post table{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:.92rem}
+.post th,.post td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.post th{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-mute);background:var(--surface)}
+.post code{background:var(--accent-soft);color:var(--accent);padding:1px 6px;border-radius:6px;font-size:.85em}
+.backlink{display:inline-flex;align-items:center;gap:6px;margin:8px 0 0;font-weight:500}
+.disclaimer{margin-top:40px;padding:18px 20px;background:var(--surface);border:1px solid var(--line);border-radius:14px;font-size:.85rem;color:var(--ink-mute)}
+.archive{padding:56px 0 40px}
+.archive-head{margin-bottom:36px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.archive-head .section-label{font-size:.82rem;color:var(--ink-mute);text-transform:uppercase;letter-spacing:.08em}
+.archive-head h1{font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(2rem,4vw,2.8rem);letter-spacing:-.01em;margin-top:6px}
+.archive-head p{color:var(--ink-soft);margin-top:10px;max-width:60ch}
+.week-label{font-size:.82rem;color:var(--ink-mute);text-transform:uppercase;letter-spacing:.07em;margin:30px 0 12px}
+.entries{display:grid;gap:14px}
+.entry{display:block;padding:22px 24px;background:var(--surface);border:1px solid var(--line);border-radius:16px;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.entry:hover{transform:translateY(-2px);border-color:var(--ink);box-shadow:0 16px 36px -22px rgba(17,17,17,.18);text-decoration:none}
+.entry .date{font-size:.78rem;color:var(--ink-mute);text-transform:uppercase;letter-spacing:.07em}
+.entry h3{font-size:1.12rem;margin:6px 0 6px;color:var(--ink)}
+.entry p{font-size:.92rem;color:var(--ink-soft);margin:0}
+.empty{padding:40px;border:1px dashed var(--line);border-radius:16px;text-align:center;color:var(--ink-mute)}
+footer{border-top:1px solid var(--line);padding:28px 0;margin-top:40px}
+.footer-row{display:flex;justify-content:space-between;align-items:center;font-size:.88rem;color:var(--ink-mute)}
+.footer-links{display:flex;gap:22px}.footer-links a{color:var(--ink-mute)}.footer-links a:hover{color:var(--ink);text-decoration:none}
+@media(max-width:580px){.nav-links{display:none}.footer-row{flex-direction:column;gap:12px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap-wide nav">
+    <a class="brand" href="/"><span class="brand-mark">T</span><span>Thrasher Co</span></a>
+    <nav class="nav-links">
+      <a href="/">Home</a>
+      <a href="/daily-market-brief/">Market Brief</a>
+      <a href="/tobacco-briefing/">Tobacco Briefing</a>
+    </nav>
+  </div>
+</header>
+<main>
+
+<article class="post">
+  <div class="wrap">
+    <a class="backlink" href="/daily-market-brief/">← All briefs</a>
+    <span class="eyebrow" style="margin-top:18px"><span class="dot"></span>Daily Market Brief</span>
+    <h1>Daily Market Brief — 2026-06-26</h1>
+    <div class="meta">June 26, 2026 · Markets · Macro &amp; ticker news</div>
+    <p>A quick read on where the US market opens Friday: a tech-led pullback as AI sentiment wobbles, against a still-hot inflation backdrop.</p>
+<h2>Market backdrop</h2>
+<p>US futures point lower into the Friday open. Nasdaq-100 futures are off about 1.2%, S&amp;P 500 futures down roughly 0.5%, and Dow futures only about 0.1% (~67 points) — a tech-heavy decline. The trigger is a New York Times report that OpenAI is considering delaying its IPO to next year, which pressured AI and chip names; the VanEck Semiconductor ETF (SMH) eased back toward $618 after touching the ~$650 area earlier in the week on Micron's strong results. The CBOE Volatility Index (VIX) closed near 18.9 and is likely to tick higher with the risk-off tone. On the macro side, May PCE inflation ran hot at a 4.1% headline rate (the highest since April 2023), with the core measure at 3.4%. The Federal Reserve has held rates steady, removed its 2026 rate-cut projection, and several policymakers now flag a possible rate increase later this year — a roughly even split.</p>
+<h2>Sector rotation</h2>
+<p>Friday's tape shows a clean rotation away from technology: Nasdaq-100 futures (−1.2%) lag the Dow (−0.1%) by a wide margin, and semiconductors are giving back part of the week's Micron-driven rally. The OpenAI IPO-delay headline weighed on the broad AI-capex and datacenter complex. Small caps (Russell 2000) have held firmer through the week, and more defensive, non-tech corners — industrials, healthcare, insurance-style ballast — are the relative beneficiaries when money steps back from the AI trade. This looks like a sentiment-driven move rather than a fundamental shift.</p>
+<h2>Rates, the dollar &amp; regime</h2>
+<p>The 10-year Treasury yield slipped to about 4.39% at Thursday's close — its lowest since mid-May — on in-line inflation data and a sharp drop in oil, before backing up toward roughly 4.49%. The 20+ Year Treasury Bond ETF (TLT) trades soft near $87. Long bonds are not behaving as a reliable hedge in this regime: the yield moves have been driven by oil and inflation data, not a flight to safety. Oil fell about 3.5% (Brent near $72.51) even as Gulf tensions resurfaced, while gold firmed about 0.4% to roughly $4,063 and the US Dollar Index held above 100. The overall tone is watchful and mildly defensive, but short of fear given a still-moderate VIX. Short-term Treasury bills (e.g. SGOV, BIL) continue to offer ~5% with minimal duration risk in this higher-for-longer, possible-hike environment.</p>
+<h2>Names in focus</h2>
+<ul>
+<li><strong>CoreWeave (CRWV)</strong> — AI cloud-infrastructure provider; eased toward ~$100 amid the broad AI pullback.</li>
+<li><strong>CoreWeave peers in AI infra — IREN Limited (IREN)</strong> — datacenter/compute operator listed on Nasdaq; volatile session, recovering modestly pre-market.</li>
+<li><strong>Nebius Group (NBIS)</strong> — AI cloud and infrastructure firm on Nasdaq; choppy trading around the AI-sentiment swing.</li>
+<li><strong>Vertiv (VRT)</strong> — datacenter power and cooling equipment maker; tracks the AI-capex theme.</li>
+<li><strong>Broadcom (AVGO)</strong> — semiconductor and infrastructure-software giant; trading near $380 with the chip group.</li>
+<li><strong>Taiwan Semiconductor (TSM)</strong> — the world's largest contract chip foundry (US-listed ADR); pulling back with semiconductors near $435.</li>
+<li><strong>Roundhill Memory ETF (DRAM)</strong> — NYSE-listed fund tracking memory-chip makers; gave back part of its Micron-driven jump (~$77).</li>
+<li><strong>Symbotic (SYM)</strong> — warehouse-automation robotics company on Nasdaq; trading near $41.</li>
+<li><strong>Alphabet (GOOG)</strong> — Google parent and megacap AI player; set to join the Dow Jones Industrial Average on June 29, near $340.</li>
+<li><strong>Tesla (TSLA)</strong> — EV and energy company; trading near $371.</li>
+<li><strong>Zebra Technologies (ZBRA)</strong> — enterprise barcode, scanning and industrial-automation maker; near $262.</li>
+<li><strong>Regal Rexnord (RRX)</strong> — industrial motion-control and power-transmission manufacturer; an industrials name near $207.</li>
+<li><strong>Globus Medical (GMED)</strong> — spine and musculoskeletal medical-device company; near $83.</li>
+<li><strong>Berkshire Hathaway (BRK.B)</strong> — Warren Buffett's diversified insurance and industrials conglomerate; near $489.</li>
+<li><strong>Ultra Silver (AGQ)</strong> — a 2x-leveraged silver exchange-traded fund; steadied as gold firmed.</li>
+<li><strong>Fanuc (FANUY)</strong> — Japanese factory-automation and robotics maker, traded over-the-counter in the US; near $23.</li>
+</ul>
+<hr />
+<p><em>Compiled from public market sources for general information only. Not investment advice.</em></p>
+    <div class="disclaimer">General market commentary compiled from public sources for informational purposes only. Nothing here is investment advice or a recommendation to buy or sell any security, and no personal position or portfolio information is implied. Do your own research.</div>
+  </div>
+</article>
+</main>
+<footer>
+  <div class="wrap-wide footer-row">
+    <div>© 2026 Thrasher Co</div>
+    <div class="footer-links"><a href="/">Home</a><a href="/daily-market-brief/">Market Brief</a><a href="/tobacco-briefing/">Tobacco Briefing</a></div>
+  </div>
+</footer>
+</body>
+</html>
