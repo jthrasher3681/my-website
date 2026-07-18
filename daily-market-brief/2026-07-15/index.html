@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Daily Market Brief — 2026-07-15 · Thrasher Co</title>
+<meta name="description" content="A look at the pre-market setup after a June inflation report that undercut every forecast."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fafaf7;--surface:#fff;--ink:#111;--ink-soft:#4b4b4b;--ink-mute:#8a8a85;--line:#e8e6df;--accent:#2e6fc7;--accent-soft:#e0ebf7}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{width:min(820px,92%);margin:0 auto}
+.wrap-wide{width:min(1180px,92%);margin:0 auto}
+header{position:sticky;top:0;z-index:20;background:rgba(250,250,247,.85);backdrop-filter:saturate(140%) blur(10px);-webkit-backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
+.brand-mark{width:28px;height:28px;border-radius:8px;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-family:'Instrument Serif',serif;font-size:1.1rem}
+.nav-links{display:flex;gap:24px;font-size:.92rem;color:var(--ink-soft)}.nav-links a{color:var(--ink-soft)}.nav-links a:hover{color:var(--ink);text-decoration:none}
+.post{padding:64px 0 40px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;color:var(--ink-soft);margin-bottom:22px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);text-transform:uppercase;letter-spacing:.06em}
+.dot{width:6px;height:6px;border-radius:50%;background:#16a34a;box-shadow:0 0 0 3px rgba(22,163,74,.18)}
+.post h1{font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(2.2rem,5vw,3.4rem);line-height:1.05;letter-spacing:-.02em;margin-bottom:10px}
+.post .meta{color:var(--ink-mute);font-size:.92rem;margin-bottom:36px}
+.post h2{font-family:'Instrument Serif',serif;font-weight:400;font-size:1.7rem;letter-spacing:-.01em;margin:40px 0 14px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.post h3{font-size:1.08rem;margin:26px 0 8px}
+.post p{color:var(--ink-soft);margin:0 0 16px}
+.post ul,.post ol{color:var(--ink-soft);margin:0 0 18px 1.2em}
+.post li{margin-bottom:8px}
+.post strong{color:var(--ink)}
+.post em{color:var(--accent);font-style:italic}
+.post hr{border:none;border-top:1px solid var(--line);margin:32px 0}
+.post table{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:.92rem}
+.post th,.post td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.post th{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-mute);background:var(--surface)}
+.post code{background:var(--accent-soft);color:var(--accent);padding:1px 6px;border-radius:6px;font-size:.85em}
+.backlink{display:inline-flex;align-items:center;gap:6px;margin:8px 0 0;font-weight:500}
+.disclaimer{margin-top:40px;padding:18px 20px;background:var(--surface);border:1px solid var(--line);border-radius:14px;font-size:.85rem;color:var(--ink-mute)}
+.archive{padding:56px 0 40px}
+.archive-head{margin-bottom:36px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.archive-head .section-label{font-size:.82rem;color:var(--ink-mute);text-transform:uppercase;letter-spacing:.08em}
+.archive-head h1{font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(2rem,4vw,2.8rem);letter-spacing:-.01em;margin-top:6px}
+.archive-head p{color:var(--ink-soft);margin-top:10px;max-width:60ch}
+.week-label{font-size:.82rem;color:var(--ink-mute);text-transform:uppercase;letter-spacing:.07em;margin:30px 0 12px}
+.entries{display:grid;gap:14px}
+.entry{display:block;padding:22px 24px;background:var(--surface);border:1px solid var(--line);border-radius:16px;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.entry:hover{transform:translateY(-2px);border-color:var(--ink);box-shadow:0 16px 36px -22px rgba(17,17,17,.18);text-decoration:none}
+.entry .date{font-size:.78rem;color:var(--ink-mute);text-transform:uppercase;letter-spacing:.07em}
+.entry h3{font-size:1.12rem;margin:6px 0 6px;color:var(--ink)}
+.entry p{font-size:.92rem;color:var(--ink-soft);margin:0}
+.empty{padding:40px;border:1px dashed var(--line);border-radius:16px;text-align:center;color:var(--ink-mute)}
+footer{border-top:1px solid var(--line);padding:28px 0;margin-top:40px}
+.footer-row{display:flex;justify-content:space-between;align-items:center;font-size:.88rem;color:var(--ink-mute)}
+.footer-links{display:flex;gap:22px}.footer-links a{color:var(--ink-mute)}.footer-links a:hover{color:var(--ink);text-decoration:none}
+@media(max-width:580px){.nav-links{display:none}.footer-row{flex-direction:column;gap:12px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap-wide nav">
+    <a class="brand" href="/"><span class="brand-mark">T</span><span>Thrasher Co</span></a>
+    <nav class="nav-links">
+      <a href="/">Home</a>
+      <a href="/daily-market-brief/">Market Brief</a>
+      <a href="/tobacco-briefing/">Tobacco Briefing</a>
+    </nav>
+  </div>
+</header>
+<main>
+
+<article class="post">
+  <div class="wrap">
+    <a class="backlink" href="/daily-market-brief/">← All briefs</a>
+    <span class="eyebrow" style="margin-top:18px"><span class="dot"></span>Daily Market Brief</span>
+    <h1>Daily Market Brief — 2026-07-15</h1>
+    <div class="meta">July 15, 2026 · Markets · Macro &amp; ticker news</div>
+    <p>A look at the pre-market setup after a June inflation report that undercut every forecast.</p>
+<h2>Market backdrop</h2>
+<p>June CPI <strong>fell 0.4%</strong> month-over-month, against economist expectations for a 0.1% decline — the first monthly price decline in six years. The annual rate eased to <strong>3.5%</strong> from 4.2% in May, below the 3.8% consensus. Core CPI was <strong>flat</strong> on the month (2.6% annual vs 2.8% expected). The print undercut forecasts in both direction and magnitude, with falling gasoline prices doing much of the work.</p>
+<p>Rate expectations repriced sharply. CME FedWatch showed odds of a July hike falling to <strong>17% from 42%</strong> a day earlier. September remains the live meeting, with odds easing to roughly <strong>60–63%</strong> from about 75%. Fed Chair Kevin Warsh declined to declare victory — responding to the "mission accomplished" framing with "That is not my view" — and testifies before Congress today, the session's main scheduled risk.</p>
+<p>Tuesday closed higher, led by technology. The S&amp;P 500 gained <strong>0.38% to 7,543.59</strong>, the Nasdaq Composite rose <strong>0.9% to 26,107.01</strong>, and the Dow Jones Industrial Average was essentially flat, adding 9.63 points (<strong>+0.02%</strong>) to 52,508.27. The VIX fell <strong>3.85% to 16.50</strong>, unwinding the prior session's spike. S&amp;P 500 futures were up <strong>0.11%</strong> early Wednesday.</p>
+<p>In energy and geopolitics, the US carried out another round of strikes on Tehran and reinstated its naval blockade of Iranian ports near the Strait of Hormuz. Notably, the administration <strong>abandoned the 20% Hormuz cargo toll</strong> announced a day earlier. WTI crude rose <strong>0.45% to $79.70</strong>; Brent gained <strong>0.68% to $85.31</strong> — elevated, but off the prior session's $80.75 spike.</p>
+<h2>Sector rotation</h2>
+<p>Tuesday reversed the pattern of recent weeks. The Nasdaq's 0.9% gain against a flat Dow is the mirror image of the Dow-over-Nasdaq divergence that characterized the prior three weeks — money moving back toward growth and long-duration equities on the dovish inflation print.</p>
+<p>Semiconductors remain the year's standout and the month's problem simultaneously: the SOXX semiconductor ETF is up roughly <strong>89% year to date</strong> but <strong>down about 4% over the past month</strong>. Technology broadly (XLK) is up about 25% YTD.</p>
+<p>Energy's leadership is fading as crude stalls below $80 and the Hormuz toll is withdrawn — the energy-inflation trade that drove rotation through early July is unwinding. Financials continue to draw support from bank profitability.</p>
+<p>The notable feature of the session: the AI, semiconductor and datacenter complex gapped higher on a favorable chip-supply headline and closed well off its highs, despite the dovish macro backdrop and a tech-led tape.</p>
+<h2>Rates, the dollar &amp; regime</h2>
+<p>The 10-year Treasury yield fell about <strong>6 basis points to 4.57%</strong>, retreating from the two-month high of 4.62% reached in the prior session, as traders scaled back tightening bets. Yields declined while equities rose — a normal pairing, and the first session this month where rates supported rather than pressured stocks.</p>
+<p>The distinction worth drawing: bonds rallied on soft inflation data, not on fear. That is a data response rather than a defensive one, and the stock–bond relationship remains untested in a genuine risk-off session. With the front end repricing dovish, short-duration Treasury yields are likely to drift lower.</p>
+<p>Gold fell sharply Tuesday to roughly $4,001 as markets priced tightening; that pressure should ease as hike odds recede. The dollar's haven bid is likely to soften on the same logic. Overall tone: risk-on re-rating, with volatility compressing back toward complacency.</p>
+<h2>Names in focus</h2>
+<ul>
+<li><strong>CoreWeave (CRWV)</strong> — AI cloud infrastructure. Rose in pre-market Tuesday on reports Google may sell TPUs to cloud providers, then faded through the session.</li>
+<li><strong>Nebius Group (NBIS)</strong> — AI infrastructure and cloud services. Traded a wide range Tuesday, reversing from an intraday high near $222.75 to close near $195.95, down about 7.8%.</li>
+<li><strong>IREN Limited (IREN)</strong> — datacenter and AI compute. Traded between $37.04 and $40.62 Tuesday, near $38.80.</li>
+<li><strong>Broadcom (AVGO)</strong> — semiconductors and AI networking. Its expanded Apple chipmaking agreement, worth more than $30 billion and running to 2031, remains a central part of the story. Tuesday's range ran $376.89–$395.09.</li>
+<li><strong>Alphabet (GOOG)</strong> — search, advertising and cloud. Reported to be exploring sales of its in-house TPU chips to third-party cloud providers, a potential new revenue channel.</li>
+<li><strong>Taiwan Semiconductor (TSM)</strong> — contract chip manufacturing. Reports Q2 earnings <strong>July 16</strong>, with forecasts near $40 billion revenue and $3.87 EPS; a fifth consecutive record quarter is expected.</li>
+<li><strong>Roundhill Memory ETF (DRAM)</strong> — memory-chip fund. Rebounded Tuesday from lows near $57.30 after the post-listing unwind in the memory complex.</li>
+<li><strong>Vertiv (VRT)</strong> — datacenter power and cooling infrastructure. Closed near $303.58.</li>
+<li><strong>Symbotic (SYM)</strong> — warehouse automation robotics. Closed at $43.66, up 2.90%.</li>
+<li><strong>Tesla (TSLA)</strong> — electric vehicles and energy. Closed at $396.18, up 0.36%. Reports earnings around July 22.</li>
+<li><strong>Berkshire Hathaway (BRK.B)</strong> — diversified conglomerate. Closed at $491.09, down 1.16%, lagging as money moved toward growth.</li>
+<li><strong>Globus Medical (GMED)</strong> — medical devices and spine surgery robotics. Trading near $77.17. RBC lowered its price target to $115 on July 8; BMO Capital initiated coverage at Outperform the same day.</li>
+<li><strong>Zebra Technologies (ZBRA)</strong> — enterprise scanning and asset intelligence. Last confirmed near $272.65.</li>
+<li><strong>Regal Rexnord (RRX)</strong> — industrial motion control and power transmission. Trading near $208.62; Q2 earnings scheduled for August 5.</li>
+<li><strong>Ultra Silver (AGQ)</strong> — leveraged silver fund. Traded $64.27–$68.31 Tuesday. Leveraged funds carry compounding decay over longer periods.</li>
+<li><strong>Fanuc (FANUY)</strong> — factory automation and robotics, traded over-the-counter as an unsponsored ADR. Last quoted near $22.20; reports earnings July 24.</li>
+</ul>
+<hr />
+<p><em>Compiled from public sources and public market data. Informational only; not investment advice.</em></p>
+    <div class="disclaimer">General market commentary compiled from public sources for informational purposes only. Nothing here is investment advice or a recommendation to buy or sell any security, and no personal position or portfolio information is implied. Do your own research.</div>
+  </div>
+</article>
+</main>
+<footer>
+  <div class="wrap-wide footer-row">
+    <div>© 2026 Thrasher Co</div>
+    <div class="footer-links"><a href="/">Home</a><a href="/daily-market-brief/">Market Brief</a><a href="/tobacco-briefing/">Tobacco Briefing</a></div>
+  </div>
+</footer>
+</body>
+</html>
