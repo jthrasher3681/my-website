@@ -92,7 +92,7 @@ function render(){
     const v=votes[k.id]||'';
     return `<div class="card ${v}">
       <div class="frame" onclick="playIt(this,'${k.u}')">
-        <img loading="lazy" src="${k.th}"><div class="play">&#9654;</div><div class="dur">${k.d}s</div>
+        <img src="${k.th}"><div class="play">&#9654;</div><div class="dur">${k.d}s</div>
       </div>
       <div class="meta">
         <div class="cid">${k.id}</div><div class="note">${k.note}</div>
