@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>The Quest — clip review</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#12131a;color:#e8e8ee;font:15px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+a{color:#e8a854;text-decoration:none}
+header{position:sticky;top:0;z-index:20;background:rgba(18,19,26,.96);backdrop-filter:blur(8px);
+  border-bottom:1px solid #23242e;padding:14px 26px}
+.hrow{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+h1{font-size:19px;margin:0}
+.sub{color:#8b8b9a;font-size:13px;margin-top:3px}
+.tally{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.pill{font-size:12px;padding:4px 11px;border-radius:99px;border:1px solid #2c2d38;background:#191a23;cursor:pointer;color:#b9b9c6}
+.pill.on{border-color:#e8a854;color:#e8a854}
+.pill b{color:#e8e8ee}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap}
+.act{font-size:13px;padding:7px 14px;border-radius:8px;border:1px solid #2c2d38;background:#191a23;color:#e8e8ee;cursor:pointer}
+.act:hover{border-color:#e8a854}
+.act.primary{background:#e8a854;color:#12131a;border-color:#e8a854;font-weight:600}
+main{padding:20px 26px 90px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.card{background:#191a23;border:1px solid #23242e;border-radius:11px;overflow:hidden;transition:border-color .15s}
+.card.y{border-color:#3f9d5a}.card.n{border-color:#9d3f3f}.card.m{border-color:#9d8a3f}
+.frame{position:relative;aspect-ratio:16/9;background:#0d0e13;cursor:pointer}
+.frame img,.frame video{width:100%;height:100%;object-fit:cover;display:block}
+.frame video{background:#000}
+.play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:40px;
+  color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.7);opacity:.85;pointer-events:none}
+.dur{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.7);border-radius:5px;padding:1px 7px;font-size:12px}
+.meta{padding:10px 12px}
+.cid{font-weight:600;font-size:14px}
+.note{color:#9a9aa8;font-size:12.5px;margin-top:2px;min-height:32px}
+.votes{display:flex;gap:6px;margin-top:9px}
+.vb{flex:1;padding:8px 0;border-radius:7px;border:1px solid #2c2d38;background:#12131a;color:#b9b9c6;
+  cursor:pointer;font-size:13px;font-weight:600}
+.vb:hover{border-color:#54556a}
+.vb.on.y{background:#1d3d29;border-color:#3f9d5a;color:#8ee0a5}
+.vb.on.n{background:#3d1d1d;border-color:#9d3f3f;color:#e08e8e}
+.vb.on.m{background:#3d371d;border-color:#9d8a3f;color:#e0cf8e}
+#out{position:fixed;left:0;right:0;bottom:0;background:#0d0e13;border-top:1px solid #23242e;padding:14px 26px;display:none}
+#out textarea{width:100%;height:74px;background:#12131a;color:#e8e8ee;border:1px solid #2c2d38;
+  border-radius:8px;padding:9px;font:12.5px/1.45 ui-monospace,Menlo,monospace;resize:vertical}
+.hint{color:#6d6d7c;font-size:12.5px;margin:6px 0 0}
+.empty{color:#6d6d7c;padding:36px 0;text-align:center}
+</style></head><body>
+<header>
+  <div class="hrow">
+    <div>
+      <h1>The Quest — clip review</h1>
+      <div class="sub">The quality sweep. Watch, vote, then send me the verdicts. <a href="clips.html">all footage →</a></div>
+    </div>
+    <div class="btnrow">
+      <button class="act" onclick="clearAll()">Reset</button>
+      <button class="act primary" onclick="exportOut()">Send verdicts →</button>
+    </div>
+  </div>
+  <div class="tally" id="tally"></div>
+</header>
+<main><div class="grid" id="grid"></div><div class="empty" id="empty" style="display:none">Nothing in this filter.</div></main>
+<div id="out">
+  <textarea id="outbox" readonly></textarea>
+  <p class="hint">Copied to your clipboard — paste it into our chat and I'll write it straight into the ledger.
+    <button class="act" style="margin-left:8px" onclick="document.getElementById('out').style.display='none'">close</button></p>
+</div>
+<script>
+const CLIPS=[{"id":"M061","note":"v4 EXPRESSIVE \u2014 anime refs only; the rally shot","d":18,"th":"https://cms-toolkit-public-artifacts.artlist.io/content/video/video-thumbnails/generated-thumbnail-6d0aca44-0aa8-45eb-9f4d-86a3653163f0.jpg","u":"https://cms-toolkit-artifacts.artlist.io/content/-m-u-l-t-i_-t-o_-v-i-d-e-o-v1/media__1/-m-u-l-t-i_-t-o_-v-i-d-e-o-dbc73231-a18f-4039-9630-a2ffc0cd0d67.mp4?Expires=2101860201&Key-Pair-Id=K2ZDLYDZI2R1DF&Signature=epjymaVbQ61LlLul86BOrMknbmOzZ01V9rDPze0A~5AihzTfm3mBY927qiGQBi1i32iCbWPIYapNTU33h88Q1VLrxWFCzgSwPiKzde~6eZyWU~RBQCkwmzAV3er3r3yqdHzM5O84dBdysB7XwQ3snE9KTF62QYFvePq15EExMtGDkUoMifeiRzZ~-InDK405N3WP0sLXLUfdngILeVtsczovytifil4gDZx14S9hWBG5UfpgwWQeEUJ30SZ7xS0ZTp6CGq6FOlNpGVkFDim81x~tYeWEKYg6lRNnNVwemKbaExjQJc9r7lVCkw2rI6Y72KUd7jZzFfLZcYxzw9P~5w__"},{"id":"M211","note":"v4 \u2014 VARIED children fix, no redheads, row of faces","d":18,"th":"https://cms-toolkit-public-artifacts.artlist.io/content/video/video-thumbnails/generated-thumbnail-9d1c0a0c-8e02-4d1a-a8d3-617449508268.jpg","u":"https://cms-toolkit-artifacts.artlist.io/content/-m-u-l-t-i_-t-o_-v-i-d-e-o-v1/media__7/-m-u-l-t-i_-t-o_-v-i-d-e-o-8187efa2-d4a8-4e31-821b-2e1b8e332033.mp4?Expires=2101860201&Key-Pair-Id=K2ZDLYDZI2R1DF&Signature=VciTUym9JMw-oCqAZDO56y5guC23z8ZGrCWPNV0WmLFuh4XEPmgF-H9BugN1p4PSx7f5EM2ozwQOFWTiZkGlE7yj4HjbBHc8C79cQMSlhsJH2050ASdfNvTl4BdDKwiLAt8PS1qrUypSKVwVtRojmtdFgrQXL~zEVyPEN0hgWCojY25cZCsbUc2mmlnTM9JiV4A-Mu92lXY40MOovJiAT9rtspY3OZV9WoHXxAICE4qMETCDvIFvXb0fSj~c4uzK8i2m8i5cToon-hCn8meJkbNu-nA2nG0p-WlCWZ5qUnwM-KGdI2CPzFOK~9iuD3Nw5em0ok9ATVtufexV~POCnQ__"},{"id":"M060","note":"v2 sweep \u2014 children turn + light up, hair diversity","d":28,"th":"https://cms-toolkit-public-artifacts.artlist.io/content/video/video-thumbnails/generated-thumbnail-553ec89a-2567-4faa-a09c-174893cf50d9.jpg","u":"https://cms-toolkit-artifacts.artlist.io/content/-m-u-l-t-i_-t-o_-v-i-d-e-o-v1/media__7/-m-u-l-t-i_-t-o_-v-i-d-e-o-e5e6d274-4d28-450e-8fd0-eb66996597f8.mp4?Expires=2101860201&Key-Pair-Id=K2ZDLYDZI2R1DF&Signature=KTo3eKn74-zxEWP50WR-lMD0vWg72z7POLBiLvaHxro0mAnFgOlJlICokFlMAoKxo9Wxv-Bzr5wYbflJ6CDxJb~ZBdwNvWGVjOdnjEqBZxk4lnNAMmpBM44tximLED3nsNDFxW-7rbgOuVlEVdkzvFXE5JCzKtQz97HhOLYQjZW3f0DdD8JGeugEsh1L1Vi1Jv8JPE7Tt7UiXLABCBO9SeK9TFdmx9iE3~u67f4LB97vLczvyj8p~cp3rRtA5OvJKWDGYORl2J64iCRuK3wpuslGrKk9YDI9y23AK7b2p0slGQVE4kYpntCRHtdWCIJYXti3PsAO78htf~TTu1-~1A__"},{"id":"M063","note":"v2 sweep \u2014 congregation sings, per-face emotion","d":24,"th":"https://cms-toolkit-public-artifacts.artlist.io/content/video/video-thumbnails/generated-thumbnail-b2e67eed-af3b-4c14-84c3-e9c79c0809cc.jpg","u":"https://cms-toolkit-artifacts.artlist.io/content/-m-u-l-t-i_-t-o_-v-i-d-e-o-v1/media__10/-m-u-l-t-i_-t-o_-v-i-d-e-o-0fa4fbdf-e659-414e-8aca-a0c5616687e8.mp4?Expires=2101860201&Key-Pair-Id=K2ZDLYDZI2R1DF&Signature=ucxPvcIdumJu7ojgsfujhmQrbvr3mZGXpdVNGTwGpQHVgQkPRGjCGIIOwMNarwvLqjAUXm10-1Gpe9~D0bs~9w-P3Gv5HIVVerLFzvffNGuKTHSLyXzl63mNdjQi3WJ5-DTkUVvsj0QI5mIkiey1nsJrm9X~P6AKJtNiZV6ib5Hggvq4qC4ll4veXSMIcktThz4HkEreP~CXesXxK86FsXW8VJfI8Ze9joBnD61oUflgjP8p7sAlgH7w8IoN~oq9Hc1zhmhCEEybqA~NBgyXVRb5UMLgA80SpobEVyBdTYipB4eNRq204aLpVXvUnm8bi8bjlOd-09f-lTqo88yKYA__"},{"id":"M064","note":"v2 sweep \u2014 hymn peak light-flood, per-face emotion","d":25,"th":"https://cms-toolkit-public-artifacts.artlist.io/content/video/video-thumbnails/generated-thumbnail-b6038d6d-3e55-4bff-ad29-5a2ed22f961f.jpg","u":"https://cms-toolkit-artifacts.artlist.io/content/-m-u-l-t-i_-t-o_-v-i-d-e-o-v1/media__6/-m-u-l-t-i_-t-o_-v-i-d-e-o-c4311978-c8db-4ab7-b972-4aa764ca33fb.mp4?Expires=2101860201&Key-Pair-Id=K2ZDLYDZI2R1DF&Signature=R~SetySZXL0oBJ7nmnBONlqbQt6aZrq2OfDeNi2WRgoUHcsstM-9l5vnj5izvHgavilcHB~OKPzFYfW-RByzXXDD3Eya7egpyvFe32Sx3EaLUztAzR0F5RebGdQmZl2hmMBg9~jI-nTB3vaXSUxO8R9I~VQtMzZ8wp~sIHwDEJOgGnIHlHKLdcN3vEu036OBkLpQ8tny3QnQqyfYeIg8eYwa3ijhPr4EUl-hwHfnHO8Vl8crO4y8HwQ6eURD8J7aROYsfNzllrAD0UAh9AGhoGZd4~sOtHReBLz0UmGSOk0su2Y4t0ij6hKirSK37rvNwyQCljQhov6p6xNEDT3rYA__"},{"id":"M138","note":"v2 sweep \u2014 column close track, weary-but-burning","d":24,"th":"https://cms-toolkit-public-artifacts.artlist.io/content/video/video-thumbnails/generated-thumbnail-25e7c46f-06d3-474b-bcdf-bf3f324b04ea.jpg","u":"https://cms-toolkit-artifacts.artlist.io/content/-m-u-l-t-i_-t-o_-v-i-d-e-o-v1/media__10/-m-u-l-t-i_-t-o_-v-i-d-e-o-cc3136d6-4cb4-4331-850b-b4d43ee02d1f.mp4?Expires=2101860201&Key-Pair-Id=K2ZDLYDZI2R1DF&Signature=n-LRDZWO923fGB-3jdsXWTuUUpiadbtWK5G-kc-TDx8rbEELYwezacOxsu5ZQoQHlnEZ6qf9D0vUb1AjCx-3oRZ8Xga0o5Dep7tedyHXjRqZINZATfJ4JvNMN3kxtXpCYMHiwJsS6tFbp3G5q19hz4gxzB6ZRfAD8G5OVrMJRqmCeBxEsSb5GRuSwi7KV7gCfLP1nPfn1ywSyCUpyHQ67O7bqebqR9KA4K-XIuTPT9WEy5AymZiisvEwFrIYSJkdpO5o69C9~RRZw8p7WPxi~ZNBhhnCScebiaJqxfUeq7LYhF3I9W5qOOuoePXBjMqa1q3BNBMKm1vV0EKgqo4L2w__"},{"id":"M012","note":"v2 sweep \u2014 dawn rock sit, soft alive expression","d":13,"th":"https://cms-toolkit-public-artifacts.artlist.io/content/video/video-thumbnails/generated-thumbnail-a8f94e9b-77c2-4732-8b16-0e1fc224c46c.jpg","u":"https://cms-toolkit-artifacts.artlist.io/content/-m-u-l-t-i_-t-o_-v-i-d-e-o-v1/media__6/-m-u-l-t-i_-t-o_-v-i-d-e-o-7357c7cc-4fb2-4c40-86b8-cb84dd23e673.mp4?Expires=2101860201&Key-Pair-Id=K2ZDLYDZI2R1DF&Signature=FOEoF5zifyssu2Eafx-~90n1ndCayZUvHR8l5W6vIfccCbHsVfflsTgKXhhfhDvKcp-8B~ZHNvt12t7hhMYNUBtT54B-SWlFYseyOqAxR6VyWON7HzjCdWd~PE9i8Gg2Rl1NXHKxxGyL121adigV3MkD7Vm05JV7V2siG1YZKvqzePk67Brxyj4epmluZd4dAT9fu0UuUvydUYgi4nyuzgCV9uiqm11tuu6FkXGFyedmcxaRUcikCOMciB1I10Xi4kdN45xKnZE6D6RMRgWz88iaAthbiue3FSf6GtFEtjbeNk8N2u4mw5LLZqIidDJK7p35kM4QoTwuY1hEA3VRXw__"},{"id":"M008","note":"v2 sweep \u2014 night flock walk, tender expression","d":14,"th":"https://cms-toolkit-public-artifacts.artlist.io/content/video/video-thumbnails/generated-thumbnail-18f295e9-6623-4d93-9419-4ee02f2995ae.jpg","u":"https://cms-toolkit-artifacts.artlist.io/content/-m-u-l-t-i_-t-o_-v-i-d-e-o-v1/media__6/-m-u-l-t-i_-t-o_-v-i-d-e-o-b1ef3c92-9dd6-4005-b30b-5b045a18f876.mp4?Expires=2101860201&Key-Pair-Id=K2ZDLYDZI2R1DF&Signature=QY~Q7WWZdM-2rNeVXNLS-8OJj3raGy1KNAZmeRuqQR~De2wBSXjcSDIu9~Cjoz9~~DKGRR4BOrTRxuTYCSfMD9Rt27uqBkL58M80gEfM~I~blWDdB8i-M~QF9Ry6LFzOLyIHYaqnWYjZfiL4x8ovtYFucojj~0pFQrqJHrjTwhANaSD1Jqt8sZx6AUBVBZBe2yY5XiACczUbsLz-DvuThIYT0McgXB63tWxaYO90SiCWpy7hA8kB~AmSWo4gSZuiB4KjNSph6GbKBMOH5JwzrxmBjsnRYSNlIo9Fk22TFsjaOkEbAEi-cRw3Kn3flQ4rdJJQhGyBvZ4m~D8p1KqtWg__"},{"id":"M263","note":"v2 sweep \u2014 Father at quay end, grief-love","d":18,"th":"https://cms-toolkit-public-artifacts.artlist.io/content/video/video-thumbnails/generated-thumbnail-1395885b-102c-40ca-93ed-a1e8ce2e5deb.jpg","u":"https://cms-toolkit-artifacts.artlist.io/content/-m-u-l-t-i_-t-o_-v-i-d-e-o-v1/media__5/-m-u-l-t-i_-t-o_-v-i-d-e-o-f7a841ea-f13a-498e-beb2-45b21fef37d0.mp4?Expires=2101860201&Key-Pair-Id=K2ZDLYDZI2R1DF&Signature=EzZZYhLxkDVEqWhFigYTW-~5EhILzHm8LTSL~BkACObhZZM2EA7spQVYdvLsQxTJi0JQifpPeLkuAXRYvzqm03uygvZdQknSmosRkxmM4R1oIjQL8e2f37ZSLxUdMCZnZRw2UgrXGG-fahS9deo6crFxUfAxjDfXKwmrLQ6OoYlVdbN9eWYjxbQpCUDPLHSVEv3Oabirl6PKmCxaBySI5HDD3FOkaEVnqpA1w6qS61xYsCTLhJt4u7ueiCEC4Xqb1JTdllCoNs~xX2caFxH7LUYmSaA6-GxvEHpj41PSWN8gYZlSYiNldERFvMlLk57D2jM78r6bf3lHuZIT0W5MvA__"},{"id":"M260","note":"v2 sweep \u2014 child at rail, brave-smile-vs-tears","d":8,"th":"https://cms-toolkit-public-artifacts.artlist.io/content/video/video-thumbnails/generated-thumbnail-72316e55-4de5-46cd-9d3c-4f95c2dcbc84.jpg","u":"https://cms-toolkit-artifacts.artlist.io/content/-m-u-l-t-i_-t-o_-v-i-d-e-o-v1/media__5/-m-u-l-t-i_-t-o_-v-i-d-e-o-50dfe1df-7fa2-439c-b469-269fe3bdd17d.mp4?Expires=2101860201&Key-Pair-Id=K2ZDLYDZI2R1DF&Signature=Dq9eJFDXzBt22RGe0JCE6TebBfoi2TFNzhZNY~c7JX3cgyeP6PcNS~wyrGXfff4HAO73qs08GUpp9FUN2nUHsQJ-hjQZmSn8X~TaY1PZnxP9Hn17DiisRKYosW3AZLY9gH87gxIih5EGA6~Mf-XFMbZ6NlyFKnhlpubc-Q0CS1IuTyMIdC3qJQnPcVXCoj~l9XTKfDf-Yt7lx-RtbJN4S9t-yfP6w5EDVuyf0mIsMQIBpgiVkgvTDDlPpOeVkJz6WmhMh0xbzuoTV1DKRk5uM~Y6tOsAGKgb6k56OW9c-y1xZRtLZRawZ6qQuEw34oCMTwX2gO-FOSUNXR3mvMnL4A__"},{"id":"M270","note":"v2 sweep \u2014 light-road richness pass (no characters)","d":18,"th":"https://cms-toolkit-public-artifacts.artlist.io/content/video/video-thumbnails/generated-thumbnail-766b7dd5-ca2c-4921-9a3b-1e0494fe4a8a.jpg","u":"https://cms-toolkit-artifacts.artlist.io/content/-m-u-l-t-i_-t-o_-v-i-d-e-o-v1/media__5/-m-u-l-t-i_-t-o_-v-i-d-e-o-3b629d95-e554-4011-8f69-e5cb9d2c45cd.mp4?Expires=2101860201&Key-Pair-Id=K2ZDLYDZI2R1DF&Signature=oeVqDNairYh2G18C6YIQx3Yd0qdwHJvhizkHHFuQGXrMEaF1~BTJzkTRkTPuCfPU4sH-KQwlP0nDyH6MpD0P7woWNQd~fFVfrpbL3fiyaB0-hn9cBffNVu0OCJyCm1O2CoEiItTGn8wNQZxVLPTxkHQYj2z1kVDTcrRkKhSQblIHSIO6jDordpDs8Xu8slvuSS-caEDFfNUYlK1JOg6nj3afLpwnAXoRI1CM~m-LjuNNPOelLes~2OSDBiuIY-qR3Fs9O~JJs7V2gQqtirtrS4eaUCOSpEpGCkO6DWdXrTfz~u3IIkCgmMp-H~~eom6tOXSuJ~v9klVKmqQpzi593A__"},{"id":"M148","note":"v2 regen \u2014 extreme-wide / content corrected","d":20,"th":"https://cms-toolkit-public-artifacts.artlist.io/content/video/video-thumbnails/generated-thumbnail-c3777cf8-df75-4d61-a272-6311e7d5fbdc.jpg","u":"https://cms-toolkit-artifacts.artlist.io/content/-m-u-l-t-i_-t-o_-v-i-d-e-o-v1/media__9/-m-u-l-t-i_-t-o_-v-i-d-e-o-d87f02cd-3363-42dd-9c7b-4784466ee9e4.mp4?Expires=2101860202&Key-Pair-Id=K2ZDLYDZI2R1DF&Signature=t2xJu5kj8e~nXJk-hspNDk7~yQ2Wp65ey61ZUbG67dUdZkZwroElHAp-BD6URYwwtf7D1F3wgkvvmcklbmn3ukAwdSz9mat85wd4YXb4Pbh-4QjoHIrFh-2i78XjVqmnZjqtKe2fjIOsmSSy01qqLgsFOgRAGz-YVYCqGXf0C25btBTsoMnik6tNrldIc0xE0Eyzpr0PsQINwNE6CFOWL8~9oCPmRx2JQj1shOMmGK7ZAtp5IIPHEn5S9XERLVdDVdilFFpmbmwrHtEjCYz672w6Sz70Ib7z-xx9Mp8syRXWpyOqXng0ehmqpi9mtRqt0OWdOweHxbsBSmiwS3s67A__"},{"id":"M265","note":"v2 regen \u2014 extreme-wide / content corrected","d":19,"th":"https://cms-toolkit-public-artifacts.artlist.io/content/video/video-thumbnails/generated-thumbnail-144d7bde-9dc2-4292-a1f4-2a6ccd749cb9.jpg","u":"https://cms-toolkit-artifacts.artlist.io/content/-m-u-l-t-i_-t-o_-v-i-d-e-o-v1/media__7/-m-u-l-t-i_-t-o_-v-i-d-e-o-f9b0858e-58fe-4b0c-84ef-966a2532c386.mp4?Expires=2101860202&Key-Pair-Id=K2ZDLYDZI2R1DF&Signature=wexmAcdiPfzZ0IP5PaHGJk5i934TuuXOsCE5LaLAjN4oD~pchcnrJMeadYV4XrJigt6K4BqsC0Q5wvUAQt3fir8nb-vhezyYO9xRbOmO6XxG9HAy9PW74ySgyThX-iFiL8IpMDzkVfsbezlqE8Kjh-E36DoARpzkftZDmw4dLj~OTLP0Ys3GXXLvIHaTURuh8aDGlSbviGoZhSwedZTZqKvQ5ewuRKe8PEknsmEz8nWb7VvutLXaheSgI8TVLrmS0O6KqqMaU1wPO2vVsMydPq98DEWmV~TBt0cgJqsUeUfLKumQ3-br89H3y-jAWkR9tO-B9QkG1so-U0~EZujicQ__"},{"id":"M210","note":"v2 regen \u2014 extreme-wide / content corrected","d":24,"th":"https://cms-toolkit-public-artifacts.artlist.io/content/video/video-thumbnails/generated-thumbnail-fb90e14e-71df-4eec-a08b-d511afa6130d.jpg","u":"https://cms-toolkit-artifacts.artlist.io/content/-m-u-l-t-i_-t-o_-v-i-d-e-o-v1/media__8/-m-u-l-t-i_-t-o_-v-i-d-e-o-4a1cfe76-e071-493c-8874-071f7a135939.mp4?Expires=2101860202&Key-Pair-Id=K2ZDLYDZI2R1DF&Signature=wb0cV9kfh9o7AyqT4MJxLenTwip0RvT3GEHEv7ry0qnCZ8iMABf7A5i0NX-zscranKZ5Gx1WkEmQNsd-CnYqbcJUehXkBB0LHt1cCK4PR2okV~GMLO~aIwRpaxfi6phvlewFvJVR8KRlTQVGnptL3U5MgiIxESRgdRFXD1PaCuCw2D2~gwYZA-gyiPbH7Dj60sT~wJ5TeDoFt~EhXt6vCf9E4ALIUb7kcGjzfyzr9IUijrXN1u4cAz3y2NSsJa9SyO8HwZwt7sBArhyEc8hZ7S8JFThHZdrKC~mXuqg9ec68eezrDfjFCW0JvRWalF6MARvUYF3IWhC8e7v6KAdQvw__"},{"id":"M267","note":"v2 regen \u2014 extreme-wide / content corrected","d":24,"th":"https://cms-toolkit-public-artifacts.artlist.io/content/video/video-thumbnails/generated-thumbnail-ef843505-6963-4201-9adf-7e5f29fd32bd.jpg","u":"https://cms-toolkit-artifacts.artlist.io/content/-m-u-l-t-i_-t-o_-v-i-d-e-o-v1/media__4/-m-u-l-t-i_-t-o_-v-i-d-e-o-4874fbd0-089f-4054-88a0-825540444d87.mp4?Expires=2101860202&Key-Pair-Id=K2ZDLYDZI2R1DF&Signature=qiQ8xVeS5CXFNbu~xUjorLWxVoacjSbIhDtu6P3RHhcNZhysbunanwF9ZxmgLhX5jMWAwzGALG4AmEOhRKd1W3sbhx~dIMwpJyxlOEPtncqnfEQ9vwjhkNw642HnZuicghjzjRCmR2X1tUTkItFiGGMBVSRgZrMX7b0uebd3OJpyAXaZq6f2dswpYl0AnaAy-DaxzP07iIgXVdEHOmjeEJUy5lxiVn2QBpI7cN3YTUHK5p4UfMyJASjP99duV46m230wc5qhOk4aKgHO5Q4L4eTAlDTh8r-Sy8G0lmEnX1gYHfJk5QhtRDYdzfSuDPZUsderCD4TVqpKhWnhbtpIOQ__"},{"id":"M271","note":"v2 regen \u2014 extreme-wide / content corrected","d":26,"th":"https://cms-toolkit-public-artifacts.artlist.io/content/video/video-thumbnails/generated-thumbnail-6c6cb141-5758-438a-a91d-bb2a3f2a6e8c.jpg","u":"https://cms-toolkit-artifacts.artlist.io/content/-m-u-l-t-i_-t-o_-v-i-d-e-o-v1/media__5/-m-u-l-t-i_-t-o_-v-i-d-e-o-37b27247-9abf-4248-9c3d-2aab2f134c15.mp4?Expires=2101860202&Key-Pair-Id=K2ZDLYDZI2R1DF&Signature=Ksm~o6NJYhYyUrue6DCZKOycW7JgwIfElkp9z~R4B7kVYsR88FBFX1dWLVBIav3ENi-AGmywKn0h1UdnQgVkrSCe4FdbiUJzcLPvLP4PmDHVyNxK4TBrUFQ8~DOaEZWeIvjkijt17xEz769-eZT06~rZn3R2czYhNDBZQM3hgXZDQpmYeyfawaciLfXfqgEEiLc6NUD9rclw8LA17KFPC4YioHzoYTpjaMLalCp3mxju4PaCo~DVzYsPxtnSSsAQA042WTv0cQzy~Ev2YefKFognRR8G6qzXQl4qvTanun1mgi0oHbsxPEEc0QbonWrf~WD4zvtNvi9JA3ywzdIdgw__"},{"id":"M276","note":"v2 regen \u2014 extreme-wide / content corrected","d":13,"th":"https://cms-toolkit-public-artifacts.artlist.io/content/video/video-thumbnails/generated-thumbnail-92be99f3-0687-477b-ba1c-d1cc3b918d4c.jpg","u":"https://cms-toolkit-artifacts.artlist.io/content/-m-u-l-t-i_-t-o_-v-i-d-e-o-v1/media__7/-m-u-l-t-i_-t-o_-v-i-d-e-o-3f5e3527-89ef-4496-952d-bebdc1c77f1b.mp4?Expires=2101860202&Key-Pair-Id=K2ZDLYDZI2R1DF&Signature=CpOIeuQoQLrlxWWQPDydzJUfR7IQ1OK39kAtZyXY7m3GbbnQ9IRZZb~f3mURDbvJkPdNB1hMO~02F8LsnOZZV5VfLWRuDaIQk9jDtABQuscitSgvLhL~nci6dR8YUSNOEOnhWfynNGLRsvqpKFEaQzDa1lqEgd7fiS-4uT8ElKoqvx8kunFkzqpmjqNK9ovwUyeXPBLcuRT0QqzgdUCk9v7H34srBDMvDmiyblMBw6t57SC75GxCmVaD3M9kSgbjmu1ERLLiVUzqc0vKip9F4fF7PHVZOqnCmPlGMw5qonlm6OEHiY6OTk1DnMqK7Sr~qhRtKDpqGkXvGWfhJWJRRQ__"}];
+const KEY='quest_votes_v1';
+let votes={}; try{votes=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){votes={}}
+let filter='all';
+function save(){try{localStorage.setItem(KEY,JSON.stringify(votes))}catch(e){}}
+function setVote(id,v){votes[id]=votes[id]===v?undefined:v; if(!votes[id])delete votes[id]; save(); render();}
+function clearAll(){if(confirm('Clear every verdict?')){votes={};save();render();}}
+function counts(){const c={y:0,n:0,m:0,none:0};CLIPS.forEach(k=>{const v=votes[k.id];if(v)c[v]++;else c.none++});return c}
+function exportOut(){
+  const lines=CLIPS.filter(k=>votes[k.id]).map(k=>k.id+','+votes[k.id]);
+  const txt=lines.length?('QUEST VERDICTS\n'+lines.join('\n')):'(nothing voted yet)';
+  const box=document.getElementById('outbox'); box.value=txt;
+  document.getElementById('out').style.display='block';
+  box.select(); try{navigator.clipboard.writeText(txt)}catch(e){}
+}
+function render(){
+  const c=counts();
+  document.getElementById('tally').innerHTML=
+    [['all','All '+CLIPS.length],['none','Unrated <b>'+c.none+'</b>'],['y','Keep <b>'+c.y+'</b>'],
+     ['n','Cut <b>'+c.n+'</b>'],['m','Maybe <b>'+c.m+'</b>']]
+    .map(([k,l])=>`<span class="pill ${filter===k?'on':''}" onclick="filter='${k}';render()">${l}</span>`).join('');
+  const show=CLIPS.filter(k=>filter==='all'||(filter==='none'?!votes[k.id]:votes[k.id]===filter));
+  document.getElementById('empty').style.display=show.length?'none':'block';
+  document.getElementById('grid').innerHTML=show.map(k=>{
+    const v=votes[k.id]||'';
+    return `<div class="card ${v}">
+      <div class="frame" onclick="playIt(this,'${k.u}')">
+        <img loading="lazy" src="${k.th}"><div class="play">&#9654;</div><div class="dur">${k.d}s</div>
+      </div>
+      <div class="meta">
+        <div class="cid">${k.id}</div><div class="note">${k.note}</div>
+        <div class="votes">
+          <button class="vb y ${v==='y'?'on':''}" onclick="setVote('${k.id}','y')">Keep</button>
+          <button class="vb m ${v==='m'?'on':''}" onclick="setVote('${k.id}','m')">Maybe</button>
+          <button class="vb n ${v==='n'?'on':''}" onclick="setVote('${k.id}','n')">Cut</button>
+        </div>
+      </div></div>`}).join('');
+}
+function playIt(el,url){
+  if(el.querySelector('video'))return;
+  el.innerHTML='<video controls autoplay playsinline src="'+url+'"></video>';
+}
+render();
+</script></body></html>
