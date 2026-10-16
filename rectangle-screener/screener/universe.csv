@@ -1,0 +1,1560 @@
+symbol,name,exchange,sector,industry,market_cap
+NVDA,NVIDIA Corporation Common Stock,NASDAQ,Technology,Semiconductors,5333330000000
+AAPL,Apple Inc. Common Stock,NASDAQ,Technology,Computer Manufacturing,5005219972800
+GOOGL,Alphabet Inc. Class A Common Stock,NASDAQ,Technology,Computer Software: Programming Data Processing,4251637200000
+GOOG,Alphabet Inc. Class C Capital Stock,NASDAQ,Technology,Computer Software: Programming Data Processing,4202839500000
+MSFT,Microsoft Corporation Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,3962939373092
+AMZN,Amazon.com Inc. Common Stock,NASDAQ,Consumer Discretionary,Catalog/Specialty Distribution,2740586552374
+TSM,Taiwan Semiconductor Manufacturing Company Ltd.,NYSE,Technology,Semiconductors,2230197108720
+SPCX,Space Exploration Technologies Corp. Class A Common Stock,NASDAQ,Technology,Computer Software: Programming Data Processing,2065240538460
+META,Meta Platforms Inc. Class A Common Stock,NASDAQ,Technology,Computer Software: Programming Data Processing,1878887741187
+AVGO,Broadcom Inc. Common Stock,NASDAQ,Technology,Semiconductors,1652869340756
+TSLA,Tesla Inc. Common Stock,NASDAQ,Industrials,Auto Manufacturing,1450115821181
+BRK.B,Berkshire Hathaway Inc.,NYSE,,,1161291990126
+LLY,Eli Lilly and Company Common Stock,NYSE,Health Care,Biotechnology: Pharmaceutical Preparations,1137855938748
+SKHY,SK hynix Inc. American Depositary Shares,NASDAQ,Technology,Semiconductors,1075441045250
+MU,Micron Technology Inc. Common Stock,NASDAQ,Technology,Semiconductors,1034267900786
+AMD,Advanced Micro Devices Inc. Common Stock,NASDAQ,Technology,Semiconductors,931849403474
+WMT,Walmart Inc. Common Stock,NASDAQ,Consumer Discretionary,Department/Specialty Retail Stores,921583963355
+JPM,JP Morgan Chase & Co. Common Stock,NYSE,Finance,Major Banks,891236667460
+XOM,ExxonMobil Holdings Corporation Common Stock,NYSE,Energy,Integrated oil Companies,727849536040
+V,Visa Inc.,NYSE,Consumer Discretionary,Business Services,699389597722
+ASML,ASML Holding N.V. New York Registry Shares,NASDAQ,Technology,Industrial Machinery/Components,635939147250
+JNJ,Johnson & Johnson Common Stock,NYSE,Health Care,Biotechnology: Pharmaceutical Preparations,611897352764
+GOOGM,Alphabet Inc. Depositary Shares representing a 1/20th Interest in a Share of Series A Mandatory Convertible Preferred Stock,NASDAQ,Technology,Computer Software: Programming Data Processing,600126100000
+GOOGN,Alphabet Inc. Depositary Shares representing a 1/20th Interest in a Share of Series B Mandatory Convertible Preferred Stock,NASDAQ,Technology,Computer Software: Programming Data Processing,597068600000
+MA,Mastercard Incorporated Common Stock,NYSE,Consumer Discretionary,Business Services,528444236206
+INTC,Intel Corporation Common Stock,NASDAQ,Technology,Semiconductors,518571020419
+ABBV,AbbVie Inc. Common Stock,NYSE,Health Care,Biotechnology: Pharmaceutical Preparations,500942407952
+PLTR,Palantir Technologies Inc. Class A Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,482740687876
+CSCO,Cisco Systems Inc. Common Stock (DE),NASDAQ,Telecommunications,Computer Communications Equipment,448035572248
+CVX,Chevron Corporation Common Stock,NYSE,Energy,Integrated oil Companies,438700253679
+COST,Costco Wholesale Corporation Common Stock,NASDAQ,Consumer Discretionary,Department/Specialty Retail Stores,435153020718
+ORCL,Oracle Corporation Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,395762475002
+KO,Coca-Cola Company (The) Common Stock,NYSE,Consumer Staples,Beverages (Production/Distribution),394887969523
+PG,Procter & Gamble Company (The) Common Stock,NYSE,Consumer Discretionary,Package Goods/Cosmetics,363843506882
+MRK,Merck & Company Inc. Common Stock (new),NYSE,Health Care,Biotechnology: Pharmaceutical Preparations,363587084292
+BAC,Bank of America Corporation Common Stock,NYSE,Finance,Major Banks,359357338477
+LRCX,Lam Research Corporation Common Stock,NASDAQ,Technology,Industrial Machinery/Components,359058677945
+UNH,UnitedHealth Group Incorporated Common Stock (DE),NYSE,Health Care,Medical Specialities,355106473370
+AMAT,Applied Materials Inc. Common Stock,NASDAQ,Technology,Semiconductors,354444425967
+CAT,Caterpillar Inc. Common Stock,NYSE,Industrials,Construction/Ag Equipment/Trucks,344287298363
+DELL,Dell Technologies Inc. Class C Common Stock ,NYSE,Technology,Computer Manufacturing,322948370108
+HSBC,HSBC Holdings plc. Common Stock,NYSE,Finance,Savings Institutions,322424805106
+PM,Philip Morris International Inc Common Stock,NYSE,Health Care, Medicinal Chemicals and Botanical Products ,320419750790
+GE,GE Aerospace Common Stock,NYSE,Technology,Consumer Electronics/Appliances,318552442741
+PANW,Palo Alto Networks Inc. Common Stock,NASDAQ,Technology,Computer peripheral equipment,306782720000
+HD,Home Depot Inc. (The) Common Stock,NYSE,Consumer Discretionary,RETAIL: Building Materials,294827261379
+NFLX,Netflix Inc. Common Stock,NASDAQ,Consumer Discretionary,Consumer Electronics/Video Chains,293849222935
+SHEL,Shell PLC American Depositary Shares (each representing two (2) Ordinary Shares) ,NYSE,Energy,Oil & Gas Production,286509824664
+MS,Morgan Stanley Common Stock,NYSE,Finance,Investment Bankers/Brokers/Service,285073487661
+NVS,Novartis AG Common Stock,NYSE,Health Care,Biotechnology: Pharmaceutical Preparations,280269318612
+SAP,SAP  SE ADS,NYSE,Technology,Computer Software: Prepackaged Software,270872898114
+BABA,Alibaba Group Holding Limited American Depositary Shares each representing eight Ordinary share,NYSE,Consumer Discretionary,Business Services,269307770621
+RY,Royal Bank Of Canada Common Stock,NYSE,Finance,Commercial Banks,268330183642
+MUFG,Mitsubishi UFJ Financial Group Inc. Common Stock,NYSE,Finance,Commercial Banks,259665514930
+TXN,Texas Instruments Incorporated Common Stock,NASDAQ,Technology,Semiconductors,256302963076
+GS,Goldman Sachs Group Inc. (The) Common Stock,NYSE,Finance,Investment Bankers/Brokers/Service,255858139638
+CRWD,CrowdStrike Holdings Inc. Class A Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,255256716762
+ARM,Arm Holdings plc American Depositary Shares,NASDAQ,Technology,Semiconductors,253255790529
+RTX,RTX Corporation Common Stock,NYSE,Industrials,Aerospace,251316461112
+AZN,AstraZeneca PLC Ordinary Shares,NYSE,Health Care,Biotechnology: Pharmaceutical Preparations,251264112554
+GEV,GE Vernova Inc. Common Stock,NYSE,Technology,Consumer Electronics/Appliances,250827639914
+TMO,Thermo Fisher Scientific Inc Common Stock,NYSE,Industrials,Industrial Machinery/Components,248913872935
+ANET,Arista Networks Inc. Common Stock,NYSE,Telecommunications,Computer Communications Equipment,246468520712
+WFC,Wells Fargo & Company Common Stock,NYSE,Finance,Major Banks,244641546282
+KLAC,KLA Corporation Common Stock,NASDAQ,Technology,Electronic Components,233348210835
+AMGN,Amgen Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),230368703651
+LIN,Linde plc Ordinary Shares,NASDAQ,Basic Materials,Major Chemicals,227124926310
+SHOP,Shopify Inc. Class A Subordinate Voting Shares,NASDAQ,Technology,Computer Software: Prepackaged Software,223527401813
+MRVL,Marvell Technology Inc. Common Stock,NASDAQ,Technology,Semiconductors,215086032000
+IBM,International Business Machines Corporation Common Stock,NYSE,Technology,Computer Manufacturing,214693584793
+BHP,BHP Group Limited American Depositary Shares (Each representing two Ordinary Shares),NYSE,Energy,Coal Mining,211654513728
+AXP,American Express Company Common Stock,NYSE,Finance,Finance: Consumer Services,207286353239
+C,Citigroup Inc. Common Stock,NYSE,Finance,Major Banks,205100195457
+SNDK,Sandisk Corporation Common Stock,NASDAQ,Technology,Electronic Components,203944149258
+APH,Amphenol Corporation Common Stock,NYSE,Technology,Electrical Products,203910804119
+TTE,TotalEnergies SE Ordinary Shares,NYSE,Energy,Oil & Gas Production,195582092111
+ADI,Analog Devices Inc. Common Stock,NASDAQ,Technology,Semiconductors,195556084710
+CRM,Salesforce Inc. Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,194186850000
+SAN,Banco Santander S.A. Sponsored ADR (Spain),NYSE,Finance,Commercial Banks,194105840113
+TD,Toronto Dominion Bank (The) Common Stock,NYSE,Finance,Commercial Banks,192105167299
+GILD,Gilead Sciences Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),190382714499
+DIS,Walt Disney Company (The) Common Stock,NYSE,Consumer Discretionary,Services-Misc. Amusement & Recreation,188191605449
+VZ,Verizon Communications Inc. Common Stock,NYSE,Telecommunications,Telecommunications Equipment,184555114473
+QCOM,QUALCOMM Incorporated Common Stock,NASDAQ,Technology,Radio And Television Broadcasting And Communications Equipment,181291379443
+ABT,Abbott Laboratories Common Stock,NYSE,Health Care,Biotechnology: Pharmaceutical Preparations,178177567989
+PEP,PepsiCo Inc. Common Stock,NASDAQ,Consumer Staples,Beverages (Production/Distribution),176161540963
+DE,Deere & Company Common Stock,NYSE,Industrials,Industrial Machinery/Components,175358975457
+COP,ConocoPhillips Common Stock,NYSE,Energy,Integrated oil Companies,170998376761
+UNP,Union Pacific Corporation Common Stock,NYSE,Industrials,Railroads,170161044892
+TMUS,T-Mobile US Inc. Common Stock,NASDAQ,Telecommunications,Telecommunications Equipment,169256853815
+NVO,Novo Nordisk A/S Common Stock,NYSE,Health Care,Biotechnology: Pharmaceutical Preparations,168792711422
+MCD,McDonald's Corporation Common Stock,NYSE,Consumer Discretionary,Restaurants,168638053253
+SCCO,Southern Copper Corporation Common Stock,NYSE,Basic Materials,Metal Mining,167433686760
+SCHW,Charles Schwab Corporation (The) Common Stock,NYSE,Finance,Investment Bankers/Brokers/Service,167399697115
+WELL,Welltower Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,167335355274
+PBR,Petroleo Brasileiro S.A. Petrobras ADS,NYSE,Energy,Oil & Gas Production,167166863923
+PFE,Pfizer Inc. Common Stock,NYSE,Health Care,Biotechnology: Pharmaceutical Preparations,166487465535
+BLK,BlackRock Inc. Common Stock,NYSE,Finance,Investment Bankers/Brokers/Service,166297061622
+NEE,NextEra Energy Inc. Common Stock,NYSE,Utilities,Electric Utilities: Central,163478112239
+STX,Seagate Technology Holdings PLC Ordinary Shares (Ireland),NASDAQ,Technology,Electronic Components,163199834881
+ETN,Eaton Corporation PLC Ordinary Shares,NYSE,Technology,Industrial Machinery/Components,158797340000
+DHR,Danaher Corporation Common Stock,NYSE,Industrials,Industrial Machinery/Components,157953936473
+SMFG,Sumitomo Mitsui Financial Group Inc Unsponsored American Depositary Shares (Japan),NYSE,Finance,Commercial Banks,157952169095
+T,AT&T Inc.,NYSE,Telecommunications,Telecommunications Equipment,157947489233
+TJX,TJX Companies Inc. (The) Common Stock,NYSE,Consumer Discretionary,Clothing/Shoe/Accessory Stores,157109295133
+BUD,Anheuser-Busch Inbev SA Sponsored ADR (Belgium),NYSE,Consumer Staples,Beverages (Production/Distribution),156784577793
+ISRG,Intuitive Surgical Inc. Common Stock,NASDAQ,Health Care,Industrial Specialties,148461562689
+UBS,UBS Group AG Registered Ordinary Shares,NYSE,Finance,Major Banks,146326972462
+BBVA,Banco Bilbao Vizcaya Argentaria S.A. Common Stock,NYSE,Finance,Commercial Banks,146027357034
+BA,Boeing Company (The) Common Stock,NYSE,Industrials,Aerospace,145949727893
+NOW,ServiceNow Inc. Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,144739320000
+SONY,Sony Group Corporation American Depositary Shares ,NYSE,Consumer Staples,Consumer Electronics/Appliances,143627840215
+ACN,Accenture plc Class A Ordinary Shares (Ireland),NYSE,Consumer Discretionary,Business Services,143487994742
+UBER,Uber Technologies Inc. Common Stock,NYSE,Consumer Discretionary,Business Services,141528990784
+UL,Unilever PLC American Depositary Shares (each representing One Ordinary Share),NYSE,Consumer Discretionary,Package Goods/Cosmetics,137575344188
+MPC,Marathon Petroleum Corporation Common Stock,NYSE,Energy,Integrated oil Companies,136177544074
+WDC,Western Digital Corporation Common Stock,NASDAQ,Technology,Electronic Components,136016101518
+CB,Chubb Limited  Common Stock,NYSE,Finance,Property-Casualty Insurers,135087820629
+FTNT,Fortinet Inc. Common Stock,NASDAQ,Technology,Computer peripheral equipment,135039997835
+VLO,Valero Energy Corporation Common Stock,NYSE,Energy,Integrated oil Companies,132383288019
+MNST,Monster Beverage Corporation,NASDAQ,Consumer Staples,Beverages (Production/Distribution),129944033469
+BP,BP p.l.c. Common Stock,NYSE,Energy,Integrated oil Companies,127781182873
+MFG,Mizuho Financial Group Inc. Sponosred ADR (Japan),NYSE,Finance,Major Banks,127729232872
+VRTX,Vertex Pharmaceuticals Incorporated Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,126350270614
+PGR,Progressive Corporation (The) Common Stock,NYSE,Finance,Property-Casualty Insurers,124099618024
+PLD,Prologis Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,123685994960
+BTI,British American Tobacco  Industries p.l.c. Common Stock ADR,NYSE,Health Care, Medicinal Chemicals and Botanical Products ,122404499226
+MO,Altria Group Inc.,NYSE,Health Care, Medicinal Chemicals and Botanical Products ,122108373308
+GLW,Corning Incorporated Common Stock,NYSE,Industrials,Telecommunications Equipment,121361001955
+BMY,Bristol-Myers Squibb Company Common Stock,NYSE,Health Care,Biotechnology: Pharmaceutical Preparations,121092124808
+BKNG,Booking Holdings Inc. Common Stock,NASDAQ,Consumer Discretionary,Transportation Services,120731818740
+PH,Parker-Hannifin Corporation Common Stock,NYSE,Industrials,Metal Fabrications,120603824713
+MDT,Medtronic plc. Ordinary Shares,NYSE,Health Care,Biotechnology: Electromedical & Electrotherapeutic Apparatus,120533163375
+LMT,Lockheed Martin Corporation Common Stock,NYSE,Industrials,Military/Government/Technical,120525854939
+SPGI,S&P Global Inc. Common Stock,NYSE,Finance,Finance: Consumer Services,120446436000
+COF,Capital One Financial Corporation Common Stock,NYSE,Finance,Major Banks,119230777877
+PSX,Phillips 66 Common Stock,NYSE,Energy,Integrated oil Companies,118624928118
+SNOW,Snowflake Inc. Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,118216224000
+NEM,Newmont Corporation,NYSE,Basic Materials,Precious Metals,117549909753
+HDB,HDFC Bank Limited Common Stock,NYSE,Finance,Commercial Banks,116117308421
+PDD,PDD Holdings Inc. American Depositary Shares,NASDAQ,Consumer Discretionary,Business Services,115935641830
+CVS,CVS Health Corporation Common Stock,NYSE,Consumer Staples,Retail-Drug Stores and Proprietary Stores,115606131654
+NET,Cloudflare Inc. Class A Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,115487333966
+RIO,Rio Tinto Plc Common Stock,NYSE,Basic Materials,Metal Mining,114613520790
+MCK,McKesson Corporation Common Stock,NYSE,Health Care,Other Pharmaceuticals,113858650795
+EQNR,Equinor ASA,NYSE,Energy,Integrated oil Companies,113237274949
+ADP,Automatic Data Processing Inc. Common Stock,NASDAQ,Technology,EDP Services,111077233935
+BNS,Bank Nova Scotia Halifax Pfd 3 Ordinary Shares,NYSE,Finance,Major Banks,110472201768
+SYK,Stryker Corporation Common Stock,NYSE,Health Care,Medical/Dental Instruments,108021841215
+SPOT,Spotify Technology S.A. Ordinary Shares,NYSE,Consumer Discretionary,Broadcasting,107848010847
+CNQ,Canadian Natural Resources Limited Common Stock,NYSE,Energy,Oil & Gas Production,107207288800
+ITUB,Itau Unibanco Banco Holding SA American Depositary Shares (Each repstg 500 Preferred shares),NYSE,Finance,Major Banks,106740093779
+SBUX,Starbucks Corporation Common Stock,NASDAQ,Consumer Discretionary,Restaurants,106305000000
+LOW,Lowe's Companies Inc. Common Stock,NYSE,Consumer Discretionary,RETAIL: Building Materials,105652082318
+TT,Trane Technologies plc,NYSE,Industrials,Auto Parts:O.E.M.,103694723088
+ENB,Enbridge Inc Common Stock,NYSE,Energy,Natural Gas Distribution,103417544057
+SO,Southern Company (The) Common Stock,NYSE,Utilities,Electric Utilities: Central,102819441901
+CME,CME Group Inc. Class A Common Stock,NASDAQ,Finance,Investment Bankers/Brokers/Service,102692241720
+HCA,HCA Healthcare Inc. Common Stock,NYSE,Health Care,Hospital/Nursing Management,101850965660
+IBN,ICICI Bank Limited Common Stock,NYSE,Finance,Commercial Banks,101208191177
+CM,Canadian Imperial Bank of Commerce Common Stock,NYSE,Finance,Commercial Banks,100283755442
+ABNB,Airbnb Inc. Class A Common Stock,NASDAQ,Consumer Discretionary,Diversified Commercial Services,100033136035
+FCX,Freeport-McMoRan Inc. Common Stock,NYSE,Basic Materials,Metal Mining,99975539951
+CEG,Constellation Energy Corporation Common Stock ,NASDAQ,Utilities,Electric Utilities: Central,99043084726
+ASX,ASE Technology Holding Co. Ltd. American Depositary Shares (each representing Two Common Shares) ,NYSE,Technology,Semiconductors,98718423405
+PWR,Quanta Services Inc. Common Stock,NYSE,Industrials,Engineering & Construction,97315738923
+ING,ING Group N.V. Common Stock,NYSE,Finance,Commercial Banks,97115565040
+SNY,Sanofi ADS,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,96993231216
+MAR,Marriott International Class A Common Stock,NASDAQ,Consumer Discretionary,Hotels/Resorts,96958121204
+GSK,GSK plc American Depositary Shares (Each representing two Ordinary Shares),NYSE,Health Care,Biotechnology: Pharmaceutical Preparations,96826918173
+DDOG,Datadog Inc. Class A Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,96709676214
+ADBE,Adobe Inc. Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,93672656000
+BNY,The Bank of New York Mellon Corporation Common Stock,NYSE,Finance,Major Banks,93389310105
+DUK,Duke Energy Corporation (Holding Company) Common Stock,NYSE,Utilities,Power Generation,93283570371
+ELV,Elevance Health Inc. Common Stock,NYSE,Health Care,Medical Specialities,92839574356
+JCI,Johnson Controls International plc Ordinary Share,NYSE,Industrials,Industrial Machinery/Components,92339229687
+SNPS,Synopsys Inc. Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,91972175515
+HOOD,Robinhood Markets Inc. Class A Common Stock,NASDAQ,Finance,Investment Bankers/Brokers/Service,90879236155
+CDNS,Cadence Design Systems Inc. Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,90730977780
+GD,General Dynamics Corporation Common Stock,NYSE,Industrials,Marine Transportation,90544670879
+MRNA,Moderna Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),90347081681
+EMR,Emerson Electric Company Common Stock,NYSE,Technology,Consumer Electronics/Appliances,89850424000
+AEM,Agnico Eagle Mines Limited Common Stock,NYSE,Basic Materials,Precious Metals,89843372256
+CSX,CSX Corporation Common Stock,NASDAQ,Industrials,Railroads,89437488993
+WMB,Williams Companies Inc. (The) Common Stock,NYSE,Utilities,Natural Gas Distribution,89046591962
+SU,Suncor Energy  Inc. Common Stock,NYSE,Energy,Integrated oil Companies,88763191255
+BN,Brookfield Corporation Class A Limited Voting Shares,NYSE,Real Estate,Building operators,88104450457
+APP,Applovin Corporation Class A Common Stock,NASDAQ,Technology,Computer Software: Programming Data Processing,87742145690
+USB,U.S. Bancorp Common Stock,NYSE,Finance,Major Banks,87655974352
+ICE,Intercontinental Exchange Inc. Common Stock,NYSE,Finance,Investment Bankers/Brokers/Service,87077898879
+HWM,Howmet Aerospace Inc. Common Stock,NYSE,Industrials,Metal Fabrications,86755256338
+WM,Waste Management Inc. Common Stock,NYSE,Utilities,Environmental Services,86238550948
+PNC,PNC Financial Services Group Inc. (The) Common Stock,NYSE,Finance,Major Banks,86092043339
+VRT,Vertiv Holdings LLC Class A Common Stock,NYSE,Technology,Industrial Machinery/Components,85786914590
+MRSH,Marsh Common Stock,NYSE,Finance,Specialty Insurers,85134490211
+MMM,3M Company Common Stock,NYSE,Health Care,Medical/Dental Instruments,84815708700
+HPE,Hewlett Packard Enterprise Company Common Stock,NYSE,Technology,Retail: Computer Software & Peripheral Equipment,83776302203
+AMT,American Tower Corporation (REIT) Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,83593232611
+INTU,Intuit Inc. Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,82960743840
+CTAS,Cintas Corporation Common Stock,NASDAQ,Industrials,Garments and Clothing,82841776653
+NGG,National Grid Transco PLC National Grid PLC (NEW) American Depositary Shares,NYSE,Utilities,Natural Gas Distribution,82432855626
+UPS,United Parcel Service Inc. Common Stock,NYSE,Industrials,Trucking Freight/Courier Services,81487859924
+LITE,Lumentum Holdings Inc. Common Stock,NASDAQ,Telecommunications,Telecommunications Equipment,81192131318
+LYG,Lloyds Banking Group Plc American Depositary Shares,NYSE,Finance,Commercial Banks,81070946110
+EOG,EOG Resources Inc. Common Stock,NYSE,Energy,Oil & Gas Production,80877153647
+ECL,Ecolab Inc. Common Stock,NYSE,Consumer Discretionary,Package Goods/Cosmetics,80653342369
+MCO,Moody's Corporation Common Stock,NYSE,Finance,Finance: Consumer Services,80151764000
+REGN,Regeneron Pharmaceuticals Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,80136044460
+MDLZ,Mondelez International Inc. Class A Common Stock,NASDAQ,Consumer Staples,Packaged Foods,79858595126
+DASH,DoorDash Inc. Class A Common Stock,NASDAQ,Consumer Discretionary,Business Services,79731153387
+BX,Blackstone Inc. Common Stock,NYSE,Finance,Investment Managers,79723893358
+NTES,NetEase Inc. American Depositary Shares,NASDAQ,Technology,Computer Software: Prepackaged Software,78955590432
+TRV,The Travelers Companies Inc. Common Stock,NYSE,Finance,Property-Casualty Insurers,78803814812
+SHW,Sherwin-Williams Company (The) Common Stock,NYSE,Consumer Discretionary,RETAIL: Building Materials,78784730326
+EPD,Enterprise Products Partners L.P. Common Stock,NYSE,Utilities,Natural Gas Distribution,77287687879
+CP,Canadian Pacific Kansas City Limited Common Shares,NYSE,Industrials,Railroads,76841766810
+KKR,KKR & Co. Inc. Common Stock,NYSE,Finance,Investment Managers,76837607446
+ITW,Illinois Tool Works Inc. Common Stock,NYSE,Industrials,Industrial Machinery/Components,76745056000
+CI,The Cigna Group Common Stock,NYSE,Health Care,Medical Specialities,76518759936
+BCS,Barclays PLC Common Stock,NYSE,Finance,Commercial Banks,76412504439
+MSI,Motorola Solutions Inc. Common Stock,NYSE,Technology,Radio And Television Broadcasting And Communications Equipment,74758508853
+CMCSA,Comcast Corporation Class A Common Stock,NASDAQ,Telecommunications,Cable & Other Pay Television Services,74698799862
+KMI,Kinder Morgan Inc. Common Stock,NYSE,Utilities,Natural Gas Distribution,74263849668
+CL,Colgate-Palmolive Company Common Stock,NYSE,Consumer Discretionary,Package Goods/Cosmetics,73961695075
+HLT,Hilton Worldwide Holdings Inc. Common Stock ,NYSE,Consumer Discretionary,Hotels/Resorts,73821290480
+ROST,Ross Stores Inc. Common Stock,NASDAQ,Consumer Discretionary,Clothing/Shoe/Accessory Stores,73656303573
+RCL,Royal Caribbean Cruises Ltd. Common Stock,NYSE,Consumer Discretionary,Marine Transportation,73364781162
+GM,General Motors Company Common Stock,NYSE,Industrials,Auto Manufacturing,72872350480
+NSC,Norfolk Southern Corporation Common Stock,NYSE,Industrials,Railroads,72712468591
+NU,Nu Holdings Ltd. Class A Ordinary Shares,NYSE,Finance,Finance: Consumer Services,72495207326
+CMI,Cummins Inc. Common Stock,NYSE,Industrials,Industrial Machinery/Components,72406013583
+CNI,Canadian National Railway Company Common Stock,NYSE,Industrials,Railroads,72401385000
+SLB,SLB Limited Common Shares,NYSE,Energy,Oilfield Services/Equipment,71995788136
+MFC,Manulife Financial Corporation Common Stock,NYSE,Finance,Life Insurance,71929181153
+BAM,Brookfield Asset Management Inc Class A Limited Voting Shares,NYSE,Real Estate,Building operators,71252743373
+TGT,Target Corporation Common Stock,NYSE,Consumer Discretionary,Department/Specialty Retail Stores,70556826068
+BE,Bloom Energy Corporation Class A Common Stock,NYSE,Energy,Industrial Machinery/Components,70492174992
+NOC,Northrop Grumman Corporation Common Stock,NYSE,Industrials,Industrial Machinery/Components,70419221358
+ORLY,O'Reilly Automotive Inc. Common Stock,NASDAQ,Consumer Discretionary,Auto & Home Supply Stores,70128811058
+NWG,NatWest Group plc American Depositary Shares (each representing two (2) Ordinary Shares),NYSE,Finance,Commercial Banks,69960608837
+FDX,FedEx Corporation Common Stock,NYSE,Consumer Discretionary,Air Freight/Delivery Services,68937364307
+RSG,Republic Services Inc. Common Stock,NYSE,Utilities,Environmental Services,68726440782
+AEP,American Electric Power Company Inc. Common Stock,NASDAQ,Utilities,Electric Utilities: Central,68664838008
+APO,Apollo Global Management Inc. (New) Common Stock,NYSE,Finance,Investment Managers,66961688799
+HON,Honeywell International Inc. Common Stock,NASDAQ,Industrials,Aerospace,65799915476
+AMX,America Movil S.A.B. de C.V. American Depositary Shares (each representing the right to receive twenty (20) Series B Shares,NYSE,Telecommunications,Telecommunications Equipment,65732940000
+APD,Air Products and Chemicals Inc. Common Stock,NYSE,Basic Materials,Major Chemicals,65142198091
+RELX,RELX PLC PLC American Depositary Shares (Each representing One Ordinary Share),NYSE,Consumer Discretionary,Business Services,64537407862
+URI,United Rentals Inc. Common Stock,NYSE,Consumer Discretionary,Diversified Commercial Services,64409150042
+SPG,Simon Property Group Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,64289686031
+COR,Cencora Inc. Common Stock,NYSE,Health Care,Other Pharmaceuticals,64150368058
+B,Barrick Mining Corporation Common Shares,NYSE,Basic Materials,Precious Metals,64008445055
+CVNA,Carvana Co. Class A Common Stock,NYSE,Consumer Discretionary,Retail-Auto Dealers and Gas Stations,63782880109
+DLR,Digital Realty Trust Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,63679525528
+MET,MetLife Inc. Common Stock,NYSE,Finance,Life Insurance,63369759160
+IMO,Imperial Oil Limited Common Stock,AMEX,Energy,Integrated oil Companies,62663980940
+TRGP,Targa Resources Inc. Common Stock,NYSE,Utilities,Natural Gas Distribution,62380128319
+BSX,Boston Scientific Corporation Common Stock,NYSE,Health Care,Medical/Dental Instruments,62316869618
+DB,Deutsche Bank AG Common Stock,NYSE,Finance,Major Banks,61709920000
+OXY,Occidental Petroleum Corporation Common Stock,NYSE,Energy,Oil & Gas Production,61387730953
+CVE,Cenovus Energy Inc Common Stock,NYSE,Energy,Oil & Gas Production,61162500000
+TRP,TC Energy Corporation Common Stock,NYSE,Utilities,Natural Gas Distribution,61140000000
+MPWR,Monolithic Power Systems Inc. Common Stock,NASDAQ,Technology,Semiconductors,61090154730
+KEYS,Keysight Technologies Inc. Common Stock,NYSE,Industrials,Industrial Machinery/Components,60882925707
+TEL,TE Connectivity plc Ordinary Shares,NYSE,Technology,Electronic Components,60870156187
+AJG,Arthur J. Gallagher & Co. Common Stock,NYSE,Finance,Specialty Insurers,60753352000
+MSTR,Strategy Inc Common Stock Class A,NASDAQ,Technology,Computer Software: Prepackaged Software,60444115542
+TAK,Takeda Pharmaceutical Company Limited American Depositary Shares (each representing 1/2 of a share of Common Stock),NYSE,Health Care,Biotechnology: Pharmaceutical Preparations,60068645998
+ALL,Allstate Corporation (The) Common Stock,NYSE,Finance,Property-Casualty Insurers,59717462052
+FAST,Fastenal Company Common Stock,NASDAQ,Consumer Discretionary,RETAIL: Building Materials,59669873796
+AFL,AFLAC Incorporated Common Stock,NYSE,Finance,Accident &Health Insurance,59263791257
+WPM,Wheaton Precious Metals Corp Common Shares (Canada),NYSE,Basic Materials,Precious Metals,58850048653
+AON,Aon plc Class A Ordinary Shares (Ireland),NYSE,Finance,Specialty Insurers,58408738252
+SE,Sea Limited American Depositary Shares each representing one Class A Ordinary Share,NYSE,Consumer Discretionary,Other Consumer Services,58375899792
+NUE,Nucor Corporation Common Stock,NYSE,Industrials,Steel/Iron Ore,58332005056
+MPLX,MPLX LP Common Units Representing Limited Partner Interests,NYSE,Energy,Natural Gas Distribution,58256295102
+OKE,ONEOK Inc. Common Stock,NYSE,Utilities,Oil & Gas Production,57975098274
+LNG,Cheniere Energy Inc. Common Stock,NYSE,Utilities,Oil/Gas Transmission,57765538651
+CAH,Cardinal Health Inc. Common Stock,NYSE,Health Care,Other Pharmaceuticals,57366512130
+PCAR,PACCAR Inc. Common Stock,NASDAQ,Industrials,Auto Manufacturing,57142179298
+NTRA,Natera Inc. Common Stock,NASDAQ,Health Care,Medical Specialities,56900911108
+AME,AMETEK Inc.,NYSE,Industrials,Industrial Machinery/Components,56588552857
+VALE,VALE S.A.  American Depositary Shares Each Representing one common share,NYSE,Basic Materials,Metal Mining,56400284603
+TER,Teradyne Inc. Common Stock,NASDAQ,Industrials,Electrical Products,56195119180
+NXPI,NXP Semiconductors N.V. Common Stock,NASDAQ,Technology,Semiconductors,55685414544
+TFC,Truist Financial Corporation Common Stock,NYSE,Finance,Major Banks,55669505387
+FANG,Diamondback Energy Inc. Common Stock,NASDAQ,Energy,Oil & Gas Production,55307609961
+D,Dominion Energy Inc. Common Stock,NYSE,Utilities,Electric Utilities: Central,55234229597
+BKR,Baker Hughes Company Class A Common Stock,NASDAQ,Consumer Discretionary,Oil and Gas Field Machinery,54964363311
+DVN,Devon Energy Corporation Common Stock,NYSE,Energy,Oil & Gas Production,54912000000
+NOK,Nokia Corporation Sponsored American Depositary Shares,NYSE,Technology,Radio And Television Broadcasting And Communications Equipment,53977053142
+PSA,Public Storage Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,53955468704
+GRMN,Garmin Ltd. Common Stock (Switzerland),NYSE,Industrials,Industrial Machinery/Components,53944711370
+UMC,United Microelectronics Corporation (NEW) Common Stock,NYSE,Technology,Semiconductors,53877309157
+SRE,DBA Sempra Common Stock,NYSE,Utilities,Natural Gas Distribution,53613289533
+CRH,CRH PLC Ordinary Shares,NYSE,Industrials,Building Materials,53011683014
+NKE,Nike Inc. Common Stock,NYSE,Consumer Discretionary,Shoe Manufacturing,52431401664
+O,Realty Income Corporation Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,52202848881
+ALAB,Astera Labs Inc. Common Stock,NASDAQ,Technology,Semiconductors,52094107029
+EBAY,eBay Inc. Common Stock,NASDAQ,Consumer Discretionary,Business Services,52011600000
+COHR,Coherent Corp. Common Stock,NYSE,Technology,Electronic Components,51856834408
+TEAM,Atlassian Corporation Class A Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,51807389878
+BDX,Becton Dickinson and Company Common Stock,NYSE,Health Care,Medical/Dental Instruments,51451142652
+NDAQ,Nasdaq Inc. Common Stock,NASDAQ,Finance,Investment Bankers/Brokers/Service,51403559129
+HUM,Humana Inc. Common Stock,NYSE,Health Care,Medical Specialities,51322323639
+DEO,Diageo plc Common Stock,NYSE,Consumer Staples,Beverages (Production/Distribution),51211795032
+CIEN,Ciena Corporation Common Stock,NYSE,Utilities,Telecommunications Equipment,50994345590
+VST,Vistra Corp. Common Stock,NYSE,Utilities,Electric Utilities: Central,50946066249
+NBIS,Nebius Group N.V. Class A Ordinary Shares,NASDAQ,Technology,Computer Software: Programming Data Processing,50567789100
+DAL,Delta Air Lines Inc. Common Stock,NYSE,Consumer Discretionary,Air Freight/Delivery Services,50428983927
+EW,Edwards Lifesciences Corporation Common Stock,NYSE,Health Care,Industrial Specialties,49829780000
+HONA,Honeywell Aerospace Inc. Common Stock ,NASDAQ,Industrials,Aerospace,49676000589
+VYLR,Vylor Inc. Common Stock,NYSE,Consumer Staples,Farming/Seeds/Milling,49654011021
+A,Agilent Technologies Inc. Common Stock,NYSE,Industrials,Biotechnology: Laboratory Analytical Instruments,49055620596
+ETR,Entergy Corporation Common Stock,NYSE,Utilities,Electric Utilities: Central,48762991541
+CCEP,Coca-Cola Europacific Partners plc Ordinary Shares,NASDAQ,Consumer Staples,Beverages (Production/Distribution),48675996466
+WAB,Westinghouse Air Brake Technologies Corporation Common Stock,NYSE,Industrials,Railroads,48391269703
+ADSK,Autodesk Inc. Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,48308260000
+VEEV,Veeva Systems Inc. Class A Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,48143596548
+PYPL,PayPal Holdings Inc. Common Stock,NASDAQ,Industrials,Diversified Commercial Services,47991355031
+VMRK,Vivmark Residential Common Shares of Beneficial Interest,NYSE,Real Estate,Real Estate Investment Trusts,47880000000
+MT,Arcelor Mittal NY Registry Shares NEW,NYSE,Industrials,Steel/Iron Ore,47562752429
+TEVA,Teva Pharmaceutical Industries Limited Ordinary Shares,NYSE,Health Care,Biotechnology: Pharmaceutical Preparations,47450856540
+MDLN,Medline Inc. Class A Common Stock,NASDAQ,Health Care,Medical/Dental Instruments,47237440188
+F,Ford Motor Company Common Stock,NYSE,Industrials,Auto Manufacturing,47196760272
+P,Everpure Inc. Class A common stock,NYSE,Technology,Electronic Components,47148323744
+ROK,Rockwell Automation Inc. Common Stock,NYSE,Industrials,Industrial Machinery/Components,47115617179
+XEL,Xcel Energy Inc. Common Stock,NASDAQ,Utilities,Power Generation,47072441300
+INFY,Infosys Limited American Depositary Shares,NYSE,Technology,EDP Services,46567013845
+STT,State Street Corporation Common Stock,NYSE,Finance,Major Banks,45844977561
+TRI,Thomson Reuters Corporation Common Shares,NASDAQ,Consumer Discretionary,Publishing,45659280000
+COIN,Coinbase Global Inc. Class A Common Stock,NASDAQ,Finance,Finance: Consumer Services,45614765617
+XYZ,Block Inc. Class A Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,45570300750
+WDAY,Workday Inc. Class A Common Stock,NASDAQ,Technology,EDP Services,45493570000
+FNV,Franco-Nevada Corporation,NYSE,Basic Materials,Precious Metals,45334989041
+KDP,Keurig Dr Pepper Inc. Common Stock,NASDAQ,Consumer Staples,Beverages (Production/Distribution),45070558379
+FITB,Fifth Third Bancorp Common Stock,NYSE,Finance,Major Banks,45018146877
+AU,AngloGold Ashanti PLC Ordinary Shares,NYSE,Basic Materials,Precious Metals,44932540703
+CARR,Carrier Global Corporation Common Stock ,NYSE,Industrials,Industrial Machinery/Components,44711391092
+LHX,L3Harris Technologies Inc. Common Stock,NYSE,Industrials,Industrial Machinery/Components,44225971300
+EXC,Exelon Corporation Common Stock,NASDAQ,Utilities,Power Generation,43974018994
+NTAP,NetApp Inc. Common Stock,NASDAQ,Technology,Electronic Components,43644302911
+HMC,Honda Motor Company Ltd. Common Stock,NYSE,Industrials,Auto Manufacturing,43402271928
+VTR,Ventas Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,43246507527
+FERG,Ferguson Enterprises Inc. Common Stock,NYSE,Miscellaneous,Miscellaneous,43128348728
+IQV,IQVIA Holdings Inc. Common Stock,NYSE,Health Care,Biotechnology: Commercial Physical & Biological Resarch,43126846000
+WAT,Waters Corporation Common Stock,NYSE,Industrials,Biotechnology: Laboratory Analytical Instruments,42896107744
+HLN,Haleon plc American Depositary Shares (Each representing two Ordinary Shares),NYSE,Consumer Discretionary,Package Goods/Cosmetics,42575296115
+STRC,Strategy Inc Variable Rate Series A Perpetual Stretch Preferred Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,42088076544
+STM,STMicroelectronics N.V. Common Stock,NYSE,Technology,Semiconductors,41860370208
+IDXX,IDEXX Laboratories Inc. Common Stock,NASDAQ,Health Care,Biotechnology: In Vitro & In Vivo Diagnostic Substances,41675998175
+TWLO,Twilio Inc. Class A Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,41637313646
+RVMD,Revolution Medicines Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),41478383611
+FMX,Fomento Economico Mexicano S.A.B. de C.V. Common Stock,NYSE,Consumer Staples,Beverages (Production/Distribution),41113439558
+ILMN,Illumina Inc. Common Stock,NASDAQ,Health Care,Medical Specialities,41035760000
+MSCI,MSCI Inc. Common Stock,NYSE,Consumer Discretionary,Business Services,40749804000
+ED,Consolidated Edison Inc. Common Stock,NYSE,Utilities,Power Generation,40533218177
+AIG,American International Group Inc. New Common Stock,NYSE,Finance,Property-Casualty Insurers,40487618076
+SMCIP,Super Micro Computer Inc. Depositary Shares representing a 1/20th Interest in a Share of 7% Series A Mandatory Convertible Preferred Stock,NASDAQ,Technology,Computer Manufacturing,40347529058
+ADM,Archer-Daniels-Midland Company Common Stock,NYSE,Consumer Staples,Packaged Foods,40311099522
+YUM,Yum! Brands Inc.,NYSE,Consumer Discretionary,Restaurants,40031860159
+WCN,Waste Connections Inc. Common Shares,NYSE,Utilities,Environmental Services,40024388891
+SYY,Sysco Corporation Common Stock,NYSE,Consumer Discretionary,Food Distributors,39831362631
+LYV,Live Nation Entertainment Inc. Common Stock,NYSE,Consumer Discretionary,Services-Misc. Amusement & Recreation,39784420922
+PRU,Prudential Financial Inc. Common Stock,NYSE,Finance,Life Insurance,39154050000
+MCHP,Microchip Technology Incorporated Common Stock,NASDAQ,Technology,Semiconductors,38689369234
+CMG,Chipotle Mexican Grill Inc. Common Stock,NYSE,Consumer Discretionary,Restaurants,38620557360
+PAYX,Paychex Inc. Common Stock,NASDAQ,Industrials,Diversified Commercial Services,38577603859
+ODFL,Old Dominion Freight Line Inc. Common Stock,NASDAQ,Industrials,Trucking Freight/Courier Services,38230340398
+IBKR,Interactive Brokers Group Inc. Class A Common Stock,NASDAQ,Finance,Investment Bankers/Brokers/Service,38121997308
+TTWO,Take-Two Interactive Software Inc. Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,37626074545
+DHI,D.R. Horton Inc. Common Stock,NYSE,Consumer Discretionary,Homebuilding,37379277322
+CBRE,CBRE Group Inc Common Stock Class A,NYSE,Finance,Real Estate,37317568653
+KR,Kroger Company (The) Common Stock,NYSE,Consumer Staples,Food Chains,37260241083
+CLS,Celestica Inc. Common Stock,NYSE,Technology,Electrical Products,37173104955
+ARES,Ares Management Corporation Class A Common Stock,NYSE,Finance,Investment Managers,37152885490
+RKLB,Rocket Lab Corporation Common Stock,NASDAQ,Industrials,Military/Government/Technical,37150821354
+FLEX,Flex Ltd. Ordinary Shares,NASDAQ,Technology,Electrical Products,37075355455
+OKTA,Okta Inc. Class A Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,37047176957
+ROP,Roper Technologies Inc. Common Stock,NASDAQ,Industrials,Industrial Machinery/Components,36859366731
+VIK,Viking Holdings Ltd Ordinary Shares,NYSE,Consumer Discretionary,Marine Transportation,36821926821
+EL,Estee Lauder Companies Inc. (The) Common Stock,NYSE,Consumer Discretionary,Package Goods/Cosmetics,36808370712
+EC,Ecopetrol S.A. American Depositary Shares,NYSE,Energy,Oil & Gas Production,36799441757
+BSP,Bending Spoons S.p.A. Ordinary Shares,NASDAQ,Technology,Computer Software: Programming Data Processing,36795411378
+CRWV,CoreWeave Inc. Class A Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,36280077680
+FER,Ferrovial N.V. Ordinary Shares,NASDAQ,Industrials,Military/Government/Technical,36109584573
+ZS,Zscaler Inc. Common Stock,NASDAQ,Technology,EDP Services,36000846771
+VOD,Vodafone Group Plc American Depositary Shares,NASDAQ,Telecommunications,Telecommunications Equipment,35894732744
+JD,JD.com Inc. American Depositary Shares,NASDAQ,Consumer Discretionary,Other Specialty Stores,35857920000
+HIG,The Hartford Insurance Group Inc. Common Stock,NYSE,Finance,Property-Casualty Insurers,35744269384
+SKYD,Skydance Corporation Class B Common Stock,NYSE,Industrials,Broadcasting,35597777294
+CCJ,Cameco Corporation Common Stock,NYSE,Basic Materials,Other Metals and Minerals,35482871718
+PCG,Pacific Gas & Electric Co. Common Stock,NYSE,Utilities,Power Generation,35243453022
+PEG,Public Service Enterprise Group Incorporated Common Stock,NYSE,Utilities,Power Generation,35168517317
+CCL,Carnival Corporation Ltd. Common Shares,NYSE,Consumer Discretionary,Marine Transportation,34919525050
+STLD,Steel Dynamics Inc.,NASDAQ,Industrials,Steel/Iron Ore,34817259137
+WEC,WEC Energy Group Inc. Common Stock,NYSE,Utilities,Power Generation,34784421635
+CNC,Centene Corporation Common Stock,NYSE,Health Care,Medical Specialities,34658689200
+KVUE,Kenvue Inc. Common Stock,NYSE,Consumer Discretionary,Package Goods/Cosmetics,34593130141
+BIIB,Biogen Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),34401563354
+RBLX,Roblox Corporation Class A Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,33961432235
+RPRX,Royalty Pharma plc Class A Ordinary Shares ,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,33919321024
+CCI,Crown Castle Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,33772652748
+CRDO,Credo Technology Group Holding Ltd Ordinary Shares,NASDAQ,Technology,Semiconductors,33685682504
+NTR,Nutrien Ltd. Common Shares,NYSE,Industrials,Agricultural Chemicals,33674701220
+CBRS,Cerebras Systems Inc. Class A Common Stock,NASDAQ,Technology,Semiconductors,33610560521
+MLM,Martin Marietta Materials Inc. Common Stock,NYSE,Industrials,Mining & Quarrying of Nonmetallic Minerals (No Fuels),33457677934
+ACGL,Arch Capital Group Ltd. Common Stock,NASDAQ,Finance,Property-Casualty Insurers,33303962698
+AXON,Axon Enterprise Inc. Common Stock,NASDAQ,Industrials,Ordnance And Accessories,33178985034
+VG,Venture Global Inc. Class A common stock,NYSE,Utilities,Oil/Gas Transmission,33176232133
+RMD,ResMed Inc. Common Stock,NYSE,Health Care,Medical/Dental Instruments,33091007485
+KMB,Kimberly-Clark Corporation Common Stock,NASDAQ,Consumer Discretionary,Containers/Packaging,33061682168
+IRM,Iron Mountain Incorporated (Delaware)Common Stock REIT,NYSE,Real Estate,Real Estate Investment Trusts,33003333738
+HSY,The Hershey Company Common Stock,NYSE,Consumer Staples,Specialty Foods,33002039162
+EQT,EQT Corporation Common Stock,NYSE,Energy,Oil & Gas Production,32995969000
+QSR,Restaurant Brands International Inc. Common Shares,NYSE,Consumer Discretionary,Restaurants,32910988942
+TKO,TKO Group Holdings Inc. Class A Common Stock,NYSE,Consumer Discretionary,Services-Misc. Amusement & Recreation,32626313127
+ERIC,Ericsson American Depositary Shares,NASDAQ,Technology,Radio And Television Broadcasting And Communications Equipment,32297549621
+UAL,United Airlines Holdings Inc. Common Stock,NASDAQ,Consumer Discretionary,Air Freight/Delivery Services,32120810077
+ALC,Alcon Inc. Ordinary Shares,NYSE,Health Care,Ophthalmic Goods,31915839000
+GFI,Gold Fields Limited American Depositary Shares,NYSE,Basic Materials,Precious Metals,31818111981
+TECK,Teck Resources Ltd Ordinary Shares,NYSE,Industrials,Mining & Quarrying of Nonmetallic Minerals (No Fuels),31722375384
+DXCM,DexCom Inc. Common Stock,NASDAQ,Health Care,Medical/Dental Instruments,31498303055
+EXPE,Expedia Group Inc. Common Stock,NASDAQ,Consumer Discretionary,Transportation Services,31450876299
+VMC,Vulcan Materials Company (Holding Company) Common Stock,NYSE,Industrials,Mining & Quarrying of Nonmetallic Minerals (No Fuels),31328251728
+MTB,M&T Bank Corporation Common Stock,NYSE,Finance,Major Banks,31201133405
+ZTS,Zoetis Inc. Class A Common Stock,NYSE,Health Care,Biotechnology: Pharmaceutical Preparations,31111604995
+SUNB,Sunbelt Rentals Holdings Inc. Common Stock,NYSE,Consumer Discretionary,Diversified Commercial Services,30982323862
+GEHC,GE HealthCare Technologies Inc. Common Stock ,NASDAQ,Health Care,Medical Electronics,30926957674
+TS,Tenaris S.A. American Depositary Shares,NYSE,Industrials,Steel/Iron Ore,30798125754
+JBL,Jabil Inc. Common Stock,NYSE,Technology,Electrical Products,30797973328
+HBAN,Huntington Bancshares Incorporated Common Stock,NASDAQ,Finance,Major Banks,30508263873
+RJF,Raymond James Financial Inc. Common Stock,NYSE,Finance,Investment Bankers/Brokers/Service,30248879055
+IR,Ingersoll Rand Inc. Common Stock,NYSE,Industrials,Industrial Machinery/Components,30240675496
+ALNY,Alnylam Pharmaceuticals Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,30036132717
+RKT,Rocket Companies Inc. Class A Common Stock,NYSE,Finance,Finance: Consumer Services,29817194693
+PUK,Prudential Public Limited Company Common Stock,NYSE,Finance,Life Insurance,29757686189
+NTRS,Northern Trust Corporation Common Stock,NASDAQ,Finance,Major Banks,29755907404
+AEE,Ameren Corporation Common Stock,NYSE,Utilities,Power Generation,28952267190
+MDB,MongoDB Inc. Class A Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,28701418735
+DG,Dollar General Corporation Common Stock,NYSE,Consumer Discretionary,Department/Specialty Retail Stores,28666945693
+RDDT,Reddit Inc. Class A Common Stock,NYSE,Technology,EDP Services,28590121386
+ON,ON Semiconductor Corporation Common Stock,NASDAQ,Technology,Semiconductors,28560413450
+WSM,Williams-Sonoma Inc. Common Stock (DE),NYSE,Consumer Discretionary,Home Furnishings,28559093869
+EXR,Extra Space Storage Inc Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,28327022337
+PBA,Pembina Pipeline Corp. Ordinary Shares (Canada),NYSE,Energy,Oil & Gas Production,28217048600
+CTSH,Cognizant Technology Solutions Corporation Class A Common Stock,NASDAQ,Technology,EDP Services,28139249736
+FTS,Fortis Inc. Common Shares,NYSE,Utilities,Electric Utilities: Central,27941121000
+BIDU,Baidu Inc. ADS,NASDAQ,Technology,Computer Software: Programming Data Processing,27853082666
+ATO,Atmos Energy Corporation Common Stock,NYSE,Utilities,Oil/Gas Transmission,27703983379
+WTW,Willis Towers Watson Public Limited Company Ordinary Shares,NASDAQ,Finance,Specialty Insurers,27591323763
+ZM,Zoom Communications Inc. Class A Common Stock,NASDAQ,Technology,Computer Software: Programming Data Processing,27564807178
+HPQ,HP Inc. Common Stock,NYSE,Technology,Computer Manufacturing,27468552916
+WRB,W.R. Berkley Corporation Common Stock,NYSE,Finance,Property-Casualty Insurers,27396591640
+HAL,Halliburton Company Common Stock,NYSE,Energy,Oilfield Services/Equipment,27351669949
+GFS,GlobalFoundries Inc. Ordinary Shares,NASDAQ,Technology,Semiconductors,27280066431
+FTI,TechnipFMC plc Ordinary Share,NYSE,Consumer Discretionary,Oil and Gas Field Machinery,27255424966
+VRSN,VeriSign Inc. Common Stock,NASDAQ,Technology,EDP Services,27217323000
+RYAAY,Ryanair Holdings plc American Depositary Shares,NASDAQ,Consumer Discretionary,Air Freight/Delivery Services,27011580389
+KHC,The Kraft Heinz Company Common Stock,NYSE,Consumer Staples,Packaged Foods,26918199307
+DTE,DTE Energy Company Common Stock,NYSE,Utilities,Electric Utilities: Central,26699780133
+SYF,Synchrony Financial Common Stock,NYSE,Finance,Finance: Consumer Services,26683967343
+KGC,Kinross Gold Corporation Common Stock,NYSE,Basic Materials,Precious Metals,26556784000
+CFG,Citizens Financial Group Inc. Common Stock,NYSE,Finance,Major Banks,26353031625
+OTIS,Otis Worldwide Corporation Common Stock ,NYSE,Technology,Consumer Electronics/Appliances,26308058018
+FE,FirstEnergy Corp. Common Stock,NYSE,Utilities,Electric Utilities: Central,26276039312
+SN,SharkNinja Inc. Ordinary Shares,NYSE,Consumer Discretionary,Consumer Electronics/Appliances,26247187569
+FOXA,Fox Corporation Class A Common Stock,NASDAQ,Industrials,Broadcasting,26232316025
+AWK,American Water Works Company Inc. Common Stock,NYSE,Utilities,Water Supply,26174595141
+PPL,PPL Corporation Common Stock,NYSE,Utilities,Electric Utilities: Central,26150933225
+CNP,CenterPoint Energy Inc (Holding Co) Common Stock,NYSE,Utilities,Electric Utilities: Central,26138021028
+DOV,Dover Corporation Common Stock,NYSE,Industrials,Industrial Machinery/Components,26037727899
+TW,Tradeweb Markets Inc. Class A Common Stock,NASDAQ,Finance,Investment Bankers/Brokers/Service,25902248038
+FFIV,F5 Inc. Common Stock,NASDAQ,Telecommunications,Computer Communications Equipment,25893345241
+CPNG,Coupang Inc. Class A Common Stock,NYSE,Consumer Discretionary,Catalog/Specialty Distribution,25884168509
+DGX,Quest Diagnostics Incorporated Common Stock,NYSE,Health Care,Medical Specialities,25764453425
+LH,Labcorp Holdings Inc. Common Stock,NYSE,Health Care,Medical Specialities,25736274000
+ATI,ATI Inc. Common Stock,NYSE,Industrials,Steel/Iron Ore,25578244743
+ECHO,EchoStar  Corporation Common Stock,NASDAQ,Consumer Discretionary,Telecommunications Equipment,25551080054
+EXPD,Expeditors International of Washington Inc. Common Stock,NYSE,Industrials,Integrated Freight & Logistics,25527558348
+LPLA,LPL Financial Holdings Inc. Common Stock,NASDAQ,Finance,Investment Bankers/Brokers/Service,25469981123
+Q,Qnity Electronics Inc. Common Stock,NYSE,Technology,Semiconductors,25443943000
+ULTA,Ulta Beauty Inc. Common Stock,NASDAQ,Consumer Discretionary,Other Specialty Stores,25330380970
+VICI,VICI Properties Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,25258719272
+ES,Eversource Energy (D/B/A) Common Stock,NYSE,Utilities,Electric Utilities: Central,25112905849
+HUBB,Hubbell Inc Common Stock,NYSE,Technology,Electrical Products,25009354134
+NVT,nVent Electric plc Ordinary Shares ,NYSE,Industrials,Industrial Machinery/Components,24718944444
+PHG,Koninklijke Philips N.V. NY Registry Shares,NYSE,Health Care,Medical Electronics,24572119675
+VLTO,Veralto Corp Common Stock ,NYSE,Industrials,Electrical Products,24540238007
+FISV,Fiserv Inc. Common Stock,NASDAQ,Consumer Discretionary,Business Services,24498492836
+TCOM,Trip.com Group Limited American Depositary Shares,NASDAQ,Consumer Discretionary,Business Services,24482939031
+CHD,Church & Dwight Company Inc. Common Stock,NYSE,Consumer Discretionary,Package Goods/Cosmetics,24344236975
+CPRT,Copart Inc. (DE) Common Stock,NASDAQ,Consumer Discretionary,Retail-Auto Dealers and Gas Stations,24334700974
+ROIV,Roivant Sciences Ltd. Common Shares,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,24284499764
+XYL,Xylem Inc. Common Stock New,NYSE,Industrials,Fluid Controls,23988435065
+LVS,Las Vegas Sands Corp. Common Stock,NYSE,Consumer Discretionary,Hotels/Resorts,23977897832
+IOT,Samsara Inc. Class A Common Stock,NYSE,Technology,EDP Services,23892692527
+AFRM,Affirm Holdings Inc. Class A Common Stock,NASDAQ,Finance,Finance: Consumer Services,23791572761
+TSEM,Tower Semiconductor Ltd. Ordinary Shares,NASDAQ,Technology,Semiconductors,23641563960
+RBRK,Rubrik Inc. Class A Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,23611974919
+DRI,Darden Restaurants Inc. Common Stock,NYSE,Consumer Discretionary,Restaurants,23592625068
+SMCI,Super Micro Computer Inc. Common Stock,NASDAQ,Technology,Computer Manufacturing,23506221440
+VRSK,Verisk Analytics Inc. Common Stock,NASDAQ,Technology,EDP Services,23503572647
+FOX,Fox Corporation Class B Common Stock,NASDAQ,Industrials,Broadcasting,23478787273
+ENTG,Entegris Inc. Common Stock,NASDAQ,Industrials,Plastic Products,23390624000
+PPG,PPG Industries Inc. Common Stock,NYSE,Consumer Discretionary,Paints/Coatings,23312601000
+UTHR,United Therapeutics Corporation Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,23162260401
+GMAB,Genmab A/S ADS,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,23021519910
+TPR,Tapestry Inc. Common Stock,NYSE,Consumer Discretionary,Apparel,22977291043
+PFG,Principal Financial Group Inc Common Stock,NASDAQ,Finance,Accident &Health Insurance,22964863794
+SYM,Symbotic Inc. Class A Common Stock,NASDAQ,Industrials,Industrial Machinery/Components,22921984733
+RF,Regions Financial Corporation Common Stock,NYSE,Finance,Major Banks,22908384416
+IFF,International Flavors & Fragrances Inc. Common Stock,NYSE,Industrials,Major Chemicals,22861436685
+DLTR,Dollar Tree Inc. Common Stock,NASDAQ,Consumer Discretionary,Department/Specialty Retail Stores,22845865206
+FWONK,Liberty Media Corporation Series C Common Stock,NASDAQ,Industrials,Broadcasting,22789401287
+DINO,HF Sinclair Corporation Common Stock,NYSE,Energy,Natural Gas Distribution,22701219679
+ROKU,Roku Inc. Class A Common Stock,NASDAQ,Telecommunications,Cable & Other Pay Television Services,22644282100
+SBS,Companhia de saneamento Basico Do Estado De Sao Paulo - Sabesp American Depositary Shares (Each repstg 250 Common Shares),NYSE,Utilities,Water Supply,22627508441
+INCY,Incyte Corp. Common Stock,NASDAQ,Health Care,Biotechnology: Commercial Physical & Biological Resarch,22614987521
+RL,Ralph Lauren Corporation Common Stock,NYSE,Industrials,Garments and Clothing,22359426830
+L,Loews Corporation Common Stock,NYSE,Finance,Property-Casualty Insurers,22303064252
+AER,AerCap Holdings N.V. Ordinary Shares,NYSE,Consumer Discretionary,Diversified Commercial Services,22282714079
+BNTX,BioNTech SE American Depositary Share,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),22271779090
+MTSI,MACOM Technology Solutions Holdings Inc. Common Stock,NASDAQ,Technology,Semiconductors,22249143328
+ARXS,Arxis Inc. Class A Common Stock,NASDAQ,Industrials,Military/Government/Technical,22061574796
+GH,Guardant Health Inc. Common Stock,NASDAQ,Health Care,Medical Specialities,21872633748
+THC,Tenet Healthcare Corporation Common Stock,NYSE,Health Care,Hospital/Nursing Management,21868960400
+JBHT,J.B. Hunt Transport Services Inc. Common Stock,NASDAQ,Industrials,Trucking Freight/Courier Services,21803292238
+BRO,Brown & Brown Inc. Common Stock,NYSE,Finance,Specialty Insurers,21682751134
+XPO,XPO Inc. Common Stock,NYSE,Consumer Discretionary,Transportation Services,21672704672
+STZ,Constellation Brands Inc. Common Stock,NYSE,Consumer Staples,Beverages (Production/Distribution),21557579229
+OMC,Omnicom Group Inc. Common Stock,NYSE,Consumer Discretionary,Advertising,21511467272
+ONON,On Holding AG Class A Ordinary Shares,NYSE,Consumer Discretionary,Shoe Manufacturing,21421802985
+GPN,Global Payments Inc. Common Stock,NYSE,Consumer Discretionary,Business Services,21404981567
+SW,Smurfit WestRock plc Ordinary Shares,NYSE,Consumer Discretionary,Containers/Packaging,21374308501
+INSM,Insmed Incorporated Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,21355527178
+EIX,Edison International Common Stock,NYSE,Utilities,Electric Utilities: Central,21334086996
+USFD,US Foods Holding Corp. Common Stock,NYSE,Consumer Discretionary,Food Distributors,21297759679
+TROW,T. Rowe Price Group Inc. Common Stock,NASDAQ,Finance,Investment Managers,21250524977
+NRG,NRG Energy Inc. Common Stock,NYSE,Utilities,Electric Utilities: Central,21199727211
+STE,STERIS plc (Ireland) Ordinary Shares,NYSE,Health Care,Industrial Specialties,21182873899
+KEY,KeyCorp Common Stock,NYSE,Finance,Major Banks,21118474084
+EXE,Expand Energy Corporation Common Stock,NASDAQ,Energy,Oil & Gas Production,21092310216
+DOW,Dow Inc. Common Stock ,NYSE,Industrials,Major Chemicals,21085125354
+SNX,TD SYNNEX Corporation Common Stock,NYSE,Technology,Retail: Computer Software & Peripheral Equipment,21042116301
+PTC,PTC Inc. Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,21011152380
+CMS,CMS Energy Corporation Common Stock,NYSE,Utilities,Power Generation,20953224228
+BG,Bunge Limited Common Shares,NYSE,Consumer Staples,Packaged Foods,20923693686
+YPF,YPF Sociedad Anonima American Depositary Shares,NYSE,Energy,Integrated oil Companies,20550593434
+PHM,PulteGroup Inc. Common Stock,NYSE,Consumer Discretionary,Homebuilding,20497935249
+PKG,Packaging Corporation of America Common Stock,NYSE,Consumer Discretionary,Containers/Packaging,20489044838
+CRCL,Circle Internet Group Inc. Class A Common Stock,NYSE,Finance,Finance: Consumer Services,20195826334
+PR,Permian Resources Corporation Class A Common Stock,NYSE,Energy,Oil & Gas Production,20151622118
+VTRS,Viatris Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,20031424668
+AMRZ,Amrize Ltd Ordinary Shares,NYSE,Industrials,Building Materials,19847931621
+BEKE,KE Holdings Inc American Depositary Shares (each representing three Class A Ordinary Shares),NYSE,Finance,Real Estate,19794795293
+NI,NiSource Inc Common Stock,NYSE,Utilities,Power Generation,19786649726
+LYB,LyondellBasell Industries NV Ordinary Shares Class A (Netherlands),NYSE,Industrials,Major Chemicals,19760231524
+BCH,Banco De Chile ADS,NYSE,Finance,Commercial Banks,19718534250
+AMCR,Amcor plc Ordinary Shares,NYSE,Consumer Discretionary,Miscellaneous manufacturing industries,19547975773
+SSNC,SS&C Technologies Holdings Inc. Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,19253442422
+FSLR,First Solar Inc. Common Stock,NASDAQ,Technology,Semiconductors,19245689635
+LUV,Southwest Airlines Company Common Stock,NYSE,Consumer Discretionary,Air Freight/Delivery Services,19245450627
+SBAC,SBA Communications Corporation Class A Common Stock,NASDAQ,Real Estate,Real Estate Investment Trusts,19171182358
+TSN,Tyson Foods Inc. Common Stock,NYSE,Consumer Staples,Meat/Poultry/Fish,19074677981
+EVRG,Evergy Inc. Common Stock,NASDAQ,Utilities,Power Generation,19060988109
+RGLD,Royal Gold Inc. Common Stock,NASDAQ,Industrials,Precious Metals,19050211368
+BR,Broadridge Financial Solutions Inc. Common Stock,NYSE,Consumer Discretionary,Business Services,18996559384
+BEP,Brookfield Renewable Partners L.P. Limited Partnership Units,NYSE,Utilities,Electric Utilities: Central,18977547218
+NTNX,Nutanix Inc. Class A Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,18899327003
+OVV,Ovintiv Inc. (DE),NYSE,Energy,Oil & Gas Production,18870225000
+CRS,Carpenter Technology Corporation Common Stock,NYSE,Industrials,Steel/Iron Ore,18818874267
+CDW,CDW Corporation Common Stock,NASDAQ,Consumer Discretionary,Catalog/Specialty Distribution,18765115643
+RIVN,Rivian Automotive Inc. Class A Common Stock,NASDAQ,Industrials,Auto Manufacturing,18749795159
+GFL,GFL Environmental Inc. Subordinate voting shares no par value,NYSE,Utilities,Environmental Services,18735634677
+BBY,Best Buy Co. Inc. Common Stock,NYSE,Consumer Discretionary,Consumer Electronics/Video Chains,18686737892
+WES,Western Midstream Partners LP Common Units Representing Limited Partner Interests,NYSE,Utilities,Natural Gas Distribution,18518485258
+CW,Curtiss-Wright Corporation Common Stock,NYSE,Technology,Industrial Machinery/Components,18484950533
+DT,Dynatrace Inc. Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,18374755298
+SOFI,SoFi Technologies Inc. Common Stock  ,NASDAQ,Finance,Finance: Consumer Services,18366130007
+BCE,BCE Inc. Common Stock,NYSE,Telecommunications,Telecommunications Equipment,18342782820
+FIS,Fidelity National Information Services Inc. Common Stock,NYSE,Consumer Discretionary,Business Services,18292088876
+PS,Pershing Square Inc. Common Stock,NYSE,Finance,Investment Managers,18232000000
+U,Unity Software Inc. Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,18219681826
+GPC,Genuine Parts Company Common Stock,NYSE,Consumer Discretionary,Automotive Aftermarket,18146479946
+CF,CF Industries Holdings Inc. Common Stock,NYSE,Industrials,Agricultural Chemicals,18078853010
+ITT,ITT Inc. Common Stock ,NYSE,Industrials,Fluid Controls,17859438000
+ZBRA,Zebra Technologies Corporation Class A Common Stock,NASDAQ,Industrials,Industrial Machinery/Components,17830441541
+EFX,Equifax Inc. Common Stock,NYSE,Finance,Finance: Consumer Services,17665028963
+PAA,Plains All American Pipeline L.P. Common Units representing Limited Partner Interests,NASDAQ,Energy,Natural Gas Distribution,17625050171
+SQM,Sociedad Quimica y Minera S.A. Common Stock,NYSE,Industrials,Mining & Quarrying of Nonmetallic Minerals (No Fuels),17606714485
+IEX,IDEX Corporation Common Stock,NYSE,Industrials,Fluid Controls,17591041584
+PAAS,Pan American Silver Corp. Common Stock,NYSE,Basic Materials,Precious Metals,17550779940
+NWS,News Corporation Class B Common Stock,NASDAQ,Consumer Discretionary,Newspapers/Magazines,17537472797
+LNT,Alliant Energy Corporation Common Stock,NASDAQ,Utilities,Power Generation,17504310029
+ZBH,Zimmer Biomet Holdings Inc. Common Stock,NYSE,Health Care,Industrial Specialties,17503997720
+LEN,Lennar Corporation Class A Common Stock,NYSE,Consumer Discretionary,Homebuilding,17492804574
+DD,DuPont de Nemours Inc. Common Stock,NYSE,Industrials,Major Chemicals,17350321428
+APG,APi Group Corporation Common Stock,NYSE,Consumer Discretionary,Diversified Commercial Services,17295055086
+FTV,Fortive Corporation Common Stock ,NYSE,Industrials,Industrial Machinery/Components,17287456056
+TOST,Toast Inc. Class A Common Stock,NYSE,Technology,EDP Services,17253300000
+TLN,Talen Energy Corporation Common Stock,NASDAQ,Utilities,Electric Utilities: Central,17173428711
+GIS,General Mills Inc. Common Stock,NYSE,Consumer Staples,Packaged Foods,17168804194
+WCC,WESCO International Inc. Common Stock,NYSE,Consumer Discretionary,Telecommunications Equipment,17129110852
+MGA,Magna International Inc. Common Stock,NYSE,Consumer Discretionary,Auto Parts:O.E.M.,17108532600
+EWBC,East West Bancorp Inc. Common Stock,NASDAQ,Finance,Major Banks,17071677258
+TSCO,Tractor Supply Company Common Stock,NASDAQ,Consumer Discretionary,RETAIL: Building Materials,17058854085
+RGA,Reinsurance Group of America Incorporated Common Stock,NYSE,Finance,Life Insurance,17046999648
+RVTY,Revvity Inc. Common Stock,NYSE,Industrials,Biotechnology: Laboratory Analytical Instruments,16974523320
+IP,International Paper Company Common Stock,NYSE,Basic Materials,Paper,16893279651
+RCI,Rogers Communication Inc. Common Stock,NYSE,Telecommunications,Cable & Other Pay Television Services,16773963832
+FTAI,FTAI Aviation Ltd. Common Stock,NASDAQ,Industrials,Misc Corporate Leasing Services,16766932606
+BIP,Brookfield Infrastructure Partners LP Limited Partnership Units,NYSE,Consumer Discretionary,Marine Transportation,16637921966
+J,Jacobs Solutions Inc. Common Stock,NYSE,Industrials,Military/Government/Technical,16619482762
+APA,APA Corporation Common Stock,NASDAQ,Energy,Oil & Gas Production,16596151029
+BURL,Burlington Stores Inc. Common Stock,NYSE,Consumer Discretionary,Department/Specialty Retail Stores,16536728236
+ASTS,AST SpaceMobile Inc. Class A Common Stock,NASDAQ,Consumer Discretionary,Telecommunications Equipment,16399518197
+LSCC,Lattice Semiconductor Corporation Common Stock,NASDAQ,Technology,Semiconductors,16333481280
+CHRW,C.H. Robinson Worldwide Inc. Common Stock,NASDAQ,Industrials,Integrated Freight & Logistics,16294907928
+FDXF,FedEx Freight Holding Company Inc. Common Stock,NYSE,Consumer Discretionary,Air Freight/Delivery Services,16251125876
+AS,Amer Sports Inc. Ordinary Shares,NYSE,Consumer Discretionary,Apparel,16071974093
+BALL,Ball Corporation Common Stock,NYSE,Industrials,Containers/Packaging,15996023864
+NWSA,News Corporation Class A Common Stock,NASDAQ,Consumer Discretionary,Newspapers/Magazines,15975583849
+TPG,TPG Inc. Class A Common Stock,NASDAQ,Finance,Investment Managers,15955730301
+RBA,RB Global Inc. Common Stock,NYSE,Consumer Discretionary,Business Services,15942535693
+MKSI,MKS Inc. Common Stock,NASDAQ,Industrials,Industrial Machinery/Components,15856317351
+VNOM,Viper Energy Inc. Class A Common Stock,NASDAQ,Energy,Oil & Gas Production,15851270628
+XP,XP Inc. Class A Common Stock,NASDAQ,Finance,Investment Bankers/Brokers/Service,15803331020
+SITM,SiTime Corporation Common Stock,NASDAQ,Technology,Semiconductors,15785188927
+HST,Host Hotels & Resorts Inc. Common Stock,NASDAQ,Real Estate,Real Estate Investment Trusts,15709902469
+ROL,Rollins Inc. Common Stock,NYSE,Consumer Discretionary,Diversified Commercial Services,15699774533
+ZTO,ZTO Express (Cayman) Inc. American Depositary Shares each representing one Class A ordinary share.,NYSE,Industrials,Trucking Freight/Courier Services,15675178109
+INVH,Invitation Homes Inc. Common Stock,NYSE,Finance,Real Estate,15675140418
+MTZ,MasTec Inc. Common Stock,NYSE,Industrials,Water Sewer Pipeline Comm & Power Line Construction,15616100188
+FICO,Fair Isaac Corporation Common Stock,NYSE,Consumer Discretionary,Business Services,15542306075
+BEN,Franklin Templeton Inc. Common Stock,NYSE,Finance,Investment Managers,15511588062
+CDE,Coeur Mining Inc. Common Stock,NYSE,Basic Materials,Precious Metals,15398466270
+FUTU,Futu Holdings Limited American Depositary Shares,NASDAQ,Finance,Investment Bankers/Brokers/Service,15341346775
+BSAC,Banco Santander - Chile ADS,NYSE,Finance,Commercial Banks,15165202054
+CRBG,Corebridge Financial Inc. Common Stock,NYSE,Finance,Life Insurance,15133977122
+LDOS,Leidos Holdings Inc. Common Stock,NYSE,Technology,EDP Services,15133105483
+WMG,Warner Music Group Corp. Class A Common Stock,NASDAQ,Consumer Discretionary,Services-Misc. Amusement & Recreation,15123103422
+EXEL,Exelixis Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),15112205395
+H,Hyatt Hotels Corporation Class A Common Stock,NYSE,Consumer Discretionary,Hotels/Resorts,15102400672
+KIM,Kimco Realty Corporation (HC) Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,15018974061
+PFGC,Performance Food Group Company Common Stock,NYSE,Consumer Discretionary,Food Distributors,15002306001
+SMTC,Semtech Corporation Common Stock,NASDAQ,Technology,Semiconductors,14956364823
+ASND,Ascendis Pharma A/S Ordinary Share,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,14955689792
+SOLV,Solventum Corporation Common Stock,NYSE,Health Care,Medical/Dental Instruments,14853722593
+AEG,Aegon Ltd. New York Registry Shares,NYSE,Finance,Life Insurance,14829352521
+CNH,CNH Industrial N.V. Common Shares,NYSE,Industrials,Construction/Ag Equipment/Trucks,14827956977
+YUMC,Yum China Holdings Inc. Common Stock,NYSE,Consumer Discretionary,Restaurants,14794191475
+WSE,Wise Group plc Class A Ordinary Shares,NASDAQ,Industrials,Diversified Commercial Services,14766334765
+WPC,W. P. Carey Inc. REIT,NYSE,Real Estate,Real Estate Investment Trusts,14480040829
+UNM,Unum Group Common Stock,NYSE,Finance,Accident &Health Insurance,14478739745
+ULS,UL Solutions Inc. Class A Common Stock,NYSE,Health Care,Precision Instruments,14455909187
+EQH,Equitable Holdings Inc. Common Stock,NYSE,Finance,Specialty Insurers,14438099102
+ARMK,Aramark Common Stock,NYSE,Consumer Discretionary,Restaurants,14433471159
+CX,Cemex S.A.B. de C.V. Sponsored ADR,NYSE,Industrials,Building Materials,14431521415
+EMA,Emera Incorporated Common Shares,NYSE,Utilities,Electric Utilities: Central,14426112000
+CRL,Charles River Laboratories International Inc. Common Stock,NYSE,Health Care,Biotechnology: Commercial Physical & Biological Resarch,14417139344
+W,Wayfair Inc. Class A Common Stock,NYSE,Consumer Discretionary,Catalog/Specialty Distribution,14351514375
+TYL,Tyler Technologies Inc. Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,14337800650
+SGI,Somnigroup International Inc. Common Stock,NYSE,Consumer Discretionary,Home Furnishings,14284039348
+JHX,James Hardie Industries plc. Ordinary Shares,NYSE,Industrials,Building Materials,14269242755
+GEN,Gen Digital Inc. Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,14246371362
+RNR,RenaissanceRe Holdings Ltd. Common Stock,NYSE,Finance,Property-Casualty Insurers,14107283192
+FN,Fabrinet Ordinary Shares,NYSE,Utilities,Telecommunications Equipment,14081309809
+DOCU,DocuSign Inc. Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,14060671464
+PNFP,Pinnacle Financial Partners Inc. Common stock,NYSE,Finance,Major Banks,14030808624
+JBS,JBS N.V. Class A Common Shares,NYSE,Consumer Staples,Meat/Poultry/Fish,13943498015
+SUI,Sun Communities Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,13914541328
+STRL,Sterling Infrastructure Inc. Common Stock,NASDAQ,Industrials,Military/Government/Technical,13858739850
+NBIX,Neurocrine Biosciences Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),13815140190
+TRMB,Trimble Inc. Common Stock,NASDAQ,Industrials,Industrial Machinery/Components,13780929017
+OWL,Blue Owl Capital Inc. Class A Common Stock,NYSE,Finance,Investment Managers,13704420640
+GME,GameStop Corporation Common Stock,NYSE,Consumer Discretionary,Electronics Distribution,13697201879
+MAS,Masco Corporation Common Stock,NYSE,Industrials,Industrial Specialties,13692695139
+CHKP,Check Point Software Technologies Ltd. Ordinary Shares,NASDAQ,Technology,Computer Software: Prepackaged Software,13689653007
+NLY,Annaly Capital Management Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,13687454267
+OHI,Omega Healthcare Investors Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,13662856170
+SWK,Stanley Black & Decker Inc. Common Stock,NYSE,Consumer Discretionary,Industrial Machinery/Components,13635292516
+WY,Weyerhaeuser Company Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,13621910400
+JAZZ,Jazz Pharmaceuticals plc Common Stock (Ireland),NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,13609341068
+HTHT,H World Group Limited American Depositary Shares,NASDAQ,Consumer Discretionary,Hotels/Resorts,13592552800
+LTM,LATAM Airlines Group S.A. American Depositary Shares (each representing two thousand (2000) shares of Common Stock),NYSE,Consumer Discretionary,Air Freight/Delivery Services,13585950181
+GWRE,Guidewire Software Inc. Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,13522230971
+HAS,Hasbro Inc. Common Stock,NASDAQ,Consumer Discretionary,Recreational Games/Products/Toys,13464104820
+TIGO,Millicom International Cellular S.A. Common Stock,NASDAQ,Telecommunications,Telecommunications Equipment,13460230202
+MLI,Mueller Industries Inc. Common Stock,NYSE,Industrials,Metal Fabrications,13436769321
+BMNR,BitMine Immersion Technologies Inc. Common Stock,NYSE,Finance,Finance: Consumer Services,13421787267
+MAA,Mid-America Apartment Communities Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,13414458668
+ARCC,Ares Capital Corporation Common Stock,NASDAQ,Finance,Finance: Consumer Services,13348044689
+TME,Tencent Music Entertainment Group American Depositary Shares each representing two Class A Ordinary Shares,NYSE,Consumer Discretionary,Broadcasting,13346710160
+HALO,Halozyme Therapeutics Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),13258836360
+AKAM,Akamai Technologies Inc. Common Stock,NASDAQ,Consumer Discretionary,Business Services,13180250211
+REG,Regency Centers Corporation Common Stock,NASDAQ,Real Estate,Real Estate Investment Trusts,13142561658
+GDDY,GoDaddy Inc. Class A Common Stock,NYSE,Technology,EDP Services,13090306685
+BJ,BJ's Wholesale Club Holdings Inc. Common Stock,NYSE,Consumer Discretionary,Department/Specialty Retail Stores,13059676006
+GGG,Graco Inc. Common Stock,NYSE,Industrials,Fluid Controls,13034043756
+AVY,Avery Dennison Corporation Common Stock,NYSE,Consumer Discretionary,Containers/Packaging,13023434321
+SJM,The J.M. Smucker Company Common Stock,NYSE,Consumer Staples,Packaged Foods,13015336617
+FLUT,Flutter Entertainment plc Ordinary Shares,NYSE,Technology,Computer Software: Programming Data Processing,13008949526
+SKM,SK Telecom Co. Ltd. Common Stock,NYSE,Telecommunications,Telecommunications Equipment,12999526200
+ALLE,Allegion plc Ordinary Shares,NYSE,Consumer Discretionary,Diversified Commercial Services,12968109865
+ICLR,ICON plc Ordinary Shares,NASDAQ,Health Care,Biotechnology: Commercial Physical & Biological Resarch,12937580905
+DOC,Healthpeak Properties Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,12921740852
+EMBJ,Embraer S.A. Common Stock,NYSE,Industrials,Aerospace,12917637837
+TU,Telus Corporation Ordinary Shares,NYSE,Telecommunications,Telecommunications Equipment,12886790000
+AGI,Alamos Gold Inc. Class A Common Shares,NYSE,Basic Materials,Precious Metals,12855141231
+DOCN,DigitalOcean Holdings Inc. Common Stock,NYSE,Technology,Computer Software: Programming Data Processing,12850269020
+MANH,Manhattan Associates Inc. Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,12829426039
+TRU,TransUnion Common Stock,NYSE,Finance,Finance: Consumer Services,12825704000
+BAX,Baxter International Inc. Common Stock,NYSE,Health Care,Medical/Dental Instruments,12821500775
+CG,The Carlyle Group Inc. Common Stock,NASDAQ,Finance,Investment Managers,12746024184
+BBIO,BridgeBio Pharma Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,12694956562
+TXT,Textron Inc. Common Stock,NYSE,Industrials,Aerospace,12692634475
+SEIC,SEI Investments Company Common Stock,NASDAQ,Finance,Investment Bankers/Brokers/Service,12634419289
+DTM,DT Midstream Inc. Common Stock ,NYSE,Utilities,Natural Gas Distribution,12581546456
+CORT,Corcept Therapeutics Incorporated Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,12564276683
+BTSG,BrightSpring Health Services Inc. Common Stock,NASDAQ,Health Care,Medical/Nursing Services,12534699667
+FRO,Frontline Plc Ordinary Shares,NYSE,Consumer Discretionary,Marine Transportation,12526989964
+NXT,Nextpower Inc. Common Stock,NASDAQ,Technology,Semiconductors,12526789171
+RPM,RPM International Inc. Common Stock,NYSE,Consumer Discretionary,Paints/Coatings,12491924936
+EHC,Encompass Health Corporation Common Stock,NYSE,Health Care,Hospital/Nursing Management,12485572279
+TEM,Tempus AI Inc. Class A Common Stock,NASDAQ,Technology,Computer Software: Programming Data Processing,12403916510
+INIO,INNIO N.V. Ordinary Shares,NASDAQ,Consumer Discretionary,Metal Fabrications,12375000000
+PNW,Pinnacle West Capital Corporation Common Stock,NYSE,Utilities,Electric Utilities: Central,12366965757
+IREN,IREN Limited Ordinary Shares,NASDAQ,Finance,Finance: Consumer Services,12364989660
+IT,Gartner Inc. Common Stock,NYSE,Consumer Discretionary,Other Consumer Services,12362675032
+IVZ,Invesco Ltd Common Stock,NYSE,Finance,Investment Managers,12331088855
+PINS,Pinterest Inc. Class A Common Stock,NYSE,Technology,Computer Software: Programming Data Processing,12322971468
+BWXT,BWX Technologies Inc. Common Stock,NYSE,Industrials,Industrial Machinery/Components,12317658991
+AHR,American Healthcare REIT Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,12223568184
+CSGP,CoStar Group Inc. Common Stock,NASDAQ,Finance,Real Estate,12200499375
+DKS,Dick's Sporting Goods Inc Common Stock,NYSE,Consumer Discretionary,Other Specialty Stores,12179381110
+WSO,Watsco Inc. Common Stock,NYSE,Consumer Discretionary,Industrial Machinery/Components,12173109927
+SMMT,Summit Therapeutics Inc. Common Stock ,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,12099860704
+CCK,Crown Holdings Inc.,NYSE,Industrials,Containers/Packaging,12083292772
+LII,Lennox International Inc. Common Stock,NYSE,Industrials,Industrial Machinery/Components,12056145867
+MKC,McCormick & Company Incorporated Common Stock,NYSE,Consumer Staples,Packaged Foods,12054088659
+FIVE,Five Below Inc. Common Stock,NASDAQ,Consumer Discretionary,Department/Specialty Retail Stores,12054080963
+CHTR,Charter Communications Inc. Class A Common Stock New,NASDAQ,Telecommunications,Cable & Other Pay Television Services,12046677509
+FMS,Fresenius Medical Care AG American Depositary Shares (Each representing 1/2 of an Ordinary Share),NYSE,Health Care,Misc Health and Biotechnology Services,12031765166
+TOL,Toll Brothers Inc. Common Stock,NYSE,Consumer Discretionary,Homebuilding,12016890270
+EQX,Equinox Gold Corp. Common Shares,AMEX,Basic Materials,Precious Metals,12013161568
+IONQ,IonQ Inc. Common Stock,NYSE,Technology,EDP Services,11971092706
+BWA,BorgWarner Inc. Common Stock,NYSE,Consumer Discretionary,Auto Parts:O.E.M.,11914481709
+ONTO,Onto Innovation Inc. Common Stock,NYSE,Industrials,Industrial Machinery/Components,11847013968
+CART,Maplebear Inc. Common Stock,NASDAQ,Consumer Discretionary,Business Services,11724269960
+GNRC,Generac Holdlings Inc. Common Stock,NYSE,Consumer Discretionary,Metal Fabrications,11686799860
+MAIR,Madison Air Solutions Corporation Class A Common Stock,NYSE,Industrials,Pollution Control Equipment,11680102407
+SNN,Smith & Nephew SNATS Inc. Common Stock,NYSE,Health Care,Industrial Specialties,11673594764
+ELS,Equity Lifestyle Properties Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,11568191939
+ALB,Albemarle Corporation Common Stock,NYSE,Industrials,Major Chemicals,11560955434
+FIG,Figma Inc. Class A Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,11449051943
+SWKS,Skyworks Solutions Inc. Common Stock,NASDAQ,Technology,Semiconductors,11431987285
+TECH,Bio-Techne Corp Common Stock,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),11369322255
+FROG,JFrog Ltd. Ordinary Shares,NASDAQ,Technology,Computer Software: Prepackaged Software,11338788560
+VICR,Vicor Corporation Common Stock,NASDAQ,Technology,Industrial Machinery/Components,11312286696
+WTRG,Essential Utilities Inc. Common Stock,NYSE,Utilities,Water Supply,11308577409
+DECK,Deckers Outdoor Corporation Common Stock,NYSE,Consumer Discretionary,Shoe Manufacturing,11297826280
+HUBS,HubSpot Inc. Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,11281230652
+ELAN,Elanco Animal Health Incorporated Common Stock,NYSE,Health Care,Biotechnology: Pharmaceutical Preparations,11266472267
+AR,Antero Resources Corporation Common Stock,NYSE,Energy,Oil & Gas Production,11261490570
+ALLY,Ally Financial Inc. Common Stock,NYSE,Finance,Major Banks,11176296721
+AMKR,Amkor Technology Inc. Common Stock,NASDAQ,Technology,Semiconductors,11135639795
+GLPI,Gaming and Leisure Properties Inc. Common Stock,NASDAQ,Real Estate,Real Estate Investment Trusts,11110236442
+SAIL,SailPoint Inc. Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,11018594517
+AMH,American Homes 4 Rent Common Shares of Beneficial Interest,NYSE,Real Estate,Real Estate Investment Trusts,11005273484
+LI,Li Auto Inc. American Depositary Shares,NASDAQ,Industrials,Auto Manufacturing,11004110566
+CHYM,Chime Financial Inc. Class A Common Stock,NASDAQ,Finance,Finance: Consumer Services,10978968219
+UHS,Universal Health Services Inc. Common Stock,NYSE,Health Care,Hospital/Nursing Management,10955708773
+TXRH,Texas Roadhouse Inc. Common Stock,NASDAQ,Consumer Discretionary,Restaurants,10938403909
+MOH,Molina Healthcare Inc Common Stock,NYSE,Health Care,Medical Specialities,10919718000
+UDR,UDR Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,10910132979
+HRL,Hormel Foods Corporation Common Stock,NYSE,Consumer Staples,Meat/Poultry/Fish,10902449348
+JKHY,Jack Henry & Associates Inc. Common Stock,NASDAQ,Technology,EDP Services,10885588965
+TTMI,TTM Technologies Inc. Common Stock,NASDAQ,Technology,Electrical Products,10883591140
+SCI,Service Corporation International Common Stock,NYSE,Consumer Discretionary,Other Consumer Services,10853051015
+SUZ,Suzano S.A. American Depositary Shares (each representing One Ordinary Share),NYSE,Basic Materials,Paper,10820846784
+SATA,Strive Inc. Variable Rate Series A Perpetual Preferred Stock,NASDAQ,Finance,Finance: Consumer Services,10781518215
+NYT,New York Times Company (The) Common Stock,NYSE,Consumer Discretionary,Newspapers/Magazines,10777767183
+PAYC,Paycom Software Inc. Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,10772116941
+HBM,Hudbay Minerals Inc. Ordinary Shares (Canada),NYSE,Basic Materials,Metal Mining,10766068982
+FHN,First Horizon Corporation Common Stock,NYSE,Finance,Major Banks,10740528172
+QXO,QXO Inc. Common Stock,NYSE,Consumer Discretionary,RETAIL: Building Materials,10717279024
+GSAT,Globalstar Inc. Common Stock,NASDAQ,Consumer Discretionary,Telecommunications Equipment,10676023336
+BMRN,BioMarin Pharmaceutical Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,10673657071
+AES,The AES Corporation Common Stock,NYSE,Industrials,Electric Utilities: Central,10673041905
+RDY,Dr. Reddy's Laboratories Ltd Common Stock,NYSE,Health Care,Biotechnology: Pharmaceutical Preparations,10641876368
+PCVX,Vaxcyte Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),10631671060
+AVTR,Avantor Inc. Common Stock,NYSE,Industrials,Biotechnology: Laboratory Analytical Instruments,10618833788
+PBF,PBF Energy Inc. Class A Common Stock,NYSE,Energy,Integrated oil Companies,10610232369
+BSY,Bentley Systems Incorporated Class B Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,10600439475
+OSCR,Oscar Health Inc. Class A Common Stock,NYSE,Health Care,Medical Specialities,10592696400
+AA,Alcoa Corporation Common Stock ,NYSE,Industrials,Aluminum,10577490556
+FNF,Fidelity National Financial Inc. Common Stock,NYSE,Finance,Specialty Insurers,10529250388
+IBRX,ImmunityBio Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),10502977465
+RRX,Regal Rexnord Corporation Common Stock,NYSE,Industrials,Industrial Machinery/Components,10458918631
+AEIS,Advanced Energy Industries Inc. Common Stock,NASDAQ,Technology,Industrial Machinery/Components,10443953760
+COO,The Cooper Companies Inc. Common Stock,NASDAQ,Health Care,Ophthalmic Goods,10435722535
+HII,Huntington Ingalls Industries Inc. Common Stock,NYSE,Industrials,Marine Transportation,10423698309
+SANM,Sanmina Corporation Common Stock,NASDAQ,Technology,Electrical Products,10415038218
+EGP,EastGroup Properties Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,10412127371
+HMY,Harmony Gold Mining Company Limited,NYSE,Basic Materials,Precious Metals,10340366224
+SNAP,Snap Inc. Class A Common Stock,NYSE,Technology,Computer Software: Programming Data Processing,10316306043
+FDS,FactSet Research Systems Inc. Common Stock,NYSE,Technology,Computer Software: Programming Data Processing,10304760429
+KNX,Knight-Swift Transportation Holdings Inc.,NYSE,Industrials,Trucking Freight/Courier Services,10287806760
+CLX,Clorox Company (The) Common Stock,NYSE,Consumer Discretionary,Specialty Chemicals,10276059545
+ALGN,Align Technology Inc. Common Stock,NASDAQ,Health Care,Industrial Specialties,10260996223
+GMED,Globus Medical Inc. Class A Common Stock,NYSE,Health Care,Medical/Dental Instruments,10245526657
+SF,Stifel Financial Corporation Common Stock,NYSE,Finance,Investment Bankers/Brokers/Service,10237917565
+GGB,Gerdau S.A. Common Stock,NYSE,Industrials,Steel/Iron Ore,10226353313
+AGNC,AGNC Investment Corp. Common Stock,NASDAQ,Real Estate,Real Estate Investment Trusts,10206995259
+AUR,Aurora Innovation Inc. Class A Common Stock,NASDAQ,Technology,EDP Services,10120984103
+DCI,Donaldson Company Inc. Common Stock,NYSE,Industrials,Pollution Control Equipment,10108522350
+JEF,Jefferies Financial Group Inc. Common Stock,NYSE,Finance,Investment Bankers/Brokers/Service,10084793761
+HL,Hecla Mining Company Common Stock,NYSE,Industrials,Mining & Quarrying of Nonmetallic Minerals (No Fuels),10009349622
+RMBS,Rambus Inc. Common Stock,NASDAQ,Technology,Semiconductors,9990398252
+FPS,Forgent Power Solutions Inc. Class A Common Stock,NYSE,Energy,Industrial Machinery/Components,9954824670
+LULU,lululemon athletica inc. Common Stock,NASDAQ,Consumer Discretionary,Apparel,9935345482
+GKOS,Glaukos Corporation Common Stock,NYSE,Health Care,Medical/Dental Instruments,9902813183
+AM,Antero Midstream Corporation Common Stock,NYSE,Utilities,Natural Gas Distribution,9854232240
+DAR,Darling Ingredients Inc. Common Stock,NYSE,Consumer Staples,Packaged Foods,9843745900
+TWST,Twist Bioscience Corporation Common Stock,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),9823181940
+OGE,OGE Energy Corp Common Stock,NYSE,Utilities,Electric Utilities: Central,9814676945
+UMBF,UMB Financial Corporation Common Stock,NASDAQ,Finance,Major Banks,9786920866
+EVR,Evercore Inc. Class A Common Stock,NYSE,Finance,Investment Managers,9785581612
+RRC,Range Resources Corporation Common Stock,NYSE,Energy,Oil & Gas Production,9777150908
+CPT,Camden Property Trust Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,9776446394
+IAG,Iamgold Corporation Ordinary Shares,NYSE,Basic Materials,Precious Metals,9735550000
+DPZ,Domino's Pizza Inc Common Stock,NASDAQ,Consumer Discretionary,Food Distributors,9733614010
+MTCH,Match Group Inc. Common Stock,NASDAQ,Technology,Computer Software: Programming Data Processing,9732961764
+MSGS,Madison Square Garden Sports Corp. Class A Common Stock (New),NYSE,Consumer Discretionary,Services-Misc. Amusement & Recreation,9730704158
+BEPC,Brookfield Renewable Corporation Brookfield Renewable Corporation Class A Subordinate Voting Shares,NYSE,Utilities,Electric Utilities: Central,9725549251
+RYAN,Ryan Specialty Holdings Inc. Class A Common Stock,NYSE,Finance,Specialty Insurers,9720961830
+ESTC,Elastic N.V. Ordinary Shares,NYSE,Technology,Computer Software: Prepackaged Software,9665497237
+CGNX,Cognex Corporation Common Stock,NASDAQ,Industrials,Industrial Machinery/Components,9634179431
+SSB,SouthState Bank Corporation Common Stock,NYSE,Finance,Major Banks,9616964537
+SOLS,Solstice Advanced Materials Inc. Common Stock ,NASDAQ,Industrials,Major Chemicals,9551492298
+VIAV,Viavi Solutions Inc. Common Stock,NASDAQ,Technology,Semiconductors,9546526780
+HSIC,Henry Schein Inc. Common Stock,NASDAQ,Health Care,Medical Specialities,9535366134
+TXG,10x Genomics Inc. Class A Common Stock,NASDAQ,Industrials,Biotechnology: Laboratory Analytical Instruments,9524284381
+WTFC,Wintrust Financial Corporation Common Stock,NASDAQ,Finance,Major Banks,9514050666
+WMS,Advanced Drainage Systems Inc. Common Stock,NYSE,Consumer Discretionary,Containers/Packaging,9439994765
+QGEN,Qiagen N.V. Common Shares,NYSE,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),9388765747
+DKNG,DraftKings Inc. Class A Common Stock,NASDAQ,Consumer Discretionary,Services-Misc. Amusement & Recreation,9382981507
+ONB,Old National Bancorp Common Stock,NASDAQ,Finance,Major Banks,9376790700
+FORM,FormFactor Inc. FormFactor Inc. Common Stock,NASDAQ,Technology,Semiconductors,9351831990
+DRS,Leonardo DRS Inc. Common Stock,NASDAQ,Industrials,Industrial Machinery/Components,9325189534
+PODD,Insulet Corporation Common Stock,NASDAQ,Health Care,Medical/Dental Instruments,9288607872
+KLAR,Klarna Group plc Ordinary Shares,NYSE,Finance,Finance: Consumer Services,9286281607
+ORI,Old Republic International Corporation Common Stock,NYSE,Finance,Property-Casualty Insurers,9273438534
+HUT,Hut 8 Corp. Common Stock,NASDAQ,Finance,Finance: Consumer Services,9228436369
+BXP,BXP Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,9212471781
+ALSN,Allison Transmission Holdings Inc. Common Stock,NYSE,Consumer Discretionary,Auto Parts:O.E.M.,9141388807
+FRT,Federal Realty Investment Trust Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,9118145617
+APTV,Aptiv PLC Ordinary Shares,NYSE,Consumer Discretionary,Auto Parts:O.E.M.,9100568898
+SM,SM Energy Company Common Stock,NYSE,Energy,Oil & Gas Production,9090782479
+XPEV,XPeng Inc. American depositary shares each representing two Class A ordinary shares,NYSE,Industrials,Auto Manufacturing,9025021001
+ZION,Zions Bancorporation N.A. Common Stock,NASDAQ,Finance,Major Banks,9016998272
+EGO,Eldorado Gold Corporation Ordinary Shares,NYSE,Basic Materials,Precious Metals,9002469280
+JAN,Janus Living Inc. Class A-1 Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,8992226688
+LTH,Life Time Group Holdings Inc. Common Stock,NYSE,Consumer Discretionary,Hotels/Resorts,8987639549
+CTVA,Corteva Inc. Common Stock ,NYSE,Consumer Staples,Farming/Seeds/Milling,8940426400
+SIRI,SiriusXM Holdings Inc. Common Stock,NASDAQ,Consumer Discretionary,Broadcasting,8935643280
+EDU,New Oriental Education & Technology Group Inc. Sponsored ADR representing 10 Ordinary Share (Cayman Islands),NYSE,Real Estate,Other Consumer Services,8926603216
+FLS,Flowserve Corporation Common Stock,NYSE,Industrials,Fluid Controls,8923317156
+KYMR,Kymera Therapeutics Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),8882980521
+KNTK,Kinetik Holdings Inc. Class A Common Stock,NYSE,Utilities,Natural Gas Distribution,8864276652
+YMM,Full Truck Alliance Co. Ltd. American Depositary Shares (each representing 20 Class A Ordinary Shares),NYSE,Technology,Computer Software: Prepackaged Software,8860628570
+GTLB,GitLab Inc. Class A Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,8856456000
+PTGX,Protagonist Therapeutics Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,8818445080
+CYTK,Cytokinetics Incorporated Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,8818255404
+JXN,Jackson Financial Inc. Class A Common Stock ,NYSE,Finance,Life Insurance,8806768582
+KT,KT Corporation Common Stock,NYSE,Telecommunications,Telecommunications Equipment,8804791701
+OC,Owens Corning Inc Common Stock New,NYSE,Industrials,Industrial Machinery/Components,8794956471
+QNT,Quantinuum Inc. Class A Common Stock,NASDAQ,Technology,EDP Services,8775333440
+ESI,Element Solutions Inc. Common Stock,NYSE,Industrials,Major Chemicals,8738756176
+UGP,Ultrapar Participacoes S.A. (New) American Depositary Shares (Each representing one Common Share),NYSE,Utilities,Oil/Gas Transmission,8724431905
+HLI,Houlihan Lokey Inc. Class A Common Stock,NYSE,Finance,Investment Managers,8720437470
+RGEN,Repligen Corporation Common Stock,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),8718137941
+BAH,Booz Allen Hamilton Holding Corporation Common Stock,NYSE,Consumer Discretionary,Professional Services,8644881010
+VOYA,Voya Financial Inc. Common Stock,NYSE,Finance,Life Insurance,8617524717
+VIRT,Virtu Financial Inc. Class A Common Stock,NYSE,Finance,Investment Bankers/Brokers/Service,8610508594
+TTEK,Tetra Tech Inc. Common Stock,NASDAQ,Consumer Discretionary,Military/Government/Technical,8605653225
+CTRE,CareTrust REIT Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,8579806056
+EAT,Brinker International Inc. Common Stock,NYSE,Consumer Discretionary,Restaurants,8553828542
+CAI,Caris Life Sciences Inc. Common Stock,NASDAQ,Health Care,Medical Specialities,8549917352
+PCOR,Procore Technologies Inc. Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,8504940268
+VSAT,ViaSat Inc. Common Stock,NASDAQ,Consumer Discretionary,Telecommunications Equipment,8503666151
+AXSM,Axsome Therapeutics Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,8497216296
+CUBE,CubeSmart Common Shares,NYSE,Real Estate,Real Estate Investment Trusts,8490868561
+RHP,Ryman Hospitality Properties Inc. (REIT),NYSE,Real Estate,Real Estate Investment Trusts,8473225495
+HNGE,Hinge Health Inc. Class A Common Stock,NYSE,Technology,EDP Services,8472913785
+BRKR,Bruker Corporation Common Stock,NASDAQ,Industrials,Biotechnology: Laboratory Analytical Instruments,8471177970
+PCTY,Paylocity Holding Corporation Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,8441362813
+SPXC,SPX Technologies Inc. Common Stock,NYSE,Industrials,Industrial Machinery/Components,8425944228
+MOD,Modine Manufacturing Company Common Stock,NYSE,Consumer Discretionary,Auto Parts:O.E.M.,8391813815
+CHWY,Chewy Inc. Class A Common Stock,NYSE,Consumer Discretionary,Catalog/Specialty Distribution,8372144597
+REXR,Rexford Industrial Realty Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,8362054650
+ALV,Autoliv Inc. Common Stock,NYSE,Consumer Discretionary,Auto Parts:O.E.M.,8324142084
+BRX,Brixmor Property Group Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,8322377210
+TGTX,TG Therapeutics Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,8322364412
+PNR,Pentair plc. Ordinary Share,NYSE,Industrials,Industrial Machinery/Components,8318733575
+ARWR,Arrowhead Pharmaceuticals Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,8245023239
+SYRE,Spyre Therapeutics Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,8210151450
+NTSK,Netskope Inc. Class A Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,8188098470
+ADC,Agree Realty Corporation Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,8156795150
+MHK,Mohawk Industries Inc. Common Stock,NYSE,Consumer Discretionary,Home Furnishings,8126545256
+ZETA,Zeta Global Holdings Corp. Class A Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,8100209033
+DBX,Dropbox Inc. Class A Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,8039764732
+PB,Prosperity Bancshares Inc. Common Stock,NYSE,Finance,Major Banks,8020597697
+UGI,UGI Corporation Common Stock,NYSE,Utilities,Natural Gas Distribution,7981357722
+GAP,Gap Inc. (The) Common Stock,NYSE,Consumer Discretionary,Clothing/Shoe/Accessory Stores,7963294006
+WLK,Westlake Corporation Common Stock,NYSE,Industrials,Major Chemicals,7950223251
+S,SentinelOne Inc. Class A Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,7942480850
+COLB,Columbia Banking System Inc. Common Stock,NASDAQ,Finance,Major Banks,7929750572
+AVT,Avnet Inc. Common Stock,NASDAQ,Technology,Electronic Components,7882019343
+WAL,Western Alliance Bancorporation Common Stock (DE),NYSE,Finance,Major Banks,7879264398
+OSK,Oshkosh Corporation (Holding Company)Common Stock,NYSE,Industrials,Auto Manufacturing,7876139780
+AOS,A.O. Smith Corporation Common Stock,NYSE,Consumer Discretionary,Consumer Electronics/Appliances,7859592777
+DY,Dycom Industries Inc. Common Stock,NYSE,Industrials,Water Sewer Pipeline Comm & Power Line Construction,7840642382
+NNN,NNN REIT Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,7830801120
+ZWS,Zurn Elkay Water Solutions Corporation Common Stock,NYSE,Industrials,Industrial Machinery/Components,7810540328
+CBSH,Commerce Bancshares Inc. Common Stock,NASDAQ,Finance,Major Banks,7805579127
+AAL,American Airlines Group Inc. Common Stock,NASDAQ,Consumer Discretionary,Air Freight/Delivery Services,7804625722
+CBC,Central Bancompany Inc. Class A Common Stock,NASDAQ,Finance,Major Banks,7803077233
+FR,First Industrial Realty Trust Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,7795289225
+VIST,Vista Energy S.A.B. de C.V. American Depositary Shares each representing one series A share with no par value,NYSE,Energy,Oil & Gas Production,7785539096
+TKR,Timken Company (The) Common Stock,NYSE,Industrials,Metal Fabrications,7783420956
+RAL,Ralliant Corporation Common Stock,NYSE,Industrials,Industrial Machinery/Components,7732630159
+CNM,Core & Main Inc. Class A Common Stock,NYSE,Consumer Discretionary,Durable Goods,7720723847
+BZ,KANZHUN LIMITED American Depository Shares,NASDAQ,Technology,Computer Software: Programming Data Processing,7714255790
+LNC,Lincoln National Corporation Common Stock,NYSE,Finance,Life Insurance,7700011854
+LINE,Lineage Inc. Common Stock,NASDAQ,Real Estate,Real Estate Investment Trusts,7692044205
+ABVX,Abivax SA American Depositary Shares,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,7676589060
+GIL,Gildan Activewear Inc. Class A Sub. Vot. Common Stock,NYSE,Consumer Discretionary,Apparel,7615088790
+ETSY,Etsy Inc. Common Stock,NYSE,Consumer Discretionary,Business Services,7611460362
+WYNN,Wynn Resorts Limited Common stock,NASDAQ,Consumer Discretionary,Hotels/Resorts,7592264983
+SIMO,Silicon Motion Technology Corporation American Depositary Shares,NASDAQ,Technology,Semiconductors,7581203181
+NFG,National Fuel Gas Company Common Stock,NYSE,Utilities,Oil/Gas Transmission,7527571841
+AG,First Majestic Silver Corp. Ordinary Shares (Canada),NYSE,Basic Materials,Precious Metals,7519483908
+ACM,AECOM Common Stock,NYSE,Consumer Discretionary,Military/Government/Technical,7509436399
+LEVI,Levi Strauss & Co Class A Common Stock,NYSE,Consumer Discretionary,Apparel,7504502792
+MGM,MGM Resorts International Common Stock,NYSE,Consumer Discretionary,Hotels/Resorts,7481038221
+AGCO,AGCO Corporation Common Stock,NYSE,Industrials,Industrial Machinery/Components,7477988023
+HQY,HealthEquity Inc. Common Stock,NASDAQ,Consumer Discretionary,Business Services,7433623652
+MSM,MSC Industrial Direct Company Inc. Common Stock,NYSE,Industrials,Industrial Machinery/Components,7404102189
+KTOS,Kratos Defense & Security Solutions Inc. Common Stock,NASDAQ,Industrials,Military/Government/Technical,7383079791
+AAOI,Applied Optoelectronics Inc. Common Stock,NASDAQ,Technology,Semiconductors,7320620238
+LW,Lamb Weston Holdings Inc. Common Stock ,NYSE,Consumer Staples,Packaged Foods,7305119300
+DSGX,Descartes Systems Group Inc. (The) Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,7300713513
+KEX,Kirby Corporation Common Stock,NYSE,Consumer Discretionary,Marine Transportation,7277424000
+URBN,Urban Outfitters Inc. Common Stock,NASDAQ,Consumer Discretionary,Clothing/Shoe/Accessory Stores,7253704127
+ARE,Alexandria Real Estate Equities Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,7231274155
+SNEX,StoneX Group Inc. Common Stock,NASDAQ,Finance,Investment Bankers/Brokers/Service,7228560929
+CMC,Commercial Metals Company Common Stock,NYSE,Industrials,Steel/Iron Ore,7222662832
+ACA,Arcosa Inc. Common Stock ,NYSE,Industrials,Metal Fabrications,7221647332
+SFD,Smithfield Foods Inc. Common Stock,NASDAQ,Consumer Staples,Meat/Poultry/Fish,7205943987
+TAP,Molson Coors Beverage Company Class B Common Stock,NYSE,Consumer Staples,Beverages (Production/Distribution),7202715432
+EMN,Eastman Chemical Company Common Stock,NYSE,Industrials,Major Chemicals,7192052232
+CLF,Cleveland-Cliffs Inc. Common Stock,NYSE,Basic Materials,Metal Mining,7177393791
+AXS,Axis Capital Holdings Limited Common Stock,NYSE,Finance,Property-Casualty Insurers,7155077045
+MXL,MaxLinear Inc. Common Stock,NASDAQ,Technology,Semiconductors,7148437315
+MP,MP Materials Corp. Common Stock,NYSE,Basic Materials,Metal Mining,7115158441
+AXTA,Axalta Coating Systems Ltd. Common Shares,NYSE,Consumer Discretionary,Paints/Coatings,7101183500
+SOBO,South Bow Corporation Common Shares,NYSE,Energy,Natural Gas Distribution,7098134857
+IONS,Ionis Pharmaceuticals Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,7096070549
+KMX,CarMax Inc,NYSE,Consumer Discretionary,Retail-Auto Dealers and Gas Stations,7071590645
+TRNO,Terreno Realty Corporation Common Stock,NYSE,Finance,Real Estate,7062365791
+VSXY,Victorias Secret & Co. Common Stock ,NYSE,Consumer Discretionary,Clothing/Shoe/Accessory Stores,7050343407
+TTAN,ServiceTitan Inc. Class A Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,7012251869
+GLXY,Galaxy Digital Inc. Class A Common Stock,NASDAQ,Finance,Investment Bankers/Brokers/Service,7008641384
+TAL,TAL Education Group American Depositary Shares,NYSE,Real Estate,Other Consumer Services,6939312688
+STAG,Stag Industrial Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,6917962845
+PPC,Pilgrim's Pride Corporation Common Stock,NASDAQ,Consumer Staples,Meat/Poultry/Fish,6907528281
+AUGO,Aura Minerals Inc. Common Shares,NASDAQ,Basic Materials,Metal Mining,6897528837
+CELH,Celsius Holdings Inc. Common Stock,NASDAQ,Consumer Staples,Beverages (Production/Distribution),6874962227
+VLY,Valley National Bancorp Common Stock,NASDAQ,Finance,Major Banks,6857830855
+NE,Noble Corporation plc A Ordinary Shares,NYSE,Energy,Oil & Gas Production,6848651152
+BROS,Dutch Bros Inc. Class A Common Stock,NYSE,Consumer Discretionary,Restaurants,6842282816
+MTDR,Matador Resources Company Common Stock,NYSE,Energy,Oil & Gas Production,6829995181
+NCLH,Norwegian Cruise Line Holdings Ltd. Ordinary Shares,NYSE,Consumer Discretionary,Marine Transportation,6828123270
+PATH,UiPath Inc. Class A Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,6806289642
+PRMB,Primo Brands Corporation Class A Common Stock,NYSE,Consumer Staples,Beverages (Production/Distribution),6805008965
+NOV,NOV Inc. Common Stock,NYSE,Consumer Discretionary,Oil and Gas Field Machinery,6683964844
+PRAX,Praxis Precision Medicines Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,6673435532
+SBSW,D/B/A Sibanye-Stillwater Limited ADS,NYSE,Basic Materials,Precious Metals,6665985907
+MGY,Magnolia Oil & Gas Corporation Class A Common Stock,NYSE,Energy,Oil & Gas Production,6657277038
+TBBB,BBB Foods Inc. Class A Common Shares,NYSE,Consumer Staples,Food Chains,6642428918
+AAON,AAON Inc. Common Stock,NASDAQ,Industrials,Industrial Machinery/Components,6639991549
+COMP,Compass Inc. Class A Common Stock,NYSE,Finance,Real Estate,6635894446
+HXL,Hexcel Corporation Common Stock,NYSE,Industrials,Major Chemicals,6635201678
+CAG,ConAgra Brands Inc. Common Stock,NYSE,Consumer Staples,Packaged Foods,6607375395
+NICE,NICE Ltd American Depositary Shares,NASDAQ,Technology,Computer Software: Prepackaged Software,6593797380
+AMRX,Amneal Pharmaceuticals Inc. Class A Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,6582794721
+ZG,Zillow Group Inc. Class A Common Stock,NASDAQ,Consumer Discretionary,Business Services,6582089904
+QLYS,Qualys Inc. Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,6560250040
+ALKS,Alkermes plc Ordinary Shares,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,6556188670
+GTES,Gates Industrial Corporation Ltd. Common Shares,NYSE,Industrials,Industrial Machinery/Components,6543957745
+SARO,StandardAero Inc. Common Stock,NYSE,Industrials,Aerospace,6538967957
+DUOL,Duolingo Inc. Class A Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,6537445367
+LNTH,Lantheus Holdings Inc. Common Stock,NASDAQ,Health Care,Biotechnology: In Vitro & In Vivo Diagnostic Substances,6527236900
+VCTR,Victory Capital Holdings Inc. Class A Common Stock,NASDAQ,Finance,Investment Managers,6526780685
+VFC,V.F. Corporation Common Stock,NYSE,Industrials,Garments and Clothing,6478857714
+HIMS,Hims & Hers Health Inc. Class A Common Stock,NYSE,Health Care,Medical/Nursing Services,6467447808
+TXNM,TXNM Energy Inc. Common Stock,NYSE,Utilities,Electric Utilities: Central,6450065587
+IOVA,Iovance Biotherapeutics Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),6436724049
+GLBE,Global-E Online Ltd. Ordinary Shares,NASDAQ,Technology,Computer Software: Prepackaged Software,6429595211
+CVLT,Commvault Systems Inc. Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,6396139562
+DOX,Amdocs Limited Ordinary Shares,NASDAQ,Technology,EDP Services,6396010186
+ELF,e.l.f. Beauty Inc. Common Stock,NYSE,Consumer Discretionary,Package Goods/Cosmetics,6380534607
+Z,Zillow Group Inc. Class C Capital Stock,NASDAQ,Consumer Discretionary,Business Services,6370707447
+FLR,Fluor Corporation Common Stock,NYSE,Industrials,Military/Government/Technical,6370087021
+ANF,Abercrombie & Fitch Company Common Stock,NYSE,Consumer Discretionary,Clothing/Shoe/Accessory Stores,6354123612
+ACI,Albertsons Companies Inc. Class A Common Stock,NYSE,Consumer Staples,Food Chains,6348059934
+FAF,First American Corporation (New) Common Stock,NYSE,Finance,Specialty Insurers,6337347000
+CAMT,Camtek Ltd. Ordinary Shares,NASDAQ,Technology,Electronic Components,6317576942
+MAC,Macerich Company (The) Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,6289346938
+OMF,OneMain Holdings Inc. Common Stock,NYSE,Finance,Finance: Consumer Services,6285865866
+RNG,RingCentral Inc. Class A Common Stock,NYSE,Technology,EDP Services,6279663382
+SSRM,SSR Mining Inc. Common Stock,NASDAQ,Industrials,Precious Metals,6260015878
+OTEX,Open Text Corporation Common Shares,NASDAQ,Technology,EDP Services,6257551342
+ENS,EnerSys Common Stock,NYSE,Miscellaneous,Industrial Machinery/Components,6255513103
+OR,OR Royalties Inc. Common Shares,NYSE,Basic Materials,Precious Metals,6254862023
+INGM,Ingram Micro Holding Corporation Common Stock,NYSE,Technology,Retail: Computer Software & Peripheral Equipment,6253244217
+NAVN,Navan Inc. Class A Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,6249851832
+GRAL,GRAIL Inc. Common Stock ,NASDAQ,Health Care,Medical Specialities,6239872890
+LYFT,Lyft Inc. Class A Common Stock,NASDAQ,Consumer Discretionary,Business Services,6238343304
+UBSI,United Bankshares Inc. Common Stock,NASDAQ,Finance,Major Banks,6235811500
+RIG,Transocean Ltd (Switzerland) Common Stock,NYSE,Energy,Oil & Gas Production,6232190874
+CVI,CVR Energy Inc. Common Stock,NYSE,Energy,Integrated oil Companies,6228875914
+SWX,Southwest Gas Holdings Inc. Common Stock (DE),NYSE,Utilities,Oil & Gas Production,6179631261
+POWL,Powell Industries Inc. Common Stock,NASDAQ,Energy,Electrical Products,6176412575
+VIPS,Vipshop Holdings Limited American Depositary Shares each representing two ordinary shares,NYSE,Consumer Discretionary,Catalog/Specialty Distribution,6176279144
+KNSA,Kiniksa Pharmaceuticals International plc Class A Ordinary Shares,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,6151413185
+APLD,Applied Digital Corporation Common Stock,NASDAQ,Technology,EDP Services,6146018621
+AVAV,AeroVironment Inc. Common Stock,NASDAQ,Industrials,Aerospace,6128976661
+MBLY,Mobileye Global Inc. Class A Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,6078841326
+MOS,Mosaic Company (The) Common Stock,NYSE,Industrials,Agricultural Chemicals,6043196230
+VNO,Vornado Realty Trust Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,6038541973
+SFM,Sprouts Farmers Market Inc. Common Stock,NASDAQ,Consumer Staples,Food Chains,6028458956
+CAVA,CAVA Group Inc. Common Stock,NYSE,Consumer Discretionary,Restaurants,6026031755
+ALGM,Allegro MicroSystems Inc. Common Stock,NASDAQ,Technology,Semiconductors,6005873922
+YOU,Clear Secure Inc. Class A Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,5994614913
+ST,Sensata Technologies Holding plc Ordinary Shares,NYSE,Industrials,Industrial Machinery/Components,5991711439
+FNB,F.N.B. Corporation Common Stock,NYSE,Finance,Major Banks,5976306456
+RYTM,Rhythm Pharmaceuticals Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,5970164030
+CZR,Caesars Entertainment Inc. Common Stock,NASDAQ,Consumer Discretionary,Hotels/Resorts,5969006900
+TEX,Terex Corporation Common Stock,NYSE,Industrials,Construction/Ag Equipment/Trucks,5967603000
+WEX,WEX Inc. common stock,NYSE,Consumer Discretionary,Business Services,5950308464
+BILI,Bilibili Inc. American Depositary Shares,NASDAQ,Technology,EDP Services,5945219443
+M,Macy's Inc Common Stock,NYSE,Consumer Discretionary,Department/Specialty Retail Stores,5923486331
+EPAM,EPAM Systems Inc. Common Stock,NYSE,Technology,EDP Services,5913415632
+G,Genpact Limited Common Stock,NYSE,Consumer Discretionary,Professional Services,5908130122
+VAL,Valaris Limited Common Shares,NYSE,Energy,Oil & Gas Production,5883295927
+INSW,International Seaways Inc. Common Stock ,NYSE,Consumer Discretionary,Marine Transportation,5881347868
+PI,Impinj Inc. Common Stock,NASDAQ,Technology,Industrial Machinery/Components,5870724914
+HR,Healthcare Realty Trust Incorporated Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,5839944710
+BKH,Black Hills Corporation Common Stock,NYSE,Utilities,Electric Utilities: Central,5828027567
+ECG,Everus Construction Group Inc. Common Stock,NYSE,Consumer Discretionary,Homebuilding,5804426238
+MKTX,MarketAxess Holdings Inc. Common Stock,NASDAQ,Finance,Investment Bankers/Brokers/Service,5789230570
+HWC,Hancock Whitney Corporation Common Stock,NASDAQ,Finance,Major Banks,5765631178
+IMVT,Immunovant Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),5762819828
+TTD,The Trade Desk Inc. Class A Common Stock,NASDAQ,Technology,Computer Software: Programming Data Processing,5758644367
+WULF,TeraWulf Inc. Common Stock,NASDAQ,Finance,Finance: Consumer Services,5758098533
+LOAR,Loar Holdings Inc. Common Stock,NYSE,Industrials,Military/Government/Technical,5752472119
+POOL,Pool Corporation Common Stock,NASDAQ,Consumer Discretionary,Industrial Specialties,5746198916
+GGAL,Grupo Financiero Galicia S.A. American Depositary Shares,NASDAQ,Finance,Commercial Banks,5710232010
+CPB,The Campbell's Company Common Stock,NASDAQ,Consumer Staples,Packaged Foods,5696282636
+HAFN,Hafnia Limited Common Shares,NYSE,Consumer Discretionary,Transportation Services,5695923479
+RIOT,Riot Platforms Inc. Common Stock ,NASDAQ,Finance,Finance: Consumer Services,5666409919
+EXLS,ExlService Holdings Inc. Common Stock,NASDAQ,Consumer Discretionary,Business Services,5664242963
+HOMB,Home BancShares Inc. Common Stock,NYSE,Finance,Major Banks,5659404033
+ESNT,Essent Group Ltd. Common Shares,NYSE,Finance,Property-Casualty Insurers,5648737585
+HRB,H&R Block Inc. Common Stock,NYSE,Consumer Discretionary,Other Consumer Services,5640076085
+MUR,Murphy Oil Corporation Common Stock,NYSE,Energy,Oil & Gas Production,5636312024
+CROX,Crocs Inc. Common Stock,NASDAQ,Consumer Discretionary,Shoe Manufacturing,5635464116
+FIGR,Figure Technology Solutions Inc. Class A Common Stock,NASDAQ,Finance,Finance: Consumer Services,5620665694
+CAKE,Cheesecake Factory Incorporated (The) Common Stock,NASDAQ,Consumer Discretionary,Restaurants,5615487547
+BIRK,Birkenstock Holding plc Ordinary Shares,NYSE,Consumer Discretionary,Shoe Manufacturing,5601080840
+MTG,MGIC Investment Corporation Common Stock,NYSE,Finance,Property-Casualty Insurers,5597856884
+CHDN,Churchill Downs Incorporated Common Stock,NASDAQ,Consumer Discretionary,Services-Misc. Amusement & Recreation,5577413445
+PEGA,Pegasystems Inc. Common Stock,NASDAQ,Technology,EDP Services,5561819289
+GBCI,Glacier Bancorp Inc. Common Stock,NYSE,Finance,Major Banks,5561352513
+RYN,Rayonier Inc. REIT Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,5549629977
+EPRT,Essential Properties Realty Trust Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,5547402553
+OLLI,Ollie's Bargain Outlet Holdings Inc. Common Stock,NASDAQ,Consumer Discretionary,Department/Specialty Retail Stores,5531551767
+LKQ,LKQ Corporation Common Stock,NASDAQ,Consumer Discretionary,Motor Vehicles,5520505517
+DLB,Dolby Laboratories Common Stock,NYSE,Miscellaneous,Multi-Sector Companies,5511471898
+CMBT,CMB.TECH NV Ordinary Shares,NYSE,Consumer Discretionary,Marine Transportation,5510323913
+HAE,Haemonetics Corporation Common Stock,NYSE,Health Care,Medical/Dental Instruments,5510147847
+CGON,CG Oncology Inc. Common stock,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),5481520790
+SNDR,Schneider National Inc. Common Stock,NYSE,Industrials,Trucking Freight/Courier Services,5471141058
+XMTR,Xometry Inc. Class A Common Stock,NASDAQ,Consumer Discretionary,Business Services,5454337971
+BLDR,Builders FirstSource Inc. Common Stock,NYSE,Consumer Discretionary,RETAIL: Building Materials,5435773008
+LAUR,Laureate Education Inc. Common Stock,NASDAQ,Real Estate,Other Consumer Services,5434212252
+CRUS,Cirrus Logic Inc. Common Stock,NASDAQ,Technology,Semiconductors,5429736559
+ORA,Ormat Technologies Inc. Common Stock,NYSE,Utilities,Electric Utilities: Central,5423415227
+NXE,Nexgen Energy Ltd. Common Shares,NYSE,Basic Materials,Other Metals and Minerals,5417689296
+JMKE,Jersey Mike's Subs Inc. Class A Common Stock,NYSE,Consumer Discretionary,Restaurants,5406214078
+VRNS,Varonis Systems Inc. Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,5405334424
+OKLO,Oklo Inc. Class A common stock,NYSE,Utilities,Electric Utilities: Central,5401952556
+WFRD,Weatherford International plc Ordinary Shares,NASDAQ,Consumer Discretionary,Oil and Gas Field Machinery,5395588247
+WH,Wyndham Hotels & Resorts Inc. Common Stock ,NYSE,Consumer Discretionary,Hotels/Resorts,5386985346
+BGC,BGC Group Inc. Class A Common Stock,NASDAQ,Finance,Investment Bankers/Brokers/Service,5365686278
+PAGP,Plains GP Holdings L.P. Class A Units representing Limited Partner Interests,NASDAQ,Energy,Natural Gas Distribution,5365180802
+ASB,Associated Banc-Corp Common Stock,NYSE,Finance,Major Banks,5350110839
+AUB,Atlantic Union Bankshares Corporation Common Stock,NYSE,Finance,Major Banks,5348417855
+DOCS,Doximity Inc. Class A Common Stock,NYSE,Technology,EDP Services,5333119722
+MTN,Vail Resorts Inc. Common Stock,NYSE,Consumer Discretionary,Services-Misc. Amusement & Recreation,5325695286
+OCTV,Octave Intelligence plc Class B Ordinary Shares,NASDAQ,Technology,Computer Software: Prepackaged Software,5323121336
+SEI,Solaris Energy Infrastructure Inc. Class A Common Stock,NYSE,Consumer Discretionary,Oil and Gas Field Machinery,5311410613
+RLI,RLI Corp. Common Stock (DE),NYSE,Finance,Property-Casualty Insurers,5288876261
+FTDR,Frontdoor Inc. Common Stock,NASDAQ,Consumer Discretionary,Diversified Commercial Services,5263449342
+NJR,NewJersey Resources Corporation Common Stock,NYSE,Utilities,Oil/Gas Transmission,5263142359
+GXO,GXO Logistics Inc. Common Stock ,NYSE,Consumer Discretionary,Transportation Services,5260581639
+MBGL,Mobility Global Inc. Common Stock,NYSE,Consumer Discretionary,Business Services,5259612349
+POR,Portland General Electric Co Common Stock,NYSE,Utilities,Electric Utilities: Central,5227664043
+RRR,Red Rock Resorts Inc. Class A Common Stock,NASDAQ,Consumer Discretionary,Hotels/Resorts,5226655727
+OUT,OUTFRONT Media Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,5225932897
+TFX,Teleflex Incorporated Common Stock,NYSE,Health Care,Medical/Dental Instruments,5224092826
+AROC,Archrock Inc. Common Stock,NYSE,Utilities,Natural Gas Distribution,5223324531
+BOX,Box Inc. Class A Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,5223233428
+CWST,Casella Waste Systems Inc. Class A Common Stock,NASDAQ,Utilities,Environmental Services,5208937765
+MMSI,Merit Medical Systems Inc. Common Stock,NASDAQ,Health Care,Medical/Dental Instruments,5204360207
+MIRM,Mirum Pharmaceuticals Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,5191978952
+GDS,GDS Holdings Limited ADS,NASDAQ,Technology,Computer Software: Programming Data Processing,5181765072
+ACIW,ACI Worldwide Inc. Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,5155784158
+WAY,Waystar Holding Corp. Common Stock,NASDAQ,Technology,EDP Services,5152279938
+CNX,CNX Resources Corporation Common Stock,NYSE,Energy,Oil & Gas Production,5151397440
+MRX,Marex Group Limited Ordinary Shares,NASDAQ,Finance,Investment Bankers/Brokers/Service,5143336231
+ERAS,Erasca Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,5141501915
+PL,Planet Labs PBC Class A Common Stock,NYSE,Technology,Radio And Television Broadcasting And Communications Equipment,5141172085
+RUSHA,Rush Enterprises Inc. Common Stock Cl A,NASDAQ,Consumer Discretionary,Retail-Auto Dealers and Gas Stations,5110455029
+KOD,Kodiak Sciences Inc Common Stock,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),5096462468
+OZK,Bank OZK Common Stock,NASDAQ,Finance,Major Banks,5083206411
+ORKA,Oruka Therapeutics Inc. Common Stock,NASDAQ,Health Care,Biotechnology: In Vitro & In Vivo Diagnostic Substances,5076959719
+KGS,Kodiak Gas Services Inc. Common Stock,NYSE,Utilities,Natural Gas Distribution,5075970173
+BYD,Boyd Gaming Corporation Common Stock,NYSE,Consumer Discretionary,Hotels/Resorts,5064082356
+SHC,Sotera Health Company Common Stock,NASDAQ,Health Care,Misc Health and Biotechnology Services,5059695115
+CLMT,Calumet Inc. Common Stock,NASDAQ,Energy,Integrated oil Companies,5056785402
+CE,Celanese Corporation Common Stock,NYSE,Industrials,Major Chemicals,5028695789
+TVTX,Travere Therapeutics Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,5021287838
+WHD,Cactus Inc. Class A Common Stock,NYSE,Consumer Discretionary,Oil and Gas Field Machinery,5012817151
+STEP,StepStone Group Inc. Class A Common Stock,NASDAQ,Finance,Investment Managers,4987566688
+OBDC,Blue Owl Capital Corporation Common Stock,NYSE,Finance,Diversified Financial Services,4980739947
+PTCT,PTC Therapeutics Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,4980106055
+RELY,Remitly Global Inc. Common Stock,NASDAQ,Consumer Discretionary,Business Services,4972458428
+CNO,CNO Financial Group Inc. Common Stock,NYSE,Finance,Accident &Health Insurance,4954519417
+MWH,SOLV Energy Inc. Class A Common Stock,NASDAQ,Industrials,Military/Government/Technical,4917997345
+MEOH,Methanex Corporation Common Stock,NASDAQ,Industrials,Major Chemicals,4907215202
+SBRA,Sabra Health Care REIT Inc. Common Stock,NASDAQ,Real Estate,Real Estate Investment Trusts,4897221033
+COGT,Cogent Biosciences Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,4884728243
+DPC,DPC Holdings PLC Ordinary Shares,NYSE,Telecommunications,Metal Fabrications,4873200182
+SON,Sonoco Products Company Common Stock,NYSE,Consumer Discretionary,Containers/Packaging,4856740147
+CRSP,CRISPR Therapeutics AG Common Shares,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),4855905034
+LGN,Legence Corp. Class A Common stock,NASDAQ,Consumer Discretionary,Engineering & Construction,4853669807
+CWEN,Clearway Energy Inc. Class C Common Stock,NYSE,Utilities,Electric Utilities: Central,4853484953
+BLSH,Bullish Ordinary Shares,NYSE,Finance,Finance: Consumer Services,4851496737
+IRDM,Iridium Communications Inc Common Stock,NASDAQ,Consumer Discretionary,Telecommunications Equipment,4850866334
+KVYO,Klaviyo Inc. Series A Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,4843213703
+PECO,Phillips Edison & Company Inc. Common Stock,NASDAQ,Real Estate,Real Estate Investment Trusts,4836546000
+DK,Delek US Holdings Inc. Common Stock,NYSE,Energy,Integrated oil Companies,4835504781
+BB,BlackBerry Limited Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,4831275656
+SRRK,Scholar Rock Holding Corporation Common Stock,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),4822697167
+ADT,ADT Inc. Common Stock,NYSE,Consumer Discretionary,Diversified Commercial Services,4821691037
+KRG,Kite Realty Group Trust Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,4816340269
+CRC,California Resources Corporation Common Stock,NYSE,Energy,Oil & Gas Production,4798938819
+LFST,LifeStance Health Group Inc. Common Stock,NASDAQ,Health Care,Medical/Nursing Services,4784569920
+CON,Concentra Group Holdings Parent Inc. Common Stock,NYSE,Health Care,Medical Specialities,4776814391
+EBC,Eastern Bankshares Inc. Common Stock,NASDAQ,Finance,Savings Institutions,4759895628
+MAT,Mattel Inc. Common Stock,NASDAQ,Consumer Discretionary,Recreational Games/Products/Toys,4756905000
+HCC,Warrior Met Coal Inc. Common Stock,NYSE,Energy,Coal Mining,4751131788
+REYN,Reynolds Consumer Products Inc. Common Stock,NASDAQ,Consumer Discretionary,Containers/Packaging,4749120824
+RXO,RXO Inc. Common Stock,NYSE,Consumer Discretionary,Transportation Services,4731730612
+XE,X-Energy Inc. Class A Common Stock,NASDAQ,Industrials,Metal Fabrications,4730101497
+MMED,MiniMed Group Inc. Common Stock,NASDAQ,Health Care,Medical/Dental Instruments,4729492340
+GTX,Garrett Motion Inc. Common Stock,NASDAQ,Consumer Discretionary,Auto Parts:O.E.M.,4727608045
+GVA,Granite Construction Incorporated Common Stock,NYSE,Industrials,Military/Government/Technical,4714750662
+FND,Floor & Decor Holdings Inc. Common Stock,NYSE,Consumer Discretionary,RETAIL: Building Materials,4708986252
+GLNG,Golar Lng Ltd,NASDAQ,Consumer Discretionary,Marine Transportation,4676154006
+RITM,Rithm Capital Corp. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,4662698709
+OPCH,Option Care Health Inc. Common Stock,NASDAQ,Health Care,Medical/Nursing Services,4661316762
+SYNA,Synaptics Incorporated Common Stock $0.001 Par Value,NASDAQ,Technology,Semiconductors,4658301590
+HASI,HA Sustainable Infrastructure Capital Inc. Common Stock,NYSE,Finance,Finance/Investors Services,4655402472
+OGS,ONE Gas Inc. Common Stock,NYSE,Utilities,Oil/Gas Transmission,4654506794
+LPX,Louisiana-Pacific Corporation Common Stock,NYSE,Basic Materials,Forest Products,4650605999
+ROAD,Construction Partners Inc. Class A Common Stock,NASDAQ,Industrials,Military/Government/Technical,4638159026
+FBIN,Fortune Brands Innovations Inc. Common Stock,NYSE,Basic Materials,Forest Products,4634000737
+FLG,Flagstar Bank N.A. Common Stock,NYSE,Finance,Banks,4611681408
+CHEF,The Chefs' Warehouse Inc. Common Stock,NASDAQ,Consumer Discretionary,Food Distributors,4609957379
+MRCY,Mercury Systems Inc Common Stock,NASDAQ,Technology,Electrical Products,4606764824
+DFTX,Definium Therapeutics Inc. Common Shares,NASDAQ,Health Care, Medicinal Chemicals and Botanical Products ,4600724368
+STWD,STARWOOD PROPERTY TRUST INC. Starwood Property Trust Inc.,NYSE,Real Estate,Real Estate Investment Trusts,4582691601
+PSN,Parsons Corporation Common Stock,NYSE,Technology,EDP Services,4570202809
+QBTS,D-Wave Quantum Inc. Common Stock,NASDAQ,Technology,EDP Services,4566908335
+PIPR,Piper Sandler Companies Common Stock,NYSE,Finance,Investment Bankers/Brokers/Service,4556820364
+TREX,Trex Company Inc. Common Stock,NYSE,Basic Materials,Forest Products,4519758480
+HLNE,Hamilton Lane Incorporated Class A Common Stock,NASDAQ,Finance,Investment Managers,4519623422
+BIPC,Brookfield Infrastructure Corporation Brookfield Infrastructure Corporation,NYSE,Consumer Discretionary,Marine Transportation,4517132722
+CCC,CCC Intelligent Solutions Holdings Inc. Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,4499919539
+PRM,Perimeter Solutions SA Common Stock,NYSE,Industrials,Major Chemicals,4499753513
+OPLN,OPENLANE Inc. Common Stock,NYSE,Consumer Discretionary,Retail-Auto Dealers and Gas Stations,4493391731
+MDA,MDA Space Ltd. Common Shares,NYSE,Consumer Discretionary,Electronic Components,4469946073
+BWIN,The Baldwin Insurance Group Inc. Class A Common Stock,NASDAQ,Finance,Specialty Insurers,4452786821
+VSEC,VSE Corporation Common Stock,NASDAQ,Consumer Discretionary,Military/Government/Technical,4452507808
+STNG,Scorpio Tankers Inc. Common Shares,NYSE,Consumer Discretionary,Marine Transportation,4450564684
+PARR,Par Pacific Holdings Inc.  Common Stock,NYSE,Energy,Oil & Gas Production,4442333926
+KBR,KBR Inc. Common Stock,NYSE,Industrials,Military/Government/Technical,4441367009
+ATAT,Atour Lifestyle Holdings Limited American Depositary Shares,NASDAQ,Consumer Discretionary,Hotels/Resorts,4437729054
+VSH,Vishay Intertechnology Inc. Common Stock,NYSE,Technology,Electrical Products,4431124135
+CNK,Cinemark Holdings Inc Cinemark Holdings Inc. Common Stock,NYSE,Consumer Discretionary,Movies/Entertainment,4427832861
+FFIN,First Financial Bankshares Inc. Common Stock,NASDAQ,Finance,Major Banks,4427386691
+KLIC,Kulicke and Soffa Industries Inc. Common Stock,NASDAQ,Technology,Semiconductors,4422333509
+CUZ,Cousins Properties Incorporated Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,4421211278
+RDN,Radian Group Inc. Common Stock,NYSE,Finance,Property-Casualty Insurers,4420187034
+PTEN,Patterson-UTI Energy Inc. Common Stock,NASDAQ,Energy,Oil & Gas Production,4401181446
+VNT,Vontier Corporation Common Stock ,NYSE,Industrials,Industrial Machinery/Components,4383184000
+GNTX,Gentex Corporation Common Stock,NASDAQ,Consumer Discretionary,Auto Parts:O.E.M.,4377999618
+CORZ,Core Scientific Inc. Common Stock,NASDAQ,Finance,Finance: Consumer Services,4341309358
+DLO,DLocal Limited Class A Common Shares,NASDAQ,Consumer Discretionary,Business Services,4332550434
+OII,Oceaneering International Inc. Common Stock,NYSE,Energy,Oilfield Services/Equipment,4332525447
+ITGR,Integer Holdings Corporation Common Stock,NYSE,Health Care,Biotechnology: Electromedical & Electrotherapeutic Apparatus,4303733197
+HTFL,Heartflow Inc. Common Stock,NASDAQ,Health Care,Medical/Dental Instruments,4300726391
+VSNT,Versant Media Group Inc. Class A Common Stock ,NASDAQ,Industrials,Broadcasting,4299785547
+ARX,Accelerant Holdings Class A Common Shares,NYSE,Finance,Specialty Insurers,4289473902
+RSI,Rush Street Interactive Inc. Class A Common Stock,NYSE,Consumer Discretionary,Services-Misc. Amusement & Recreation,4285489389
+ACMR,ACM Research Inc. Class A Common Stock,NASDAQ,Technology,Industrial Machinery/Components,4256958860
+MC,Moelis & Company Class A Common Stock,NYSE,Finance,Investment Managers,4247662320
+CRGY,Crescent Energy Company Class A Common Stock,NYSE,Energy,Oil & Gas Production,4246368698
+CGAU,Centerra Gold Inc. Common Shares,NYSE,Basic Materials,Precious Metals,4207896463
+BCO,Brinks Company (The) Common Stock,NYSE,Industrials,Integrated Freight & Logistics,4203402150
+PRIM,Primoris Services Corporation Common Stock,NYSE,Industrials,Water Sewer Pipeline Comm & Power Line Construction,4200536476
+TENB,Tenable Holdings Inc. Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,4198536152
+DNTH,Dianthus Therapeutics Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,4181654099
+EPR,EPR Properties Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,4181314963
+FULT,Fulton Financial Corporation Common Stock,NASDAQ,Finance,Major Banks,4171483202
+SLM,SLM Corporation Common Stock,NASDAQ,Finance,Finance: Consumer Services,4166784059
+SFBS,ServisFirst Bancshares Inc. Common Stock,NYSE,Finance,Major Banks,4162764911
+SIG,Signet Jewelers Limited Common Shares,NYSE,Consumer Discretionary,Consumer Specialties,4136729554
+BETA,Beta Technologies Inc. Class A Common Stock,NYSE,Industrials,Aerospace,4136077941
+CIFR,Cipher Digital Inc. Common Stock,NASDAQ,Finance,Finance: Consumer Services,4125405377
+SKY,Champion Homes Inc. Common Stock,NYSE,Consumer Discretionary,Homebuilding,4119862171
+AZZ,AZZ Inc.,NYSE,Industrials,Industrial Specialties,4119169757
+TDW,Tidewater Inc. Common Stock,NYSE,Consumer Discretionary,Marine Transportation,4118820802
+HRI,Herc Holdings Inc. Common Stock ,NYSE,Industrials,Misc Corporate Leasing Services,4115745071
+MMYT,MakeMyTrip Limited Ordinary Shares,NASDAQ,Consumer Discretionary,Transportation Services,4104720010
+FHI,Federated Hermes Inc. Common Stock,NYSE,Finance,Investment Managers,4099596030
+TRMD,TORM plc Class A Common Stock,NASDAQ,Consumer Discretionary,Marine Transportation,4096792510
+ADPT,Adaptive Biotechnologies Corporation Common Stock,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),4088845472
+HHH,Howard Hughes Holdings Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,4078349548
+FBP,First BanCorp. New Common Stock,NYSE,Finance,Major Banks,4076242756
+GEO,Geo Group Inc (The) REIT,NYSE,Consumer Discretionary,Homebuilding,4055199383
+AXTI,AXT Inc Common Stock,NASDAQ,Technology,Semiconductors,4038654127
+INDV,Indivior Pharmaceuticals Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,4031970865
+CRK,Comstock Resources Inc. Common Stock,NYSE,Energy,Oil & Gas Production,4022601508
+EWTX,Edgewise Therapeutics Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,4020524856
+DHT,DHT Holdings Inc.,NYSE,Consumer Discretionary,Marine Transportation,4017988843
+ESAB,ESAB Corporation Common Stock,NYSE,Industrials,Industrial Machinery/Components,4013553814
+BC,Brunswick Corporation Common Stock,NYSE,Industrials,Industrial Machinery/Components,4011608767
+ABCL,AbCellera Biologics Inc. Common Shares,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,4006711394
+TAC,TransAlta Corporation Ordinary Shares,NYSE,Utilities,Electric Utilities: Central,4000560000
+UCB,United Community Banks Inc. Common Stock,NYSE,Finance,Major Banks,3998283679
+KRMN,Karman Holdings Inc. Common Stock,NYSE,Industrials,Military/Government/Technical,3994565959
+ALK,Alaska Air Group Inc. Common Stock,NYSE,Consumer Discretionary,Air Freight/Delivery Services,3987579478
+FSLY,Fastly Inc. Class A Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,3982500000
+MIR,Mirion Technologies Inc. Class A Common Stock,NYSE,Industrials,Industrial Machinery/Components,3959698587
+WK,Workiva Inc. Class A Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,3952813688
+SKT,Tanger Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,3943795692
+COLD,Americold Realty Trust Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,3942486409
+HESM,Hess Midstream LP Class A Representing Limited Partner Interests,NYSE,Energy,Oil & Gas Production,3933954503
+TDS,Telephone and Data Systems Inc. Common Shares,NYSE,Telecommunications,Telecommunications Equipment,3905343000
+AIR,AAR Corp. Common Stock,NYSE,Industrials,Aerospace,3901250120
+SITE,SiteOne Landscape Supply Inc. Common Stock,NYSE,Consumer Discretionary,Professional and commerical equipment,3901045650
+MDU,MDU Resources Group Inc. Common Stock (Holding Company),NYSE,Industrials,Mining & Quarrying of Nonmetallic Minerals (No Fuels),3899878914
+RGTI,Rigetti Computing Inc. Common Stock,NASDAQ,Technology,EDP Services,3898418965
+ENPH,Enphase Energy Inc. Common Stock,NASDAQ,Technology,Semiconductors,3878445419
+VVV,Valvoline Inc. Common Stock,NYSE,Industrials,Major Chemicals,3877351243
+KRC,Kilroy Realty Corporation Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,3873089300
+APLE,Apple Hospitality REIT Inc. Common Shares,NYSE,Real Estate,Real Estate Investment Trusts,3871756247
+USAR,USA Rare Earth Inc. Class A Common Stock,NASDAQ,Basic Materials,Metal Mining,3870790171
+KFY,Korn Ferry Common Stock,NYSE,Consumer Discretionary,Diversified Commercial Services,3869313713
+HP,Helmerich & Payne Inc. Common Stock,NYSE,Energy,Oil & Gas Production,3856643888
+PAY,Paymentus Holdings Inc. Class A Common Stock,NYSE,Consumer Discretionary,Business Services,3855012595
+TNL,Travel   Leisure Co. Common  Stock,NYSE,Consumer Discretionary,Hotels/Resorts,3833221050
+BBWI,Bath & Body Works Inc.,NYSE,Consumer Discretionary,Other Specialty Stores,3821178681
+UEC,Uranium Energy Corp. Common Stock,AMEX,Basic Materials,Other Metals and Minerals,3816001921
+KTB,Kontoor Brands Inc. Common Stock ,NYSE,Industrials,Garments and Clothing,3803891952
+SLGN,Silgan Holdings Inc. Common Stock,NYSE,Industrials,Containers/Packaging,3784473136
+MTH,Meritage Homes Corporation Common Stock,NYSE,Consumer Discretionary,Homebuilding,3780749135
+BILL,BILL Holdings Inc. Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,3767528229
+CDP,COPT Defense Properties Common Shares of Beneficial Interest,NYSE,Real Estate,Real Estate Investment Trusts,3767495415
+PVH,PVH Corp. Common Stock,NYSE,Industrials,Garments and Clothing,3763001659
+SKE,Skeena Resources Limited Common Shares,NYSE,Basic Materials,Precious Metals,3760117269
+CVBF,CVB Financial Corporation Common Stock,NASDAQ,Finance,Major Banks,3757545237
+MNDY,monday.com Ltd. Ordinary Shares,NASDAQ,Technology,Computer Software: Prepackaged Software,3753070392
+MSGE,Madison Square Garden Entertainment Corp. Class A Common Stock,NYSE,Consumer Discretionary,Services-Misc. Amusement & Recreation,3742317062
+TNGX,Tango Therapeutics Inc.,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,3741464044
+RLAY,Relay Therapeutics Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),3738556225
+ECO,Okeanis Eco Tankers Corp. Common Stock,NYSE,Consumer Discretionary,Marine Transportation,3735011697
+SPHR,Sphere Entertainment Co. Class A Common Stock,NYSE,Consumer Discretionary,Services-Misc. Amusement & Recreation,3734296856
+LEGN,Legend Biotech Corporation American Depositary Shares,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,3703059384
+ITRI,Itron Inc. Common Stock,NASDAQ,Industrials,Electrical Products,3696477688
+NVST,Envista Holdings Corporation Common Stock,NYSE,Health Care,Medical/Dental Instruments,3665296119
+AYA,Aya Gold & Silver Inc. Common Shares,NASDAQ,Basic Materials,Precious Metals,3661399391
+CECO,CECO Environmental Corp. Common Stock,NASDAQ,Industrials,Pollution Control Equipment,3654171694
+SRAD,Sportradar Group AG Class A Ordinary Shares,NASDAQ,Technology,Computer Software: Programming Data Processing,3625738143
+OGN,Organon & Co. Common Stock ,NYSE,Health Care,Biotechnology: Pharmaceutical Preparations,3608253609
+INDB,Independent Bank Corp. Common Stock,NASDAQ,Finance,Major Banks,3601946288
+BTE,Baytex Energy Corp Common Shares,NYSE,Energy,Oil & Gas Production,3601151040
+LXP,LXP Industrial Trust Common Stock (Maryland REIT),NYSE,Real Estate,Real Estate Investment Trusts,3598161822
+ZIM,ZIM Integrated Shipping Services Ltd. Ordinary Shares,NYSE,Consumer Discretionary,Marine Transportation,3594702695
+ERO,Ero Copper Corp. Common Shares,NYSE,Basic Materials,Metal Mining,3593418777
+RHI,Robert Half Inc. Common Stock,NYSE,Consumer Discretionary,Professional Services,3580616743
+ONDS,Ondas Inc. Common Stock,NASDAQ,Technology,Radio And Television Broadcasting And Communications Equipment,3575338572
+FRSH,Freshworks Inc. Class A Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,3572005369
+TARS,Tarsus Pharmaceuticals Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),3564143726
+AVNT,Avient Corporation Common Stock,NYSE,Industrials,Major Chemicals,3563304518
+PLNT,Planet Fitness Inc. Common Stock,NYSE,Consumer Discretionary,Hotels/Resorts,3531436507
+MRP,Millrose Properties Inc. Class A Common Stock,NYSE,Finance,Real Estate,3523537011
+TNK,Teekay Tankers Ltd.,NYSE,Consumer Discretionary,Marine Transportation,3518430218
+ATMU,Atmus Filtration Technologies Inc. Common Stock,NYSE,Consumer Discretionary,Auto Parts:O.E.M.,3514319348
+VCYT,Veracyte Inc. Common Stock,NASDAQ,Health Care,Medical Specialities,3497800706
+WSBC,WesBanco Inc. Common Stock,NASDAQ,Finance,Major Banks,3496728713
+EQPT,EquipmentShare.com Inc Class A Common Stock,NASDAQ,Consumer Discretionary,Diversified Commercial Services,3473784453
+PENG,Penguin Solutions Inc. Common Stock,NASDAQ,Technology,Semiconductors,3463494025
+BNL,Broadstone Net Lease Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,3454073478
+IRT,Independence Realty Trust Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,3453657907
+CSTM,Constellium SE Ordinary Shares (France),NYSE,Industrials,Metal Fabrications,3438338459
+COCO,The Vita Coco Company Inc. Common Stock,NASDAQ,Consumer Staples,Beverages (Production/Distribution),3437132235
+ASO,Academy Sports and Outdoors Inc. Common Stock,NASDAQ,Consumer Discretionary,Other Specialty Stores,3434254751
+LRN,Stride Inc. Common Stock,NYSE,Real Estate,Other Consumer Services,3430765205
+MGNI,Magnite Inc. Common Stock,NASDAQ,Technology,Computer Software: Programming Data Processing,3423534628
+BOOT,Boot Barn Holdings Inc. Common Stock,NYSE,Consumer Discretionary,Clothing/Shoe/Accessory Stores,3417947494
+POST,Post Holdings Inc. Common Stock,NYSE,Consumer Staples,Packaged Foods,3413685476
+PDI,PIMCO Dynamic Income Fund Common Stock,NYSE,Finance,Trusts Except Educational Religious and Charitable,3398398200
+LMND,Lemonade Inc. Common Stock,NYSE,Finance,Property-Casualty Insurers,3394615534
+AMLX,Amylyx Pharmaceuticals Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,3391137389
+LIF,Life360 Inc. Common Stock,NASDAQ,Technology,EDP Services,3385509332
+MWA,MUELLER WATER PRODUCTS Common Stock,NYSE,Industrials,Metal Fabrications,3384804721
+THO,Thor Industries Inc. Common Stock,NYSE,Industrials,Homebuilding,3379192215
+LAZ,Lazard Inc. Common Stock,NYSE,Finance,Investment Managers,3377636826
+NATL,NCR Atleos Corporation Common Stock,NYSE,Miscellaneous,Office Equipment/Supplies/Services,3366005344
+ARIS,Aris Mining Corporation Common Shares,NYSE,,,3354000000
+HNI,HNI Corporation Common Stock,NYSE,Consumer Discretionary,Office Equipment/Supplies/Services,3351400974
+WING,Wingstop Inc. Common Stock,NASDAQ,Consumer Discretionary,Restaurants,3348108903
+CDNA,CareDx Inc. Common Stock,NASDAQ,Health Care,Medical Specialities,3346686886
+GNW,Genworth Financial Inc Common Stock,NYSE,Finance,Life Insurance,3332646146
+BFAM,Bright Horizons Family Solutions Inc. Common Stock,NYSE,Consumer Discretionary,Other Consumer Services,3327141283
+ARQT,Arcutis Biotherapeutics Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,3319524690
+ACAD,ACADIA Pharmaceuticals Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,3316881222
+CENX,Century Aluminum Company Common Stock,NASDAQ,Industrials,Aluminum,3288557260
+XENE,Xenon Pharmaceuticals Inc. Common Shares,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,3282890645
+BULL,Webull Corporation Class A Ordinary Shares,NASDAQ,Finance,Investment Bankers/Brokers/Service,3280743252
+FIBK,First Interstate BancSystem Inc. Common Stock (DE),NASDAQ,Finance,Major Banks,3275619343
+SHOO,Steven Madden Ltd. Common Stock,NASDAQ,Consumer Discretionary,Shoe Manufacturing,3273943230
+FRPT,Freshpet Inc. Common Stock,NASDAQ,Consumer Staples,Packaged Foods,3272754839
+IDYA,IDEAYA Biosciences Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,3267133928
+SLG,SL Green Realty Corp Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,3261929718
+LION,Lionsgate Studios Corp Common Shares,NYSE,Consumer Discretionary,Movies/Entertainment,3240424915
+FFBC,First Financial Bancorp. Common Stock,NASDAQ,Finance,Major Banks,3238089652
+FRVO,Fervo Energy Company Class A common stock,NASDAQ,Utilities,Electric Utilities: Central,3224709397
+CXW,CoreCivic Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,3219972002
+BRZE,Braze Inc. Class A Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,3208760063
+SBLK,Star Bulk Carriers Corp. Common Shares,NASDAQ,Consumer Discretionary,Marine Transportation,3208722416
+ATKR,Atkore Inc. Common Stock,NYSE,Miscellaneous,Industrial Machinery/Components,3206076776
+VKTX,Viking Therapeutics Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,3201289941
+WT,WisdomTree Inc. Common Stock,NYSE,Finance,Investment Bankers/Brokers/Service,3193875300
+BATRK,Atlanta Braves Holdings Inc. Series C Common Stock,NASDAQ,Consumer Discretionary,Services-Misc. Amusement & Recreation,3192994555
+SFNC,Simmons First National Corporation Class A Common Stock,NASDAQ,Finance,Major Banks,3186529047
+MARA,MARA Holdings Inc. Common Stock,NASDAQ,Finance,Finance: Consumer Services,3179243214
+MNSO,MINISO Group Holding Limited American Depositary Shares each representing four Ordinary Shares,NYSE,Consumer Discretionary,Department/Specialty Retail Stores,3161976470
+PAGS,PagSeguro Digital Ltd. Class A Common Shares,NYSE,Technology,EDP Services,3148039588
+EFXT,Enerflex Ltd Common Shares,NYSE,Industrials,Industrial Machinery/Components,3146591295
+HIW,Highwoods Properties Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,3144830076
+WIX,Wix.com Ltd. Ordinary Shares,NASDAQ,Technology,Computer Software: Programming Data Processing,3109627915
+FSM,Fortuna Mining Corp. Common Shares,NYSE,Basic Materials,Precious Metals,3097348626
+FIGS,FIGS Inc. Class A Common Stock,NYSE,Consumer Discretionary,Apparel,3095192708
+INTR,Inter & Co. Inc. Class A Common Shares,NASDAQ,Finance,Commercial Banks,3084838424
+WRBY,Warby Parker Inc. Class A Common Stock,NYSE,Health Care,Ophthalmic Goods,3080312706
+SBCF,Seacoast Banking Corporation of Florida Common Stock,NASDAQ,Finance,Major Banks,3064441588
+AVA,Avista Corporation Common Stock,NYSE,Utilities,Power Generation,3059490880
+CURB,Curbline Properties Corp. Common Stock,NYSE,Finance,Real Estate,3056560324
+PK,Park Hotels & Resorts Inc. Common Stock ,NYSE,Consumer Discretionary,Hotels/Resorts,3050275700
+LQDA,Liquidia Corporation Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,3037931761
+CXT,Crane NXT Co. Common Stock,NYSE,Industrials,Metal Fabrications,3036934399
+INTA,Intapp Inc. Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,3033278747
+PPLI,People Incorporated Common Stock,NASDAQ,Technology,Computer Software: Programming Data Processing,3020256798
+VGNT,Versigent PLC Ordinary Shares,NYSE,Consumer Discretionary,Auto Parts:O.E.M.,3014748878
+DAN,Dana Incorporated Common Stock ,NYSE,Consumer Discretionary,Auto Parts:O.E.M.,3009995478
+TGB,Trekor Metals Limited Common Shares,AMEX,Basic Materials,Precious Metals,3001391208
+PFSI,PennyMac Financial Services Inc. Common Stock,NYSE,Finance,Finance: Consumer Services,3000203283
+FOUR,Shift4 Payments Inc. Class A Common Stock,NYSE,Consumer Discretionary,Business Services,2999694959
+SLDE,Slide Insurance Holdings Inc. Common Stock,NASDAQ,Finance,Property-Casualty Insurers,2998556827
+RUM,RUM Group Inc. Class A Common Stock,NASDAQ,Technology,Computer Software: Programming Data Processing,2994693572
+NMIH,NMI Holdings Inc. Common Stock,NASDAQ,Finance,Property-Casualty Insurers,2986148685
+KN,Knowles Corporation Common Stock,NYSE,Consumer Staples,Consumer Electronics/Appliances,2979112171
+CBZ,CBIZ Inc. Common Stock,NYSE,Consumer Discretionary,Business Services,2970947375
+EXTR,Extreme Networks Inc. Common Stock,NASDAQ,Telecommunications,Computer Communications Equipment,2968553810
+FHB,First Hawaiian Inc. Common Stock,NASDAQ,Finance,Major Banks,2964157735
+AVPT,AvePoint Inc. Class A Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,2961915964
+YETI,YETI Holdings Inc. Common Stock,NYSE,Consumer Discretionary,Recreational Games/Products/Toys,2956776126
+COLM,Columbia Sportswear Company Common Stock,NASDAQ,Consumer Discretionary,Apparel,2953847294
+CALM,Cal-Maine Foods Inc. Common Stock,NASDAQ,Consumer Staples,Farming/Seeds/Milling,2951643635
+AEO,American Eagle Outfitters Inc. Common Stock,NYSE,Consumer Discretionary,Clothing/Shoe/Accessory Stores,2949290661
+MIAX,Miami International Holdings Inc. Common Stock,NYSE,Finance,Investment Bankers/Brokers/Service,2949142289
+ACHC,Acadia Healthcare Company Inc. Common Stock,NASDAQ,Health Care,Medical Specialities,2948485709
+SHAK,Shake Shack Inc. Class A Common Stock,NYSE,Consumer Discretionary,Restaurants,2943282966
+LBRT,Liberty Energy Inc. Class A common stock,NYSE,Energy,Oilfield Services/Equipment,2940709316
+ALM,Almonty Industries Inc. Common Shares,NASDAQ,Basic Materials,Other Metals and Minerals,2939618843
+SDRL,Seadrill Limited Common Shares,NYSE,Energy,Oil & Gas Production,2938196992
+SPNT,SiriusPoint Ltd. Common Shares,NYSE,Finance,Property-Casualty Insurers,2935489954
+WSC,WillScot Holdings Corporation Class A Common Stock,NASDAQ,Industrials,Misc Corporate Leasing Services,2933481610
+CELC,Celcuity Inc. Common Stock,NASDAQ,Health Care,Medical Specialities,2931021289
+BKU,BankUnited Inc. Common Stock,NYSE,Finance,Savings Institutions,2922659176
+CLBK,Columbia Financial Inc. Common Stock,NASDAQ,Finance,Savings Institutions,2921869263
+ATRC,AtriCure Inc. Common Stock,NASDAQ,Health Care,Medical/Dental Instruments,2914638646
+FSK,FS KKR Capital Corp. Common Stock,NYSE,Finance,Investment Managers,2912626551
+SMG,Scotts Miracle-Gro Company (The) Common Stock,NYSE,Industrials,Agricultural Chemicals,2894712023
+ELVN,Enliven Therapeutics Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,2878075492
+PII,Polaris Inc. Common Stock,NYSE,Consumer Discretionary,Industrial Specialties,2877042173
+UNFI,United Natural Foods Inc. Common Stock,NYSE,Consumer Discretionary,Food Distributors,2875918565
+RCUS,Arcus Biosciences Inc. Common Stock,NYSE,Health Care,Biotechnology: Pharmaceutical Preparations,2868820961
+PFS,Provident Financial Services Inc Common Stock,NYSE,Finance,Savings Institutions,2864080691
+BTU,Peabody Energy Corporation Common Stock ,NYSE,Energy,Coal Mining,2859774000
+DNLI,Denali Therapeutics Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),2856473092
+FLY,Firefly Aerospace Inc. Common Stock,NASDAQ,Industrials,Military/Government/Technical,2849227058
+TALO,Talos Energy Inc. Common Stock,NYSE,Energy,Oil & Gas Production,2843421920
+IMAX,Imax Corporation Common Stock,NYSE,Consumer Discretionary,Industrial Machinery/Components,2834788873
+STNE,StoneCo Ltd. Class A Common Shares,NASDAQ,Technology,EDP Services,2832284377
+DYN,Dyne Therapeutics Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,2808666322
+HOG,Harley-Davidson Inc. Common Stock,NYSE,Consumer Discretionary,Motor Vehicles,2805794789
+CSQR,Csquare Inc. Common Stock,NYSE,Technology,Computer Software: Programming Data Processing,2802783611
+NOG,Northern Oil and Gas Inc. Common Stock,NYSE,Energy,Oil & Gas Production,2802242066
+VECO,Veeco Instruments Inc. Common Stock,NASDAQ,Technology,Industrial Machinery/Components,2800960105
+LBTYA,Liberty Global Ltd. Class A Common Shares,NASDAQ,Telecommunications,Cable & Other Pay Television Services,2786685414
+TDC,Teradata Corporation Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,2779770000
+PRVA,Privia Health Group Inc. Common Stock,NASDAQ,Health Care,Medical/Nursing Services,2768000266
+COHU,Cohu Inc. Common Stock,NASDAQ,Industrials,Electrical Products,2756990338
+BHF,Brighthouse Financial Inc. Common Stock,NASDAQ,Finance,Life Insurance,2749052711
+DNOW,DNOW Inc. Common Stock,NYSE,Consumer Discretionary,Oil and Gas Field Machinery,2744329825
+NG,Novagold Resources Inc.,AMEX,Basic Materials,Precious Metals,2733823643
+ASST,Strive Inc. Class A Common Stock,NASDAQ,Finance,Finance: Consumer Services,2724356195
+KNF,Knife Riv Holding Co. Common Stock,NYSE,Industrials,Mining & Quarrying of Nonmetallic Minerals (No Fuels),2723508892
+CLBT,Cellebrite DI Ltd. Ordinary Shares,NASDAQ,Technology,Computer Software: Prepackaged Software,2722023680
+AMBA,Ambarella Inc. Ordinary Shares,NASDAQ,Technology,Semiconductors,2712904078
+AVAH,Aveanna Healthcare Holdings Inc. Common Stock,NASDAQ,Health Care,Medical/Nursing Services,2697195443
+HGV,Hilton Grand Vacations Inc. Common Stock ,NYSE,Consumer Discretionary,Hotels/Resorts,2696250590
+DX,Dynex Capital Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,2690129380
+BANC,Banc of California Inc. Common Stock,NYSE,Finance,Major Banks,2681999982
+CARG,CarGurus Inc. Class A Common Stock ,NASDAQ,Technology,EDP Services,2673985810
+ATRO,Astronics Corporation Common Stock,NASDAQ,Industrials,Military/Government/Technical,2668282331
+NEOG,Neogen Corporation Common Stock,NASDAQ,Health Care,Biotechnology: In Vitro & In Vivo Diagnostic Substances,2648052192
+DRH,Diamondrock Hospitality Company Common Stock,NASDAQ,Real Estate,Real Estate Investment Trusts,2635321171
+PURR,Hyperliquid Strategies Inc Common Stock,NASDAQ,Finance,Finance: Consumer Services,2635229097
+PGEN,Precigen Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,2633349242
+TMDX,TransMedics Group Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Electromedical & Electrotherapeutic Apparatus,2618666950
+GRND,Grindr Inc. Common Stock,NYSE,Technology,Computer Software: Programming Data Processing,2617738643
+WTTR,Select Water Solutions Inc. Class A common stock,NYSE,Energy,Oilfield Services/Equipment,2607594085
+CWK,Cushman & Wakefield Ltd. Common Shares,NYSE,Finance,Real Estate,2591239336
+NRIX,Nurix Therapeutics Inc. Common stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,2585943097
+APAM,Artisan Partners Asset Management Inc. Class A Common Stock,NYSE,Finance,Investment Managers,2573246514
+UCTT,Ultra Clean Holdings Inc. Common Stock,NASDAQ,Technology,Semiconductors,2571282477
+KD,Kyndryl Holdings Inc. Common Stock,NYSE,Technology,EDP Services,2568077321
+TRMK,Trustmark Corporation Common Stock,NASDAQ,Finance,Major Banks,2562654563
+KBH,KB Home Common Stock,NYSE,Consumer Discretionary,Homebuilding,2547781520
+LIFE,Ethos Technologies Inc. Class A Common Stock,NASDAQ,Finance,Specialty Insurers,2532426207
+BKV,BKV Corporation Common Stock,NYSE,Energy,Oil & Gas Production,2528013873
+LUNR,Intuitive Machines Inc. Class A Common Stock,NASDAQ,Industrials,Industrial Machinery/Components,2522743229
+FBK,FB Financial Corporation Common Stock,NYSE,Finance,Major Banks,2517898592
+AAP,Advance Auto Parts Inc.,NYSE,Consumer Discretionary,Auto & Home Supply Stores,2513848000
+SMR,NuScale Power Corporation Class A Common Stock,NYSE,Industrials,Metal Fabrications,2505286676
+POWI,Power Integrations Inc. Common Stock,NASDAQ,Technology,Semiconductors,2502006284
+AKR,Acadia Realty Trust Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,2484348941
+GPK,Graphic Packaging Holding Company,NYSE,Consumer Discretionary,Containers/Packaging,2481079782
+FIVN,Five9 Inc. Common Stock,NASDAQ,Technology,EDP Services,2471854405
+REZI,Resideo Technologies Inc. Common Stock ,NYSE,Industrials,Wholesale Distributors,2461445997
+OSW,OneSpaWorld Holdings Limited Common Shares,NASDAQ,Consumer Discretionary,Hotels/Resorts,2448148933
+BEAM,Beam Therapeutics Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),2442753277
+NVTS,Navitas Semiconductor Corporation Common Stock,NASDAQ,Technology,Semiconductors,2442529580
+HAYW,Hayward Holdings Inc. Common Stock,NYSE,Industrials,Industrial Machinery/Components,2441496389
+CALY,Callaway Golf Company Common Stock,NYSE,Consumer Discretionary,Recreational Games/Products/Toys,2417032454
+MAN,ManpowerGroup Common Stock,NYSE,Consumer Discretionary,Professional Services,2416429417
+BKD,Brookdale Senior Living Inc. Common Stock,NYSE,Health Care,Hospital/Nursing Management,2414442418
+BUSE,First Busey Corporation Class A Common Stock,NASDAQ,Finance,Major Banks,2408336054
+SLS,SELLAS Life Sciences Group Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,2399115023
+HTO,H2O America Common Stock,NASDAQ,Utilities,Water Supply,2398394869
+KSS,Kohl's Corporation Common Stock,NYSE,Consumer Discretionary,Department/Specialty Retail Stores,2397911812
+NAMS,NewAmsterdam Pharma Company N.V. Ordinary Shares,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,2391938752
+EEFT,Euronet Worldwide Inc. Common Stock,NASDAQ,Finance,Investment Bankers/Brokers/Service,2385601289
+ADEA,Adeia Inc. Common Stock,NASDAQ,Telecommunications,Cable & Other Pay Television Services,2383154042
+CLSK,CleanSpark Inc. Common Stock,NASDAQ,Finance,Finance: Consumer Services,2369137498
+LEU,Centrus Energy Corp. Class A Common Stock,NYSE,Industrials,Mining & Quarrying of Nonmetallic Minerals (No Fuels),2367082265
+LPG,Dorian LPG Ltd. Common Stock,NYSE,Consumer Discretionary,Marine Transportation,2361603991
+KMT,Kennametal Inc. Common Stock,NYSE,Industrials,Industrial Machinery/Components,2360451958
+MBX,MBX Biosciences Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,2351175887
+FCPT,Four Corners Property Trust Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,2348787088
+SUPN,Supernus Pharmaceuticals Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,2335543382
+AEHR,Aehr Test Systems Common Stock,NASDAQ,Industrials,Electrical Products,2334830944
+LTC,LTC Properties Inc. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,2328720322
+EXK,Endeavour Silver Corporation Ordinary Shares (Canada),NYSE,Basic Materials,Precious Metals,2318218720
+ADMA,ADMA Biologics Inc Common Stock,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),2316001591
+LIND,Lindblad Expeditions Holdings Inc. Common Stock,NASDAQ,Consumer Discretionary,Transportation Services,2313750234
+IVT,InvenTrust Properties Corp. Common Stock,NYSE,Real Estate,Real Estate Investment Trusts,2305042420
+OUST,Ouster Inc. Common Stock,NASDAQ,Industrials,Industrial Machinery/Components,2298220053
+PBI,Pitney Bowes Inc. Common Stock,NYSE,Miscellaneous,Office Equipment/Supplies/Services,2296261051
+PBH,Prestige Consumer Healthcare Inc. Common Stock,NYSE,Health Care,Biotechnology: Pharmaceutical Preparations,2292926865
+ANDE,Andersons Inc. (The) Common Stock,NASDAQ,Industrials,Farming/Seeds/Milling,2288254640
+RAMP,LiveRamp Holdings Inc. Common Stock,NYSE,Technology,EDP Services,2286499273
+ARR,ARMOUR Residential REIT Inc.,NYSE,Real Estate,Real Estate Investment Trusts,2275866561
+BBT,Beacon Financial Corporation Common stock,NYSE,Finance,Banks,2270577770
+CALX,Calix Inc Common Stock,NYSE,Consumer Discretionary,Telecommunications Equipment,2269222164
+ASAN,Asana Inc. Class A Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,2246196848
+PONY,Pony AI Inc. American Depositary Shares ,NASDAQ,Technology,EDP Services,2241409829
+BTDR,Bitdeer Technologies Group Class A Ordinary Shares,NASDAQ,Finance,Finance: Consumer Services,2223178764
+PTON,Peloton Interactive Inc. Class A Common Stock,NASDAQ,Consumer Discretionary,Recreational Games/Products/Toys,2220691313
+PRGO,Perrigo Company plc Ordinary Shares,NYSE,Health Care,Biotechnology: Pharmaceutical Preparations,2213369458
+UPST,Upstart Holdings Inc. Common stock,NASDAQ,Finance,Finance: Consumer Services,2212898666
+AUPH,Aurinia Pharmaceuticals Inc Ordinary Shares,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,2209979900
+MD,Pediatrix Medical Group Inc. Common Stock,NYSE,Health Care,Hospital/Nursing Management,2198713513
+FLYW,Flywire Corporation Voting Common Stock,NASDAQ,Consumer Discretionary,Business Services,2197318192
+CLDX,Celldex Therapeutics Inc.,NASDAQ,Health Care,Biotechnology: In Vitro & In Vivo Diagnostic Substances,2185869523
+HRMY,Harmony Biosciences Holdings Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,2184447101
+EROC,ERock Inc. Class A Common Stock,NYSE,Energy,Industrial Machinery/Components,2178642794
+PPTA,Perpetua Resources Corp. Common Shares,NASDAQ,Basic Materials,Precious Metals,2174165056
+NEO,NeoGenomics Inc. Common Stock,NASDAQ,Health Care,Precision Instruments,2168665427
+PRCH,Porch Group Inc. Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,2167318803
+PEB,Pebblebrook Hotel Trust Common Shares of Beneficial Interest,NYSE,Real Estate,Real Estate Investment Trusts,2156424303
+RDW,Redwire Corporation Common Stock,NYSE,Industrials,Military/Government/Technical,2154936290
+WAFD,WaFd Inc. Common Stock,NASDAQ,Finance,Major Banks,2139202331
+PGNY,Progyny Inc. Common Stock,NASDAQ,Health Care,Misc Health and Biotechnology Services,2136074056
+VVX,V2X Inc. Common Stock,NYSE,Consumer Discretionary,Diversified Commercial Services,2135245787
+STUB,StubHub Holdings Inc. Class A Common Stock,NYSE,Consumer Discretionary,Services-Misc. Amusement & Recreation,2132062010
+RH,RH Common Stock,NYSE,Consumer Discretionary,Other Specialty Stores,2101391317
+NMRK,Newmark Group Inc. Class A Common Stock,NASDAQ,Finance,Real Estate,2098627501
+HIMX,Himax Technologies Inc. American Depositary Shares,NASDAQ,Technology,Semiconductors,2089622450
+SVM,Silvercorp Metals Inc. Common Shares,AMEX,Basic Materials,Precious Metals,2086054074
+NVAX,Novavax Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),2084913977
+UUUU,Energy Fuels Inc Ordinary Shares (Canada),AMEX,Industrials,Mining & Quarrying of Nonmetallic Minerals (No Fuels),2084325678
+VRDN,Viridian Therapeutics Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Pharmaceutical Preparations,2082311904
+SONO,Sonos Inc. Common Stock,NASDAQ,Consumer Staples,Consumer Electronics/Appliances,2081974030
+TRN,Trinity Industries Inc. Common Stock,NYSE,Industrials,Railroads,2081763669
+NCNO,nCino Inc. Common Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,2079830543
+LASR,nLIGHT Inc. Common Stock,NASDAQ,Technology,Semiconductors,2070501170
+GCT,GigaCloud Technology Inc Class A Ordinary Shares,NASDAQ,Consumer Discretionary,Catalog/Specialty Distribution,2062266187
+AXGN,Axogen Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Electromedical & Electrotherapeutic Apparatus,2061716967
+BCRX,BioCryst Pharmaceuticals Inc. Common Stock,NASDAQ,Health Care,Biotechnology: Biological Products (No Diagnostic Substances),2057057595
+INFQ,Infleqtion Inc. Common Stock,NYSE,Technology,EDP Services,2053002744
+WGS,GeneDx Holdings Corp. Class A Common Stock,NASDAQ,Health Care,Medical/Nursing Services,2046124538
+PHIN,PHINIA Inc. Common Stock,NYSE,Consumer Discretionary,Auto Parts:O.E.M.,2045870834
+DXC,DXC Technology Company Common Stock ,NYSE,Technology,EDP Services,2043569432
+PATK,Patrick Industries Inc. Common Stock,NASDAQ,Consumer Discretionary,Auto Parts:O.E.M.,2033407294
+TILE,Interface Inc. Common Stock,NASDAQ,Consumer Discretionary,Home Furnishings,2031108164
+FTRE,Fortrea Holdings Inc. Common Stock,NASDAQ,Health Care,Medical Specialities,2029434000
+BFLY,Butterfly Network Inc. Class A Common Stock,NYSE,Health Care,Medical Electronics,2023767391
+DJT,Trump Media & Technology Group Corp. Common Stock,NASDAQ,Technology,Computer Software: Programming Data Processing,2006735998

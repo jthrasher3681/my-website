@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Rectangle Screener · Thrasher Co</title>
+<meta name="description" content="Daily-chart rectangle pattern screener: stocks still inside a flat trading range, and fresh bullish or bearish breakouts."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fafaf7;--surface:#fff;--ink:#111;--ink-soft:#4b4b4b;--ink-mute:#8a8a85;--line:#e8e6df;--line-soft:#f0eee8;--accent:#2e6fc7;--accent-soft:#e0ebf7;--up:#15803d;--up-soft:#e3f3e8;--down:#b42318;--down-soft:#fbe9e7;--box:#2e6fc7;--candle-up:#2f9e5b;--candle-down:#d0453a}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+button,input,select{font:inherit;color:inherit}
+.wrap{width:min(1180px,calc(100% - 32px));margin:0 auto}
+header{position:sticky;top:0;z-index:20;background:rgba(250,250,247,.85);backdrop-filter:saturate(140%) blur(10px);-webkit-backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:-.01em;color:var(--ink)}.brand:hover{text-decoration:none}
+.brand-mark{width:28px;height:28px;border-radius:8px;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-family:'Instrument Serif',serif;font-size:1.1rem}
+.nav-links{display:flex;gap:24px;font-size:.92rem;color:var(--ink-soft)}.nav-links a{color:var(--ink-soft)}.nav-links a:hover{color:var(--ink);text-decoration:none}
+.hero{padding:56px 0 28px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;color:var(--ink-soft);margin-bottom:20px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);text-transform:uppercase;letter-spacing:.06em}
+.dot{width:6px;height:6px;border-radius:50%;background:#16a34a;box-shadow:0 0 0 3px rgba(22,163,74,.18)}
+.dot.stale{background:#d97706;box-shadow:0 0 0 3px rgba(217,119,6,.18)}
+h1{font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(2.4rem,5.5vw,3.8rem);line-height:1.03;letter-spacing:-.02em;margin-bottom:14px}
+h1 em{font-style:italic;color:var(--accent)}
+.lede{font-size:1.06rem;color:var(--ink-soft);max-width:62ch}
+.runmeta{margin-top:14px;font-size:.86rem;color:var(--ink-mute)}
+.stale-note{margin-top:14px;display:none;font-size:.88rem;color:#92400e;background:#fdf3e2;border:1px solid #f3dcb2;border-radius:10px;padding:10px 14px;max-width:62ch}
+
+/* Controls */
+.controls{padding:8px 0 18px;display:grid;gap:14px}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg button{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-size:.92rem;font-weight:500;color:var(--ink-soft);transition:all .15s ease}
+.seg button:hover{border-color:var(--ink-mute);color:var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.seg .n{font-variant-numeric:tabular-nums;font-size:.8rem;padding:1px 7px;border-radius:999px;background:var(--line-soft);color:var(--ink-soft)}
+.seg button[aria-pressed="true"] .n{background:rgba(255,255,255,.16);color:var(--bg)}
+.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:end}
+.field{display:grid;gap:4px;font-size:.74rem;color:var(--ink-mute);text-transform:uppercase;letter-spacing:.05em}
+.field input,.field select{height:38px;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:0 10px;font-size:.92rem;text-transform:none;letter-spacing:0;color:var(--ink);min-width:0}
+.field input{width:200px}
+.field input:focus,.field select:focus{outline:2px solid var(--accent-soft);border-color:var(--accent)}
+.reset{height:38px;padding:0 14px;border-radius:10px;border:1px solid transparent;background:none;color:var(--accent);cursor:pointer;font-size:.9rem}
+.reset:hover{text-decoration:underline}
+.summary{font-size:.88rem;color:var(--ink-mute)}
+
+/* Results */
+.list{display:grid;gap:10px;padding-bottom:24px}
+.row{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:border-color .15s ease,box-shadow .15s ease}
+.row:hover{border-color:#d8d5cc}
+.row.open{border-color:#cfd9e8;box-shadow:0 6px 24px rgba(17,17,17,.05)}
+.row-main{display:grid;grid-template-columns:132px minmax(150px,1.3fr) minmax(150px,1.1fr) minmax(120px,.9fr) minmax(110px,.8fr) 92px 18px;gap:18px;align-items:center;width:100%;padding:14px 18px;background:none;border:0;text-align:left;cursor:pointer}
+.row-main:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;border-radius:14px}
+.thumb{width:132px;height:50px;display:block}
+.sym{font-weight:700;letter-spacing:-.01em;font-size:1.02rem}
+.name{font-size:.84rem;color:var(--ink-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sub{font-size:.78rem;color:var(--ink-mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.badge.inside{background:var(--accent-soft);color:var(--accent)}
+.badge.up{background:var(--up-soft);color:var(--up)}
+.badge.down{background:var(--down-soft);color:var(--down)}
+.badge.warn{background:#fdf3e2;color:#92400e;font-weight:500}
+.cell-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-mute)}
+.cell-val{font-size:.92rem;font-variant-numeric:tabular-nums;color:var(--ink)}
+.cell-val .muted{color:var(--ink-mute)}
+.status-detail{font-size:.82rem;color:var(--ink-soft);margin-top:4px;font-variant-numeric:tabular-nums}
+.posbar{position:relative;height:6px;border-radius:999px;background:var(--line-soft);margin-top:6px;width:100%;max-width:120px}
+.posbar i{position:absolute;top:-3px;width:4px;height:12px;border-radius:2px;background:var(--ink);transform:translateX(-50%)}
+.q{display:grid;gap:5px;justify-items:start}
+.qbar{height:6px;width:80px;border-radius:999px;background:var(--line-soft);overflow:hidden}
+.qbar i{display:block;height:100%;background:var(--accent);border-radius:999px}
+.chev{width:18px;height:18px;color:var(--ink-mute);transition:transform .2s ease}
+.row.open .chev{transform:rotate(180deg)}
+
+.detail{display:none;border-top:1px solid var(--line-soft);padding:16px 18px 20px}
+.row.open .detail{display:block}
+.chart-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.78rem;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:14px;height:10px;border-radius:2px;display:inline-block}
+.hover-read{font-size:.8rem;color:var(--ink-soft);font-variant-numeric:tabular-nums;min-height:1.2em}
+.chart{width:100%;height:340px;display:block;touch-action:pan-y}
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px 18px;margin-top:14px}
+.stat .cell-val{font-weight:500}
+.links{margin-top:14px;display:flex;gap:16px;font-size:.88rem;flex-wrap:wrap}
+.empty,.loading{padding:40px 0;color:var(--ink-mute);text-align:center}
+
+/* Method */
+.method{padding:40px 0 64px;border-top:1px solid var(--line);margin-top:24px}
+.method h2{font-family:'Instrument Serif',serif;font-weight:400;font-size:1.9rem;letter-spacing:-.01em;margin-bottom:14px}
+.method-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.card h3{font-size:1rem;margin-bottom:8px}
+.card p,.card li{font-size:.92rem;color:var(--ink-soft)}
+.card ul{margin-left:1.1em;display:grid;gap:6px}
+.disclaimer{margin-top:22px;font-size:.84rem;color:var(--ink-mute)}
+footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:var(--ink-mute)}
+
+@media (max-width:980px){
+  .row-main{grid-template-columns:112px repeat(3,minmax(0,1fr)) 18px;grid-template-areas:"thumb id id status chev" "thumb box len q q";row-gap:10px}
+  .thumb{width:112px;height:56px}
+  .c-thumb{grid-area:thumb}.c-id{grid-area:id}.c-status{grid-area:status}.c-box{grid-area:box}.c-len{grid-area:len}.c-q{grid-area:q}.c-chev{grid-area:chev;align-self:start}
+}
+@media (max-width:640px){
+  .nav-links{gap:14px;font-size:.86rem}.nav-links .hide-sm{display:none}
+  .hero{padding:36px 0 20px}
+  .field{flex:1 1 140px}.field input{width:100%}.field select{width:100%}
+  .row-main{grid-template-columns:repeat(6,minmax(0,1fr)) 18px;grid-template-areas:"id id id status status status chev" "thumb thumb thumb thumb thumb thumb thumb" "box box box len len q q";padding:14px;gap:10px 12px}
+  .c-len .sub{white-space:normal}
+  .thumb{width:100%;height:56px}
+  .chart{height:280px}
+  .detail{padding:14px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="/"><span class="brand-mark">T</span><span>Thrasher Co</span></a>
+    <nav class="nav-links">
+      <a href="/">Home</a>
+      <a class="hide-sm" href="/daily-market-brief/">Market Brief</a>
+      <a href="#method">Method</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow"><span class="dot" id="fresh-dot"></span><span id="asof-label">Daily chart</span></div>
+      <h1>Rectangle <em>Screener</em></h1>
+      <p class="lede">Stocks trading inside a flat, well-tested range on the daily chart — plus the ones that just broke out of it, bullish or bearish. Click any row for the chart.</p>
+      <p class="runmeta" id="runmeta"></p>
+      <p class="stale-note" id="stale-note"></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap controls">
+      <div class="seg" role="group" aria-label="Pattern status" id="seg">
+        <button type="button" data-status="all" aria-pressed="true">All <span class="n" data-count="all">–</span></button>
+        <button type="button" data-status="inside" aria-pressed="false">Inside range <span class="n" data-count="inside">–</span></button>
+        <button type="button" data-status="breakout_up" aria-pressed="false">Breakout ↑ <span class="n" data-count="breakout_up">–</span></button>
+        <button type="button" data-status="breakout_down" aria-pressed="false">Breakdown ↓ <span class="n" data-count="breakout_down">–</span></button>
+      </div>
+      <div class="filters">
+        <label class="field">Search<input id="q" type="search" placeholder="Ticker or company" autocomplete="off"></label>
+        <label class="field">Sector<select id="sector"><option value="">All sectors</option></select></label>
+        <label class="field">Broke out within<select id="age">
+          <option value="1">Today</option><option value="3">3 days</option><option value="5" selected>5 days</option><option value="10">10 days</option>
+        </select></label>
+        <label class="field">Min. length<select id="minlen">
+          <option value="0">Any</option><option value="20">4+ weeks</option><option value="40">8+ weeks</option><option value="63">3+ months</option>
+        </select></label>
+        <label class="field">Position<select id="pos">
+          <option value="">Anywhere</option><option value="top">Near resistance</option><option value="mid">Middle</option><option value="bottom">Near support</option>
+        </select></label>
+        <label class="field">Sort<select id="sort">
+          <option value="quality">Pattern quality</option><option value="recent">Newest breakout</option><option value="length">Longest range</option><option value="tight">Tightest range</option><option value="cap">Market cap</option><option value="symbol">Ticker A–Z</option>
+        </select></label>
+        <button class="reset" type="button" id="reset">Reset</button>
+      </div>
+      <div class="summary" id="summary" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="list" id="list"><div class="loading">Loading today's scan…</div></div>
+    </div>
+  </section>
+
+  <section class="method" id="method">
+    <div class="wrap">
+      <h2>How the screen works</h2>
+      <div class="method-grid">
+        <div class="card">
+          <h3>What counts as a rectangle</h3>
+          <ul id="rules">
+            <li>Flat resistance and flat support — not a rising or falling channel, triangle, or wedge.</li>
+            <li>Both lines tested at least twice, with price travelling across the box between tests.</li>
+            <li>Daily closes stay inside the box for the whole pattern; brief wicks through a line are allowed.</li>
+            <li>At least three weeks long, and tall enough to matter relative to the stock's normal daily range.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>What makes the list</h3>
+          <ul>
+            <li><strong>Inside range</strong> — the latest close is still inside an active rectangle. A recent false breakout that closed back inside is flagged.</li>
+            <li><strong>Breakout ↑ / Breakdown ↓</strong> — a decisive daily close above resistance or below support within the last <span data-param="max_breakout_age">10</span> sessions that hasn't closed back inside since.</li>
+            <li>Older breakouts and stocks with no clean range are left out.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Reading a row</h3>
+          <ul>
+            <li><strong>Box</strong> — support to resistance, and the range height as a % of support.</li>
+            <li><strong>Touches</strong> — distinct tests of resistance (T) and support (B).</li>
+            <li><strong>Target</strong> — the classic measured move: the box height projected from the broken line.</li>
+            <li><strong>Vol ×</strong> — breakout-day volume against the prior 50-day average.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="disclaimer" id="universe-note">Updated after each US market close. Informational only — not investment advice.</p>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap">© <span id="yr">2026</span> Thrasher Co · <a href="/">Home</a></div></footer>
+
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  const listEl = $('#list');
+  const state = { status: 'all', q: '', sector: '', age: 5, minlen: 0, pos: '', sort: 'quality' };
+  const DEFAULTS = { ...state };
+  let DATA = null, CHARTS = null, chartsPromise = null;
+  const open = new Set();
+
+  const STATUS = {
+    inside: { label: 'Inside range', cls: 'inside', color: 'var(--accent)' },
+    breakout_up: { label: 'Breakout ↑', cls: 'up', color: 'var(--up)' },
+    breakout_down: { label: 'Breakdown ↓', cls: 'down', color: 'var(--down)' },
+  };
+
+  // ---------- formatting ----------
+  const fmtPrice = v => v == null ? '–' : '$' + (v >= 1000 ? v.toLocaleString('en-US', { maximumFractionDigits: 0 }) : v.toFixed(2));
+  const fmtPct = (v, d = 1) => v == null ? '–' : `${v.toFixed(d)}%`;
+  const fmtSigned = (v, d = 1) => v == null ? '–' : `${v > 0 ? '+' : v < 0 ? '−' : ''}${Math.abs(v).toFixed(d)}%`;
+  const fmtCap = v => !v ? '–' : v >= 1e12 ? `$${(v / 1e12).toFixed(2)}T` : v >= 1e9 ? `$${(v / 1e9).toFixed(1)}B` : `$${(v / 1e6).toFixed(0)}M`;
+  const fmtVol = v => v >= 1e9 ? `${(v / 1e9).toFixed(2)}B` : v >= 1e6 ? `${(v / 1e6).toFixed(1)}M` : v >= 1e3 ? `${(v / 1e3).toFixed(0)}K` : `${v}`;
+  const parseDay = s => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); };
+  const fmtDate = (s, withYear = false) => s ? parseDay(s).toLocaleDateString('en-US', { month: 'short', day: 'numeric', ...(withYear ? { year: 'numeric' } : {}) }) : '–';
+  const weeks = bars => bars >= 63 ? `${(bars / 21).toFixed(1)} mo` : `${(bars / 5).toFixed(bars < 50 ? 1 : 0)} wk`;
+  const ago = d => d === 0 ? 'today' : d === 1 ? '1 day ago' : `${d} days ago`;
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  // ---------- URL state ----------
+  function readURL() {
+    const p = new URLSearchParams(location.search);
+    for (const k of Object.keys(state)) if (p.has(k)) state[k] = typeof DEFAULTS[k] === 'number' ? Number(p.get(k)) || DEFAULTS[k] : p.get(k);
+    if (p.has('minlen') && p.get('minlen') === '0') state.minlen = 0;
+    if (!['all', 'inside', 'breakout_up', 'breakout_down'].includes(state.status)) state.status = 'all';
+    if (p.has('open')) p.get('open').split(',').filter(Boolean).forEach(s => open.add(s));
+  }
+  function writeURL() {
+    const p = new URLSearchParams();
+    for (const [k, v] of Object.entries(state)) if (v !== DEFAULTS[k]) p.set(k, v);
+    if (open.size) p.set('open', [...open].join(','));
+    const qs = p.toString();
+    history.replaceState(null, '', qs ? `?${qs}` : location.pathname);
+  }
+  function syncControls() {
+    document.querySelectorAll('#seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.status === state.status)));
+    $('#q').value = state.q; $('#sector').value = state.sector; $('#age').value = String(state.age);
+    $('#minlen').value = String(state.minlen); $('#pos').value = state.pos; $('#sort').value = state.sort;
+  }
+
+  // ---------- filtering ----------
+  function passesCommon(r) {
+    if (state.q) {
+      const q = state.q.trim().toLowerCase();
+      if (q && !r.symbol.toLowerCase().startsWith(q) && !r.name.toLowerCase().includes(q)) return false;
+    }
+    if (state.sector && r.sector !== state.sector) return false;
+    if (r.bars < state.minlen) return false;
+    if (r.status !== 'inside' && r.days_since_breakout > state.age) return false;
+    return true;
+  }
+  function passesPos(r) {
+    if (!state.pos || r.status !== 'inside') return true;
+    const p = r.position_pct;
+    return state.pos === 'top' ? p >= 75 : state.pos === 'bottom' ? p <= 25 : p > 25 && p < 75;
+  }
+  const SORTS = {
+    quality: (a, b) => b.quality - a.quality,
+    recent: (a, b) => (a.days_since_breakout ?? 99) - (b.days_since_breakout ?? 99) || b.quality - a.quality,
+    length: (a, b) => b.bars - a.bars,
+    tight: (a, b) => a.height_pct - b.height_pct,
+    cap: (a, b) => (b.market_cap || 0) - (a.market_cap || 0),
+    symbol: (a, b) => a.symbol.localeCompare(b.symbol),
+  };
+
+  function render() {
+    const base = DATA.results.filter(passesCommon);
+    const counts = { all: 0, inside: 0, breakout_up: 0, breakout_down: 0 };
+    for (const r of base) if (passesPos(r)) { counts[r.status]++; counts.all++; }
+    document.querySelectorAll('[data-count]').forEach(el => el.textContent = counts[el.dataset.count]);
+    const rows = base.filter(r => passesPos(r) && (state.status === 'all' || r.status === state.status)).sort(SORTS[state.sort] || SORTS.quality);
+    $('#summary').textContent = `${rows.length} of ${DATA.results.length} matches shown`;
+    $('#pos').closest('.field').style.opacity = state.status === 'breakout_up' || state.status === 'breakout_down' ? .45 : 1;
+    if (!rows.length) { listEl.innerHTML = '<div class="empty">No stocks match these filters.</div>'; return; }
+    listEl.innerHTML = rows.map(rowHTML).join('');
+    for (const sym of open) {
+      const el = listEl.querySelector(`.row[data-sym="${CSS.escape(sym)}"]`);
+      if (el) expand(el, false);
+    }
+  }
+
+  // ---------- row ----------
+  function thumbSVG(r) {
+    const W = 132, H = 50, P = 3;
+    const pts = r.thumb || [];
+    if (pts.length < 2) return '';
+    const lo = Math.min(r.bottom, ...pts), hi = Math.max(r.top, ...pts);
+    const y = v => P + (H - 2 * P) * (1 - (v - lo) / (hi - lo || 1));
+    const x = i => P + (W - 2 * P) * i / (pts.length - 1);
+    const line = pts.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ');
+    const [f0, f1] = r.thumb_box || [0, 1];
+    const bx0 = P + (W - 2 * P) * f0, bx1 = P + (W - 2 * P) * f1;
+    const color = STATUS[r.status].color;
+    return `<svg class="thumb" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">
+      <rect x="${bx0.toFixed(1)}" y="${y(r.top).toFixed(1)}" width="${Math.max(2, bx1 - bx0).toFixed(1)}" height="${Math.max(1, y(r.bottom) - y(r.top)).toFixed(1)}" fill="${'var(--accent-soft)'}" stroke="var(--box)" stroke-opacity=".55" stroke-width="1" vector-effect="non-scaling-stroke"/>
+      <polyline points="${line}" fill="none" stroke="${r.status === 'inside' ? 'var(--ink)' : color}" stroke-width="1.4" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    </svg>`;
+  }
+
+  function statusDetail(r) {
+    if (r.status === 'inside') {
+      const toTop = (r.top / r.close - 1) * 100, toBot = (r.close / r.bottom - 1) * 100;
+      const p = Math.max(0, Math.min(100, r.position_pct));
+      return `<div class="status-detail">${Math.round(r.position_pct)}% up the box</div>
+        <div class="posbar" title="${toTop.toFixed(1)}% below resistance · ${toBot.toFixed(1)}% above support"><i style="left:${p}%"></i></div>`;
+    }
+    const vol = r.breakout_volume_ratio != null ? ` · vol ${r.breakout_volume_ratio.toFixed(1)}×` : '';
+    return `<div class="status-detail">${ago(r.days_since_breakout)}${vol}</div>`;
+  }
+
+  function rowHTML(r) {
+    const st = STATUS[r.status];
+    const failed = r.failed_breakout ? `<span class="badge warn" title="Closed back inside after a ${r.failed_breakout === 'up' ? 'breakout' : 'breakdown'}">failed ${r.failed_breakout === 'up' ? '↑' : '↓'}</span>` : '';
+    const chg = r.change_pct != null ? `<span style="color:${r.change_pct >= 0 ? 'var(--up)' : 'var(--down)'}">${fmtSigned(r.change_pct, 2)}</span>` : '';
+    return `<article class="row" data-sym="${esc(r.symbol)}">
+      <button class="row-main" type="button" aria-expanded="false" aria-controls="d-${esc(r.symbol)}">
+        <div class="c-thumb">${thumbSVG(r)}</div>
+        <div class="c-id" style="min-width:0">
+          <div class="sym">${esc(r.symbol)}</div>
+          <div class="name" title="${esc(r.name)}">${esc(r.name)}</div>
+          <div class="sub">${fmtPrice(r.close)} ${chg}</div>
+        </div>
+        <div class="c-status"><div style="display:flex;gap:6px;flex-wrap:wrap"><span class="badge ${st.cls}">${st.label}</span>${failed}</div>${statusDetail(r)}</div>
+        <div class="c-box"><div class="cell-label">Box</div><div class="cell-val">${fmtPrice(r.bottom)}–${fmtPrice(r.top)}</div><div class="sub">${fmtPct(r.height_pct)} tall</div></div>
+        <div class="c-len"><div class="cell-label">Length</div><div class="cell-val">${weeks(r.bars)}</div><div class="sub">${r.top_touches}T · ${r.bottom_touches}B touches</div></div>
+        <div class="c-q q"><div class="cell-label">Quality</div><div class="qbar"><i style="width:${Math.max(4, Math.min(100, r.quality))}%"></i></div><div class="sub">${Math.round(r.quality)}/100</div></div>
+        <svg class="chev c-chev" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 8l5 5 5-5"/></svg>
+      </button>
+      <div class="detail" id="d-${esc(r.symbol)}"></div>
+    </article>`;
+  }
+
+  // ---------- detail ----------
+  function loadCharts() {
+    if (!chartsPromise) chartsPromise = fetch('data/charts.json', { cache: 'no-cache' }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(j => (CHARTS = j));
+    return chartsPromise;
+  }
+
+  function stat(label, val) { return `<div class="stat"><div class="cell-label">${label}</div><div class="cell-val">${val}</div></div>`; }
+
+  function detailHTML(r) {
+    const st = [];
+    st.push(stat('Resistance', fmtPrice(r.top)), stat('Support', fmtPrice(r.bottom)), stat('Height', fmtPct(r.height_pct)));
+    st.push(stat('Range', `${fmtDate(r.start, true)} → ${r.status === 'inside' ? 'now' : fmtDate(r.end)}`), stat('Length', `${r.bars} sessions`));
+    st.push(stat('Touches', `${r.top_touches} top · ${r.bottom_touches} bottom`));
+    if (r.status === 'inside') {
+      st.push(stat('To resistance', fmtSigned((r.top / r.close - 1) * 100)), stat('To support', fmtSigned((r.bottom / r.close - 1) * 100)));
+      if (r.failed_breakout) st.push(stat('Note', `Failed ${r.failed_breakout === 'up' ? 'breakout' : 'breakdown'}`));
+    } else {
+      st.push(stat('Breakout', `${fmtDate(r.breakout_date)} (${ago(r.days_since_breakout)})`));
+      st.push(stat('Breakout vol', r.breakout_volume_ratio != null ? `${r.breakout_volume_ratio.toFixed(2)}× avg` : '–'));
+      st.push(stat('Beyond line', r.extension_pct != null ? `${r.extension_pct.toFixed(0)}% of height` : '–'));
+      st.push(stat('Measured target', fmtPrice(r.target)));
+    }
+    st.push(stat('ATR (14)', fmtPct(r.atr_pct, 2)), stat('Market cap', fmtCap(r.market_cap)), stat('Sector', esc(r.sector || '–')));
+    const tv = `https://www.tradingview.com/chart/?symbol=${encodeURIComponent((r.exchange ? r.exchange + ':' : '') + r.symbol)}`;
+    return `<div class="chart-head">
+        <div class="legend">
+          <span><i class="sw" style="background:var(--accent-soft);border:1px solid var(--box)"></i>Rectangle</span>
+          <span><svg width="10" height="10"><circle cx="5" cy="5" r="3.5" fill="#fff" stroke="var(--box)" stroke-width="1.6"/></svg>Touch</span>
+          ${r.status !== 'inside' ? `<span><svg width="12" height="10"><path d="M6 1l5 8H1z" fill="${STATUS[r.status].color}"/></svg>Breakout close</span>` : ''}
+          ${r.target != null ? `<span><i class="sw" style="height:0;border-top:1.5px dashed ${STATUS[r.status].color}"></i>Target</span>` : ''}
+        </div>
+        <div class="hover-read" data-read></div>
+      </div>
+      <svg class="chart" data-chart role="img" aria-label="${esc(r.symbol)} daily candlestick chart with the rectangle drawn"></svg>
+      <div class="stats">${st.join('')}</div>
+      <div class="links"><a href="https://robinhood.com/us/en/stocks/${encodeURIComponent(r.symbol)}/" target="_blank" rel="noopener">Robinhood ↗</a><a href="${tv}" target="_blank" rel="noopener">TradingView ↗</a></div>`;
+  }
+
+  const SVGNS = 'http://www.w3.org/2000/svg';
+  function el(tag, attrs, parent) {
+    const n = document.createElementNS(SVGNS, tag);
+    for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+
+  function drawChart(svg, r, c) {
+    const W = svg.clientWidth || 800, H = svg.clientHeight || 340;
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.innerHTML = '';
+    const n = c.d.length;
+    const padL = 6, padR = 62, padT = 12, padB = 22;
+    const volH = Math.round((H - padT - padB) * 0.16);
+    const priceB = H - padB - volH - 6;
+    const idx = Object.fromEntries(c.d.map((d, i) => [d, i]));
+    const i0 = idx[r.start] ?? 0, i1 = idx[r.end] ?? n - 1;
+    let lo = Math.min(...c.l, r.bottom), hi = Math.max(...c.h, r.top);
+    const span0 = hi - lo;
+    if (r.target != null && r.target > hi && r.target - hi < span0 * 0.35) hi = r.target;
+    if (r.target != null && r.target < lo && lo - r.target < span0 * 0.35) lo = r.target;
+    const pad = (hi - lo) * 0.05; lo -= pad; hi += pad;
+    const step = (W - padL - padR) / n;
+    const X = i => padL + step * (i + 0.5);
+    const Y = v => padT + (priceB - padT) * (1 - (v - lo) / (hi - lo));
+
+    // month gridlines + labels
+    let lastM = -1;
+    c.d.forEach((d, i) => {
+      const m = parseDay(d).getMonth();
+      if (m !== lastM && i > 0) {
+        el('line', { x1: X(i) - step / 2, x2: X(i) - step / 2, y1: padT, y2: H - padB, stroke: 'var(--line-soft)' }, svg);
+        const t = el('text', { x: X(i) - step / 2 + 4, y: H - 6, 'font-size': 11, fill: 'var(--ink-mute)' }, svg);
+        t.textContent = parseDay(d).toLocaleDateString('en-US', { month: 'short' });
+      }
+      lastM = m;
+    });
+
+    // rectangle box + extended lines
+    const boxEnd = r.status === 'inside' ? n - 1 : i1;
+    el('rect', { x: X(i0) - step / 2, y: Y(r.top), width: Math.max(2, X(boxEnd) - X(i0) + step), height: Math.max(1, Y(r.bottom) - Y(r.top)), fill: 'var(--accent-soft)', 'fill-opacity': .7, stroke: 'none' }, svg);
+    for (const v of [r.top, r.bottom]) {
+      el('line', { x1: X(i0) - step / 2, x2: X(boxEnd) + step / 2, y1: Y(v), y2: Y(v), stroke: 'var(--box)', 'stroke-width': 1.6 }, svg);
+      if (boxEnd < n - 1) el('line', { x1: X(boxEnd) + step / 2, x2: X(n - 1) + step / 2, y1: Y(v), y2: Y(v), stroke: 'var(--box)', 'stroke-width': 1, 'stroke-dasharray': '4 4', 'stroke-opacity': .7 }, svg);
+    }
+    if (r.target != null && r.target >= lo && r.target <= hi) {
+      const col = STATUS[r.status].color;
+      el('line', { x1: X(i1) + step / 2, x2: X(n - 1) + step / 2, y1: Y(r.target), y2: Y(r.target), stroke: col, 'stroke-width': 1.3, 'stroke-dasharray': '5 4' }, svg);
+    }
+
+    // volume
+    const vmax = Math.max(...c.v) || 1;
+    c.v.forEach((v, i) => {
+      const h = volH * v / vmax;
+      el('rect', { x: X(i) - Math.max(1, step * 0.35), y: H - padB - h, width: Math.max(1, step * 0.7), height: h, fill: c.c[i] >= c.o[i] ? 'var(--candle-up)' : 'var(--candle-down)', 'fill-opacity': i >= i0 && i <= boxEnd ? .28 : .16 }, svg);
+    });
+
+    // candles
+    const bw = Math.max(1, Math.min(9, step * 0.62));
+    for (let i = 0; i < n; i++) {
+      const up = c.c[i] >= c.o[i], col = up ? 'var(--candle-up)' : 'var(--candle-down)';
+      el('line', { x1: X(i), x2: X(i), y1: Y(c.h[i]), y2: Y(c.l[i]), stroke: col, 'stroke-width': 1 }, svg);
+      const yt = Y(Math.max(c.o[i], c.c[i])), yb = Y(Math.min(c.o[i], c.c[i]));
+      el('rect', { x: X(i) - bw / 2, y: yt, width: bw, height: Math.max(1, yb - yt), fill: up ? 'var(--surface)' : col, stroke: col, 'stroke-width': 1 }, svg);
+    }
+
+    // touches
+    for (const t of r.touches || []) {
+      const i = idx[t.date];
+      if (i == null) continue;
+      el('circle', { cx: X(i), cy: Y(t.price), r: 3.6, fill: '#fff', stroke: 'var(--box)', 'stroke-width': 1.6 }, svg);
+    }
+    // breakout marker
+    if (r.breakout_date && idx[r.breakout_date] != null) {
+      const i = idx[r.breakout_date], col = STATUS[r.status].color;
+      const yb = r.status === 'breakout_up' ? Y(c.l[i]) + 8 : Y(c.h[i]) - 8;
+      const d = r.status === 'breakout_up' ? `M${X(i)} ${yb - 1}l5 8h-10z` : `M${X(i)} ${yb + 1}l5 -8h-10z`;
+      el('path', { d, fill: col }, svg);
+    }
+
+    // right-axis price tags
+    const tag = (v, label, col, fg = '#fff') => {
+      const y = Math.max(padT + 8, Math.min(priceB - 2, Y(v)));
+      el('rect', { x: W - padR + 4, y: y - 9, width: padR - 6, height: 18, rx: 4, fill: col }, svg);
+      const t = el('text', { x: W - padR + 4 + (padR - 6) / 2, y: y + 4, 'font-size': 11, 'text-anchor': 'middle', fill: fg, 'font-weight': 600 }, svg);
+      t.textContent = label;
+    };
+    tag(r.top, r.top.toFixed(2), 'var(--box)');
+    tag(r.bottom, r.bottom.toFixed(2), 'var(--box)');
+    const lastClose = c.c[n - 1];
+    if (Math.abs(Y(lastClose) - Y(r.top)) > 18 && Math.abs(Y(lastClose) - Y(r.bottom)) > 18) tag(lastClose, lastClose.toFixed(2), 'var(--ink)');
+    if (r.target != null && r.target >= lo && r.target <= hi && Math.abs(Y(r.target) - Y(r.top)) > 18 && Math.abs(Y(r.target) - Y(r.bottom)) > 18) tag(r.target, r.target.toFixed(2), STATUS[r.status].color);
+
+    // hover readout
+    const cross = el('line', { y1: padT, y2: H - padB, stroke: 'var(--ink-mute)', 'stroke-dasharray': '3 3', visibility: 'hidden' }, svg);
+    const read = svg.parentElement.querySelector('[data-read]');
+    const defaultRead = () => { const i = n - 1; read.textContent = `${fmtDate(c.d[i], true)} · O ${c.o[i].toFixed(2)} H ${c.h[i].toFixed(2)} L ${c.l[i].toFixed(2)} C ${c.c[i].toFixed(2)} · Vol ${fmtVol(c.v[i])}`; };
+    defaultRead();
+    const move = ev => {
+      const rect = svg.getBoundingClientRect();
+      const px = (ev.touches ? ev.touches[0].clientX : ev.clientX) - rect.left;
+      const i = Math.max(0, Math.min(n - 1, Math.floor((px * W / rect.width - padL) / step)));
+      cross.setAttribute('x1', X(i)); cross.setAttribute('x2', X(i)); cross.setAttribute('visibility', 'visible');
+      read.textContent = `${fmtDate(c.d[i], true)} · O ${c.o[i].toFixed(2)} H ${c.h[i].toFixed(2)} L ${c.l[i].toFixed(2)} C ${c.c[i].toFixed(2)} · Vol ${fmtVol(c.v[i])}`;
+    };
+    svg.onmousemove = move; svg.ontouchmove = move;
+    svg.onmouseleave = () => { cross.setAttribute('visibility', 'hidden'); defaultRead(); };
+  }
+
+  function expand(rowEl, toggle = true) {
+    const sym = rowEl.dataset.sym;
+    const r = DATA.results.find(x => x.symbol === sym);
+    const btn = rowEl.querySelector('.row-main');
+    if (toggle && rowEl.classList.contains('open')) {
+      rowEl.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); open.delete(sym); writeURL(); return;
+    }
+    rowEl.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); open.add(sym);
+    if (toggle) writeURL();
+    const det = rowEl.querySelector('.detail');
+    det.innerHTML = detailHTML(r);
+    const svg = det.querySelector('[data-chart]');
+    loadCharts().then(() => {
+      const c = CHARTS[sym];
+      if (!c) { svg.outerHTML = '<div class="empty">Chart data unavailable.</div>'; return; }
+      drawChart(svg, r, c);
+    }).catch(() => { svg.outerHTML = '<div class="empty">Couldn\'t load chart data.</div>'; });
+  }
+
+  // ---------- wiring ----------
+  function bind() {
+    document.querySelectorAll('#seg button').forEach(b => b.addEventListener('click', () => { state.status = b.dataset.status; syncControls(); writeURL(); render(); }));
+    let qt;
+    $('#q').addEventListener('input', e => { clearTimeout(qt); qt = setTimeout(() => { state.q = e.target.value; writeURL(); render(); }, 120); });
+    for (const [id, key, num] of [['sector', 'sector'], ['age', 'age', 1], ['minlen', 'minlen', 1], ['pos', 'pos'], ['sort', 'sort']]) {
+      $('#' + id).addEventListener('change', e => { state[key] = num ? Number(e.target.value) : e.target.value; writeURL(); render(); });
+    }
+    $('#reset').addEventListener('click', () => { Object.assign(state, DEFAULTS); open.clear(); syncControls(); writeURL(); render(); });
+    listEl.addEventListener('click', e => { const b = e.target.closest('.row-main'); if (b) expand(b.closest('.row')); });
+    let rt;
+    window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => {
+      if (!CHARTS) return;
+      listEl.querySelectorAll('.row.open').forEach(rowEl => {
+        const svg = rowEl.querySelector('[data-chart]'); const r = DATA.results.find(x => x.symbol === rowEl.dataset.sym);
+        if (svg && CHARTS[r.symbol]) drawChart(svg, r, CHARTS[r.symbol]);
+      });
+    }, 150); });
+  }
+
+  function header() {
+    const asof = parseDay(DATA.as_of);
+    $('#asof-label').textContent = `Daily chart · ${asof.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} close`;
+    const gen = new Date(DATA.generated_at);
+    $('#runmeta').textContent = `Scanned ${DATA.universe.scanned.toLocaleString()} of ${DATA.universe.size.toLocaleString()} liquid US stocks · ${DATA.source} · updated ${gen.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}`;
+    $('#universe-note').textContent = `Universe: ${DATA.universe.rule}. Updated after each US market close. Informational only — not investment advice.`;
+    const ageDays = (Date.now() - asof.getTime()) / 864e5;
+    if (ageDays > 4.5) {
+      $('#fresh-dot').classList.add('stale');
+      const n = $('#stale-note'); n.style.display = 'block';
+      n.textContent = `Heads up: this scan is from the ${asof.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })} close and hasn't been refreshed since.`;
+    }
+    const sectors = [...new Set(DATA.results.map(r => r.sector).filter(Boolean))].sort();
+    $('#sector').insertAdjacentHTML('beforeend', sectors.map(s => `<option>${esc(s)}</option>`).join(''));
+    const p = DATA.params || {};
+    document.querySelectorAll('[data-param]').forEach(el => { if (p[el.dataset.param] != null) el.textContent = p[el.dataset.param]; });
+  }
+
+  $('#yr').textContent = new Date().getFullYear();
+  readURL();
+  bind();
+  fetch('data/screen.json', { cache: 'no-cache' })
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(j => {
+      DATA = j;
+      header();
+      if (state.sector && ![...$('#sector').options].some(o => o.value === state.sector)) state.sector = '';
+      syncControls();
+      render();
+      if (open.size) loadCharts();
+    })
+    .catch(() => { listEl.innerHTML = '<div class="empty">Couldn\'t load the latest scan. Try refreshing in a minute.</div>'; });
+})();
+</script>
+</body>
+</html>
