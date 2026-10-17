@@ -124,6 +124,34 @@ Each run then keeps only stocks with a median of at least $20M traded per day
 over the last 50 sessions, measured on the downloaded bars rather than on one
 day's listing snapshot.
 
+## Backtest
+
+`screener/backtest.py` asks how the screener's breakouts did once a daily close
+reached 3% past the broken line. It replays the screener point in time for
+every stock and session since 2016. Each evening sees only that day's bars,
+through the same window, liquidity rule and previous-evening hint as the
+nightly build. It then trades the confirmed breakouts:
+
+- entry at the next open;
+- exit at the measured-move target, on a close back inside the box, or after
+  60 sessions;
+- also a no-target variant and plain 5/10/20/60-session holds;
+- each trade compared with the equal-weighted liquid universe over the same
+  dates.
+
+The docstring lists the rules and caveats: survivorship, costs, data
+cleaning.
+
+```sh
+cd rectangle-screener
+# Robinhood daily dumps: 2016 onwards (any number of --hood-dir)
+python3 -m screener.backtest --hood-dir path/to/history --hood-dir path/to/recent --out path/to/out
+```
+
+The replay takes about an hour on 4 cores for ~2,000 stocks. It is cached in
+the output directory and redone only for stocks whose bars changed, or when
+the detector changes.
+
 ## Tests
 
 ```sh
