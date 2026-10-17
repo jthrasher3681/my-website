@@ -15,6 +15,23 @@ The page (`index.html`) is static. It reads two files that the scan writes:
 | `data/screen.json` | run metadata, detector parameters, and one row per match (levels, touches, breakout stats, a small close-price thumbnail) |
 | `data/charts.json` | daily OHLCV around each match, loaded when a row is expanded |
 
+## Detection
+
+`screener/rectangle.py` finds the best rectangle that is still current for one
+stock (its docstring explains the algorithm and the quality score; every
+threshold lives in `DEFAULT_PARAMS`). It was picked from three independently
+written detectors (window scan, zigzag pivots, horizontal-level clustering)
+and then tuned, using two yardsticks:
+
+- a labeled synthetic benchmark of 725 daily charts, including trends,
+  channels, triangles, wedges, broadening patterns, flags, stale breakouts and
+  whipsaws that must be rejected: precision 1.00, recall 0.86, status correct
+  on every detection;
+- blind grading of its real-stock picks by two independent chart readers: on
+  the Oct 16, 2026 scan, 0.89 of the 118 picks were judged genuine rectangles
+  (borderline counted as half), status was right for all of them, and picks
+  scoring 60+ quality were judged 0.97.
+
 ## How a refresh works
 
 `screener/build.py` loads daily bars for the universe, runs

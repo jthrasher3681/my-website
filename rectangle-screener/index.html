@@ -42,7 +42,8 @@ h1 em{font-style:italic;color:var(--accent)}
 .filters{display:flex;flex-wrap:wrap;gap:10px;align-items:end}
 .field{display:grid;gap:4px;font-size:.74rem;color:var(--ink-mute);text-transform:uppercase;letter-spacing:.05em}
 .field input,.field select{height:38px;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:0 10px;font-size:.92rem;text-transform:none;letter-spacing:0;color:var(--ink);min-width:0}
-.field input{width:200px}
+.field input{width:140px}
+#sector{max-width:165px}
 .field input:focus,.field select:focus{outline:2px solid var(--accent-soft);border-color:var(--accent)}
 .field select:disabled{opacity:.45;cursor:not-allowed}
 .reset{height:38px;padding:0 14px;border-radius:10px;border:1px solid transparent;background:none;color:var(--accent);cursor:pointer;font-size:.9rem}
@@ -153,10 +154,13 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
         <label class="field">Search<input id="q" type="search" placeholder="Ticker or company" autocomplete="off"></label>
         <label class="field">Sector<select id="sector"><option value="">All sectors</option></select></label>
         <label class="field">Breakout age<select id="age">
-          <option value="0">Latest session</option><option value="3">Up to 3 sessions ago</option><option value="5" selected>Up to 5 sessions ago</option><option value="10">Up to 10 sessions ago</option>
+          <option value="0">Latest session</option><option value="3">≤ 3 sessions ago</option><option value="5" selected>≤ 5 sessions ago</option><option value="10">≤ 10 sessions ago</option>
         </select></label>
         <label class="field">Min. length<select id="minlen">
           <option value="0">Any</option><option value="20">4+ weeks</option><option value="40">8+ weeks</option><option value="63">3+ months</option>
+        </select></label>
+        <label class="field">Quality<select id="minq">
+          <option value="0">Any</option><option value="55">55+ solid</option><option value="60">60+ textbook</option>
         </select></label>
         <label class="field" title="Applies to stocks inside their range">Position<select id="pos">
           <option value="">Anywhere</option><option value="top">Near resistance</option><option value="mid">Middle</option><option value="bottom">Near support</option>
@@ -204,6 +208,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
             <li><strong>Touches</strong> — distinct tests of resistance (T) and support (B).</li>
             <li><strong>Target</strong> — the classic measured move: the box height projected from the broken line.</li>
             <li><strong>Vol ×</strong> — breakout-day volume against the prior 50-day average.</li>
+            <li><strong>Quality</strong> — how textbook the box is: many alternating touches, tight flat lines, clean containment, balanced fill. 60+ is the cleanest tier; lower scores are looser ranges worth a second look.</li>
           </ul>
         </div>
       </div>
@@ -217,9 +222,9 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
 (() => {
   const $ = s => document.querySelector(s);
   const listEl = $('#list');
-  const state = { status: 'all', q: '', sector: '', age: 5, minlen: 0, pos: '', sort: 'quality' };
+  const state = { status: 'all', q: '', sector: '', age: 5, minlen: 0, minq: 0, pos: '', sort: 'quality' };
   const DEFAULTS = { ...state };
-  const SELECTS = ['sector', 'age', 'minlen', 'pos', 'sort'];
+  const SELECTS = ['sector', 'age', 'minlen', 'minq', 'pos', 'sort'];
   let DATA = null, CHARTS = null, chartsPromise = null;
   const open = new Set();
 
@@ -282,6 +287,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     if (q && !r.symbol.toLowerCase().startsWith(q) && !r.name.toLowerCase().includes(q)) return false;
     if (state.sector && r.sector !== state.sector) return false;
     if (r.bars < state.minlen) return false;
+    if (r.quality < state.minq) return false;
     if (isBreakout(r.status) && r.days_since_breakout > state.age) return false;
     return true;
   }

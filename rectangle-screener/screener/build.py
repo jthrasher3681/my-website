@@ -176,6 +176,7 @@ def scan(bars: dict[str, pd.DataFrame], universe: list[dict], as_of: pd.Timestam
         df = bars[sym]
         filled = as_of.strftime("%Y-%m-%d") in df.attrs.get("filled_sessions", [])
         df = df[df.index <= as_of]  # a symbol that is a session ahead is scanned as of the same date
+        df = df.replace([math.inf, -math.inf], math.nan)  # bad ticks: treat as missing
         if sym not in meta:
             stats["not in universe"] += 1
             continue
