@@ -59,19 +59,23 @@ class SimulateTests(unittest.TestCase):
 
 
 class CleanTests(unittest.TestCase):
-    def test_bad_prints_are_dropped(self):
+    def test_bad_prints_are_dropped_or_repaired(self):
         idx = pd.bdate_range("2023-01-18", periods=8)
         close = np.array([10.0, 10.1, 0.01, 10.2, 10.3, 10.4, 10.5, 10.6])      # a 0.01 print between normal days
         df = pd.DataFrame({"open": close, "high": close + 0.1, "low": close - 0.1, "close": close, "volume": 1e6}, index=idx)
-        df.loc[idx[4], "open"] = 11.5                                           # 2023-01-24: bad auction open
+        df.loc[idx[4], ["open", "high"]] = [11.5, 11.6]                         # 2023-01-24: bad auction open
         df.loc[idx[6], ["open", "high", "low", "volume"]] = [10.4, 10.4, 10.4, 0]  # flat filler...
         df.loc[idx[6], "close"] = 10.4                                          # ...repeating the close
         out = backtest.clean_bars(df)
-        self.assertEqual([d.strftime("%m-%d") for d in out.index], ["01-18", "01-19", "01-23", "01-25", "01-27"])
-        # a real crash that does not revert stays
+        self.assertEqual([d.strftime("%m-%d") for d in out.index], ["01-18", "01-19", "01-23", "01-24", "01-25", "01-27"])
+        self.assertEqual(tuple(out.loc["2023-01-24", ["open", "high", "low", "close"]].round(6)), (10.3, 10.3, 10.2, 10.3))
+        # a real crash that does not revert stays, and so does a heavy gap-and-reverse day
         crash = df.iloc[:2].copy()
         crash.loc[idx[1], ["open", "high", "low", "close"]] = [2.0, 2.1, 1.9, 2.0]
         self.assertEqual(len(backtest.clean_bars(crash)), 2)
+        gap = df.iloc[:3].copy()
+        gap.loc[idx[2], ["open", "high", "low", "close", "volume"]] = [4.0, 6.0, 3.5, 5.8, 6e7]
+        self.assertEqual(len(backtest.clean_bars(gap)), 3)
 
     def test_liquidity_ignores_price(self):
         w = pd.DataFrame({"close": np.full(60, 2.0), "volume": np.full(60, 2e7)})  # $40M a day at $2 (split-adjusted)

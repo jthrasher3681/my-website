@@ -5,8 +5,8 @@
 Run from the ``rectangle-screener`` directory with Robinhood daily dumps (``daily_*.json``).
 
 0. Bars.  Bad prints are dropped first (``clean_bars``): non-positive prices, one-day spikes
-   that fully revert, corrupt opens, flat zero-volume filler, and the NYSE opening-auction
-   glitch of 2023-01-24.
+   that fully revert and flat zero-volume filler; the NYSE opening-auction glitch of
+   2023-01-24 is repaired (bad opens set to the close, bad extremes trimmed).
 
 1. Replay.  The screener is re-run for every stock on every session, point in time: each
    evening sees only the bars up to that day, through the same window (REPLAY_BARS bars)
@@ -79,7 +79,7 @@ GLITCH_SESSIONS = ("2023-01-24",)   # NYSE opening-auction malfunction: bad open
 
 # ---------------------------------------------------------------------------------- bars
 def clean_bars(df):
-    """Drop prints that are data errors, not trading."""
+    """Drop or repair prints that are data errors, not trading."""
     df = df.replace([math.inf, -math.inf], math.nan).dropna(subset=["open", "high", "low", "close"])
     df = df[(df[["open", "high", "low", "close"]] > 0).all(axis=1)]
     c = df["close"]
@@ -88,11 +88,19 @@ def clean_bars(df):
     spike = (((c / prev) > 2) & ((c / nxt) > 2) | ((c / prev) < 0.5) & ((c / nxt) < 0.5)) & ((nxt / prev - 1).abs() < 0.25)
     # flat, zero-volume filler that repeats the previous close
     stale = (df["volume"].fillna(0) <= 0) & (df["high"] == df["low"]) & (c == prev)
-    o = df["open"]
-    glitch = df.index.isin(pd.to_datetime(list(GLITCH_SESSIONS))) & (((o / prev - 1).abs() > 0.05) & ((o / c - 1).abs() > 0.05))
-    # an open far outside both the previous close and the close (a corrupt print, not a gap)
-    bad_open = ((o / prev < 0.6) & (o / c < 0.6)) | ((o / prev > 1 / 0.6) & (o / c > 1 / 0.6))
-    df = df[~(spike | stale | glitch | bad_open)].copy()
+    df = df[~(spike | stale)].copy()
+    # a session whose opening prints were broken: the close stands; a bad open becomes the
+    # close, and an extreme more than 5% beyond the open-close range (a bad print too) is
+    # trimmed back to it
+    day = df.index.isin(pd.to_datetime(list(GLITCH_SESSIONS)))
+    if day.any():
+        o, c, prev = df["open"], df["close"], df["close"].shift(1)
+        bad = day & ((o / prev - 1).abs() > 0.05) & ((o / c - 1).abs() > 0.05)
+        df.loc[bad, "open"] = df.loc[bad, "close"]
+        top, bot = df[["open", "close"]].max(axis=1), df[["open", "close"]].min(axis=1)
+        hi, lo = day & (df["high"] > top * 1.05), day & (df["low"] < bot * 0.95)
+        df.loc[hi, "high"] = top[hi]
+        df.loc[lo, "low"] = bot[lo]
     df["high"] = df[["high", "open", "close"]].max(axis=1)
     df["low"] = df[["low", "open", "close"]].min(axis=1)
     return df
@@ -106,6 +114,15 @@ def liquid(w):
 
 def fingerprint(df):
     return int(pd.util.hash_pandas_object(df, index=True).sum() % (1 << 62))
+
+
+def replay_version():
+    """What a cached replay depends on besides a stock's bars: the detector's parameters and
+    the replay's own rules.  A cache from another version is not reused."""
+    import hashlib, inspect
+    text = repr((sorted(rectangle.DEFAULT_PARAMS.items()), REPLAY_BARS, MIN_BARS, LIQUIDITY_BARS, MIN_DOLLAR_VOLUME,
+                 inspect.getsource(liquid), inspect.getsource(replay_symbol)))
+    return hashlib.sha256(text.encode()).hexdigest()[:16]
 
 
 # ---------------------------------------------------------------------------------- replay
@@ -132,10 +149,12 @@ def replay_symbol(item):
 def replay(bars, path, procs=4):
     """Replay every stock (cached in ``path`` with each stock's bar fingerprint; a stock
     whose bars changed is replayed again)."""
-    cache = {"rows": {}, "fp": {}}
+    cache = {"version": replay_version(), "rows": {}, "fp": {}}
     if os.path.exists(path):
         with open(path, "rb") as fh:
-            cache = pickle.load(fh)
+            old = pickle.load(fh)
+        if isinstance(old, dict) and old.get("version") == cache["version"]:
+            cache = old
     fps = {s: fingerprint(df) for s, df in bars.items()}
     todo = [(s, df) for s, df in sorted(bars.items()) if cache["fp"].get(s) != fps[s]]
     if todo:
@@ -263,8 +282,9 @@ class Benchmark:
     def __init__(self, bars):
         self.O = pd.DataFrame({s: df["open"] for s, df in bars.items()}).sort_index()
         self.C = pd.DataFrame({s: df["close"] for s, df in bars.items()}).sort_index()
-        V = pd.DataFrame({s: df["volume"] for s, df in bars.items()}).reindex(self.C.index)
-        dv = (self.C * V).rolling(LIQUIDITY_BARS, min_periods=LIQUIDITY_BARS).median()
+        # each stock's own last LIQUIDITY_BARS sessions, as liquid() sees them
+        dv = pd.DataFrame({s: (df["close"] * df["volume"]).rolling(LIQUIDITY_BARS, min_periods=LIQUIDITY_BARS).median()
+                           for s, df in bars.items()}).reindex(self.C.index)
         self.liquid = dv >= MIN_DOLLAR_VOLUME
 
     def span(self, signal, entry, exit_, exit_at):
