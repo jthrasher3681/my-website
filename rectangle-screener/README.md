@@ -21,7 +21,7 @@ The page (`index.html`) is static. It reads two files that the scan writes:
 stock (its docstring explains the algorithm and the quality score; every
 threshold lives in `DEFAULT_PARAMS`). It was picked from three independently
 written detectors (window scan, zigzag pivots, horizontal-level clustering)
-and then tuned, using two yardsticks:
+and then tuned, using three checks:
 
 - a labeled synthetic benchmark of 725 daily charts, including trends,
   channels, triangles, wedges, broadening patterns, flags, stale breakouts and
