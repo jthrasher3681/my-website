@@ -1,4 +1,4 @@
-numpy>=1.26
-pandas>=2.1
-scipy>=1.11
-yfinance>=0.2.54
+# Versions the screener is tested with; bump deliberately.
+numpy==2.5.3
+pandas==3.0.5
+yfinance==1.7.0

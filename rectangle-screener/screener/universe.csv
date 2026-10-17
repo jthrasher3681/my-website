@@ -21,8 +21,6 @@ XOM,ExxonMobil Holdings Corporation Common Stock,NYSE,Energy,Integrated oil Comp
 V,Visa Inc.,NYSE,Consumer Discretionary,Business Services,699389597722
 ASML,ASML Holding N.V. New York Registry Shares,NASDAQ,Technology,Industrial Machinery/Components,635939147250
 JNJ,Johnson & Johnson Common Stock,NYSE,Health Care,Biotechnology: Pharmaceutical Preparations,611897352764
-GOOGM,Alphabet Inc. Depositary Shares representing a 1/20th Interest in a Share of Series A Mandatory Convertible Preferred Stock,NASDAQ,Technology,Computer Software: Programming Data Processing,600126100000
-GOOGN,Alphabet Inc. Depositary Shares representing a 1/20th Interest in a Share of Series B Mandatory Convertible Preferred Stock,NASDAQ,Technology,Computer Software: Programming Data Processing,597068600000
 MA,Mastercard Incorporated Common Stock,NYSE,Consumer Discretionary,Business Services,528444236206
 INTC,Intel Corporation Common Stock,NASDAQ,Technology,Semiconductors,518571020419
 ABBV,AbbVie Inc. Common Stock,NYSE,Health Care,Biotechnology: Pharmaceutical Preparations,500942407952
@@ -347,7 +345,6 @@ FERG,Ferguson Enterprises Inc. Common Stock,NYSE,Miscellaneous,Miscellaneous,431
 IQV,IQVIA Holdings Inc. Common Stock,NYSE,Health Care,Biotechnology: Commercial Physical & Biological Resarch,43126846000
 WAT,Waters Corporation Common Stock,NYSE,Industrials,Biotechnology: Laboratory Analytical Instruments,42896107744
 HLN,Haleon plc American Depositary Shares (Each representing two Ordinary Shares),NYSE,Consumer Discretionary,Package Goods/Cosmetics,42575296115
-STRC,Strategy Inc Variable Rate Series A Perpetual Stretch Preferred Stock,NASDAQ,Technology,Computer Software: Prepackaged Software,42088076544
 STM,STMicroelectronics N.V. Common Stock,NYSE,Technology,Semiconductors,41860370208
 IDXX,IDEXX Laboratories Inc. Common Stock,NASDAQ,Health Care,Biotechnology: In Vitro & In Vivo Diagnostic Substances,41675998175
 TWLO,Twilio Inc. Class A Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,41637313646
@@ -357,7 +354,6 @@ ILMN,Illumina Inc. Common Stock,NASDAQ,Health Care,Medical Specialities,41035760
 MSCI,MSCI Inc. Common Stock,NYSE,Consumer Discretionary,Business Services,40749804000
 ED,Consolidated Edison Inc. Common Stock,NYSE,Utilities,Power Generation,40533218177
 AIG,American International Group Inc. New Common Stock,NYSE,Finance,Property-Casualty Insurers,40487618076
-SMCIP,Super Micro Computer Inc. Depositary Shares representing a 1/20th Interest in a Share of 7% Series A Mandatory Convertible Preferred Stock,NASDAQ,Technology,Computer Manufacturing,40347529058
 ADM,Archer-Daniels-Midland Company Common Stock,NYSE,Consumer Staples,Packaged Foods,40311099522
 YUM,Yum! Brands Inc.,NYSE,Consumer Discretionary,Restaurants,40031860159
 WCN,Waste Connections Inc. Common Shares,NYSE,Utilities,Environmental Services,40024388891
@@ -780,7 +776,6 @@ JKHY,Jack Henry & Associates Inc. Common Stock,NASDAQ,Technology,EDP Services,10
 TTMI,TTM Technologies Inc. Common Stock,NASDAQ,Technology,Electrical Products,10883591140
 SCI,Service Corporation International Common Stock,NYSE,Consumer Discretionary,Other Consumer Services,10853051015
 SUZ,Suzano S.A. American Depositary Shares (each representing One Ordinary Share),NYSE,Basic Materials,Paper,10820846784
-SATA,Strive Inc. Variable Rate Series A Perpetual Preferred Stock,NASDAQ,Finance,Finance: Consumer Services,10781518215
 NYT,New York Times Company (The) Common Stock,NYSE,Consumer Discretionary,Newspapers/Magazines,10777767183
 PAYC,Paycom Software Inc. Common Stock,NYSE,Technology,Computer Software: Prepackaged Software,10772116941
 HBM,Hudbay Minerals Inc. Ordinary Shares (Canada),NYSE,Basic Materials,Metal Mining,10766068982

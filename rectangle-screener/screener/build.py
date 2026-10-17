@@ -6,6 +6,8 @@
 Run from the ``rectangle-screener`` directory. Writes ``data/screen.json``
 (one row per match, plus a small close-price thumbnail) and
 ``data/charts.json`` (daily OHLCV around each match for the detail chart).
+A run that cannot see most of the universe exits non-zero and leaves the
+previous files in place.
 """
 
 from __future__ import annotations
@@ -33,13 +35,23 @@ ROOT = os.path.dirname(HERE)
 UNIVERSE_CSV = os.path.join(HERE, "universe.csv")
 NY = ZoneInfo("America/New_York")
 
+# Listing filters (one day's snapshot, so deliberately loose on volume) ...
 MIN_MARKET_CAP = 2e9
 MIN_PRICE = 5.0
-MIN_VOLUME = 5e5
+MIN_LISTING_VOLUME = 2e5
+# ... and the liquidity test applied to the downloaded bars.
 MIN_DOLLAR_VOLUME = 2e7
-UNIVERSE_RULE = "US-listed stocks with market cap ≥ $2B, price ≥ $5 and ≥ $20M traded per day"
+LIQUIDITY_BARS = 50
+UNIVERSE_RULE = "US-listed common stocks with market cap ≥ $2B, price ≥ $5 and a median of ≥ $20M traded per day over 50 sessions"
 LISTS_URL = "https://raw.githubusercontent.com/rreichel3/US-Stock-Symbols/main/{ex}/{ex}_full_tickers.json"
+# Preferreds, depositary/convertible lines, notes, warrants, rights and units
+# carry the parent's market cap but are not the common stock.
+NOT_COMMON = re.compile(
+    r"preferred stock|mandatory convertible|perpetual|\bnotes? due\b|\bwarrants?\b|\bsubscription rights\b|\bunits?,? each\b",
+    re.I,
+)
 
+MIN_COVERAGE = 0.8  # share of the universe that must have data through the scan date
 MIN_BARS = 60
 THUMB_POINTS = 90
 CHART_PAD = 30  # bars shown before the rectangle starts
@@ -62,9 +74,9 @@ def fetch_universe() -> list[dict]:
             for r in json.load(fh):
                 sym = r["symbol"].replace("/", ".")
                 price, vol, cap = _num(r["lastsale"]), _num(r["volume"]), _num(r["marketCap"])
-                if not re.fullmatch(r"[A-Z]{1,5}(\.[A-Z])?", sym):
+                if not re.fullmatch(r"[A-Z]{1,5}(\.[A-Z])?", sym) or NOT_COMMON.search(r["name"]):
                     continue
-                if cap >= MIN_MARKET_CAP and price >= MIN_PRICE and vol >= MIN_VOLUME and price * vol >= MIN_DOLLAR_VOLUME:
+                if cap >= MIN_MARKET_CAP and price >= MIN_PRICE and vol >= MIN_LISTING_VOLUME:
                     rows.append(
                         {
                             "symbol": sym,
@@ -84,7 +96,7 @@ def read_universe(path: str = UNIVERSE_CSV) -> list[dict]:
         rows = list(csv.DictReader(fh))
     for r in rows:
         r["market_cap"] = int(float(r["market_cap"] or 0))
-    return rows
+    return [r for r in rows if not NOT_COMMON.search(r["name"])]
 
 
 def write_universe(rows: list[dict], path: str = UNIVERSE_CSV) -> None:
@@ -117,6 +129,18 @@ def drop_incomplete_session(bars: dict[str, pd.DataFrame], now: datetime) -> Non
             bars[sym] = df[df.index < today]
 
 
+def pick_as_of(bars: dict[str, pd.DataFrame], coverage: float = MIN_COVERAGE) -> pd.Timestamp:
+    """The latest session that at least ``coverage`` of the symbols have reached."""
+    last = pd.Series([df.index[-1] for df in bars.values()]).sort_values(ascending=False)
+    return last.iloc[max(0, math.ceil(coverage * len(last)) - 1)]
+
+
+def is_liquid(df: pd.DataFrame) -> bool:
+    recent = df.iloc[-LIQUIDITY_BARS:]
+    dollar_volume = (recent["close"] * recent["volume"]).median()
+    return bool(recent["close"].iloc[-1] >= MIN_PRICE and dollar_volume >= MIN_DOLLAR_VOLUME)
+
+
 def _r(x: float, nd: int = 2):
     return None if x is None or (isinstance(x, float) and not math.isfinite(x)) else round(float(x), nd)
 
@@ -147,28 +171,37 @@ def thumb(closes) -> list:
 def scan(bars: dict[str, pd.DataFrame], universe: list[dict], as_of: pd.Timestamp, params: dict | None):
     meta = {r["symbol"]: r for r in universe}
     results, charts = [], {}
-    skipped = Counter()
+    stats = Counter()
     for sym in sorted(bars):
         df = bars[sym]
+        filled = as_of.strftime("%Y-%m-%d") in df.attrs.get("filled_sessions", [])
+        df = df[df.index <= as_of]  # a symbol that is a session ahead is scanned as of the same date
         if sym not in meta:
-            skipped["not in universe"] += 1
+            stats["not in universe"] += 1
             continue
         if len(df) < MIN_BARS:
-            skipped["short history"] += 1
+            stats["short history"] += 1
             continue
         if df.index[-1] != as_of:
-            skipped["stale last bar"] += 1
+            stats["stale last bar"] += 1
             continue
+        stats["fresh"] += 1
+        if not is_liquid(df):
+            stats["illiquid"] += 1
+            continue
+        stats["scanned"] += 1
+        stats["estimated last bar"] += filled
         try:
             hit = rectangle.detect(df, params)
         except Exception as exc:  # one bad series must not sink the run
             print(f"{sym}: detect failed: {exc!r}", file=sys.stderr)
-            skipped["error"] += 1
+            stats["error"] += 1
             continue
         if not hit:
             continue
 
         start_i = int(df.index.get_indexer([pd.Timestamp(hit["start"])])[0])
+        end_i = int(df.index.get_indexer([pd.Timestamp(hit["end"])])[0])
         c0 = max(0, min(start_i - CHART_PAD, len(df) - CHART_MIN))
         c0 = max(c0, len(df) - CHART_MAX)
         win = df.iloc[c0:]
@@ -182,29 +215,35 @@ def scan(bars: dict[str, pd.DataFrame], universe: list[dict], as_of: pd.Timestam
         }
 
         last, prev = df["close"].iloc[-1], df["close"].iloc[-2]
-        dollar_vol = (df["close"] * df["volume"]).iloc[-50:].mean()
         m = meta[sym]
         row = {
             "symbol": sym,
             "name": clean_name(m["name"]),
             "exchange": m.get("exchange") or "",
-            "sector": m.get("sector") or "",
+            "sector": " ".join((m.get("sector") or "").split()),
             "industry": m.get("industry") or "",
             "market_cap": m["market_cap"],
             "close": _r(last),
             "change_pct": _r((last / prev - 1) * 100),
-            "dollar_volume": _r(dollar_vol, 0),
+            "dollar_volume": _r((df["close"] * df["volume"]).iloc[-LIQUIDITY_BARS:].median(), 0),
         }
         row.update(_round_hit(hit))
         # Thumbnail: closes from a little before the rectangle to today, with the
         # rectangle's first/last bar given as fractions of the thumbnail width.
         t0 = max(0, start_i - 15)
-        end_i = int(df.index.get_indexer([pd.Timestamp(hit["end"])])[0])
         span = max(1, len(df) - 1 - t0)
         row["thumb"] = thumb(df["close"].to_numpy()[t0:])
         row["thumb_box"] = [_r((start_i - t0) / span, 4), _r((end_i - t0) / span, 4)]
         results.append(row)
-    return results, charts, skipped
+    return results, charts, stats
+
+
+def _write_json(path: str, payload) -> None:
+    """Strict (no NaN/Infinity) JSON, swapped into place atomically."""
+    tmp = path + ".tmp"
+    with open(tmp, "w") as fh:
+        json.dump(payload, fh, separators=(",", ":"), allow_nan=False)
+    os.replace(tmp, path)
 
 
 def main(argv=None) -> int:
@@ -220,9 +259,11 @@ def main(argv=None) -> int:
     if args.refresh_universe:
         try:
             fresh = fetch_universe()
-            if len(fresh) > 0.6 * len(universe):  # guard against a truncated listing
+            if len(fresh) > 0.8 * len(universe):  # guard against a truncated listing
                 universe = fresh
                 write_universe(universe)
+            else:
+                print(f"listing returned only {len(fresh)} names; keeping {UNIVERSE_CSV}", file=sys.stderr)
         except Exception as exc:
             print(f"universe refresh failed, keeping {UNIVERSE_CSV}: {exc!r}", file=sys.stderr)
 
@@ -235,40 +276,53 @@ def main(argv=None) -> int:
         bars = load_yfinance(symbols)
         source = "Yahoo Finance daily bars"
     drop_incomplete_session(bars, now)
-    bars = {s: df for s, df in bars.items() if len(df)}
-    if len(bars) < 0.5 * len(universe):
-        # A mostly failed download would publish a misleadingly short list.
-        print(f"only {len(bars)}/{len(universe)} symbols loaded; keeping the previous scan", file=sys.stderr)
+    listed = set(symbols)
+    bars = {s: df for s, df in bars.items() if len(df) and s in listed}
+    if not bars:
+        print("no price data loaded", file=sys.stderr)
         return 1
 
-    as_of = Counter(df.index[-1] for df in bars.values()).most_common(1)[0][0]
+    as_of = pick_as_of(bars)
     t0 = time.time()
-    results, charts, skipped = scan(bars, universe, as_of, None)
+    results, charts, stats = scan(bars, universe, as_of, None)
     elapsed = time.time() - t0
+    if stats["fresh"] < MIN_COVERAGE * len(universe):
+        # A mostly failed download would publish a misleadingly short list.
+        print(
+            f"only {stats['fresh']}/{len(universe)} symbols have data through {as_of.date()}; keeping the previous scan",
+            file=sys.stderr,
+        )
+        return 1
 
     order = {"breakout_up": 0, "breakout_down": 1, "inside": 2}
     results.sort(key=lambda r: (order[r["status"]], -(r.get("quality") or 0)))
     counts = Counter(r["status"] for r in results)
-    scanned = len(bars) - sum(skipped.values())
+    provisional = stats["estimated last bar"] > stats["scanned"] / 2
+    note = (
+        f"The {as_of:%b} {as_of.day} session is built from 30-minute bars until the official daily bar is published, "
+        "so its close and volume are estimates."
+        if provisional
+        else ""
+    )
 
     os.makedirs(args.out, exist_ok=True)
     screen = {
         "generated_at": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
         "as_of": as_of.strftime("%Y-%m-%d"),
         "source": source,
-        "universe": {"rule": UNIVERSE_RULE, "size": len(universe), "scanned": scanned},
+        "source_note": note,
+        "provisional_last_bar": provisional,
+        "universe": {"rule": UNIVERSE_RULE, "listed": len(universe), "scanned": stats["scanned"]},
         "params": rectangle.DEFAULT_PARAMS,
         "counts": {k: counts.get(k, 0) for k in ("inside", "breakout_up", "breakout_down")},
         "results": results,
     }
-    with open(os.path.join(args.out, "screen.json"), "w") as fh:
-        json.dump(screen, fh, separators=(",", ":"))
-    with open(os.path.join(args.out, "charts.json"), "w") as fh:
-        json.dump(charts, fh, separators=(",", ":"))
+    _write_json(os.path.join(args.out, "charts.json"), charts)
+    _write_json(os.path.join(args.out, "screen.json"), screen)
 
     print(
-        f"as of {screen['as_of']}: scanned {scanned}/{len(universe)} in {elapsed:.1f}s -> "
-        f"{len(results)} matches {dict(counts)}; skipped {dict(skipped)}"
+        f"as of {screen['as_of']}: scanned {stats['scanned']} liquid of {len(universe)} listed in {elapsed:.1f}s -> "
+        f"{len(results)} matches {dict(counts)}; {dict(stats)}"
     )
     return 0
 

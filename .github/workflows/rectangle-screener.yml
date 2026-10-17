@@ -18,29 +18,50 @@ jobs:
   scan:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: rectangle-screener
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: "3.13"
 
       - name: Install dependencies
-        run: pip install -r rectangle-screener/screener/requirements.txt
+        run: pip install -r screener/requirements.txt
+
+      - name: Unit tests
+        run: python -m unittest discover -s screener/tests -t .
 
       - name: Run the scan
-        working-directory: rectangle-screener
         run: python -m screener.build --yfinance --refresh-universe
 
       - name: Commit refreshed data
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add rectangle-screener/data rectangle-screener/screener/universe.csv
-          if git diff --cached --quiet; then
-            echo "No changes"
+          # Publish only when there is a newer session, or when the committed
+          # scan was provisional (built from intraday bars). Holidays are no-ops.
+          publish=$(python - <<'EOF'
+          import json, subprocess
+          new = json.load(open("data/screen.json"))
+          try:
+              old = json.loads(subprocess.run(["git", "show", "HEAD:./data/screen.json"],
+                                              capture_output=True, text=True, check=True).stdout)
+          except subprocess.CalledProcessError:
+              old = {}
+          print("yes" if new["as_of"] != old.get("as_of") or old.get("provisional_last_bar") else "no")
+          EOF
+          )
+          if [ "$publish" != "yes" ]; then
+            echo "No new session since the committed scan"
             exit 0
           fi
-          git commit -m "Rectangle screener: $(python -c "import json;print(json.load(open('rectangle-screener/data/screen.json'))['as_of'])") close"
-          git pull --rebase
-          git push
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data screener/universe.csv
+          git commit -m "Rectangle screener: $(python -c "import json;print(json.load(open('data/screen.json'))['as_of'])") close"
+          for attempt in 1 2 3; do
+            git pull --rebase -X theirs && git push && exit 0
+            sleep $((attempt * 10))
+          done
+          exit 1

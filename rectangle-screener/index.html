@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#fafaf7;--surface:#fff;--ink:#111;--ink-soft:#4b4b4b;--ink-mute:#8a8a85;--line:#e8e6df;--line-soft:#f0eee8;--accent:#2e6fc7;--accent-soft:#e0ebf7;--up:#15803d;--up-soft:#e3f3e8;--down:#b42318;--down-soft:#fbe9e7;--box:#2e6fc7;--candle-up:#2f9e5b;--candle-down:#d0453a}
+:root{--bg:#fafaf7;--surface:#fff;--ink:#111;--ink-soft:#4b4b4b;--ink-mute:#6b6b66;--line:#e8e6df;--line-soft:#f0eee8;--accent:#2e6fc7;--accent-soft:#e0ebf7;--up:#15803d;--up-soft:#e3f3e8;--down:#b42318;--down-soft:#fbe9e7;--box:#2e6fc7;--candle-up:#2f9e5b;--candle-down:#d0453a}
 *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
 body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
 a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
@@ -28,6 +28,7 @@ h1{font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(2.4rem,5
 h1 em{font-style:italic;color:var(--accent)}
 .lede{font-size:1.06rem;color:var(--ink-soft);max-width:62ch}
 .runmeta{margin-top:14px;font-size:.86rem;color:var(--ink-mute)}
+.runnote{margin-top:6px;font-size:.84rem;color:var(--ink-mute);max-width:62ch}
 .stale-note{margin-top:14px;display:none;font-size:.88rem;color:#92400e;background:#fdf3e2;border:1px solid #f3dcb2;border-radius:10px;padding:10px 14px;max-width:62ch}
 
 /* Controls */
@@ -43,13 +44,14 @@ h1 em{font-style:italic;color:var(--accent)}
 .field input,.field select{height:38px;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:0 10px;font-size:.92rem;text-transform:none;letter-spacing:0;color:var(--ink);min-width:0}
 .field input{width:200px}
 .field input:focus,.field select:focus{outline:2px solid var(--accent-soft);border-color:var(--accent)}
+.field select:disabled{opacity:.45;cursor:not-allowed}
 .reset{height:38px;padding:0 14px;border-radius:10px;border:1px solid transparent;background:none;color:var(--accent);cursor:pointer;font-size:.9rem}
 .reset:hover{text-decoration:underline}
 .summary{font-size:.88rem;color:var(--ink-mute)}
 
 /* Results */
 .list{display:grid;gap:10px;padding-bottom:24px}
-.row{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:border-color .15s ease,box-shadow .15s ease}
+.row{scroll-margin-top:84px;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:border-color .15s ease,box-shadow .15s ease}
 .row:hover{border-color:#d8d5cc}
 .row.open{border-color:#cfd9e8;box-shadow:0 6px 24px rgba(17,17,17,.05)}
 .row-main{display:grid;grid-template-columns:132px minmax(150px,1.3fr) minmax(150px,1.1fr) minmax(120px,.9fr) minmax(110px,.8fr) 92px 18px;gap:18px;align-items:center;width:100%;padding:14px 18px;background:none;border:0;text-align:left;cursor:pointer}
@@ -70,7 +72,7 @@ h1 em{font-style:italic;color:var(--accent)}
 .posbar{position:relative;height:6px;border-radius:999px;background:var(--line-soft);margin-top:6px;width:100%;max-width:120px}
 .posbar i{position:absolute;top:-3px;width:4px;height:12px;border-radius:2px;background:var(--ink);transform:translateX(-50%)}
 .q{display:grid;gap:5px;justify-items:start}
-.qbar{height:6px;width:80px;border-radius:999px;background:var(--line-soft);overflow:hidden}
+.qbar{height:6px;width:100%;max-width:80px;border-radius:999px;background:var(--line-soft);overflow:hidden}
 .qbar i{display:block;height:100%;background:var(--accent);border-radius:999px}
 .chev{width:18px;height:18px;color:var(--ink-mute);transition:transform .2s ease}
 .row.open .chev{transform:rotate(180deg)}
@@ -134,6 +136,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
       <h1>Rectangle <em>Screener</em></h1>
       <p class="lede">Stocks trading inside a flat, well-tested range on the daily chart — plus the ones that just broke out of it, bullish or bearish. Click any row for the chart.</p>
       <p class="runmeta" id="runmeta"></p>
+      <p class="runnote" id="runnote" hidden></p>
       <p class="stale-note" id="stale-note"></p>
     </div>
   </section>
@@ -149,13 +152,13 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
       <div class="filters">
         <label class="field">Search<input id="q" type="search" placeholder="Ticker or company" autocomplete="off"></label>
         <label class="field">Sector<select id="sector"><option value="">All sectors</option></select></label>
-        <label class="field">Broke out within<select id="age">
-          <option value="1">Today</option><option value="3">3 days</option><option value="5" selected>5 days</option><option value="10">10 days</option>
+        <label class="field">Breakout age<select id="age">
+          <option value="0">Latest session</option><option value="3">Up to 3 sessions ago</option><option value="5" selected>Up to 5 sessions ago</option><option value="10">Up to 10 sessions ago</option>
         </select></label>
         <label class="field">Min. length<select id="minlen">
           <option value="0">Any</option><option value="20">4+ weeks</option><option value="40">8+ weeks</option><option value="63">3+ months</option>
         </select></label>
-        <label class="field">Position<select id="pos">
+        <label class="field" title="Applies to stocks inside their range">Position<select id="pos">
           <option value="">Anywhere</option><option value="top">Near resistance</option><option value="mid">Middle</option><option value="bottom">Near support</option>
         </select></label>
         <label class="field">Sort<select id="sort">
@@ -190,7 +193,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
           <h3>What makes the list</h3>
           <ul>
             <li><strong>Inside range</strong> — the latest close is still inside an active rectangle. A recent false breakout that closed back inside is flagged.</li>
-            <li><strong>Breakout ↑ / Breakdown ↓</strong> — a decisive daily close above resistance or below support within the last <span data-param="max_breakout_age">10</span> sessions that hasn't closed back inside since.</li>
+            <li><strong>Breakout ↑ / Breakdown ↓</strong> — a decisive daily close above resistance or below support no more than <span data-param="max_breakout_age">10</span> sessions ago, with no close back inside since.</li>
             <li>Older breakouts and stocks with no clean range are left out.</li>
           </ul>
         </div>
@@ -216,6 +219,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
   const listEl = $('#list');
   const state = { status: 'all', q: '', sector: '', age: 5, minlen: 0, pos: '', sort: 'quality' };
   const DEFAULTS = { ...state };
+  const SELECTS = ['sector', 'age', 'minlen', 'pos', 'sort'];
   let DATA = null, CHARTS = null, chartsPromise = null;
   const open = new Set();
 
@@ -224,55 +228,70 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     breakout_up: { label: 'Breakout ↑', cls: 'up', color: 'var(--up)' },
     breakout_down: { label: 'Breakdown ↓', cls: 'down', color: 'var(--down)' },
   };
+  const isBreakout = s => s === 'breakout_up' || s === 'breakout_down';
 
   // ---------- formatting ----------
   const fmtPrice = v => v == null ? '–' : '$' + (v >= 1000 ? v.toLocaleString('en-US', { maximumFractionDigits: 0 }) : v.toFixed(2));
+  const fmtNum = v => v == null ? '–' : v.toFixed(2);
   const fmtPct = (v, d = 1) => v == null ? '–' : `${v.toFixed(d)}%`;
   const fmtSigned = (v, d = 1) => v == null ? '–' : `${v > 0 ? '+' : v < 0 ? '−' : ''}${Math.abs(v).toFixed(d)}%`;
   const fmtCap = v => !v ? '–' : v >= 1e12 ? `$${(v / 1e12).toFixed(2)}T` : v >= 1e9 ? `$${(v / 1e9).toFixed(1)}B` : `$${(v / 1e6).toFixed(0)}M`;
-  const fmtVol = v => v >= 1e9 ? `${(v / 1e9).toFixed(2)}B` : v >= 1e6 ? `${(v / 1e6).toFixed(1)}M` : v >= 1e3 ? `${(v / 1e3).toFixed(0)}K` : `${v}`;
+  const fmtVol = v => v == null ? '–' : v >= 1e9 ? `${(v / 1e9).toFixed(2)}B` : v >= 1e6 ? `${(v / 1e6).toFixed(1)}M` : v >= 1e3 ? `${(v / 1e3).toFixed(0)}K` : `${v}`;
   const parseDay = s => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); };
   const fmtDate = (s, withYear = false) => s ? parseDay(s).toLocaleDateString('en-US', { month: 'short', day: 'numeric', ...(withYear ? { year: 'numeric' } : {}) }) : '–';
   const weeks = bars => bars >= 63 ? `${(bars / 21).toFixed(1)} mo` : `${(bars / 5).toFixed(bars < 50 ? 1 : 0)} wk`;
-  const ago = d => d === 0 ? 'today' : d === 1 ? '1 day ago' : `${d} days ago`;
+  // Breakout age is counted in sessions before the scan date (0 = the scan's own session).
+  const ago = d => d === 0 ? 'latest session' : d === 1 ? '1 session ago' : `${d} sessions ago`;
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
   // ---------- URL state ----------
   function readURL() {
     const p = new URLSearchParams(location.search);
-    for (const k of Object.keys(state)) if (p.has(k)) state[k] = typeof DEFAULTS[k] === 'number' ? Number(p.get(k)) || DEFAULTS[k] : p.get(k);
-    if (p.has('minlen') && p.get('minlen') === '0') state.minlen = 0;
-    if (!['all', 'inside', 'breakout_up', 'breakout_down'].includes(state.status)) state.status = 'all';
+    for (const k of Object.keys(state)) {
+      if (!p.has(k)) continue;
+      const v = p.get(k);
+      if (typeof DEFAULTS[k] === 'number') { const n = Number(v); state[k] = Number.isFinite(n) ? n : DEFAULTS[k]; }
+      else state[k] = v;
+    }
     if (p.has('open')) p.get('open').split(',').filter(Boolean).forEach(s => open.add(s));
+  }
+  // Drop values a hand-edited link may carry that no control can show.
+  function validateState() {
+    if (!['all', ...Object.keys(STATUS)].includes(state.status)) state.status = DEFAULTS.status;
+    for (const k of SELECTS) if (![...$('#' + k).options].some(o => o.value === String(state[k]))) state[k] = DEFAULTS[k];
+    for (const sym of [...open]) if (!DATA.results.some(r => r.symbol === sym)) open.delete(sym);
   }
   function writeURL() {
     const p = new URLSearchParams();
     for (const [k, v] of Object.entries(state)) if (v !== DEFAULTS[k]) p.set(k, v);
     if (open.size) p.set('open', [...open].join(','));
     const qs = p.toString();
-    history.replaceState(null, '', qs ? `?${qs}` : location.pathname);
+    history.replaceState(null, '', (qs ? `?${qs}` : location.pathname) + location.hash);
   }
   function syncControls() {
     document.querySelectorAll('#seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.status === state.status)));
-    $('#q').value = state.q; $('#sector').value = state.sector; $('#age').value = String(state.age);
-    $('#minlen').value = String(state.minlen); $('#pos').value = state.pos; $('#sort').value = state.sort;
+    $('#q').value = state.q;
+    for (const k of SELECTS) $('#' + k).value = String(state[k]);
+    // Position in the box only means something for stocks still inside it.
+    $('#pos').disabled = isBreakout(state.status);
   }
 
   // ---------- filtering ----------
   function passesCommon(r) {
-    if (state.q) {
-      const q = state.q.trim().toLowerCase();
-      if (q && !r.symbol.toLowerCase().startsWith(q) && !r.name.toLowerCase().includes(q)) return false;
-    }
+    const q = state.q.trim().toLowerCase();
+    if (q && !r.symbol.toLowerCase().startsWith(q) && !r.name.toLowerCase().includes(q)) return false;
     if (state.sector && r.sector !== state.sector) return false;
     if (r.bars < state.minlen) return false;
-    if (r.status !== 'inside' && r.days_since_breakout > state.age) return false;
+    if (isBreakout(r.status) && r.days_since_breakout > state.age) return false;
     return true;
   }
   function passesPos(r) {
-    if (!state.pos || r.status !== 'inside') return true;
+    if (r.status !== 'inside') return true;
     const p = r.position_pct;
-    return state.pos === 'top' ? p >= 75 : state.pos === 'bottom' ? p <= 25 : p > 25 && p < 75;
+    if (state.pos === 'top') return p >= 75;
+    if (state.pos === 'bottom') return p <= 25;
+    if (state.pos === 'mid') return p > 25 && p < 75;
+    return true;
   }
   const SORTS = {
     quality: (a, b) => b.quality - a.quality,
@@ -290,7 +309,6 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     document.querySelectorAll('[data-count]').forEach(el => el.textContent = counts[el.dataset.count]);
     const rows = base.filter(r => passesPos(r) && (state.status === 'all' || r.status === state.status)).sort(SORTS[state.sort] || SORTS.quality);
     $('#summary').textContent = `${rows.length} of ${DATA.results.length} matches shown`;
-    $('#pos').closest('.field').style.opacity = state.status === 'breakout_up' || state.status === 'breakout_down' ? .45 : 1;
     if (!rows.length) { listEl.innerHTML = '<div class="empty">No stocks match these filters.</div>'; return; }
     listEl.innerHTML = rows.map(rowHTML).join('');
     for (const sym of open) {
@@ -302,7 +320,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
   // ---------- row ----------
   function thumbSVG(r) {
     const W = 132, H = 50, P = 3;
-    const pts = r.thumb || [];
+    const pts = (r.thumb || []).filter(Number.isFinite);
     if (pts.length < 2) return '';
     const lo = Math.min(r.bottom, ...pts), hi = Math.max(r.top, ...pts);
     const y = v => P + (H - 2 * P) * (1 - (v - lo) / (hi - lo || 1));
@@ -310,10 +328,9 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     const line = pts.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ');
     const [f0, f1] = r.thumb_box || [0, 1];
     const bx0 = P + (W - 2 * P) * f0, bx1 = P + (W - 2 * P) * f1;
-    const color = STATUS[r.status].color;
     return `<svg class="thumb" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">
-      <rect x="${bx0.toFixed(1)}" y="${y(r.top).toFixed(1)}" width="${Math.max(2, bx1 - bx0).toFixed(1)}" height="${Math.max(1, y(r.bottom) - y(r.top)).toFixed(1)}" fill="${'var(--accent-soft)'}" stroke="var(--box)" stroke-opacity=".55" stroke-width="1" vector-effect="non-scaling-stroke"/>
-      <polyline points="${line}" fill="none" stroke="${r.status === 'inside' ? 'var(--ink)' : color}" stroke-width="1.4" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+      <rect x="${bx0.toFixed(1)}" y="${y(r.top).toFixed(1)}" width="${Math.max(2, bx1 - bx0).toFixed(1)}" height="${Math.max(1, y(r.bottom) - y(r.top)).toFixed(1)}" fill="var(--accent-soft)" stroke="var(--box)" stroke-opacity=".55" stroke-width="1" vector-effect="non-scaling-stroke"/>
+      <polyline points="${line}" fill="none" stroke="${r.status === 'inside' ? 'var(--ink)' : STATUS[r.status].color}" stroke-width="1.4" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
     </svg>`;
   }
 
@@ -352,7 +369,12 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
 
   // ---------- detail ----------
   function loadCharts() {
-    if (!chartsPromise) chartsPromise = fetch('data/charts.json', { cache: 'no-cache' }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(j => (CHARTS = j));
+    if (!chartsPromise) {
+      chartsPromise = fetch('data/charts.json', { cache: 'no-cache' })
+        .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(j => (CHARTS = j))
+        .catch(e => { chartsPromise = null; throw e; }); // let the next expand retry
+    }
     return chartsPromise;
   }
 
@@ -361,7 +383,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
   function detailHTML(r) {
     const st = [];
     st.push(stat('Resistance', fmtPrice(r.top)), stat('Support', fmtPrice(r.bottom)), stat('Height', fmtPct(r.height_pct)));
-    st.push(stat('Range', `${fmtDate(r.start, true)} → ${r.status === 'inside' ? 'now' : fmtDate(r.end)}`), stat('Length', `${r.bars} sessions`));
+    st.push(stat('Range', `${fmtDate(r.start, true)} → ${r.status === 'inside' ? fmtDate(DATA.as_of) : fmtDate(r.end)}`), stat('Length', `${r.bars} sessions`));
     st.push(stat('Touches', `${r.top_touches} top · ${r.bottom_touches} bottom`));
     if (r.status === 'inside') {
       st.push(stat('To resistance', fmtSigned((r.top / r.close - 1) * 100)), stat('To support', fmtSigned((r.bottom / r.close - 1) * 100)));
@@ -378,12 +400,12 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
         <div class="legend">
           <span><i class="sw" style="background:var(--accent-soft);border:1px solid var(--box)"></i>Rectangle</span>
           <span><svg width="10" height="10"><circle cx="5" cy="5" r="3.5" fill="#fff" stroke="var(--box)" stroke-width="1.6"/></svg>Touch</span>
-          ${r.status !== 'inside' ? `<span><svg width="12" height="10"><path d="M6 1l5 8H1z" fill="${STATUS[r.status].color}"/></svg>Breakout close</span>` : ''}
+          ${isBreakout(r.status) ? `<span><svg width="12" height="10"><path d="M6 1l5 8H1z" fill="${STATUS[r.status].color}"/></svg>Breakout close</span>` : ''}
           ${r.target != null ? `<span><i class="sw" style="height:0;border-top:1.5px dashed ${STATUS[r.status].color}"></i>Target</span>` : ''}
         </div>
-        <div class="hover-read" data-read></div>
+        <div class="hover-read" data-read aria-live="polite"></div>
       </div>
-      <svg class="chart" data-chart role="img" aria-label="${esc(r.symbol)} daily candlestick chart with the rectangle drawn"></svg>
+      <svg class="chart" data-chart role="img" tabindex="0" aria-label="${esc(r.symbol)} daily candlestick chart with the rectangle drawn. Use the left and right arrow keys to read individual sessions."></svg>
       <div class="stats">${st.join('')}</div>
       <div class="links"><a href="https://robinhood.com/us/en/stocks/${encodeURIComponent(r.symbol)}/" target="_blank" rel="noopener">Robinhood ↗</a><a href="${tv}" target="_blank" rel="noopener">TradingView ↗</a></div>`;
   }
@@ -396,21 +418,36 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     return n;
   }
 
-  function drawChart(svg, r, c) {
+  function drawChart(svg, r, full) {
     const W = svg.clientWidth || 800, H = svg.clientHeight || 340;
     svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
     svg.innerHTML = '';
-    const n = c.d.length;
     const padL = 6, padR = 62, padT = 12, padB = 22;
+
+    // Narrow screens get at most one session per 3px so candles stay legible;
+    // when the rectangle is short, zoom in to it.
+    const cap = Math.max(30, Math.floor((W - padL - padR) / 3));
+    let s0 = 0;
+    if (full.d.length > cap) {
+      s0 = full.d.length - cap;
+      const iStart = full.d.indexOf(r.start);
+      if (iStart - 10 > s0) s0 = iStart - 10;
+    }
+    const c = Object.fromEntries(['d', 'o', 'h', 'l', 'c', 'v'].map(k => [k, full[k].slice(s0)]));
+    const n = c.d.length;
+    if (!n) return;
+    const ok = i => [c.o[i], c.h[i], c.l[i], c.c[i]].every(Number.isFinite);
+
     const volH = Math.round((H - padT - padB) * 0.16);
     const priceB = H - padB - volH - 6;
     const idx = Object.fromEntries(c.d.map((d, i) => [d, i]));
     const i0 = idx[r.start] ?? 0, i1 = idx[r.end] ?? n - 1;
-    let lo = Math.min(...c.l, r.bottom), hi = Math.max(...c.h, r.top);
-    const span0 = hi - lo;
-    if (r.target != null && r.target > hi && r.target - hi < span0 * 0.35) hi = r.target;
-    if (r.target != null && r.target < lo && lo - r.target < span0 * 0.35) lo = r.target;
-    const pad = (hi - lo) * 0.05; lo -= pad; hi += pad;
+    let lo = Math.min(...c.l.filter(Number.isFinite), r.bottom), hi = Math.max(...c.h.filter(Number.isFinite), r.top);
+    const span0 = (hi - lo) || Math.abs(hi) * 0.02 || 1;
+    const target = r.target;
+    if (target != null && target > hi && target - hi < span0 * 0.35) hi = target;
+    if (target != null && target < lo && lo - target < span0 * 0.35) lo = target;
+    const pad = ((hi - lo) || span0) * 0.05; lo -= pad; hi += pad;
     const step = (W - padL - padR) / n;
     const X = i => padL + step * (i + 0.5);
     const Y = v => padT + (priceB - padT) * (1 - (v - lo) / (hi - lo));
@@ -434,25 +471,30 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
       el('line', { x1: X(i0) - step / 2, x2: X(boxEnd) + step / 2, y1: Y(v), y2: Y(v), stroke: 'var(--box)', 'stroke-width': 1.6 }, svg);
       if (boxEnd < n - 1) el('line', { x1: X(boxEnd) + step / 2, x2: X(n - 1) + step / 2, y1: Y(v), y2: Y(v), stroke: 'var(--box)', 'stroke-width': 1, 'stroke-dasharray': '4 4', 'stroke-opacity': .7 }, svg);
     }
-    if (r.target != null && r.target >= lo && r.target <= hi) {
-      const col = STATUS[r.status].color;
-      el('line', { x1: X(i1) + step / 2, x2: X(n - 1) + step / 2, y1: Y(r.target), y2: Y(r.target), stroke: col, 'stroke-width': 1.3, 'stroke-dasharray': '5 4' }, svg);
+    const targetOnChart = target != null && target >= lo && target <= hi;
+    if (targetOnChart) {
+      el('line', { x1: X(i1) + step / 2, x2: X(n - 1) + step / 2, y1: Y(target), y2: Y(target), stroke: STATUS[r.status].color, 'stroke-width': 1.3, 'stroke-dasharray': '5 4' }, svg);
     }
 
     // volume
-    const vmax = Math.max(...c.v) || 1;
+    const vmax = Math.max(...c.v.filter(Number.isFinite)) || 1;
     c.v.forEach((v, i) => {
+      if (!Number.isFinite(v) || !ok(i)) return;
       const h = volH * v / vmax;
-      el('rect', { x: X(i) - Math.max(1, step * 0.35), y: H - padB - h, width: Math.max(1, step * 0.7), height: h, fill: c.c[i] >= c.o[i] ? 'var(--candle-up)' : 'var(--candle-down)', 'fill-opacity': i >= i0 && i <= boxEnd ? .28 : .16 }, svg);
+      el('rect', { x: X(i) - Math.max(.5, step * 0.35), y: H - padB - h, width: Math.max(1, step * 0.7), height: h, fill: c.c[i] >= c.o[i] ? 'var(--candle-up)' : 'var(--candle-down)', 'fill-opacity': i >= i0 && i <= boxEnd ? .28 : .16 }, svg);
     });
 
-    // candles
+    // candles: hollow up / solid down while there is room, solid fills when narrow
     const bw = Math.max(1, Math.min(9, step * 0.62));
+    const hollow = bw >= 3;
     for (let i = 0; i < n; i++) {
+      if (!ok(i)) continue;
       const up = c.c[i] >= c.o[i], col = up ? 'var(--candle-up)' : 'var(--candle-down)';
       el('line', { x1: X(i), x2: X(i), y1: Y(c.h[i]), y2: Y(c.l[i]), stroke: col, 'stroke-width': 1 }, svg);
       const yt = Y(Math.max(c.o[i], c.c[i])), yb = Y(Math.min(c.o[i], c.c[i]));
-      el('rect', { x: X(i) - bw / 2, y: yt, width: bw, height: Math.max(1, yb - yt), fill: up ? 'var(--surface)' : col, stroke: col, 'stroke-width': 1 }, svg);
+      el('rect', hollow
+        ? { x: X(i) - bw / 2, y: yt, width: bw, height: Math.max(1, yb - yt), fill: up ? 'var(--surface)' : col, stroke: col, 'stroke-width': 1 }
+        : { x: X(i) - bw / 2, y: yt, width: bw, height: Math.max(1, yb - yt), fill: col }, svg);
     }
 
     // touches
@@ -462,40 +504,61 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
       el('circle', { cx: X(i), cy: Y(t.price), r: 3.6, fill: '#fff', stroke: 'var(--box)', 'stroke-width': 1.6 }, svg);
     }
     // breakout marker
-    if (r.breakout_date && idx[r.breakout_date] != null) {
+    if (r.breakout_date && idx[r.breakout_date] != null && ok(idx[r.breakout_date])) {
       const i = idx[r.breakout_date], col = STATUS[r.status].color;
       const yb = r.status === 'breakout_up' ? Y(c.l[i]) + 8 : Y(c.h[i]) - 8;
       const d = r.status === 'breakout_up' ? `M${X(i)} ${yb - 1}l5 8h-10z` : `M${X(i)} ${yb + 1}l5 -8h-10z`;
       el('path', { d, fill: col }, svg);
     }
 
-    // right-axis price tags
-    const tag = (v, label, col, fg = '#fff') => {
-      const y = Math.max(padT + 8, Math.min(priceB - 2, Y(v)));
-      el('rect', { x: W - padR + 4, y: y - 9, width: padR - 6, height: 18, rx: 4, fill: col }, svg);
-      const t = el('text', { x: W - padR + 4 + (padR - 6) / 2, y: y + 4, 'font-size': 11, 'text-anchor': 'middle', fill: fg, 'font-weight': 600 }, svg);
-      t.textContent = label;
-    };
-    tag(r.top, r.top.toFixed(2), 'var(--box)');
-    tag(r.bottom, r.bottom.toFixed(2), 'var(--box)');
+    // right-axis price tags, nudged apart so none hides another
+    const tags = [
+      { y: Y(r.top), label: r.top.toFixed(2), fill: 'var(--box)' },
+      { y: Y(r.bottom), label: r.bottom.toFixed(2), fill: 'var(--box)' },
+    ];
     const lastClose = c.c[n - 1];
-    if (Math.abs(Y(lastClose) - Y(r.top)) > 18 && Math.abs(Y(lastClose) - Y(r.bottom)) > 18) tag(lastClose, lastClose.toFixed(2), 'var(--ink)');
-    if (r.target != null && r.target >= lo && r.target <= hi && Math.abs(Y(r.target) - Y(r.top)) > 18 && Math.abs(Y(r.target) - Y(r.bottom)) > 18) tag(r.target, r.target.toFixed(2), STATUS[r.status].color);
+    if (Number.isFinite(lastClose)) tags.push({ y: Y(lastClose), label: lastClose.toFixed(2), fill: 'var(--ink)' });
+    if (target != null) {
+      const above = target > hi;
+      tags.push(targetOnChart
+        ? { y: Y(target), label: target.toFixed(2), fill: STATUS[r.status].color }
+        : { y: above ? padT : priceB, label: `${above ? '↑' : '↓'} ${target.toFixed(2)}`, fill: STATUS[r.status].color });
+    }
+    const TAG_H = 18, GAP = 2, yMin = padT + TAG_H / 2, yMax = priceB - TAG_H / 2;
+    tags.sort((a, b) => a.y - b.y);
+    tags.forEach((t, k) => { t.y = Math.max(yMin, k ? Math.max(t.y, tags[k - 1].y + TAG_H + GAP) : t.y); });
+    for (let k = tags.length - 1; k >= 0; k--) {
+      tags[k].y = Math.min(tags[k].y, k === tags.length - 1 ? yMax : tags[k + 1].y - TAG_H - GAP);
+    }
+    for (const t of tags) {
+      el('rect', { x: W - padR + 4, y: t.y - TAG_H / 2, width: padR - 6, height: TAG_H, rx: 4, fill: t.fill }, svg);
+      const tx = el('text', { x: W - padR + 4 + (padR - 6) / 2, y: t.y + 4, 'font-size': 11, 'text-anchor': 'middle', fill: '#fff', 'font-weight': 600 }, svg);
+      tx.textContent = t.label;
+    }
 
-    // hover readout
+    // session readout: hover, touch, or arrow keys
     const cross = el('line', { y1: padT, y2: H - padB, stroke: 'var(--ink-mute)', 'stroke-dasharray': '3 3', visibility: 'hidden' }, svg);
     const read = svg.parentElement.querySelector('[data-read]');
-    const defaultRead = () => { const i = n - 1; read.textContent = `${fmtDate(c.d[i], true)} · O ${c.o[i].toFixed(2)} H ${c.h[i].toFixed(2)} L ${c.l[i].toFixed(2)} C ${c.c[i].toFixed(2)} · Vol ${fmtVol(c.v[i])}`; };
-    defaultRead();
-    const move = ev => {
+    const show = i => {
+      read.textContent = `${fmtDate(c.d[i], true)} · O ${fmtNum(c.o[i])} H ${fmtNum(c.h[i])} L ${fmtNum(c.l[i])} C ${fmtNum(c.c[i])} · Vol ${fmtVol(c.v[i])}`;
+    };
+    let cur = n - 1;
+    const point = i => { cur = i; cross.setAttribute('x1', X(i)); cross.setAttribute('x2', X(i)); cross.setAttribute('visibility', 'visible'); show(i); };
+    const reset = () => { cur = n - 1; cross.setAttribute('visibility', 'hidden'); show(n - 1); };
+    reset();
+    const fromEvent = ev => {
       const rect = svg.getBoundingClientRect();
       const px = (ev.touches ? ev.touches[0].clientX : ev.clientX) - rect.left;
-      const i = Math.max(0, Math.min(n - 1, Math.floor((px * W / rect.width - padL) / step)));
-      cross.setAttribute('x1', X(i)); cross.setAttribute('x2', X(i)); cross.setAttribute('visibility', 'visible');
-      read.textContent = `${fmtDate(c.d[i], true)} · O ${c.o[i].toFixed(2)} H ${c.h[i].toFixed(2)} L ${c.l[i].toFixed(2)} C ${c.c[i].toFixed(2)} · Vol ${fmtVol(c.v[i])}`;
+      return Math.max(0, Math.min(n - 1, Math.floor((px * W / rect.width - padL) / step)));
     };
-    svg.onmousemove = move; svg.ontouchmove = move;
-    svg.onmouseleave = () => { cross.setAttribute('visibility', 'hidden'); defaultRead(); };
+    svg.onmousemove = ev => point(fromEvent(ev));
+    svg.ontouchstart = svg.ontouchmove = ev => point(fromEvent(ev));
+    svg.onmouseleave = svg.ontouchend = svg.ontouchcancel = svg.onblur = reset;
+    svg.onkeydown = ev => {
+      if (ev.key !== 'ArrowLeft' && ev.key !== 'ArrowRight') return;
+      ev.preventDefault();
+      point(Math.max(0, Math.min(n - 1, cur + (ev.key === 'ArrowLeft' ? -1 : 1))));
+    };
   }
 
   function expand(rowEl, toggle = true) {
@@ -512,20 +575,26 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     const svg = det.querySelector('[data-chart]');
     loadCharts().then(() => {
       const c = CHARTS[sym];
-      if (!c) { svg.outerHTML = '<div class="empty">Chart data unavailable.</div>'; return; }
+      if (!c || !c.d || !c.d.length) { svg.outerHTML = '<div class="empty">Chart data unavailable.</div>'; return; }
       drawChart(svg, r, c);
-    }).catch(() => { svg.outerHTML = '<div class="empty">Couldn\'t load chart data.</div>'; });
+    }).catch(() => { svg.outerHTML = '<div class="empty">Couldn\'t load chart data. Collapse and reopen the row to try again.</div>'; });
   }
 
   // ---------- wiring ----------
   function bind() {
-    document.querySelectorAll('#seg button').forEach(b => b.addEventListener('click', () => { state.status = b.dataset.status; syncControls(); writeURL(); render(); }));
     let qt;
+    // Apply any search typed in the last few ms before another control re-renders.
+    const flushSearch = () => { clearTimeout(qt); state.q = $('#q').value; };
+    document.querySelectorAll('#seg button').forEach(b => b.addEventListener('click', () => {
+      flushSearch(); state.status = b.dataset.status; syncControls(); writeURL(); render();
+    }));
     $('#q').addEventListener('input', e => { clearTimeout(qt); qt = setTimeout(() => { state.q = e.target.value; writeURL(); render(); }, 120); });
-    for (const [id, key, num] of [['sector', 'sector'], ['age', 'age', 1], ['minlen', 'minlen', 1], ['pos', 'pos'], ['sort', 'sort']]) {
-      $('#' + id).addEventListener('change', e => { state[key] = num ? Number(e.target.value) : e.target.value; writeURL(); render(); });
+    for (const k of SELECTS) {
+      $('#' + k).addEventListener('change', e => {
+        flushSearch(); state[k] = typeof DEFAULTS[k] === 'number' ? Number(e.target.value) : e.target.value; writeURL(); render();
+      });
     }
-    $('#reset').addEventListener('click', () => { Object.assign(state, DEFAULTS); open.clear(); syncControls(); writeURL(); render(); });
+    $('#reset').addEventListener('click', () => { clearTimeout(qt); Object.assign(state, DEFAULTS); open.clear(); syncControls(); writeURL(); render(); });
     listEl.addEventListener('click', e => { const b = e.target.closest('.row-main'); if (b) expand(b.closest('.row')); });
     let rt;
     window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => {
@@ -537,20 +606,31 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     }, 150); });
   }
 
+  // Weekday sessions that should have been scanned since as_of (New York time;
+  // a scan is expected by ~6:45pm). Market holidays make this an overestimate by one.
+  function missedSessions() {
+    const ny = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }));
+    const end = new Date(ny.getFullYear(), ny.getMonth(), ny.getDate());
+    if (ny.getHours() * 60 + ny.getMinutes() < 18 * 60 + 45) end.setDate(end.getDate() - 1);
+    let missed = 0;
+    for (const d = parseDay(DATA.as_of); d.setDate(d.getDate() + 1) && d <= end;) if (d.getDay() % 6) missed++;
+    return missed;
+  }
+
   function header() {
     const asof = parseDay(DATA.as_of);
     $('#asof-label').textContent = `Daily chart · ${asof.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} close`;
     const gen = new Date(DATA.generated_at);
-    $('#runmeta').textContent = `Scanned ${DATA.universe.scanned.toLocaleString()} of ${DATA.universe.size.toLocaleString()} liquid US stocks · ${DATA.source} · updated ${gen.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}`;
+    $('#runmeta').textContent = `Scanned ${DATA.universe.scanned.toLocaleString()} liquid US stocks · ${DATA.source} · updated ${gen.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}`;
+    if (DATA.source_note) { $('#runnote').textContent = DATA.source_note; $('#runnote').hidden = false; }
     $('#universe-note').textContent = `Universe: ${DATA.universe.rule}. Updated after each US market close. Informational only — not investment advice.`;
-    const ageDays = (Date.now() - asof.getTime()) / 864e5;
-    if (ageDays > 4.5) {
+    if (missedSessions() >= 2) {
       $('#fresh-dot').classList.add('stale');
       const n = $('#stale-note'); n.style.display = 'block';
-      n.textContent = `Heads up: this scan is from the ${asof.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })} close and hasn't been refreshed since.`;
+      n.textContent = `Heads up: this scan is from the ${asof.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })} close and hasn't been refreshed since, so "latest session" means that day.`;
     }
     const sectors = [...new Set(DATA.results.map(r => r.sector).filter(Boolean))].sort();
-    $('#sector').insertAdjacentHTML('beforeend', sectors.map(s => `<option>${esc(s)}</option>`).join(''));
+    $('#sector').insertAdjacentHTML('beforeend', sectors.map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join(''));
     const p = DATA.params || {};
     document.querySelectorAll('[data-param]').forEach(el => { if (p[el.dataset.param] != null) el.textContent = p[el.dataset.param]; });
   }
@@ -562,13 +642,26 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(j => {
       DATA = j;
+      // Tolerate rows from a future engine version rather than failing the whole page.
+      DATA.results = (j.results || []).filter(r => STATUS[r.status]).map(r => ({ ...r, name: r.name || '', sector: r.sector || '' }));
+      return true;
+    }, () => { listEl.innerHTML = '<div class="empty">Couldn\'t load the latest scan. Try refreshing in a minute.</div>'; return false; })
+    .then(loaded => {
+      if (!loaded) return;
       header();
-      if (state.sector && ![...$('#sector').options].some(o => o.value === state.sector)) state.sector = '';
+      validateState();
       syncControls();
+      writeURL();
       render();
-      if (open.size) loadCharts();
+      if (open.size) {
+        loadCharts().catch(() => {});
+        listEl.querySelector('.row.open')?.scrollIntoView({ block: 'start' });
+      }
     })
-    .catch(() => { listEl.innerHTML = '<div class="empty">Couldn\'t load the latest scan. Try refreshing in a minute.</div>'; });
+    .catch(err => {
+      console.error(err);
+      listEl.innerHTML = '<div class="empty">Something went wrong drawing the scan.</div>';
+    });
 })();
 </script>
 </body>

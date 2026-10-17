@@ -1,13 +1,15 @@
 import json
 import os
+import sys
 import tempfile
 import unittest
 from datetime import datetime, timezone
+from unittest import mock
 
 import pandas as pd
 
 from screener import build
-from screener.sources import load_hood_dumps
+from screener.sources import load_hood_dumps, load_yfinance
 
 
 def _bar(ts, o, h, l, c, v, interpolated=False):
@@ -20,6 +22,12 @@ def _bar(ts, o, h, l, c, v, interpolated=False):
 def _dump(path, symbol, interval, bars):
     with open(path, "w") as fh:
         json.dump({"data": {"results": [{"symbol": symbol, "interval": interval, "bars": bars}]}, "guide": ""}, fh)
+
+
+def _session(day, volume):
+    """The 13 regular-session half-hour bars of a (daylight-time) day."""
+    stamps = pd.date_range(f"{day} 13:30", periods=13, freq="30min", tz="UTC")
+    return [_bar(ts.strftime("%Y-%m-%dT%H:%M:%SZ"), 10, 11, 9, 10, volume) for ts in stamps]
 
 
 class HoodDumpTests(unittest.TestCase):
@@ -65,6 +73,84 @@ class HoodDumpTests(unittest.TestCase):
             bars = load_hood_dumps(d)["ABC"]
         self.assertEqual(str(bars.index[-1].date()), "2026-10-15")
 
+    def test_session_fetched_before_the_close_is_not_filled(self):
+        with tempfile.TemporaryDirectory() as d:
+            _dump(os.path.join(d, "daily_b000.json"), "ABC", "day", [_bar("2026-10-15T00:00:00Z", 10, 11, 9, 10, 1000)])
+            path = os.path.join(d, "intra_b000.json")
+            _dump(path, "ABC", "30minute", _session("2026-10-16", 10))
+            fetched = datetime(2026, 10, 16, 19, 45, tzinfo=timezone.utc).timestamp()  # 3:45pm ET
+            os.utime(path, (fetched, fetched))
+            bars = load_hood_dumps(d)["ABC"]
+        self.assertEqual(str(bars.index[-1].date()), "2026-10-15")
+
+    def test_duplicate_intraday_bars_counted_once(self):
+        with tempfile.TemporaryDirectory() as d:
+            _dump(os.path.join(d, "daily_b000.json"), "ABC", "day", [_bar("2026-10-15T00:00:00Z", 10, 11, 9, 10, 2600)])
+            _dump(os.path.join(d, "intra_b000.json"), "ABC", "30minute", _session("2026-10-15", 100) + _session("2026-10-16", 100))
+            _dump(os.path.join(d, "intra_b001.json"), "ABC", "30minute", _session("2026-10-16", 100))
+            bars = load_hood_dumps(d)["ABC"]
+        self.assertAlmostEqual(bars.iloc[-1]["volume"], 2600)  # 13 x 100, scaled x2
+
+    def test_empty_intraday_result_does_not_break_the_load(self):
+        with tempfile.TemporaryDirectory() as d:
+            _dump(os.path.join(d, "daily_b000.json"), "ABC", "day", [_bar("2026-10-15T00:00:00Z", 10, 11, 9, 10, 1000)])
+            _dump(os.path.join(d, "intra_b000.json"), "ABC", "30minute", [])
+            bars = load_hood_dumps(d)
+        self.assertEqual(len(bars["ABC"]), 1)
+
+    def test_market_wide_volume_ratio_without_overlap(self):
+        with tempfile.TemporaryDirectory() as d:
+            _dump(os.path.join(d, "daily_b000.json"), "AAA", "day", [_bar("2026-10-15T00:00:00Z", 10, 11, 9, 10, 3900)])
+            _dump(os.path.join(d, "daily_b001.json"), "BBB", "day", [_bar("2026-10-15T00:00:00Z", 10, 11, 9, 10, 500)])
+            _dump(os.path.join(d, "intra_b000.json"), "AAA", "30minute", _session("2026-10-15", 100) + _session("2026-10-16", 100))
+            _dump(os.path.join(d, "intra_b001.json"), "BBB", "30minute", _session("2026-10-16", 10))
+            bars = load_hood_dumps(d)
+        self.assertAlmostEqual(bars["BBB"].iloc[-1]["volume"], 130 * 3)  # AAA's 3x ratio
+        self.assertEqual(bars["BBB"].attrs["filled_sessions"], ["2026-10-16"])
+
+
+def _yahoo_frame(tickers, days, failed=()):
+    """A frame shaped like yf.download(group_by="ticker", auto_adjust=False) output."""
+    parts = {}
+    for t in tickers:
+        nan = t in failed  # yfinance reports a failed ticker as all-NaN columns
+        parts[t] = pd.DataFrame(
+            {
+                "Open": float("nan") if nan else 10.0,
+                "High": float("nan") if nan else 11.0,
+                "Low": float("nan") if nan else 9.0,
+                "Close": float("nan") if nan else 10.5,
+                "Adj Close": float("nan") if nan else 10.4,
+                "Volume": float("nan") if nan else 1000.0,
+            },
+            index=pd.DatetimeIndex(days, name="Date"),
+        )
+    return pd.concat(parts.values(), axis=1, keys=parts.keys(), names=["Ticker", "Price"])
+
+
+class YahooLoaderTests(unittest.TestCase):
+    def test_parses_frames_and_retries_failed_tickers(self):
+        days = pd.bdate_range("2026-10-12", "2026-10-16")
+        calls = []
+
+        def fake_download(tickers, **kw):
+            calls.append((list(tickers), kw))
+            # BRK-B fails on the first pass only (e.g. a rate-limited request).
+            return _yahoo_frame(tickers, days, failed={"BRK-B"} if len(calls) == 1 else set())
+
+        fake = mock.MagicMock(download=fake_download)
+        with mock.patch.dict(sys.modules, {"yfinance": fake}), mock.patch("time.sleep"):
+            bars = load_yfinance(["AAPL", "BRK.B"], retries=2)
+
+        self.assertEqual(sorted(bars), ["AAPL", "BRK.B"])
+        self.assertEqual(list(bars["AAPL"].columns), ["open", "high", "low", "close", "volume"])
+        self.assertEqual(bars["AAPL"]["close"].iloc[-1], 10.5)  # Close, not Adj Close
+        self.assertIsNone(bars["AAPL"].index.tz)
+        self.assertEqual(calls[0][0], ["AAPL", "BRK-B"])
+        self.assertEqual(calls[1][0], ["BRK-B"])
+        self.assertFalse(calls[0][1]["auto_adjust"])
+        self.assertEqual(calls[0][1]["group_by"], "ticker")
+
 
 class BuildHelperTests(unittest.TestCase):
     def test_thumb_keeps_endpoints_and_caps_points(self):
@@ -84,6 +170,40 @@ class BuildHelperTests(unittest.TestCase):
         bars = {"A": df.copy()}
         build.drop_incomplete_session(bars, datetime(2026, 10, 16, 22, 30, tzinfo=timezone.utc))  # 6:30pm ET
         self.assertEqual(len(bars["A"]), 2)
+
+    def test_pick_as_of_ignores_a_lagging_minority(self):
+        days = pd.bdate_range("2026-10-12", "2026-10-16")
+        frame = lambda n: pd.DataFrame({"close": 1.0}, index=days[:n])
+        bars = {f"S{i}": frame(5) for i in range(9)} | {"LAG": frame(4)}
+        self.assertEqual(build.pick_as_of(bars), days[-1])
+        bars = {f"S{i}": frame(4) for i in range(5)} | {f"T{i}": frame(5) for i in range(5)}
+        self.assertEqual(build.pick_as_of(bars), days[-2])
+
+    def test_is_liquid_uses_the_median_dollar_volume(self):
+        idx = pd.bdate_range("2026-08-03", periods=60)
+        df = pd.DataFrame({"close": 50.0, "volume": 500_000.0}, index=idx)  # $25M a day
+        self.assertTrue(build.is_liquid(df))
+        df.loc[idx[-1], "volume"] = 10_000.0  # one quiet day doesn't matter
+        self.assertTrue(build.is_liquid(df))
+        df["volume"] = 300_000.0  # $15M a day
+        self.assertFalse(build.is_liquid(df))
+
+    def test_not_common_filter(self):
+        self.assertTrue(build.NOT_COMMON.search("Strategy Inc Variable Rate Series A Perpetual Stretch Preferred Stock"))
+        self.assertTrue(build.NOT_COMMON.search("Alphabet Inc. Depositary Shares representing a 1/20th Interest in a Share of Series A Mandatory Convertible Preferred Stock"))
+        for name in ("Itau Unibanco Banco Holding SA American Depositary Shares (Each repstg 500 Preferred shares)",
+                     "MPLX LP Common Units Representing Limited Partner Interests",
+                     "America Movil S.A.B. de C.V. American Depositary Shares (each representing the right to receive twenty (20) Series B Shares"):
+            self.assertIsNone(build.NOT_COMMON.search(name), name)
+
+    def test_write_json_is_strict(self):
+        with tempfile.TemporaryDirectory() as d:
+            path = os.path.join(d, "x.json")
+            build._write_json(path, {"ok": 1})
+            with self.assertRaises(ValueError):
+                build._write_json(path, {"bad": float("nan")})
+            with open(path) as fh:
+                self.assertEqual(json.load(fh), {"ok": 1})  # previous file left intact
 
     def test_clean_name(self):
         self.assertEqual(build.clean_name("Apple Inc. Common Stock"), "Apple Inc.")
