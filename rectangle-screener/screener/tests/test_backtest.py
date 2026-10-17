@@ -132,6 +132,10 @@ class TradesTests(unittest.TestCase):
         s = backtest.summarize([t, passed])
         self.assertEqual((s["n"], s["signals"], s["target"], s["timeout"]), (1, 2, 0.0, 100.0))
         self.assertEqual(s["target_at_entry"], 50.0)
+        only = backtest.summarize([passed])                 # nothing left to trade: run and holds only
+        self.assertEqual((only["n"], only["signals"]), (0, 1))
+        self.assertNotIn("target", only)
+        self.assertIn("run", only)
 
     def test_one_signal_per_breakout(self):
         ts = backtest.trades(self.rows, {"X": self.df}, 1.0, FlatBench(), max_hold=5)

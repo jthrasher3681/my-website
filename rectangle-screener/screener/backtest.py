@@ -325,13 +325,19 @@ def summarize(ts):
     if not ts:
         return {"n": 0}
     signals_all = ts
-    ts = [t for t in ts if not t["target_at_entry"]] or ts[:0]
+    ts = [t for t in ts if not t["target_at_entry"]]
+    out = {"n": len(ts), "signals": len(signals_all),
+           "target_at_entry": round(sum(t["target_at_entry"] for t in signals_all) / len(signals_all) * 100, 1)}
+    if ts:
+        out.update(_target_stats(ts))
+    return {**out, **_run_stats(signals_all)}
+
+
+def _target_stats(ts):
     blocks = [_quarter(t["signal_date"]) for t in ts]
-    ret = np.array([t["ret"] for t in ts]) if ts else np.zeros(0)
+    ret = np.array([t["ret"] for t in ts])
     exc = [t["excess"] for t in ts if t["excess"] is not None]
-    out = {
-        "n": len(ts),
-        "signals": len(signals_all),
+    return {
         "target": round(sum(t["outcome"] == "target" for t in ts) / len(ts) * 100, 1),
         "failed": round(sum(t["outcome"] == "failed" for t in ts) / len(ts) * 100, 1),
         "timeout": round(sum(t["outcome"] == "timeout" for t in ts) / len(ts) * 100, 1),
@@ -346,9 +352,11 @@ def summarize(ts):
         "excess": round(float(np.mean(exc)), 2) if exc else None,
         "excess_ci": _boot_ci(exc, [_quarter(t["signal_date"]) for t in ts if t["excess"] is not None]) if exc else None,
         "beat_bench": round(float(np.mean(np.array(exc) > 0) * 100), 1) if exc else None,
-        "target_at_entry": round(sum(t["target_at_entry"] for t in signals_all) / len(signals_all) * 100, 1),
     }
-    ts = signals_all
+
+
+def _run_stats(ts):
+    out = {}
     blocks = [_quarter(t["signal_date"]) for t in ts]
     rr = np.array([t["run_ret"] for t in ts])
     rx = [t["run_excess"] for t in ts if t["run_excess"] is not None]
