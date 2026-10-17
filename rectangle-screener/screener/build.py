@@ -54,7 +54,8 @@ NOT_COMMON = re.compile(
 )
 
 VOLUME_DECLINE_PCT = -15.0  # "declining throughout": trend line down at least this much,
-VOLUME_STEP_PCT = 5.0       # and each third of the box at least this much below the one before
+VOLUME_STEP_PCT = 5.0       # and each third of the box at least this much below the one before,
+VOLUME_TREND_P = 0.05       # and a Mann-Kendall decline this significant (see volume_profile)
 MIN_COVERAGE = 0.8  # share of the universe that must have data through the scan date
 MIN_BARS = 60
 THUMB_POINTS = 90
@@ -171,24 +172,37 @@ def volume_profile(volume) -> dict | None:
     trend_pct  change of a robust trend line through the log volume of every session
                (Theil-Sen: the median of all pairwise slopes), first to last session, in %
     thirds     median volume of the box's first, middle and last third, as % of the first
-    declining  volume falls throughout: each third trades at least VOLUME_STEP_PCT less
-               than the one before and the trend line is down at least VOLUME_DECLINE_PCT
+    declining  volume falls throughout the box:
+               - each third trades at least VOLUME_STEP_PCT less than the one before,
+               - the trend line is down at least VOLUME_DECLINE_PCT,
+               - the decline is not noise (one-sided Mann-Kendall test, p < VOLUME_TREND_P),
+               - and it did not pick back up at the end: the last week and the last sixth
+                 of the box trade no more than the middle third
     None when a third would have fewer than three sessions."""
     v = np.array([float(x) for x in volume if x is not None and math.isfinite(x) and x > 0])
-    k = len(v) // 3
+    n = len(v)
+    k = n // 3
     if k < 3:
         return None
-    i, j = np.triu_indices(len(v), 1)
+    i, j = np.triu_indices(n, 1)
     lv = np.log(v)
-    slope = float(np.median((lv[j] - lv[i]) / (j - i)))
-    trend = (math.exp(slope * (len(v) - 1)) - 1) * 100
+    trend = (math.exp(float(np.median((lv[j] - lv[i]) / (j - i))) * (n - 1)) - 1) * 100
     m1, m2, m3 = (float(np.median(part)) for part in (v[:k], v[k:-k], v[-k:]))
     step = 1 - VOLUME_STEP_PCT / 100
-    return {
-        "trend_pct": trend,
-        "thirds": [100.0, m2 / m1 * 100, m3 / m1 * 100],
-        "declining": bool(m2 <= m1 * step and m3 <= m2 * step and trend <= VOLUME_DECLINE_PCT),
-    }
+    late = max(float(np.median(v[-5:])), float(np.median(v[-max(3, n // 6):])))
+    declining = (m2 <= m1 * step and m3 <= m2 * step and trend <= VOLUME_DECLINE_PCT
+                 and _mann_kendall_p_down(v) < VOLUME_TREND_P and late <= m2)
+    return {"trend_pct": trend, "thirds": [100.0, m2 / m1 * 100, m3 / m1 * 100], "declining": bool(declining)}
+
+
+def _mann_kendall_p_down(v) -> float:
+    """One-sided p-value that the series trends down (Mann-Kendall, normal approximation)."""
+    n = len(v)
+    i, j = np.triu_indices(n, 1)
+    s = float(np.sign(v[j] - v[i]).sum())
+    sd = math.sqrt(n * (n - 1) * (2 * n + 5) / 18)
+    z = (s + 1) / sd if s < 0 else (s - 1) / sd if s > 0 else 0.0
+    return 0.5 * (1 + math.erf(z / math.sqrt(2)))
 
 
 def thumb(closes) -> list:

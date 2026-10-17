@@ -230,6 +230,21 @@ class BuildHelperTests(unittest.TestCase):
         self.assertFalse(build.volume_profile([100.0] * 10 + [99.0] * 10 + [60.0] * 10)["declining"])
         self.assertFalse(build.volume_profile([50.0] * 15 + [100.0] * 15)["declining"])
 
+    def test_volume_profile_late_surge_is_not_declining_throughout(self):
+        # a long fade whose last week trades back above the middle of the box (GEV, EPD)
+        fade = [100.0] * 30 + [85.0] * 30 + [70.0] * 25 + [140.0] * 5
+        p = build.volume_profile(fade)
+        self.assertLessEqual(p["thirds"][1], 95)
+        self.assertLessEqual(p["thirds"][2], p["thirds"][1] * 0.95)
+        self.assertFalse(p["declining"])
+        self.assertTrue(build.volume_profile([100.0] * 30 + [85.0] * 30 + [70.0] * 30)["declining"])
+
+    def test_volume_profile_rarely_flags_noise(self):
+        rng = np.random.default_rng(7)
+        for n in (15, 30, 60):
+            flagged = sum(build.volume_profile(list(np.exp(rng.normal(0, 0.35, n))))["declining"] for _ in range(400))
+            self.assertLess(flagged / 400, 0.05, n)
+
     def test_volume_profile_robust_inputs(self):
         # one spike does not move a third's median; missing prints are skipped
         p = build.volume_profile([100.0] * 9 + [1e9] + [70.0] * 10 + [60.0] * 10)

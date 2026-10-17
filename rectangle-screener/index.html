@@ -62,10 +62,14 @@ h1 em{font-style:italic;color:var(--accent)}
 .range input{height:36px;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:0 10px;font-size:.92rem;color:var(--ink);min-width:0;width:100%}
 .range input:focus{outline:2px solid var(--accent-soft);border-color:var(--accent)}
 .range input.set{border-color:var(--accent)}
+.range input:disabled{opacity:.45;cursor:not-allowed}
+.adv-note{margin:-6px 0 0;font-size:.8rem;color:var(--ink-mute)}
+.adv-foot{grid-column:1 / -1;position:sticky;bottom:0;display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 -20px -18px;padding:12px 20px;background:var(--surface);border-top:1px solid var(--line-soft);border-radius:0 0 14px 14px;font-size:.9rem;color:var(--ink-soft)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .range input{-moz-appearance:textfield;appearance:textfield}
 .range input::-webkit-inner-spin-button,.range input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
 .reset:hover{text-decoration:underline}
-.summary{font-size:.88rem;color:var(--ink-mute)}
+.summary{font-size:.88rem;color:var(--ink-mute);scroll-margin-top:84px}
 
 /* Results */
 .list{display:grid;gap:10px;padding-bottom:24px}
@@ -177,52 +181,56 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
         <label class="field">Quality<select id="minq">
           <option value="0">Any</option><option value="55">55+ solid</option><option value="60">60+ textbook</option>
         </select></label>
-        <label class="field" title="Declining throughout: each third of the box trades at least 5% less volume than the one before, and the volume trend line falls at least 15%">Volume in box<select id="vol">
+        <label class="field" id="vol-label">Volume in box<select id="vol" aria-describedby="vol-help">
           <option value="">Any</option><option value="down">Declining throughout</option><option value="down30">Declining 30%+ throughout</option><option value="not">Not declining</option>
         </select></label>
         <label class="field">Sort<select id="sort">
           <option value="quality">Pattern quality</option><option value="recent">Newest breakout</option><option value="voldry">Volume dry-up</option><option value="bvol">Breakout volume</option><option value="length">Longest range</option><option value="tight">Tightest range</option><option value="cap">Market cap</option><option value="symbol">Ticker A–Z</option>
         </select></label>
+        <span class="sr-only" id="vol-help"></span>
         <button class="more" type="button" id="more" aria-expanded="false" aria-controls="adv">More filters <span class="n" id="adv-count" hidden></span></button>
         <button class="reset" type="button" id="reset">Reset</button>
       </div>
       <div class="adv" id="adv" hidden>
         <div class="adv-group">
           <div class="adv-title">Pattern</div>
-          <div class="range" data-range="len"><span>Length (weeks)</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Minimum length in weeks"><input type="number" inputmode="decimal" min="0" step="any" placeholder="max" aria-label="Maximum length in weeks"></div>
-          <div class="range" data-range="h"><span>Height (% of support)</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Minimum height %"><input type="number" inputmode="decimal" min="0" step="any" placeholder="max" aria-label="Maximum height %"></div>
-          <div class="range" data-range="tt" data-only="min"><span>Top touches</span><input type="number" inputmode="numeric" min="0" step="1" placeholder="min" aria-label="Minimum top touches"></div>
-          <div class="range" data-range="bt" data-only="min"><span>Bottom touches</span><input type="number" inputmode="numeric" min="0" step="1" placeholder="min" aria-label="Minimum bottom touches"></div>
-          <div class="range" data-range="sw" data-only="min"><span>Crossings (side switches)</span><input type="number" inputmode="numeric" min="0" step="1" placeholder="min" aria-label="Minimum side switches"></div>
-          <div class="range" data-range="vt"><span>Volume trend in box (%)</span><input type="number" inputmode="decimal" step="any" placeholder="min" aria-label="Minimum volume trend %"><input type="number" inputmode="decimal" step="any" placeholder="max" aria-label="Maximum volume trend %"></div>
-        </div>
-        <div class="adv-group">
-          <div class="adv-title">Inside range</div>
-          <label class="field">Position in box<select id="pos">
-            <option value="">Anywhere</option><option value="top">Near resistance</option><option value="mid">Middle</option><option value="bottom">Near support</option>
-          </select></label>
-          <div class="range" data-range="pos"><span>Position (% up the box)</span><input type="number" inputmode="decimal" step="any" placeholder="min" aria-label="Minimum position %"><input type="number" inputmode="decimal" step="any" placeholder="max" aria-label="Maximum position %"></div>
-          <label class="field">Failed breakouts<select id="fb">
+          <div class="range" data-range="len"><span>Length (weeks)</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Length (weeks), minimum"><input type="number" inputmode="decimal" min="0" step="any" placeholder="max" aria-label="Length (weeks), maximum"></div>
+          <div class="range" data-range="h"><span>Height (% of support)</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Height (% of support), minimum"><input type="number" inputmode="decimal" min="0" step="any" placeholder="max" aria-label="Height (% of support), maximum"></div>
+          <div class="range" data-range="tt" data-only="min"><span>Top touches</span><input type="number" inputmode="numeric" min="0" step="any" placeholder="min" aria-label="Top touches, minimum"></div>
+          <div class="range" data-range="bt" data-only="min"><span>Bottom touches</span><input type="number" inputmode="numeric" min="0" step="any" placeholder="min" aria-label="Bottom touches, minimum"></div>
+          <div class="range" data-range="sw" data-only="min"><span>Crossings (side switches)</span><input type="number" inputmode="numeric" min="0" step="any" placeholder="min" aria-label="Crossings (side switches), minimum"></div>
+          <div class="range" data-range="vt"><span>Volume trend in box (%)</span><input type="text" inputmode="text" enterkeyhint="done" placeholder="min" aria-label="Volume trend in box (%), minimum"><input type="text" inputmode="text" enterkeyhint="done" placeholder="max" aria-label="Volume trend in box (%), maximum"></div>
+          <label class="field">Failed / 2nd-try breakouts<select id="fb">
             <option value="">Include</option><option value="hide">Hide</option><option value="only">Only these</option>
           </select></label>
         </div>
         <div class="adv-group">
+          <div class="adv-title">Inside range</div>
+          <p class="adv-note">Applies to stocks still inside their box.</p>
+          <label class="field">Position in box<select id="pos">
+            <option value="">Anywhere</option><option value="top">Near resistance</option><option value="mid">Middle</option><option value="bottom">Near support</option>
+          </select></label>
+          <div class="range" data-range="pos"><span>Position (% up the box)</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Position (% up the box), minimum"><input type="number" inputmode="decimal" min="0" step="any" placeholder="max" aria-label="Position (% up the box), maximum"></div>
+        </div>
+        <div class="adv-group">
           <div class="adv-title">Breakouts</div>
-          <div class="range" data-range="bv"><span>Breakout volume (× avg)</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Minimum breakout volume ratio"><input type="number" inputmode="decimal" min="0" step="any" placeholder="max" aria-label="Maximum breakout volume ratio"></div>
-          <div class="range" data-range="ext"><span>Beyond the line (% of height)</span><input type="number" inputmode="decimal" step="any" placeholder="min" aria-label="Minimum extension %"><input type="number" inputmode="decimal" step="any" placeholder="max" aria-label="Maximum extension %"></div>
+          <p class="adv-note">Applies to breakouts and breakdowns.</p>
+          <div class="range" data-range="bv"><span>Breakout volume (× avg)</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Breakout volume (× avg), minimum"><input type="number" inputmode="decimal" min="0" step="any" placeholder="max" aria-label="Breakout volume (× avg), maximum"></div>
+          <div class="range" data-range="ext"><span>Beyond the line (% of height)</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Beyond the line (% of height), minimum"><input type="number" inputmode="decimal" min="0" step="any" placeholder="max" aria-label="Beyond the line (% of height), maximum"></div>
         </div>
         <div class="adv-group">
           <div class="adv-title">Stock</div>
-          <div class="range" data-range="px"><span>Price ($)</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Minimum price"><input type="number" inputmode="decimal" min="0" step="any" placeholder="max" aria-label="Maximum price"></div>
-          <div class="range" data-range="cap"><span>Market cap ($B)</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Minimum market cap in billions"><input type="number" inputmode="decimal" min="0" step="any" placeholder="max" aria-label="Maximum market cap in billions"></div>
-          <div class="range" data-range="dv" data-only="min"><span>Traded per day ($M)</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Minimum dollar volume in millions"></div>
-          <div class="range" data-range="atr"><span>ATR (14) %</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Minimum ATR %"><input type="number" inputmode="decimal" min="0" step="any" placeholder="max" aria-label="Maximum ATR %"></div>
-          <div class="range" data-range="chg"><span>Last session change (%)</span><input type="number" inputmode="decimal" step="any" placeholder="min" aria-label="Minimum change %"><input type="number" inputmode="decimal" step="any" placeholder="max" aria-label="Maximum change %"></div>
+          <div class="range" data-range="px"><span>Price ($)</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Price ($), minimum"><input type="number" inputmode="decimal" min="0" step="any" placeholder="max" aria-label="Price ($), maximum"></div>
+          <div class="range" data-range="cap"><span>Market cap ($B)</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Market cap ($B), minimum"><input type="number" inputmode="decimal" min="0" step="any" placeholder="max" aria-label="Market cap ($B), maximum"></div>
+          <div class="range" data-range="dv" data-only="min"><span>Traded per day ($M)</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Traded per day ($M), minimum"></div>
+          <div class="range" data-range="atr"><span>ATR (14) %</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="ATR (14) %, minimum"><input type="number" inputmode="decimal" min="0" step="any" placeholder="max" aria-label="ATR (14) %, maximum"></div>
+          <div class="range" data-range="chg"><span>Last session change (%)</span><input type="text" inputmode="text" enterkeyhint="done" placeholder="min" aria-label="Last session change (%), minimum"><input type="text" inputmode="text" enterkeyhint="done" placeholder="max" aria-label="Last session change (%), maximum"></div>
           <label class="field">Exchange<select id="exch">
             <option value="">All exchanges</option><option value="NASDAQ">Nasdaq</option><option value="NYSE">NYSE</option><option value="AMEX">NYSE American</option>
           </select></label>
           <label class="field">Industry<input id="ind" type="search" placeholder="e.g. semiconductors" autocomplete="off"></label>
         </div>
+        <div class="adv-foot"><span id="adv-matches" aria-hidden="true"></span><button type="button" class="more" id="adv-done">Show results</button></div>
       </div>
       <div class="summary" id="summary" aria-live="polite"></div>
     </div>
@@ -262,7 +270,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
             <li><strong>Touches</strong> — distinct tests of resistance (T) and support (B).</li>
             <li><strong>Target</strong> — the classic measured move: the box height projected from the broken line.</li>
             <li><strong>Vol ×</strong> — breakout-day volume against the prior 50-day average.</li>
-            <li><strong>Vol ↓ −32%</strong> (under the box) — the volume trend across the whole pattern: a robust trend line through every session's volume, first session to last. The ↓ marks volume <em>declining throughout</em>: each third of the box traded at least <span data-param="volume_step_pct">5</span>% less (median) than the third before it, and the trend fell at least <span data-param="volume_decline_abs">15</span>%. Volume usually dries up as a rectangle matures; a breakout on heavy volume is the classic confirmation.</li>
+            <li><strong>Vol ↓ −32%</strong> (under the box) — the volume trend across the whole pattern: a robust trend line through every session's volume, first session to last. The ↓ marks volume <em>declining throughout</em>: each third of the box traded at least <span data-param="volume_step_pct">5</span>% less (median) than the third before it, the trend fell at least <span data-param="volume_decline_abs">15</span>%, the decline passes a trend test (it isn't noise), and volume didn't pick back up in the final week. Volume usually dries up as a rectangle matures; a breakout on heavy volume is the classic confirmation.</li>
             <li><strong>Quality</strong> — how textbook the box is: many alternating touches, tight flat lines, clean containment, balanced fill. 60+ is the cleanest tier; lower scores are looser ranges worth a second look.</li>
           </ul>
         </div>
@@ -301,7 +309,15 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
   const DEFAULTS = { ...state };
   const SELECTS = ['sector', 'age', 'minq', 'vol', 'sort', 'pos', 'fb', 'exch'];
   const TEXTS = ['q', 'ind'];
-  const ADVANCED = ['pos', 'fb', 'exch', 'ind', ...RANGE_KEYS];   // the "More filters" panel
+  // what a typed min/max field holds: tolerant of "2,000", "$50", "15%" and a typographic minus
+  const parseTyped = v => { const t = String(v).replace(/[,$%\s]/g, '').replace(/\u2212/g, '-'); const n = t === '' ? NaN : Number(t); return Number.isFinite(n) ? n : null; };
+  const rangeInputs = () => [...document.querySelectorAll('.range')].flatMap(el => {
+    const [lo, hi] = el.querySelectorAll('input');
+    return [[lo, el.dataset.range + 'min'], [hi, el.dataset.range + 'max']].filter(([input]) => input);
+  });
+  // active "More filters": each range counts once, whether min, max or both are set
+  const activeAdvanced = () => Object.keys(RANGE).filter(k => state[k + 'min'] != null || state[k + 'max'] != null).length
+    + ['pos', 'fb', 'exch'].filter(k => state[k] !== '').length + (state.ind.trim() ? 1 : 0);
   const VOLUME = {
     down: r => r.volume_declining,
     down30: r => r.volume_declining && r.volume_trend_pct <= -30,
@@ -351,6 +367,8 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     if (!['all', ...Object.keys(STATUS)].includes(state.status)) state.status = DEFAULTS.status;
     for (const k of SELECTS) if (![...$('#' + k).options].some(o => o.value === String(state[k]))) state[k] = DEFAULTS[k];
     for (const sym of [...open]) if (!DATA.results.some(r => r.symbol === sym)) open.delete(sym);
+    const shown = new Set(rangeInputs().map(([, key]) => key));
+    for (const k of RANGE_KEYS) if (!shown.has(k)) state[k] = null;   // e.g. a max where only a min field exists
   }
   function writeURL() {
     const p = new URLSearchParams();
@@ -363,20 +381,17 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     document.querySelectorAll('#seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.status === state.status)));
     for (const k of TEXTS) $('#' + k).value = state[k];
     for (const k of SELECTS) $('#' + k).value = String(state[k]);
-    document.querySelectorAll('.range').forEach(el => {
-      const [lo, hi] = el.querySelectorAll('input');
-      for (const [input, key] of [[lo, el.dataset.range + 'min'], [hi, el.dataset.range + 'max']]) {
-        if (!input) continue;
-        input.value = state[key] ?? '';
-        input.classList.toggle('set', state[key] != null);
-      }
-    });
+    for (const [input, key] of rangeInputs()) {
+      // never rewrite what the user is typing ("-", "2." ...): only fields that disagree
+      if (parseTyped(input.value) !== state[key]) input.value = state[key] ?? '';
+      input.classList.toggle('set', state[key] != null);
+    }
     // Inside-only and breakout-only filters are disabled when the status view excludes them.
     const inside = state.status === 'all' || state.status === 'inside';
     const breakout = state.status === 'all' || isBreakout(state.status);
-    for (const el of [$('#pos'), $('#fb'), ...document.querySelectorAll('[data-range="pos"] input')]) el.disabled = !inside;
+    for (const el of [$('#pos'), ...document.querySelectorAll('[data-range="pos"] input')]) el.disabled = !inside;
     for (const el of document.querySelectorAll('[data-range="bv"] input, [data-range="ext"] input')) el.disabled = !breakout;
-    const active = ADVANCED.filter(k => state[k] !== DEFAULTS[k] && state[k] !== '').length;
+    const active = activeAdvanced();
     $('#adv-count').textContent = active;
     $('#adv-count').hidden = !active;
   }
@@ -392,7 +407,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     if (state.exch && r.exchange !== state.exch) return false;
     const ind = state.ind.trim().toLowerCase();
     if (ind && !(r.industry || '').toLowerCase().includes(ind)) return false;
-    if (state.fb && r.status === 'inside' && (state.fb === 'hide') === !!r.failed_breakout) return false;
+    if (state.fb && (state.fb === 'hide') === !!r.failed_breakout) return false;
     for (const [key, f] of Object.entries(RANGE)) {
       const lo = state[key + 'min'], hi = state[key + 'max'];
       if (lo == null && hi == null) continue;
@@ -430,6 +445,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     document.querySelectorAll('[data-count]').forEach(el => el.textContent = counts[el.dataset.count]);
     const rows = base.filter(r => passesPos(r) && (state.status === 'all' || r.status === state.status)).sort(SORTS[state.sort] || SORTS.quality);
     $('#summary').textContent = `${rows.length} of ${DATA.results.length} matches shown`;
+    $('#adv-matches').textContent = `${rows.length} ${rows.length === 1 ? 'match' : 'matches'}`;
     if (!rows.length) { listEl.innerHTML = '<div class="empty">No stocks match these filters.</div>'; return; }
     listEl.innerHTML = rows.map(rowHTML).join('');
     for (const sym of open) {
@@ -502,6 +518,13 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     return chartsPromise;
   }
 
+  function volumeLabel(r) {
+    if (r.volume_declining) return 'Declining throughout';
+    const cut = Math.abs(DATA.params.volume_decline_pct ?? -15), th = r.volume_thirds || [100, 100, 100];
+    if (Math.max(...th) / Math.min(...th) >= 1.25 && Math.abs(r.volume_trend_pct) < cut) return th[1] > Math.max(th[0], th[2]) ? 'Uneven, peaked mid-box' : th[1] < Math.min(th[0], th[2]) ? 'Uneven, dipped mid-box' : 'Uneven';
+    return r.volume_trend_pct <= -cut ? 'Down, not steadily' : r.volume_trend_pct >= cut ? 'Rising' : 'Flat';
+  }
+
   function stat(label, val) { return `<div class="stat"><div class="cell-label">${label}</div><div class="cell-val">${val}</div></div>`; }
 
   function detailHTML(r) {
@@ -520,7 +543,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
       st.push(stat('Measured target', fmtPrice(r.target)));
     }
     st.push(stat('Volume in box', r.volume_trend_pct != null
-      ? `${r.volume_declining ? 'Declining throughout' : r.volume_trend_pct <= -15 ? 'Down, not steadily' : r.volume_trend_pct >= 15 ? 'Rising' : 'Flat'} <span class="muted">trend ${fmtSigned(r.volume_trend_pct, 0)} · thirds ${(r.volume_thirds || []).join(' → ')}</span>`
+      ? `${volumeLabel(r)} <span class="muted">trend ${fmtSigned(r.volume_trend_pct, 0)} · thirds ${(r.volume_thirds || []).join(' → ')}</span>`
       : '–'));
     st.push(stat('ATR (14)', fmtPct(r.atr_pct, 2)), stat('Market cap', fmtCap(r.market_cap)), stat('Sector', esc(r.sector || '–')));
     const tv = `https://www.tradingview.com/chart/?symbol=${encodeURIComponent((r.exchange ? r.exchange + ':' : '') + r.symbol)}`;
@@ -731,14 +754,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     // first whenever another control re-renders so nothing typed is lost.
     const readTyped = () => {
       for (const k of TEXTS) state[k] = $('#' + k).value;
-      document.querySelectorAll('.range').forEach(el => {
-        const [lo, hi] = el.querySelectorAll('input');
-        for (const [input, key] of [[lo, el.dataset.range + 'min'], [hi, el.dataset.range + 'max']]) {
-          if (!input) continue;
-          const n = input.value.trim() === '' ? NaN : Number(input.value);
-          state[key] = Number.isFinite(n) ? n : null;
-        }
-      });
+      for (const [input, key] of rangeInputs()) state[key] = parseTyped(input.value);
     };
     const flushTyped = () => { clearTimeout(qt); readTyped(); };
     const update = () => { syncControls(); writeURL(); render(); };
@@ -753,10 +769,11 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
         flushTyped(); state[k] = typeof DEFAULTS[k] === 'number' ? Number(e.target.value) : e.target.value; update();
       });
     }
-    $('#more').addEventListener('click', () => {
-      const show = $('#adv').hidden;
-      $('#adv').hidden = !show;
-      $('#more').setAttribute('aria-expanded', String(show));
+    const showPanel = show => { $('#adv').hidden = !show; $('#more').setAttribute('aria-expanded', String(show)); };
+    $('#more').addEventListener('click', () => showPanel($('#adv').hidden));
+    $('#adv-done').addEventListener('click', () => {
+      flushTyped(); update(); showPanel(false);
+      $('#summary').scrollIntoView({ block: 'start' }); $('#more').focus({ preventScroll: true });
     });
     $('#reset').addEventListener('click', () => { clearTimeout(qt); Object.assign(state, DEFAULTS); open.clear(); update(); });
     listEl.addEventListener('click', e => { const b = e.target.closest('.row-main'); if (b) expand(b.closest('.row')); });
@@ -797,6 +814,8 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     $('#sector').insertAdjacentHTML('beforeend', sectors.map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join(''));
     const p = DATA.params || {};
     if (p.volume_decline_pct != null) p.volume_decline_abs = Math.abs(p.volume_decline_pct);
+    const help = `Declining throughout: each third of the box traded at least ${p.volume_step_pct ?? 5}% less volume than the one before, the volume trend fell at least ${p.volume_decline_abs ?? 15}%, the decline is statistically significant, and volume did not pick back up in the final week.`;
+    $('#vol-label').title = help; $('#vol-help').textContent = help;
     document.querySelectorAll('[data-param]').forEach(el => { if (p[el.dataset.param] != null) el.textContent = p[el.dataset.param]; });
   }
 
@@ -816,7 +835,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
       header();
       validateState();
       syncControls();
-      if (ADVANCED.some(k => state[k] !== DEFAULTS[k] && state[k] !== '')) { $('#adv').hidden = false; $('#more').setAttribute('aria-expanded', 'true'); }
+      if (activeAdvanced()) { $('#adv').hidden = false; $('#more').setAttribute('aria-expanded', 'true'); }
       writeURL();
       render();
       if (open.size) {

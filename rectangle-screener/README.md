@@ -34,6 +34,18 @@ and then tuned, using three checks:
   one day is shown as a breakout the day it breaks out (whipsaws excepted),
   and boxes that still qualify do not drop out from one day to the next.
 
+## Volume in box
+
+`build.py` adds three volume fields to each row (`volume_profile`):
+`volume_trend_pct`, a Theil-Sen trend line through the log volume of every
+session in the box (first to last session); `volume_thirds`, the median
+volume of each third of the box as % of the first; and `volume_declining`,
+true when volume falls *throughout* the box. That means each third trades at
+least 5% less than the one before, the trend falls at least 15%, a
+Mann-Kendall test says the decline is not noise (p < 0.05), and the last
+week and last sixth of the box trade no more than its middle third (no late
+surge). On trendless random volume the flag fires about 2% of the time.
+
 ## How a refresh works
 
 `screener/build.py` loads daily bars for the universe, runs
