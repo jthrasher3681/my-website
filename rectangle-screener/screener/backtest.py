@@ -4,21 +4,30 @@
 
 Run from the ``rectangle-screener`` directory with Robinhood daily dumps (``daily_*.json``).
 
+0. Bars.  Bad prints are dropped first (``clean_bars``): non-positive prices, one-day spikes
+   that fully revert, corrupt opens, flat zero-volume filler, and the NYSE opening-auction
+   glitch of 2023-01-24.
+
 1. Replay.  The screener is re-run for every stock on every session, point in time: each
-   evening sees only the bars up to that day, through the same window (REPLAY_BARS bars),
-   liquidity rule and previous-evening hint as the nightly build.  Every breakout or
-   breakdown it would have listed is kept (``replay.pkl`` in OUT_DIR, reused on later runs).
+   evening sees only the bars up to that day, through the same window (REPLAY_BARS bars)
+   and previous-evening hint as the nightly build, and the build's liquidity rule on dollar
+   volume.  (The build's $5 minimum price is left out: on split-adjusted history it would
+   let a later split decide an earlier evening.)  Every breakout or breakdown it would have
+   listed is kept (``replay.pkl`` in OUT_DIR, reused on later runs for unchanged bars).
 
 2. Signals.  A breakout is confirmed by the first close at least ``pct``% past the broken
    line (above resistance / below support, as % of the line) while the screener still lists
    it: within ``max_breakout_age`` sessions and with no close back inside the box.  pct = 0
-   is "every listed breakout".  One position per stock and direction at a time.
+   is "every listed breakout".  One position per stock and direction at a time.  Only
+   signals with a full MAX_HOLD + 1 sessions of data after them are used, so whether a
+   signal counts never depends on how its trade turned out.
 
 3. Trades.  Entry at the next session's open (the screener runs after the close), two ways:
    "target" trade
      target   the measured move, the box height projected from the broken line: exit there
-              (or at the open, if it gaps through; a box shorter than the confirmation
-              distance can have its target behind the entry already: exit at once, flagged)
+              (or at the open, if it gaps through).  When the target is already behind the
+              entry (a box shorter than the confirmation distance, or a gap through it) there
+              is nothing left to trade: such signals are counted apart, not as target trades
      failure  a close back inside the box: exit at the next open
      timeout  the close MAX_HOLD sessions after entry
      A session that reaches the target intraday and closes back inside counts as the target.
@@ -30,9 +39,13 @@ Run from the ``rectangle-screener`` directory with Robinhood daily dumps (``dail
    passed the liquidity rule on the signal day, over the same entry and exit, so the
    market's own drift is taken out ("excess").
 
-Caveat: the universe is today's list (market cap >= $2B now), so stocks that were delisted
-or shrank since 2016 are missing.  That flatters raw long returns; the excess figures are
-measured against the same survivor universe, which cancels most of it.
+Confidence intervals resample whole calendar quarters (signals and holds cluster in time).
+
+Caveats: the universe is today's list (market cap >= $2B now), so stocks that were delisted
+or shrank since 2016 are missing.  That flatters raw returns (this universe beat equal-
+weighted index funds by ~4% a year); the excess figures are measured against the same
+survivor universe, which removes most of it.  Spin-offs and special dividends are not
+adjusted in the bars.
 """
 
 from __future__ import annotations
@@ -51,7 +64,7 @@ import numpy as np
 import pandas as pd
 
 from . import rectangle
-from .build import LIQUIDITY_BARS, MIN_BARS, MIN_DOLLAR_VOLUME, MIN_PRICE, is_liquid, volume_profile
+from .build import LIQUIDITY_BARS, MIN_BARS, MIN_DOLLAR_VOLUME, volume_profile
 from .sources import load_hood_dumps
 
 REPLAY_BARS = 300          # bars the nightly build sees (Yahoo's 430 calendar days)
@@ -61,6 +74,38 @@ THRESHOLDS = (0.0, 1.0, 2.0, 3.0, 4.0, 5.0)
 CONFIRM_PCT = 3.0
 KEEP = ("status", "top", "bottom", "start", "end", "bars", "height_pct", "top_touches", "bottom_touches",
         "switches", "breakout_date", "days_since_breakout", "breakout_volume_ratio", "failed_breakout", "quality")
+GLITCH_SESSIONS = ("2023-01-24",)   # NYSE opening-auction malfunction: bad opens and extremes
+
+
+# ---------------------------------------------------------------------------------- bars
+def clean_bars(df):
+    """Drop prints that are data errors, not trading."""
+    df = df.replace([math.inf, -math.inf], math.nan).dropna(subset=["open", "high", "low", "close"])
+    df = df[(df[["open", "high", "low", "close"]] > 0).all(axis=1)]
+    c = df["close"]
+    prev, nxt = c.shift(1), c.shift(-1)
+    # a close more than 2x away from both neighbours, which agree with each other: a bad print
+    spike = (((c / prev) > 2) & ((c / nxt) > 2) | ((c / prev) < 0.5) & ((c / nxt) < 0.5)) & ((nxt / prev - 1).abs() < 0.25)
+    # flat, zero-volume filler that repeats the previous close
+    stale = (df["volume"].fillna(0) <= 0) & (df["high"] == df["low"]) & (c == prev)
+    o = df["open"]
+    glitch = df.index.isin(pd.to_datetime(list(GLITCH_SESSIONS))) & (((o / prev - 1).abs() > 0.05) & ((o / c - 1).abs() > 0.05))
+    # an open far outside both the previous close and the close (a corrupt print, not a gap)
+    bad_open = ((o / prev < 0.6) & (o / c < 0.6)) | ((o / prev > 1 / 0.6) & (o / c > 1 / 0.6))
+    df = df[~(spike | stale | glitch | bad_open)].copy()
+    df["high"] = df[["high", "open", "close"]].max(axis=1)
+    df["low"] = df[["low", "open", "close"]].min(axis=1)
+    return df
+
+
+def liquid(w):
+    """The nightly build's liquidity rule on dollar volume (median of the last LIQUIDITY_BARS)."""
+    recent = w.iloc[-LIQUIDITY_BARS:]
+    return bool((recent["close"] * recent["volume"]).median() >= MIN_DOLLAR_VOLUME)
+
+
+def fingerprint(df):
+    return int(pd.util.hash_pandas_object(df, index=True).sum() % (1 << 62))
 
 
 # ---------------------------------------------------------------------------------- replay
@@ -71,7 +116,7 @@ def replay_symbol(item):
     prev = None
     for i in range(MIN_BARS - 1, len(df)):
         w = df.iloc[max(0, i + 1 - REPLAY_BARS): i + 1]
-        if len(w) < MIN_BARS or not is_liquid(w):
+        if len(w) < MIN_BARS or not liquid(w):
             prev = None               # not in that evening's results: no hint the next day
             continue
         try:
@@ -85,23 +130,25 @@ def replay_symbol(item):
 
 
 def replay(bars, path, procs=4):
-    """Replay every stock (cached in ``path``)."""
+    """Replay every stock (cached in ``path`` with each stock's bar fingerprint; a stock
+    whose bars changed is replayed again)."""
+    cache = {"rows": {}, "fp": {}}
     if os.path.exists(path):
         with open(path, "rb") as fh:
-            done = pickle.load(fh)
-    else:
-        done = {}
-    todo = [(s, df) for s, df in sorted(bars.items()) if s not in done]
+            cache = pickle.load(fh)
+    fps = {s: fingerprint(df) for s, df in bars.items()}
+    todo = [(s, df) for s, df in sorted(bars.items()) if cache["fp"].get(s) != fps[s]]
     if todo:
         with Pool(procs) as pool:
             for k, (sym, rows) in enumerate(pool.imap_unordered(replay_symbol, todo, chunksize=4), 1):
-                done[sym] = rows
+                cache["rows"][sym] = rows
+                cache["fp"][sym] = fps[sym]
                 if k % 100 == 0 or k == len(todo):
                     print(f"replayed {k}/{len(todo)}", file=sys.stderr, flush=True)
                     with open(path + ".tmp", "wb") as fh:
-                        pickle.dump(done, fh)
+                        pickle.dump(cache, fh)
                     os.replace(path + ".tmp", path)
-    return done
+    return {s: cache["rows"][s] for s in bars}
 
 
 # ---------------------------------------------------------------------------------- trades
@@ -144,12 +191,15 @@ def signals(rows, bars, pct):
     return out
 
 
-def trades(rows, bars, pct, bench, max_hold=MAX_HOLD):
-    """Simulated trades for one confirmation threshold."""
+def trades(rows, bars, pct, bench, max_hold=MAX_HOLD, last_signal=None):
+    """Simulated trades for one confirmation threshold; signals after ``last_signal`` (the
+    last session with a full window of data after it) are not used."""
     taken = []
     busy = defaultdict(lambda: pd.Timestamp.min)    # (sym, direction) -> last exit date
     seen = set()
     for sym, when, r, past in sorted(signals(rows, bars, pct), key=lambda x: (x[1], x[0])):
+        if last_signal is not None and when > last_signal:
+            continue
         key = (sym, r["status"], r["breakout_date"])
         if key in seen:
             continue                  # this breakout already gave its signal
@@ -184,7 +234,8 @@ def trades(rows, bars, pct, bench, max_hold=MAX_HOLD):
             "failed_before": bool(r["failed_breakout"]), "exit_date": df.index[j].strftime("%Y-%m-%d"),
             "exit": px, "outcome": outcome, "held": int(j - e), "ret": ret,
             "bench": None if b is None else d * b, "excess": None if b is None else ret - d * b,
-            "target_at_entry": bool(d * (entry - target) >= 0),
+            "target_at_entry": bool(d * (entry - target) >= 0), "room_pct": d * (target / entry - 1) * 100,
+            "switches": r["switches"],
             "run_outcome": run[2], "run_held": int(run[0] - e), "run_ret": d * (run[1] / entry - 1) * 100,
         }
         t["run_excess"] = None if rb is None else t["run_ret"] - d * rb
@@ -214,7 +265,7 @@ class Benchmark:
         self.C = pd.DataFrame({s: df["close"] for s, df in bars.items()}).sort_index()
         V = pd.DataFrame({s: df["volume"] for s, df in bars.items()}).reindex(self.C.index)
         dv = (self.C * V).rolling(LIQUIDITY_BARS, min_periods=LIQUIDITY_BARS).median()
-        self.liquid = (dv >= MIN_DOLLAR_VOLUME) & (self.C >= MIN_PRICE)
+        self.liquid = dv >= MIN_DOLLAR_VOLUME
 
     def span(self, signal, entry, exit_, exit_at):
         """Mean return (in %) from the entry open to the exit (open / close; an intraday
@@ -244,13 +295,18 @@ class Benchmark:
 
 
 # ---------------------------------------------------------------------------------- stats
-def _boot_ci(values, months, n=2000, seed=0):
-    """95% interval of the mean, resampling whole months (signals cluster in time)."""
+def _quarter(day):
+    return f"{day[:4]}Q{(int(day[5:7]) - 1) // 3 + 1}"
+
+
+def _boot_ci(values, blocks, n=2000, seed=0):
+    """95% interval of the mean, resampling whole blocks (calendar quarters: signals and
+    holds cluster in time)."""
     v = np.asarray(values, float)
     if len(v) < 10:
         return None
     by = defaultdict(list)
-    for x, m in zip(v, months):
+    for x, m in zip(v, blocks):
         by[m].append(x)
     groups = [np.asarray(g) for g in by.values()]
     rng = np.random.default_rng(seed)
@@ -263,49 +319,57 @@ def _boot_ci(values, months, n=2000, seed=0):
 
 
 def summarize(ts):
-    """Headline numbers for a list of trades."""
+    """Headline numbers for a list of trades.  The target trade leaves out signals whose
+    target was already behind the entry (nothing left to trade); the run trade and the
+    plain holds count every signal."""
     if not ts:
         return {"n": 0}
-    ret = np.array([t["ret"] for t in ts])
+    signals_all = ts
+    ts = [t for t in ts if not t["target_at_entry"]] or ts[:0]
+    blocks = [_quarter(t["signal_date"]) for t in ts]
+    ret = np.array([t["ret"] for t in ts]) if ts else np.zeros(0)
     exc = [t["excess"] for t in ts if t["excess"] is not None]
-    months = [t["signal_date"][:7] for t in ts]
     out = {
         "n": len(ts),
+        "signals": len(signals_all),
         "target": round(sum(t["outcome"] == "target" for t in ts) / len(ts) * 100, 1),
         "failed": round(sum(t["outcome"] == "failed" for t in ts) / len(ts) * 100, 1),
         "timeout": round(sum(t["outcome"] == "timeout" for t in ts) / len(ts) * 100, 1),
         "win": round(float((ret > 0).mean() * 100), 1),
         "avg": round(float(ret.mean()), 2),
-        "avg_ci": _boot_ci(ret, months),
+        "avg_ci": _boot_ci(ret, blocks),
         "median": round(float(np.median(ret)), 2),
         "avg_win": round(float(ret[ret > 0].mean()), 2) if (ret > 0).any() else None,
         "avg_loss": round(float(ret[ret <= 0].mean()), 2) if (ret <= 0).any() else None,
         "profit_factor": round(float(ret[ret > 0].sum() / -ret[ret < 0].sum()), 2) if (ret < 0).any() else None,
         "held": round(float(np.mean([t["held"] for t in ts])), 1),
         "excess": round(float(np.mean(exc)), 2) if exc else None,
-        "excess_ci": _boot_ci(exc, [t["signal_date"][:7] for t in ts if t["excess"] is not None]) if exc else None,
+        "excess_ci": _boot_ci(exc, [_quarter(t["signal_date"]) for t in ts if t["excess"] is not None]) if exc else None,
         "beat_bench": round(float(np.mean(np.array(exc) > 0) * 100), 1) if exc else None,
-        "target_at_entry": round(sum(t["target_at_entry"] for t in ts) / len(ts) * 100, 1),
+        "target_at_entry": round(sum(t["target_at_entry"] for t in signals_all) / len(signals_all) * 100, 1),
     }
+    ts = signals_all
+    blocks = [_quarter(t["signal_date"]) for t in ts]
     rr = np.array([t["run_ret"] for t in ts])
     rx = [t["run_excess"] for t in ts if t["run_excess"] is not None]
     out["run"] = {
         "failed": round(sum(t["run_outcome"] == "failed" for t in ts) / len(ts) * 100, 1),
         "win": round(float((rr > 0).mean() * 100), 1),
-        "avg": round(float(rr.mean()), 2), "avg_ci": _boot_ci(rr, months), "median": round(float(np.median(rr)), 2),
+        "avg": round(float(rr.mean()), 2), "avg_ci": _boot_ci(rr, blocks), "median": round(float(np.median(rr)), 2),
         "avg_win": round(float(rr[rr > 0].mean()), 2) if (rr > 0).any() else None,
         "avg_loss": round(float(rr[rr <= 0].mean()), 2) if (rr <= 0).any() else None,
         "profit_factor": round(float(rr[rr > 0].sum() / -rr[rr < 0].sum()), 2) if (rr < 0).any() else None,
         "held": round(float(np.mean([t["run_held"] for t in ts])), 1),
         "excess": round(float(np.mean(rx)), 2) if rx else None,
-        "excess_ci": _boot_ci(rx, [t["signal_date"][:7] for t in ts if t["run_excess"] is not None]) if rx else None,
+        "excess_ci": _boot_ci(rx, [_quarter(t["signal_date"]) for t in ts if t["run_excess"] is not None]) if rx else None,
     }
     for hz in HORIZONS:
         r = [t[f"r{hz}"] for t in ts if t.get(f"r{hz}") is not None]
         x = [t[f"x{hz}"] for t in ts if t.get(f"x{hz}") is not None]
         out[f"h{hz}"] = {"n": len(r), "avg": round(float(np.mean(r)), 2) if r else None,
                          "win": round(float(np.mean(np.array(r) > 0) * 100), 1) if r else None,
-                         "excess": round(float(np.mean(x)), 2) if x else None}
+                         "excess": round(float(np.mean(x)), 2) if x else None,
+                         "excess_ci": _boot_ci(x, [_quarter(t["signal_date"]) for t in ts if t.get(f"x{hz}") is not None]) if x else None}
     return out
 
 
@@ -326,6 +390,9 @@ SPLITS = {
                                  if t["breakout_volume_ratio"] < 1 else "1-2x" if t["breakout_volume_ratio"] < 2 else "2x+",
     "height": lambda t: "under 8%" if t["height_pct"] < 8 else "8-15%" if t["height_pct"] < 15 else "15%+",
     "second_try": lambda t: "after a failed attempt" if t["failed_before"] else "first attempt",
+    "switches": lambda t: "3 (the minimum)" if t["switches"] <= 3 else "4-5" if t["switches"] <= 5 else "6+",
+    "room": lambda t: "none (target passed)" if t["target_at_entry"] else "under 2%" if t["room_pct"] < 2
+                      else "2-5%" if t["room_pct"] < 5 else "5%+",
 }
 
 
@@ -359,19 +426,21 @@ def main(argv=None) -> int:
     for sym, dfs in parts.items():
         df = pd.concat(dfs)
         df = df[~df.index.duplicated(keep="last")].sort_index()
-        bars[sym] = df.replace([math.inf, -math.inf], math.nan).dropna(subset=["open", "high", "low", "close"])
+        bars[sym] = clean_bars(df)
     print(f"{len(bars)} stocks, {min(df.index[0] for df in bars.values()).date()} .. "
           f"{max(df.index[-1] for df in bars.values()).date()}", file=sys.stderr)
 
     rows = replay(bars, os.path.join(args.out, "replay.pkl"), args.procs)
     bench = Benchmark(bars)
+    calendar = bench.C.index
+    last_signal = calendar[-(MAX_HOLD + 2)]   # leaves MAX_HOLD + 1 sessions: a decided trade
     result = {"params": {"replay_bars": REPLAY_BARS, "max_hold": MAX_HOLD, "confirm_pct": CONFIRM_PCT,
                          "detector": rectangle.DEFAULT_PARAMS},
               "period": [str(min(df.index[0] for df in bars.values()).date()),
                          str(max(df.index[-1] for df in bars.values()).date())],
-              "stocks": len(bars), "thresholds": {}}
+              "stocks": len(bars), "last_signal": str(last_signal.date()), "thresholds": {}}
     for pct in THRESHOLDS:
-        ts = trades(rows, bars, pct, bench)
+        ts = trades(rows, bars, pct, bench, last_signal=last_signal)
         res = {"all": summarize(ts),
                "up": summarize([t for t in ts if t["direction"] == "up"]),
                "down": summarize([t for t in ts if t["direction"] == "down"]),

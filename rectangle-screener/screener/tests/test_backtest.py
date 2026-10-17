@@ -58,6 +58,27 @@ class SimulateTests(unittest.TestCase):
         self.assertEqual(backtest.simulate(o, h, l, c, 0, -1, 100.0, 90.0), (2, 101.2, "failed", "open"))
 
 
+class CleanTests(unittest.TestCase):
+    def test_bad_prints_are_dropped(self):
+        idx = pd.bdate_range("2023-01-18", periods=8)
+        close = np.array([10.0, 10.1, 0.01, 10.2, 10.3, 10.4, 10.5, 10.6])      # a 0.01 print between normal days
+        df = pd.DataFrame({"open": close, "high": close + 0.1, "low": close - 0.1, "close": close, "volume": 1e6}, index=idx)
+        df.loc[idx[4], "open"] = 11.5                                           # 2023-01-24: bad auction open
+        df.loc[idx[6], ["open", "high", "low", "volume"]] = [10.4, 10.4, 10.4, 0]  # flat filler...
+        df.loc[idx[6], "close"] = 10.4                                          # ...repeating the close
+        out = backtest.clean_bars(df)
+        self.assertEqual([d.strftime("%m-%d") for d in out.index], ["01-18", "01-19", "01-23", "01-25", "01-27"])
+        # a real crash that does not revert stays
+        crash = df.iloc[:2].copy()
+        crash.loc[idx[1], ["open", "high", "low", "close"]] = [2.0, 2.1, 1.9, 2.0]
+        self.assertEqual(len(backtest.clean_bars(crash)), 2)
+
+    def test_liquidity_ignores_price(self):
+        w = pd.DataFrame({"close": np.full(60, 2.0), "volume": np.full(60, 2e7)})  # $40M a day at $2 (split-adjusted)
+        self.assertTrue(backtest.liquid(w))
+        self.assertFalse(backtest.liquid(w.assign(volume=1e6)))
+
+
 class FlatBench:
     def span(self, signal, entry, exit_, exit_at):
         return 0.0
@@ -99,6 +120,18 @@ class TradesTests(unittest.TestCase):
         short = [{"path": [1.0, 2.0, None], "xpath": [1.0]}, {"path": [3.0, 4.0, 5.0], "xpath": [3.0, 4.0, 5.0]}]
         self.assertEqual(backtest.mean_path(short), [2.0, 3.0, 5.0])
         self.assertEqual(backtest.mean_path(short, "xpath"), [2.0, 4.0, 5.0])
+
+    def test_no_signal_without_a_full_window(self):
+        bars = {"X": self.df}
+        self.assertEqual(len(backtest.trades(self.rows, bars, 3.0, FlatBench(), max_hold=20, last_signal=self.df.index[41])), 0)
+        self.assertEqual(len(backtest.trades(self.rows, bars, 3.0, FlatBench(), max_hold=20, last_signal=self.df.index[42])), 1)
+
+    def test_target_trade_leaves_out_signals_past_their_target(self):
+        t = backtest.trades(self.rows, {"X": self.df}, 3.0, FlatBench(), max_hold=20)[0]
+        passed = {**t, "target_at_entry": True, "ret": 0.0, "outcome": "target"}
+        s = backtest.summarize([t, passed])
+        self.assertEqual((s["n"], s["signals"], s["target"], s["timeout"]), (1, 2, 0.0, 100.0))
+        self.assertEqual(s["target_at_entry"], 50.0)
 
     def test_one_signal_per_breakout(self):
         ts = backtest.trades(self.rows, {"X": self.df}, 1.0, FlatBench(), max_hold=5)
