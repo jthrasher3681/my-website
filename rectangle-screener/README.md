@@ -32,16 +32,25 @@ python3 -m screener.build --yfinance --refresh-universe
 python3 -m screener.build --hood-dir path/to/dumps
 ```
 
-`.github/workflows/rectangle-screener.yml` runs the Yahoo refresh at
-22:30 UTC on weekdays and commits the new data files. A run that loads fewer
-than half the universe exits without overwriting the previous scan, and the
-page flags a scan that is more than a few days old.
+`.github/workflows/rectangle-screener.yml` runs the unit tests and then the
+Yahoo refresh at 22:30 UTC on weekdays, and commits the new data files when
+there is a newer session (market holidays are no-ops). The scan date is the
+latest session at least 80% of the universe has reached; if fewer than 80% of
+stocks have data through it, the run exits without overwriting the previous
+scan. The page flags a scan that has missed two or more sessions.
+
+A session filled in from Robinhood's 30-minute bars (because its daily bar
+wasn't published yet) is marked provisional on the page: its close is the
+last half-hour's close and its volume is scaled up from the half-hour bars.
 
 ## Universe
 
-`screener/universe.csv`: US-listed stocks with market cap ≥ $2B, price ≥ $5
-and ≥ $20M traded per day (about 1,550 names), rebuilt from the daily
-NASDAQ/NYSE/AMEX listings when `--refresh-universe` is passed.
+`screener/universe.csv`: US-listed common stocks with market cap ≥ $2B and
+price ≥ $5 (preferreds, convertibles, notes and warrants excluded), rebuilt
+from the daily NASDAQ/NYSE/AMEX listings when `--refresh-universe` is passed.
+Each run then keeps only stocks with a median of at least $20M traded per day
+over the last 50 sessions, measured on the downloaded bars rather than on one
+day's listing snapshot.
 
 ## Tests
 
