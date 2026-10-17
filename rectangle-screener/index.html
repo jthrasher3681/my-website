@@ -222,7 +222,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
           <div class="adv-title">Breakouts</div>
           <p class="adv-note">Applies to breakouts and breakdowns.</p>
           <div class="range" data-range="bv"><span>Breakout volume (× avg)</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Breakout volume (× avg), minimum"><input type="number" inputmode="decimal" min="0" step="any" placeholder="max" aria-label="Breakout volume (× avg), maximum"></div>
-          <div class="range" data-range="cb"><span>Furthest close past line (% of price)</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Furthest close past line (% of price), minimum"><input type="number" inputmode="decimal" min="0" step="any" placeholder="max" aria-label="Furthest close past line (% of price), maximum"></div>
+          <div class="range" data-range="cb"><span>Furthest close past line (% of the line)</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Furthest close past line (% of the line), minimum"><input type="number" inputmode="decimal" min="0" step="any" placeholder="max" aria-label="Furthest close past line (% of the line), maximum"></div>
           <div class="range" data-range="ext"><span>Beyond the line (% of height)</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Beyond the line (% of height), minimum"><input type="number" inputmode="decimal" min="0" step="any" placeholder="max" aria-label="Beyond the line (% of height), maximum"></div>
         </div>
         <div class="adv-group">
@@ -491,7 +491,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
         <div class="posbar" title="${toTop.toFixed(1)}% below resistance · ${toBot.toFixed(1)}% above support"><i style="left:${p}%"></i></div>`;
     }
     const vol = r.breakout_volume_ratio != null ? ` · vol ${r.breakout_volume_ratio.toFixed(1)}×` : '';
-    const past = !r.confirmed_date && r.close_beyond_pct != null ? ` · ${r.close_beyond_pct.toFixed(1)}% past line` : '';
+    const past = !r.confirmed_date && r.close_beyond_pct != null ? ` · ${r.close_beyond_pct.toFixed(2)}% past line` : '';
     return `<div class="status-detail">${ago(r.days_since_breakout)}${vol}${past}</div>`;
   }
 
@@ -535,19 +535,19 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
 
   function volumeLabel(r) {
     if (r.volume_declining) return r.volume_steady ? 'Declining steadily' : 'Declining';
-    const cut = Math.abs(DATA.params.volume_decline_pct ?? -15), th = r.volume_thirds || [100, 100, 100];
+    const cut = Math.abs(DATA.params?.volume_decline_pct ?? -15), th = r.volume_thirds || [100, 100, 100];
     if (Math.max(...th) / Math.min(...th) >= 1.25 && Math.abs(r.volume_trend_pct) < cut) return th[1] > Math.max(th[0], th[2]) ? 'Uneven, peaked mid-box' : th[1] < Math.min(th[0], th[2]) ? 'Uneven, dipped mid-box' : 'Uneven';
     return r.volume_trend_pct <= -cut ? 'Down, but unevenly' : r.volume_trend_pct >= cut ? 'Rising' : 'Flat';
   }
 
   // the close that confirms a break of the top (up) or the bottom (down)
-  const confirmPct = () => DATA.params.confirm_pct ?? 3;
+  const confirmPct = () => DATA.params?.confirm_pct ?? 3;
   const confirmLevel = (r, up) => up ? r.top * (1 + confirmPct() / 100) : r.bottom * (1 - confirmPct() / 100);
   function confirmText(r) {
     if (r.status === 'inside') return `on a close ≥ ${fmtPrice(confirmLevel(r, true))} or ≤ ${fmtPrice(confirmLevel(r, false))}`;
     const up = r.status === 'breakout_up', best = r.max_close_beyond_pct;
     if (r.confirmed_date) return `Confirmed ${fmtDate(r.confirmed_date)}${best != null ? ` <span class="muted">· furthest close ${best.toFixed(1)}% past line</span>` : ''}`;
-    return `Not yet <span class="muted">· needs a close ${up ? '≥' : '≤'} ${fmtPrice(confirmLevel(r, up))}${best != null ? `; furthest so far ${best.toFixed(1)}%` : ''}</span>`;
+    return `Not yet <span class="muted">· needs a close ${up ? '≥' : '≤'} ${fmtPrice(confirmLevel(r, up))}${best != null ? `; furthest so far ${best.toFixed(2)}%` : ''}</span>`;
   }
 
   function stat(label, val) { return `<div class="stat"><div class="cell-label">${label}</div><div class="cell-val">${val}</div></div>`; }
@@ -567,7 +567,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
       st.push(stat('Breakout vol', r.breakout_volume_ratio != null ? `${r.breakout_volume_ratio.toFixed(2)}× avg` : '–'));
       st.push(stat(`Confirmation (${confirmPct()}%)`, confirmText(r)));
       st.push(stat('Beyond line', r.close_beyond_pct != null
-        ? `${r.close_beyond_pct.toFixed(1)}%${r.extension_pct != null ? ` <span class="muted">· ${r.extension_pct.toFixed(0)}% of height</span>` : ''}`
+        ? `${r.close_beyond_pct.toFixed(r.confirmed_date ? 1 : 2)}%${r.extension_pct != null ? ` <span class="muted">· ${r.extension_pct.toFixed(0)}% of height</span>` : ''}`
         : r.extension_pct != null ? `${r.extension_pct.toFixed(0)}% of height` : '–'));
       st.push(stat('Measured target', fmtPrice(r.target)));
     }
@@ -656,7 +656,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
       if (boxEnd < n - 1) el('line', { x1: X(boxEnd) + step / 2, x2: X(n - 1) + step / 2, y1: Y(v), y2: Y(v), stroke: 'var(--box)', 'stroke-width': 1, 'stroke-dasharray': '4 4', 'stroke-opacity': .7 }, svg);
     }
     if (confirm != null) {
-      el('line', { x1: X(i1) + step / 2, x2: X(n - 1) + step / 2, y1: Y(confirm), y2: Y(confirm), stroke: STATUS[r.status].color, 'stroke-width': 1.3, 'stroke-dasharray': '1.5 3', 'stroke-linecap': 'round' }, svg);
+      el('line', { x1: X(Math.max(i0, Math.min(i1, n - 11))) + step / 2, x2: X(n - 1) + step / 2, y1: Y(confirm), y2: Y(confirm), stroke: STATUS[r.status].color, 'stroke-width': 1.3, 'stroke-dasharray': '1.5 3', 'stroke-linecap': 'round' }, svg);
     }
     const targetOnChart = target != null && target >= lo && target <= hi;
     if (targetOnChart) {
@@ -715,7 +715,6 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     ];
     const lastClose = c.c[n - 1];
     if (Number.isFinite(lastClose)) tags.push({ y: Y(lastClose), label: lastClose.toFixed(2), fill: 'var(--ink)' });
-    if (confirm != null) tags.push({ y: Y(confirm), label: confirm.toFixed(2), fill: STATUS[r.status].color, dim: true });
     if (target != null) {
       const above = target > hi;
       tags.push(targetOnChart
@@ -727,6 +726,13 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     tags.forEach((t, k) => { t.y = Math.max(yMin, k ? Math.max(t.y, tags[k - 1].y + TAG_H + GAP) : t.y); });
     for (let k = tags.length - 1; k >= 0; k--) {
       tags[k].y = Math.min(tags[k].y, k === tags.length - 1 ? yMax : tags[k + 1].y - TAG_H - GAP);
+    }
+    // the confirmation level's tag only goes where it fits without moving the others
+    // (the legend and the Confirmation stat give the level anyway)
+    if (confirm != null) {
+      const y0 = Y(confirm), free = y => y >= yMin && y <= yMax && tags.every(t => Math.abs(t.y - y) >= TAG_H + GAP);
+      const y = [0, -1, 1, -2, 2].map(k => y0 + k * TAG_H / 4).find(free);
+      if (y != null) tags.push({ y, label: confirm.toFixed(2), fill: STATUS[r.status].color, dim: true });
     }
     for (const t of tags) {
       el('rect', { x: W - padR + 4, y: t.y - TAG_H / 2, width: padR - 6, height: TAG_H, rx: 4, ...(t.dim ? { fill: 'var(--surface)', stroke: t.fill, 'stroke-width': 1.2 } : { fill: t.fill }) }, svg);
