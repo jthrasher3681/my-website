@@ -113,6 +113,54 @@ class RectangleStatusTests(unittest.TestCase):
         self.assertEqual(r["status"], "inside")
         self.assertEqual(r["failed_breakout"], "down")
 
+    def test_box_inside_yesterday_breaks_out_today(self):
+        # Two tests of each line (B T B T); the second top test is the run straight
+        # into the breakout, as with CME on 2026-10-16.
+        df = series([(0, 125.0), (40, 100.0), (8, 110.0), (8, 100.0), (8, 109.6), (1, 114.0)])
+        before = rectangle.detect(df.iloc[:-1])
+        after = rectangle.detect(df)
+        self.assertEqual(before["status"], "inside")
+        self.assertEqual(after["status"], "breakout_up")
+        self.assertEqual(after["days_since_breakout"], 0)
+        for key in ("top", "bottom", "start"):
+            self.assertEqual(after[key], before[key], key)
+
+    def test_breakout_below_an_earlier_false_close(self):
+        # A one-day false breakout close at ~112.3 in the box history, then a real
+        # breakout whose first close (~111.8) is beyond the line but below it.
+        df = series(LEAD + BOX[:3] + [(1, 112.3), (1, 108.0)] + BOX[3:] + [(8, 100.0), (8, 109.0), (1, 111.8), (2, 116.0)],
+                    noise=0.05)
+        r = rectangle.detect(df)
+        self.assertBox(r)
+        self.assertEqual(r["status"], "breakout_up")
+        self.assertEqual(r["days_since_breakout"], 2)
+
+    def test_bar_touching_both_lines_orders_by_candle(self):
+        # One wide bar spans the whole box; whichever extreme it reached first, it must
+        # add at most one switch to the touch sequence.
+        df = series(LEAD + BOX + [(6, 104.0)])
+        wide = df.index[-3]
+        df.loc[wide, ["open", "close"]] = [101.0, 109.0]       # up candle: low first
+        df.loc[wide, ["low", "high"]] = [99.8, 110.2]
+        r = rectangle.detect(df)
+        same_bar = [t["side"] for t in r["touches"] if t["date"] == wide.strftime("%Y-%m-%d")]
+        if len(same_bar) == 2:
+            self.assertEqual(same_bar, ["bottom", "top"])
+
+    def test_hint_is_rechecked_not_forced(self):
+        df = series(LEAD + BOX + [(6, 104.0)])
+        fresh = rectangle.detect(df)
+        hint = {k: fresh[k] for k in ("start", "top", "bottom")}
+        self.assertEqual(rectangle.detect(df, hint=hint), fresh)
+        # a box that does not validate on these bars changes nothing
+        bogus = {"start": fresh["start"], "top": 140.0, "bottom": 60.0}
+        self.assertEqual(rectangle.detect(df, hint=bogus), fresh)
+        trend = series([(0, 50.0), (120, 110.0)])
+        self.assertIsNone(rectangle.detect(trend, hint={"start": str(trend.index[40].date()), "top": 90.0, "bottom": 80.0}))
+        # malformed hints are ignored
+        self.assertEqual(rectangle.detect(df, hint={"start": "not-a-date", "top": 1, "bottom": 0}), fresh)
+        self.assertEqual(rectangle.detect(df, hint={"top": 110.0}), fresh)
+
     def test_stale_breakout_is_out_of_scope(self):
         # broke out 20 bars ago (> max_breakout_age) and kept trending
         df = series(LEAD + BOX + [(1, 114.0), (19, 128.0)])

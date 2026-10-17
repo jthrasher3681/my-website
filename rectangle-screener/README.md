@@ -36,6 +36,10 @@ and then tuned, using two yardsticks:
 
 `screener/build.py` loads daily bars for the universe, runs
 `screener/rectangle.py`'s `detect()` on each stock, and writes the data files.
+Each stock's box from the previous scan (the committed `data/screen.json`) is
+passed back to `detect()` as a hint and re-checked on the new bars, so a
+rectangle that still qualifies doesn't drop out of the list for a day just
+because one new bar shifted the swing points the lines are fitted to.
 
 ```sh
 cd rectangle-screener
@@ -63,8 +67,10 @@ last half-hour's close and its volume is scaled up from the half-hour bars.
 ## Universe
 
 `screener/universe.csv`: US-listed common stocks with market cap ≥ $2B and
-price ≥ $5 (preferreds, convertibles, notes and warrants excluded), rebuilt
-from the daily NASDAQ/NYSE/AMEX listings when `--refresh-universe` is passed.
+price ≥ $5 (preferreds, convertibles, notes, warrants and equity units
+excluded), rebuilt from the daily NASDAQ/NYSE/AMEX listings when
+`--refresh-universe` is passed. The listing step only drops names that traded
+less than $5M on the listing day.
 Each run then keeps only stocks with a median of at least $20M traded per day
 over the last 50 sessions, measured on the downloaded bars rather than on one
 day's listing snapshot.

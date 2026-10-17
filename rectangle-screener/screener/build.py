@@ -35,10 +35,10 @@ ROOT = os.path.dirname(HERE)
 UNIVERSE_CSV = os.path.join(HERE, "universe.csv")
 NY = ZoneInfo("America/New_York")
 
-# Listing filters (one day's snapshot, so deliberately loose on volume) ...
+# Listing filters (one day's snapshot, so deliberately loose on turnover) ...
 MIN_MARKET_CAP = 2e9
 MIN_PRICE = 5.0
-MIN_LISTING_VOLUME = 2e5
+MIN_LISTING_DOLLAR_VOLUME = 5e6
 # ... and the liquidity test applied to the downloaded bars.
 MIN_DOLLAR_VOLUME = 2e7
 LIQUIDITY_BARS = 50
@@ -47,7 +47,8 @@ LISTS_URL = "https://raw.githubusercontent.com/rreichel3/US-Stock-Symbols/main/{
 # Preferreds, depositary/convertible lines, notes, warrants, rights and units
 # carry the parent's market cap but are not the common stock.
 NOT_COMMON = re.compile(
-    r"preferred stock|mandatory convertible|perpetual|\bnotes? due\b|\bwarrants?\b|\bsubscription rights\b|\bunits?,? each\b",
+    r"preferred stock|mandatory convertible|perpetual|\bnotes? due\b|\bwarrants?\b|\bsubscription rights\b|\bunits?,? each\b"
+    r"|corporate units|equity units",
     re.I,
 )
 
@@ -76,7 +77,7 @@ def fetch_universe() -> list[dict]:
                 price, vol, cap = _num(r["lastsale"]), _num(r["volume"]), _num(r["marketCap"])
                 if not re.fullmatch(r"[A-Z]{1,5}(\.[A-Z])?", sym) or NOT_COMMON.search(r["name"]):
                     continue
-                if cap >= MIN_MARKET_CAP and price >= MIN_PRICE and vol >= MIN_LISTING_VOLUME:
+                if cap >= MIN_MARKET_CAP and price >= MIN_PRICE and price * vol >= MIN_LISTING_DOLLAR_VOLUME:
                     rows.append(
                         {
                             "symbol": sym,
@@ -168,8 +169,21 @@ def thumb(closes) -> list:
     return [_r(closes[i]) for i in idx]
 
 
-def scan(bars: dict[str, pd.DataFrame], universe: list[dict], as_of: pd.Timestamp, params: dict | None):
+def previous_boxes(path: str) -> dict[str, dict]:
+    """Rectangles of the last published scan, re-checked as hints so a box doesn't drop
+    out of the list just because one new bar shifted the detector's swing clusters."""
+    try:
+        with open(path) as fh:
+            rows = json.load(fh)["results"]
+        return {r["symbol"]: {k: r[k] for k in ("start", "top", "bottom")} for r in rows}
+    except (OSError, ValueError, KeyError, TypeError):
+        return {}
+
+
+def scan(bars: dict[str, pd.DataFrame], universe: list[dict], as_of: pd.Timestamp, params: dict | None,
+         hints: dict[str, dict] | None = None):
     meta = {r["symbol"]: r for r in universe}
+    hints = hints or {}
     results, charts = [], {}
     stats = Counter()
     for sym in sorted(bars):
@@ -193,7 +207,7 @@ def scan(bars: dict[str, pd.DataFrame], universe: list[dict], as_of: pd.Timestam
         stats["scanned"] += 1
         stats["estimated last bar"] += filled
         try:
-            hit = rectangle.detect(df, params)
+            hit = rectangle.detect(df, params, hint=hints.get(sym))
         except Exception as exc:  # one bad series must not sink the run
             print(f"{sym}: detect failed: {exc!r}", file=sys.stderr)
             stats["error"] += 1
@@ -284,8 +298,9 @@ def main(argv=None) -> int:
         return 1
 
     as_of = pick_as_of(bars)
+    hints = previous_boxes(os.path.join(args.out, "screen.json"))
     t0 = time.time()
-    results, charts, stats = scan(bars, universe, as_of, None)
+    results, charts, stats = scan(bars, universe, as_of, None, hints)
     elapsed = time.time() - t0
     if stats["fresh"] < MIN_COVERAGE * len(universe):
         # A mostly failed download would publish a misleadingly short list.
@@ -298,13 +313,15 @@ def main(argv=None) -> int:
     order = {"breakout_up": 0, "breakout_down": 1, "inside": 2}
     results.sort(key=lambda r: (order[r["status"]], -(r.get("quality") or 0)))
     counts = Counter(r["status"] for r in results)
-    provisional = stats["estimated last bar"] > stats["scanned"] / 2
-    note = (
-        f"The {as_of:%b} {as_of.day} session is built from 30-minute bars until the official daily bar is published, "
-        "so its close and volume are estimates."
-        if provisional
-        else ""
-    )
+    estimated = stats["estimated last bar"]
+    provisional = estimated > 0
+    note = ""
+    if provisional:
+        who = "" if estimated == stats["scanned"] else f" for {estimated:,} of the {stats['scanned']:,} stocks"
+        note = (
+            f"The {as_of:%b} {as_of.day} session{who} is built from 30-minute bars until the official daily bar is "
+            "published, so those closes and volumes are estimates."
+        )
 
     os.makedirs(args.out, exist_ok=True)
     screen = {

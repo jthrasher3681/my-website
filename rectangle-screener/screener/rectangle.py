@@ -22,7 +22,9 @@ How it works
    of each other; up to ``max_skip_peaks`` isolated higher spikes may be skipped so a
    wick never defines the line (when skipping gives a competing cluster both are tried).
    The bottom line mirrors this.  Touch band = max(band_atr * ATR, band_frac * height),
-   ATR = mean true range over the window.
+   ATR = mean true range over the window.  For the ``inside`` anchor the lines are
+   also placed from the swings as they stood one bar earlier, so a new bar inside the
+   box cannot shift the clusters past the box found the day before.
 
 3. Validation (``_evaluate_box``), in order:
    * size: ``min_height_pct`` <= height / bottom <= ``max_height_pct`` and
@@ -31,22 +33,25 @@ How it works
      the height away within ``approach_lookback`` bars, so a pause inside the trend leg
      into the range is not a first touch;
    * breakout anchors: the close after the window is beyond the line by
-     ``breakout_buffer_atr`` * ATR, clears every close inside the box, and no later close
-     is back inside;
+     ``breakout_buffer_atr`` * ATR and no later close is back inside; every other rule
+     is the same as for ``inside``, so a box reported inside one day is reported as a
+     breakout the day it breaks out;
    * containment: an excursion starts with a close beyond line +/- buffer and lasts until
      a close is back inside the box.  The most recent excursion may be a failed breakout
      (began within ``failed_lookback`` bars, at most ``failed_max_closes`` closes beyond);
-     it is reported as ``failed_breakout``.  Older excursions are false breakouts: at
-     most ``max_false_closes`` closes in total, ``max_false_run`` per excursion;
+     it is reported as ``failed_breakout`` (on a breakout row: an earlier attempt in the
+     same direction that fell back inside; a longer move out of the other side first is
+     a whipsaw and returns None).  Older excursions are false breakouts: at
+     most ``max_false_closes`` closes in total, ``max_false_run`` per excursion.  A
+     recent excursion short enough to be either is evaluated both ways;
    * touches: a bar touches the top when its high enters the band below the line;
      consecutive touches form one episode unless price retreated ``retreat_frac`` of
      the height in between.  Episodes whose extreme lies beyond the band are pokes (at
      most ``max_pokes_per_side``, not counting the failed breakout).  Each side needs
      ``min_touches_per_side`` confirmed in-band touches: an episode holding a false
-     breakout close tests the line but does not define it, and on the breakout side the
-     run straight into the breakout is not a test unless price turned (a swing pivot)
-     inside it;
-   * alternation: at least ``min_switches`` side switches (and one per
+     breakout close tests the line but does not define it;
+   * alternation: at least ``min_switches`` side switches (a bar touching both lines
+     counts its low first on an up candle and its high first on a down candle; one per
      ``switch_density_bars`` bars); the box is still being tested (``max_idle_*``) and
      its late part still spans ``min_late_range_frac`` of the height;
    * flatness: a least-squares line through each side's touches (pokes clipped to the
@@ -73,7 +78,9 @@ How it works
 4. Selection.  Each anchor keeps the window with the best selection score (switches,
    touches, quality, fewer violations, slightly longer preferred).  The winner's start
    is then extended back over bars that already ranged inside the same box, when the
-   longer box still validates.  The best anchor wins.
+   longer box still validates.  A box passed in as ``hint`` (the stock's rectangle from
+   the previous scan) is re-checked on every anchor as one more candidate.  The best
+   candidate wins.
 
 Quality (0-100) scores how textbook the box is; it is the sum of
     20 * touches   (top + bottom touches - 4) / 6           (10+ touches = full)
@@ -346,11 +353,12 @@ def _quality(m):
 class _Series:
     """Arrays shared by every window evaluated for one series."""
 
-    def __init__(self, H, L, C, P):
+    def __init__(self, H, L, C, up_bar, P):
         n = len(C)
         k = P["pivot_strength"]
         self.P = P
         self.H, self.L, self.C = H, L, C
+        self.up_bar = up_bar
         self.tr_cum = np.concatenate(([0.0], np.cumsum(_true_range(H, L, C))))
         self.ph = _swing_pivots(H, k, True)
         self.pl = _swing_pivots(L, k, False)
@@ -373,18 +381,32 @@ class _Series:
 def _evaluate_box(ser, s, e, mode, T, B):
     """Validate the box [B, T] over bars s..e (anchor mode "inside" / "up" / "down").
 
-    Returns a dict describing the rectangle, or None when a rule fails."""
+    Returns a dict describing the rectangle, or None when a rule fails.  A recent
+    excursion that qualifies as a failed breakout may also be short enough to pass as
+    an ordinary false breakout; both readings are tried and the better one kept."""
+    m, used_failed = _evaluate_reading(ser, s, e, mode, T, B, allow_failed=True)
+    if used_failed:
+        alt, _ = _evaluate_reading(ser, s, e, mode, T, B, allow_failed=False)
+        if alt is not None and (m is None or alt["sel"] > m["sel"]):
+            m = alt
+    return m
+
+
+def _evaluate_reading(ser, s, e, mode, T, B, allow_failed):
+    """One reading of ``_evaluate_box``; returns (result or None, whether the latest
+    excursion was read as a failed breakout)."""
     P = ser.P
     H, L = ser.H, ser.L
+    failed = None                 # "up" / "down" when the latest excursion is a failed breakout
     height = T - B
     if height <= 0 or B <= 0:
-        return None
+        return None, failed is not None
     hpct = height / B * 100.0
     if hpct < P["min_height_pct"] or hpct > P["max_height_pct"]:
-        return None
+        return None, failed is not None
     atr = ser.atr(s, e)
     if not (atr > 0 and height >= P["min_height_atr"] * atr):
-        return None
+        return None, failed is not None
     band = max(P["band_atr"] * atr, P["band_frac"] * height)
     retreat = P["retreat_frac"] * height
     buf = P["breakout_buffer_atr"] * atr
@@ -392,23 +414,21 @@ def _evaluate_box(ser, s, e, mode, T, B):
     # --- the window starts with a genuine test of one of the lines -------------------
     if not ((ser.ph[s] and H[s] >= T - band and ser.pre_lo[s] <= T - retreat)
             or (ser.pl[s] and L[s] <= B + band and ser.pre_hi[s] >= B + retreat)):
-        return None
+        return None, failed is not None
     bars = e - s + 1
     c = ser.C[s:e + 1]
 
     # --- breakout anchors: the next close breaks out decisively and holds ------------
+    # (otherwise the box is judged exactly as it was while price was still inside it)
     if mode == "up":
-        nxt = ser.C[e + 1]
-        if not (nxt > T + buf and nxt > c.max() and ser.suffix_min[e + 2] >= T):
-            return None
+        if not (ser.C[e + 1] > T + buf and ser.suffix_min[e + 2] >= T):
+            return None, failed is not None
     elif mode == "down":
-        nxt = ser.C[e + 1]
-        if not (nxt < B - buf and nxt < c.min() and ser.suffix_max[e + 2] <= B):
-            return None
+        if not (ser.C[e + 1] < B - buf and ser.suffix_max[e + 2] <= B):
+            return None, failed is not None
 
     # --- containment of the closes --------------------------------------------------
     viol = 0
-    failed = None
     fail0 = fail1 = bars          # window-relative span of a tolerated failed breakout
     if c.max() > T + buf or c.min() < B - buf:
         exc = _excursions(c, T, B, buf)
@@ -416,18 +436,21 @@ def _evaluate_box(ser, s, e, mode, T, B):
         # the window starts inside the box and no excursion is still open at its end
         # (that would be a breakout in progress, handled by a breakout anchor)
         if exc[0][1] == 0 or last[2] == bars - 1:
-            return None
-        if (s + last[1] >= ser.recent_start and last[3] <= P["failed_max_closes"]
+            return None, failed is not None
+        # a breakout may follow a failed attempt in the same direction; after a longer
+        # move out of the other side and back it is a whipsaw (only a brief fakeout of
+        # at most max_false_run closes is tolerated, as an ordinary false breakout)
+        if (allow_failed and s + last[1] >= ser.recent_start and last[3] <= P["failed_max_closes"]
                 and (mode == "inside" or (last[0] == 1) == (mode == "up"))):
             failed = "up" if last[0] == 1 else "down"
             fail0, fail1 = last[1], last[2]
             exc = exc[:-1]
         for x in exc:
             if x[3] > P["max_false_run"]:
-                return None
+                return None, failed is not None
             viol += x[3]
         if viol > P["max_false_closes"]:
-            return None
+            return None, failed is not None
 
     # --- touch episodes ---------------------------------------------------------------
     h = H[s:e + 1]
@@ -437,11 +460,10 @@ def _evaluate_box(ser, s, e, mode, T, B):
     nt, nb = len(ti), len(bi)
     need = P["min_touches_per_side"]
     if nt < need or nb < need:
-        return None
+        return None, failed is not None
     t_in = tp <= T + band             # extreme within the band (else a poke)
     b_in = bp >= B - band
-    # confirmed touches define the lines: no close beyond the buffer inside the
-    # episode, and on the breakout side not the run straight into the breakout
+    # confirmed touches define the lines: no close beyond the buffer inside the episode
     t_ok = t_in.copy()
     b_ok = b_in.copy()
     if viol or failed:
@@ -449,38 +471,32 @@ def _evaluate_box(ser, s, e, mode, T, B):
         dn_cum = np.concatenate(([0], np.cumsum(c < B - buf)))
         t_ok &= (up_cum[t1 + 1] - up_cum[t0]) == 0
         b_ok &= (dn_cum[b1 + 1] - dn_cum[b0]) == 0
-    k = P["pivot_strength"]
-    if mode == "up" and t1[-1] == bars - 1:
-        a0, a1 = s + t0[-1], e - k + 1
-        if not (ser.ph[a0:a1] & (H[a0:a1] >= T - band)).any():
-            t_ok[-1] = False
-    elif mode == "down" and b1[-1] == bars - 1:
-        a0, a1 = s + b0[-1], e - k + 1
-        if not (ser.pl[a0:a1] & (L[a0:a1] <= B + band)).any():
-            b_ok[-1] = False
     if t_ok.sum() < need or b_ok.sum() < need:
-        return None
+        return None, failed is not None
     # pokes; touches overlapping the failed breakout are beyond the line by definition
     t_failed = (t1 >= fail0) & (t0 <= fail1)
     b_failed = (b1 >= fail0) & (b0 <= fail1)
     if (np.count_nonzero(~t_in & ~t_failed) > P["max_pokes_per_side"]
             or np.count_nonzero(~b_in & ~b_failed) > P["max_pokes_per_side"]):
-        return None
+        return None, failed is not None
     pokes = (nt - int(t_in.sum())) + (nb - int(b_in.sum()))
 
     # --- alternation and activity -------------------------------------------------
     idx = np.concatenate((ti, bi))
     side = np.concatenate((np.ones(nt, dtype=np.int8), np.zeros(nb, dtype=np.int8)))
-    order = np.argsort(idx, kind="stable")
+    # a bar touching both lines: an up candle made its low first, a down candle its high
+    up_bar = ser.up_bar[s + idx]
+    second = np.where(side == 1, up_bar, ~up_bar)
+    order = np.lexsort((second, idx))
     idx, side = idx[order], side[order]
     switches = int(np.count_nonzero(side[1:] != side[:-1]))
     if switches < max(P["min_switches"], math.ceil(bars / P["switch_density_bars"])):
-        return None
+        return None, failed is not None
     if (bars - 1) - int(idx[-1]) > max(P["max_idle_bars"], P["max_idle_frac"] * bars):
-        return None
+        return None, failed is not None
     tail = max(P["late_window_min_bars"], int(bars * P["late_window_frac"]))
     if h[-tail:].max() - l[-tail:].min() < P["min_late_range_frac"] * height:
-        return None
+        return None, failed is not None
 
     # --- flatness: fit through each side's touches (pokes clipped, failed breakout
     # left out), measured over the span of the touches (at least drift_min_span_frac
@@ -488,7 +504,7 @@ def _evaluate_box(ser, s, e, mode, T, B):
     clip = P["poke_clip"] * band
     tx, bx = ti[~t_failed], bi[~b_failed]
     if len(tx) == 0 or len(bx) == 0:
-        return None               # a line resting only on the failed breakout
+        return None, failed is not None               # a line resting only on the failed breakout
     slope_t = _slope(tx.tolist(), np.minimum(tp[~t_failed], T + clip).tolist())
     slope_b = _slope(bx.tolist(), np.maximum(bp[~b_failed], B - clip).tolist())
     life = float(bars - 1)
@@ -497,11 +513,11 @@ def _evaluate_box(ser, s, e, mode, T, B):
     span_b = max(float(bx[-1] - bx[0]), min_span)
     drift = max(abs(slope_t) * span_t, abs(slope_b) * span_b) / height
     if drift > P["max_drift_frac"]:
-        return None
+        return None, failed is not None
     if abs(slope_b - slope_t) * life / height > P["max_converge_frac"]:
-        return None
+        return None, failed is not None
     if abs(slope_b + slope_t) * 0.5 * life / height > P["max_parallel_drift_frac"]:
-        return None
+        return None, failed is not None
 
     # --- failed swings: between two touches of the same line, the swing toward the
     # other line fell short; they must stay a minority and must not coil ----------------
@@ -518,26 +534,26 @@ def _evaluate_box(ser, s, e, mode, T, B):
                 swings_hi.append(float(h[seg].max()))
     nti, nbi = int(t_in.sum()), int(b_in.sum())
     if len(swings_hi) - nt > max(1, nti - 1) or len(swings_lo) - nb > max(1, nbi - 1):
-        return None
+        return None, failed is not None
     fh = [v for v in swings_hi[-3:] if v is not None]
     fl = [v for v in swings_lo[-3:] if v is not None]
     if (len(fh) >= 2 and fh[-1] < fh[-2]) or (len(fl) >= 2 and fl[-1] > fl[-2]):
-        return None               # lower highs / higher lows: a triangle or wedge forming
+        return None, failed is not None               # lower highs / higher lows: a triangle or wedge forming
 
     # --- both lines tested across the box, from early on --------------------------------
     tin_i, bin_i = ti[t_in], bi[b_in]
     if min(tin_i[-1] - tin_i[0], bin_i[-1] - bin_i[0]) < P["min_side_span_frac"] * life:
-        return None
+        return None, failed is not None
     first_limit = max(P["max_first_touch_bars"], P["max_first_touch_frac"] * life)
     if tin_i[0] > first_limit or bin_i[0] > first_limit:
-        return None
+        return None, failed is not None
 
     # --- the closes fill the box ------------------------------------------------------------
     xs = np.arange(bars, dtype=float) - 0.5 * life
     cdrift = abs(float(np.dot(xs, c - c.mean())) / float(np.dot(xs, xs))) * life / height
     upfrac = float(np.count_nonzero(c > B + 0.5 * height)) / bars
     if cdrift > P["max_close_drift"] or not (P["min_upper_frac"] <= upfrac <= P["max_upper_frac"]):
-        return None
+        return None, failed is not None
 
     dev = (np.abs(tp[t_in] - T).sum() + np.abs(bp[b_in] - B).sum()) / ((nti + nbi) * band)
     m = {
@@ -562,11 +578,11 @@ def _evaluate_box(ser, s, e, mode, T, B):
                      and cdrift <= P["weak_max_close_drift"]
                      and dev <= P["weak_max_dev"]
                      and m["quality"] >= P["weak_min_quality"]):
-        return None
+        return None, failed is not None
 
     m["sel"] = (2.0 * min(switches, 12) + min(nt + nb, 16) - 3.0 * viol - pokes
                 + 0.25 * m["quality"] + P["length_pref"] * bars)
-    return m
+    return m, failed is not None
 
 
 def _scan_anchor(ser, e, mode):
@@ -587,6 +603,20 @@ def _scan_anchor(ser, e, mode):
         pl[i - lo] = L[i] <= L[j0:e + 1].min()
     peak_idx = (np.flatnonzero(ph) + lo).tolist()
     trough_idx = (np.flatnonzero(pl) + lo).tolist()
+    # For "inside" also place the lines as the scan did one bar earlier (pivots of
+    # [s, e - 1], truncated at e - 1): a new bar inside the box can shift the swing
+    # clusters, and yesterday's box must still be re-checked on today's bar.
+    prev = None
+    if mode == "inside" and e - 1 - lo >= P["min_bars"]:
+        ph1 = ser.ph[lo:e].copy()
+        pl1 = ser.pl[lo:e].copy()
+        for i in range(max(lo, e - k), e):
+            j0 = max(0, i - k)
+            ph1[i - lo] = H[i] >= H[j0:e].max()
+            pl1[i - lo] = L[i] <= L[j0:e].min()
+        prev = {"peak_idx": (np.flatnonzero(ph1) + lo).tolist(), "trough_idx": (np.flatnonzero(pl1) + lo).tolist(),
+                "peaks": [], "troughs": []}
+        prev["pi"], prev["ti"] = len(prev["peak_idx"]) - 1, len(prev["trough_idx"]) - 1
     Hl, Ll, Cl = H.tolist(), L.tolist(), ser.C.tolist()
     # candidate starts: confirmed pivots, newest first
     starts = (np.flatnonzero(ser.ph[lo:hi + 1] | ser.pl[lo:hi + 1]) + lo)[::-1].tolist()
@@ -607,6 +637,13 @@ def _scan_anchor(ser, e, mode):
         while ti >= 0 and trough_idx[ti] >= s:
             insort(troughs, Ll[trough_idx[ti]])
             ti -= 1
+        if prev is not None:
+            while prev["pi"] >= 0 and prev["peak_idx"][prev["pi"]] >= s:
+                insort(prev["peaks"], Hl[prev["peak_idx"][prev["pi"]]])
+                prev["pi"] -= 1
+            while prev["ti"] >= 0 and prev["trough_idx"][prev["ti"]] >= s:
+                insort(prev["troughs"], Ll[prev["trough_idx"][prev["ti"]]])
+                prev["ti"] -= 1
         while cpos > s:
             cpos -= 1
             v = Cl[cpos]
@@ -633,22 +670,30 @@ def _scan_anchor(ser, e, mode):
         if not ((ser.ph[s] and Hl[s] >= peaks[max(0, len(peaks) - 1 - max_skip)] - 3.0 * bmax)
                 or (ser.pl[s] and Ll[s] <= troughs[min(len(troughs) - 1, max_skip)] + 3.0 * bmax)):
             continue
-        tops = _line_levels(peaks, band0, True, max_skip)
-        bots = _line_levels(troughs, band0, False, max_skip)
-        if not tops or not bots or tops[0] <= bots[0]:
-            continue
-        band = P["band_frac"] * (tops[0] - bots[0])
-        if band > band0:              # the height sets the band: re-cluster with it
-            tops = _line_levels(peaks, band, True, max_skip)
-            bots = _line_levels(troughs, band, False, max_skip)
-        for T in tops:
-            for B in bots:
-                r = _evaluate_box(ser, s, e, mode, T, B)
-                if r is not None and (best is None or r["sel"] > best["sel"]):
-                    best = r
+        pairs = _level_pairs(peaks, troughs, band0, max_skip, P)
+        if prev is not None and len(prev["peaks"]) >= 2 and len(prev["troughs"]) >= 2:
+            band1 = P["band_atr"] * ser.atr(s, e - 1)
+            pairs += [tb for tb in _level_pairs(prev["peaks"], prev["troughs"], band1, max_skip, P) if tb not in pairs]
+        for T, B in pairs:
+            r = _evaluate_box(ser, s, e, mode, T, B)
+            if r is not None and (best is None or r["sel"] > best["sel"]):
+                best = r
     if best is not None:
         best = _extend_start(ser, best, e, mode)
     return best
+
+
+def _level_pairs(peaks, troughs, band0, max_skip, P):
+    """Candidate (top, bottom) line pairs from sorted swing highs / lows."""
+    tops = _line_levels(peaks, band0, True, max_skip)
+    bots = _line_levels(troughs, band0, False, max_skip)
+    if not tops or not bots or tops[0] <= bots[0]:
+        return []
+    band = P["band_frac"] * (tops[0] - bots[0])
+    if band > band0:                  # the height sets the band: re-cluster with it
+        tops = _line_levels(peaks, band, True, max_skip)
+        bots = _line_levels(troughs, band, False, max_skip)
+    return [(T, B) for T in tops for B in bots]
 
 
 def _extend_start(ser, best, e, mode):
@@ -671,11 +716,15 @@ def _extend_start(ser, best, e, mode):
 # ----------------------------------------------------------------------------------
 # public API
 # ----------------------------------------------------------------------------------
-def detect(df: pd.DataFrame, params: dict | None = None) -> dict | None:
+def detect(df: pd.DataFrame, params: dict | None = None, hint: dict | None = None) -> dict | None:
     """Best current rectangle on daily bars, or None (see the module docstring / SPEC).
 
     df: DatetimeIndex ascending, float columns open, high, low, close, volume; the
-    last row is the latest completed session.  The input is not modified."""
+    last row is the latest completed session.  The input is not modified.
+    hint: optionally a rectangle reported for this stock by an earlier scan (its
+    ``start``, ``top`` and ``bottom``).  It is re-checked on these bars as one more
+    candidate, so a box does not drop out just because today's swing clusters put the
+    lines a little differently; it still has to pass every rule and win on score."""
     P = dict(DEFAULT_PARAMS)
     if params:
         P.update(params)
@@ -691,7 +740,10 @@ def detect(df: pd.DataFrame, params: dict | None = None) -> dict | None:
     H = np.maximum(d["high"].to_numpy(dtype=float), C)     # guard against bad prints
     L = np.minimum(d["low"].to_numpy(dtype=float), C)
     V = np.nan_to_num(d["volume"].to_numpy(dtype=float)) if "volume" in d.columns else np.zeros(n)
-    ser = _Series(H, L, C, P)
+    O = d["open"].to_numpy(dtype=float) if "open" in d.columns else np.full(n, np.nan)
+    prev_c = np.concatenate((C[:1], C[:-1]))
+    up_bar = np.where(np.isfinite(O), C >= O, C >= prev_c)
+    ser = _Series(H, L, C, up_bar, P)
 
     candidates = []
     r = _scan_anchor(ser, n - 1, "inside")
@@ -711,10 +763,34 @@ def detect(df: pd.DataFrame, params: dict | None = None) -> dict | None:
             if r is not None:
                 r["status"], r["k"] = status, kb
                 candidates.append(r)
+    if hint:
+        candidates += _hinted(ser, d.index, hint, P)
     if not candidates:
         return None
     best = max(candidates, key=lambda m: m["sel"])
     return _format(best, d, P, C, V, _true_range(H, L, C))
+
+
+def _hinted(ser, index, hint, P):
+    """Candidates from re-checking an earlier scan's box on the current bars."""
+    try:
+        s = int(index.get_loc(pd.Timestamp(hint["start"])))
+        T, B = float(hint["top"]), float(hint["bottom"])
+    except (KeyError, TypeError, ValueError):
+        return []
+    n = len(ser.C)
+    out = []
+    r = _evaluate_box(ser, s, n - 1, "inside", T, B)
+    if r is not None:
+        r["status"], r["k"] = "inside", None
+        out.append(r)
+    for kb in range(max(s + P["min_bars"], n - 1 - P["max_breakout_age"]), n):
+        for mode, status in (("up", "breakout_up"), ("down", "breakout_down")):
+            r = _evaluate_box(ser, s, kb - 1, mode, T, B)
+            if r is not None:
+                r["status"], r["k"] = status, kb
+                out.append(r)
+    return out
 
 
 def _fmt_date(ts):
@@ -751,7 +827,7 @@ def _format(m, d, P, C, V, tr):
         "position_pct": round((last - B) / height * 100.0, 2),
         "extension_pct": None,
         "target": None,
-        "failed_breakout": m["failed"] if status == "inside" else None,
+        "failed_breakout": m["failed"],
         "atr_pct": round(atr_last / last * 100.0, 3) if last > 0 else 0.0,
         "quality": float(m["quality"]),
     }

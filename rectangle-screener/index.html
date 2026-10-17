@@ -189,7 +189,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
           <ul id="rules">
             <li>Flat resistance and flat support — not a rising or falling channel, triangle, or wedge.</li>
             <li>Both lines tested at least twice, with price travelling across the box between tests.</li>
-            <li>Daily closes stay inside the box for the whole pattern; brief wicks through a line are allowed.</li>
+            <li>Daily closes stay inside the box: wicks may poke through, and a close just past a line or a brief one- or two-day false breakout that snaps straight back is tolerated.</li>
             <li>At least three weeks long, and tall enough to matter relative to the stock's normal daily range.</li>
           </ul>
         </div>
@@ -353,7 +353,10 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
 
   function rowHTML(r) {
     const st = STATUS[r.status];
-    const failed = r.failed_breakout ? `<span class="badge warn" title="Closed back inside after a ${r.failed_breakout === 'up' ? 'breakout' : 'breakdown'}">failed ${r.failed_breakout === 'up' ? '↑' : '↓'}</span>` : '';
+    const failed = !r.failed_breakout ? ''
+      : r.status === 'inside'
+        ? `<span class="badge warn" title="Closed back inside after a ${r.failed_breakout === 'up' ? 'breakout' : 'breakdown'}">failed ${r.failed_breakout === 'up' ? '↑' : '↓'}</span>`
+        : `<span class="badge warn" title="An earlier ${r.failed_breakout === 'up' ? 'breakout' : 'breakdown'} attempt from this box fell back inside first">2nd try</span>`;
     const chg = r.change_pct != null ? `<span style="color:${r.change_pct >= 0 ? 'var(--up)' : 'var(--down)'}">${fmtSigned(r.change_pct, 2)}</span>` : '';
     return `<article class="row" data-sym="${esc(r.symbol)}">
       <button class="row-main" type="button" aria-expanded="false" aria-controls="d-${esc(r.symbol)}">
@@ -395,6 +398,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
       st.push(stat('To resistance', fmtSigned((r.top / r.close - 1) * 100)), stat('To support', fmtSigned((r.bottom / r.close - 1) * 100)));
       if (r.failed_breakout) st.push(stat('Note', `Failed ${r.failed_breakout === 'up' ? 'breakout' : 'breakdown'}`));
     } else {
+      if (r.failed_breakout) st.push(stat('Note', `Second attempt: an earlier ${r.failed_breakout === 'up' ? 'breakout' : 'breakdown'} fell back inside`));
       st.push(stat('Breakout', `${fmtDate(r.breakout_date)} (${ago(r.days_since_breakout)})`));
       st.push(stat('Breakout vol', r.breakout_volume_ratio != null ? `${r.breakout_volume_ratio.toFixed(2)}× avg` : '–'));
       st.push(stat('Beyond line', r.extension_pct != null ? `${r.extension_pct.toFixed(0)}% of height` : '–'));
@@ -406,7 +410,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
         <div class="legend">
           <span><i class="sw" style="background:var(--accent-soft);border:1px solid var(--box)"></i>Rectangle</span>
           <span><svg width="10" height="10"><circle cx="5" cy="5" r="3.5" fill="#fff" stroke="var(--box)" stroke-width="1.6"/></svg>Touch</span>
-          ${isBreakout(r.status) ? `<span><svg width="12" height="10"><path d="M6 1l5 8H1z" fill="${STATUS[r.status].color}"/></svg>Breakout close</span>` : ''}
+          ${isBreakout(r.status) ? `<span><svg width="12" height="10"><path d="${r.status === 'breakout_up' ? 'M6 1l5 8H1z' : 'M6 9l5-8H1z'}" fill="${STATUS[r.status].color}"/></svg>${r.status === 'breakout_up' ? 'Breakout' : 'Breakdown'} close</span>` : ''}
           ${r.target != null ? `<span><i class="sw" style="height:0;border-top:1.5px dashed ${STATUS[r.status].color}"></i>Target</span>` : ''}
         </div>
         <div class="hover-read" data-read aria-live="polite"></div>
