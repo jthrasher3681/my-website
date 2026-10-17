@@ -86,6 +86,7 @@ h1 em{font-style:italic;color:var(--accent)}
 .cell-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-mute)}
 .cell-val{font-size:.92rem;font-variant-numeric:tabular-nums;color:var(--ink)}
 .cell-val .muted{color:var(--ink-mute)}
+.vdown{color:var(--accent);font-weight:600}
 .status-detail{font-size:.82rem;color:var(--ink-soft);margin-top:4px;font-variant-numeric:tabular-nums}
 .posbar{position:relative;height:6px;border-radius:999px;background:var(--line-soft);margin-top:6px;width:100%;max-width:120px}
 .posbar i{position:absolute;top:-3px;width:4px;height:12px;border-radius:2px;background:var(--ink);transform:translateX(-50%)}
@@ -176,8 +177,8 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
         <label class="field">Quality<select id="minq">
           <option value="0">Any</option><option value="55">55+ solid</option><option value="60">60+ textbook</option>
         </select></label>
-        <label class="field" title="Median volume in the last third of the box vs the first third">Volume in box<select id="vol">
-          <option value="">Any</option><option value="down15">Declining 15%+</option><option value="down30">Drying up 30%+</option><option value="flat">Flat or rising</option>
+        <label class="field" title="Declining throughout: each third of the box trades at least 5% less volume than the one before, and the volume trend line falls at least 15%">Volume in box<select id="vol">
+          <option value="">Any</option><option value="down">Declining throughout</option><option value="down30">Declining 30%+ throughout</option><option value="not">Not declining</option>
         </select></label>
         <label class="field">Sort<select id="sort">
           <option value="quality">Pattern quality</option><option value="recent">Newest breakout</option><option value="voldry">Volume dry-up</option><option value="bvol">Breakout volume</option><option value="length">Longest range</option><option value="tight">Tightest range</option><option value="cap">Market cap</option><option value="symbol">Ticker A–Z</option>
@@ -261,7 +262,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
             <li><strong>Touches</strong> — distinct tests of resistance (T) and support (B).</li>
             <li><strong>Target</strong> — the classic measured move: the box height projected from the broken line.</li>
             <li><strong>Vol ×</strong> — breakout-day volume against the prior 50-day average.</li>
-            <li><strong>Vol −32%</strong> (under the box) — median daily volume in the last third of the pattern against the first third. Volume usually dries up as a rectangle matures; a breakout on heavy volume is the classic confirmation.</li>
+            <li><strong>Vol ↓ −32%</strong> (under the box) — the volume trend across the whole pattern: a robust trend line through every session's volume, first session to last. The ↓ marks volume <em>declining throughout</em>: each third of the box traded at least <span data-param="volume_step_pct">5</span>% less (median) than the third before it, and the trend fell at least <span data-param="volume_decline_abs">15</span>%. Volume usually dries up as a rectangle matures; a breakout on heavy volume is the classic confirmation.</li>
             <li><strong>Quality</strong> — how textbook the box is: many alternating touches, tight flat lines, clean containment, balanced fill. 60+ is the cleanest tier; lower scores are looser ranges worth a second look.</li>
           </ul>
         </div>
@@ -301,7 +302,11 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
   const SELECTS = ['sector', 'age', 'minq', 'vol', 'sort', 'pos', 'fb', 'exch'];
   const TEXTS = ['q', 'ind'];
   const ADVANCED = ['pos', 'fb', 'exch', 'ind', ...RANGE_KEYS];   // the "More filters" panel
-  const VOLUME = { down15: v => v <= -15, down30: v => v <= -30, flat: v => v > -15 };
+  const VOLUME = {
+    down: r => r.volume_declining,
+    down30: r => r.volume_declining && r.volume_trend_pct <= -30,
+    not: r => !r.volume_declining,
+  };
   let DATA = null, CHARTS = null, chartsPromise = null;
   const open = new Set();
 
@@ -383,7 +388,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     if (state.sector && r.sector !== state.sector) return false;
     if (r.quality < state.minq) return false;
     if (isBreakout(r.status) && r.days_since_breakout > state.age) return false;
-    if (state.vol && !(r.volume_trend_pct != null && VOLUME[state.vol](r.volume_trend_pct))) return false;
+    if (state.vol && !VOLUME[state.vol](r)) return false;
     if (state.exch && r.exchange !== state.exch) return false;
     const ind = state.ind.trim().toLowerCase();
     if (ind && !(r.industry || '').toLowerCase().includes(ind)) return false;
@@ -477,7 +482,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
           <div class="sub">${fmtPrice(r.close)} ${chg}</div>
         </div>
         <div class="c-status"><div style="display:flex;gap:6px;flex-wrap:wrap"><span class="badge ${st.cls}">${st.label}</span>${failed}</div>${statusDetail(r)}</div>
-        <div class="c-box"><div class="cell-label">Box</div><div class="cell-val">${fmtPrice(r.bottom)}–${fmtPrice(r.top)}</div><div class="sub">${fmtPct(r.height_pct)} tall${r.volume_trend_pct != null ? ` · vol ${fmtSigned(r.volume_trend_pct, 0)}` : ''}</div></div>
+        <div class="c-box"><div class="cell-label">Box</div><div class="cell-val">${fmtPrice(r.bottom)}–${fmtPrice(r.top)}</div><div class="sub">${fmtPct(r.height_pct)} tall${r.volume_trend_pct != null ? ` · <span${r.volume_declining ? ' class="vdown" title="Volume declining throughout the box"' : ''}>vol ${r.volume_declining ? '↓ ' : ''}${fmtSigned(r.volume_trend_pct, 0)}</span>` : ''}</div></div>
         <div class="c-len"><div class="cell-label">Length</div><div class="cell-val">${weeks(r.bars)}</div><div class="sub">${r.top_touches}T · ${r.bottom_touches}B touches</div></div>
         <div class="c-q q"><div class="cell-label">Quality</div><div class="qbar"><i style="width:${Math.max(4, Math.min(100, r.quality))}%"></i></div><div class="sub">${Math.round(r.quality)}/100</div></div>
         <svg class="chev c-chev" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 8l5 5 5-5"/></svg>
@@ -514,14 +519,16 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
       st.push(stat('Beyond line', r.extension_pct != null ? `${r.extension_pct.toFixed(0)}% of height` : '–'));
       st.push(stat('Measured target', fmtPrice(r.target)));
     }
-    st.push(stat('Volume in box', r.volume_trend_pct != null ? `${fmtSigned(r.volume_trend_pct, 0)} <span class="muted">last ⅓ vs first ⅓</span>` : '–'));
+    st.push(stat('Volume in box', r.volume_trend_pct != null
+      ? `${r.volume_declining ? 'Declining throughout' : r.volume_trend_pct <= -15 ? 'Down, not steadily' : r.volume_trend_pct >= 15 ? 'Rising' : 'Flat'} <span class="muted">trend ${fmtSigned(r.volume_trend_pct, 0)} · thirds ${(r.volume_thirds || []).join(' → ')}</span>`
+      : '–'));
     st.push(stat('ATR (14)', fmtPct(r.atr_pct, 2)), stat('Market cap', fmtCap(r.market_cap)), stat('Sector', esc(r.sector || '–')));
     const tv = `https://www.tradingview.com/chart/?symbol=${encodeURIComponent((r.exchange ? r.exchange + ':' : '') + r.symbol)}`;
     return `<div class="chart-head">
         <div class="legend">
           <span><i class="sw" style="background:var(--accent-soft);border:1px solid var(--box)"></i>Rectangle</span>
           <span><svg width="10" height="10"><circle cx="5" cy="5" r="3.5" fill="#fff" stroke="var(--box)" stroke-width="1.6"/></svg>Touch</span>
-          ${r.volume_trend_pct != null ? `<span><i class="sw" style="height:0;border-top:2px solid var(--ink-soft)"></i>Volume median, first / last ⅓</span>` : ''}
+          ${r.volume_trend_pct != null ? `<span><i class="sw" style="height:0;border-top:2px solid var(--ink-soft)"></i>Volume median by third of the box</span>` : ''}
           ${isBreakout(r.status) ? `<span><svg width="12" height="10"><path d="${r.status === 'breakout_up' ? 'M6 1l5 8H1z' : 'M6 9l5-8H1z'}" fill="${STATUS[r.status].color}"/></svg>${r.status === 'breakout_up' ? 'Breakout' : 'Breakdown'} close</span>` : ''}
           ${r.target != null ? `<span><i class="sw" style="height:0;border-top:1.5px dashed ${STATUS[r.status].color}"></i>Target</span>` : ''}
         </div>
@@ -605,15 +612,15 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
       const h = volH * v / vmax;
       el('rect', { x: X(i) - Math.max(.5, step * 0.35), y: H - padB - h, width: Math.max(1, step * 0.7), height: h, fill: c.c[i] >= c.o[i] ? 'var(--candle-up)' : 'var(--candle-down)', 'fill-opacity': i >= i0 && i <= boxEnd ? .28 : .16 }, svg);
     });
-    // median volume over the first and last third of the box (the "Volume in box" figure;
-    // same rule as the build: sessions with a volume print, split by count)
+    // median volume of each third of the box (the "Volume in box" thirds; same rule as
+    // the build: sessions with a volume print, split by count)
     if (r.volume_trend_pct != null) {
       const fs = full.d.indexOf(r.start), fe = full.d.indexOf(r.end);
       const pts = [];
       for (let i = fs; i >= 0 && i <= fe; i++) if (Number.isFinite(full.v[i]) && full.v[i] > 0) pts.push([i, full.v[i]]);
       const k = Math.floor(pts.length / 3);
       const med = a => { const v = a.map(p => p[1]).sort((x, y) => x - y); return (v[(v.length - 1) >> 1] + v[v.length >> 1]) / 2; };
-      if (k >= 3) for (const part of [pts.slice(0, k), pts.slice(-k)]) {
+      if (k >= 3) for (const part of [pts.slice(0, k), pts.slice(k, pts.length - k), pts.slice(-k)]) {
         const a = part[0][0] - s0, b = part[part.length - 1][0] - s0;
         if (b < 0) continue;            // scrolled off a narrow chart
         const y = H - padB - volH * Math.min(1, med(part) / vmax);
@@ -789,6 +796,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     const sectors = [...new Set(DATA.results.map(r => r.sector).filter(Boolean))].sort();
     $('#sector').insertAdjacentHTML('beforeend', sectors.map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join(''));
     const p = DATA.params || {};
+    if (p.volume_decline_pct != null) p.volume_decline_abs = Math.abs(p.volume_decline_pct);
     document.querySelectorAll('[data-param]').forEach(el => { if (p[el.dataset.param] != null) el.textContent = p[el.dataset.param]; });
   }
 

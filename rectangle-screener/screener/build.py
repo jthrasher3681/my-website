@@ -25,6 +25,7 @@ from collections import Counter
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
+import numpy as np
 import pandas as pd
 
 from . import rectangle
@@ -52,6 +53,8 @@ NOT_COMMON = re.compile(
     re.I,
 )
 
+VOLUME_DECLINE_PCT = -15.0  # "declining throughout": trend line down at least this much,
+VOLUME_STEP_PCT = 5.0       # and each third of the box at least this much below the one before
 MIN_COVERAGE = 0.8  # share of the universe that must have data through the scan date
 MIN_BARS = 60
 THUMB_POINTS = 90
@@ -162,17 +165,30 @@ def _round_hit(hit: dict) -> dict:
     return out
 
 
-def volume_trend(volume) -> float | None:
-    """Median volume over the last third of a box vs its first third, in % (negative =
-    volume drying up, the classic sign of a maturing rectangle).  Sessions without a
-    volume print are ignored; None when a third has fewer than three of them."""
-    v = [float(x) for x in volume if x is not None and math.isfinite(x) and x > 0]
+def volume_profile(volume) -> dict | None:
+    """How volume behaved across a box (sessions with a volume print only).
+
+    trend_pct  change of a robust trend line through the log volume of every session
+               (Theil-Sen: the median of all pairwise slopes), first to last session, in %
+    thirds     median volume of the box's first, middle and last third, as % of the first
+    declining  volume falls throughout: each third trades at least VOLUME_STEP_PCT less
+               than the one before and the trend line is down at least VOLUME_DECLINE_PCT
+    None when a third would have fewer than three sessions."""
+    v = np.array([float(x) for x in volume if x is not None and math.isfinite(x) and x > 0])
     k = len(v) // 3
     if k < 3:
         return None
-    first, last = sorted(v[:k]), sorted(v[-k:])
-    med = lambda a: (a[(len(a) - 1) // 2] + a[len(a) // 2]) / 2
-    return (med(last) / med(first) - 1) * 100
+    i, j = np.triu_indices(len(v), 1)
+    lv = np.log(v)
+    slope = float(np.median((lv[j] - lv[i]) / (j - i)))
+    trend = (math.exp(slope * (len(v) - 1)) - 1) * 100
+    m1, m2, m3 = (float(np.median(part)) for part in (v[:k], v[k:-k], v[-k:]))
+    step = 1 - VOLUME_STEP_PCT / 100
+    return {
+        "trend_pct": trend,
+        "thirds": [100.0, m2 / m1 * 100, m3 / m1 * 100],
+        "declining": bool(m2 <= m1 * step and m3 <= m2 * step and trend <= VOLUME_DECLINE_PCT),
+    }
 
 
 def thumb(closes) -> list:
@@ -257,7 +273,10 @@ def scan(bars: dict[str, pd.DataFrame], universe: list[dict], as_of: pd.Timestam
             "dollar_volume": _r((df["close"] * df["volume"]).iloc[-LIQUIDITY_BARS:].median(), 0),
         }
         row.update(_round_hit(hit))
-        row["volume_trend_pct"] = _r(volume_trend(df["volume"].iloc[start_i : end_i + 1].to_numpy()), 1)
+        vp = volume_profile(df["volume"].iloc[start_i : end_i + 1].to_numpy())
+        row["volume_trend_pct"] = _r(vp["trend_pct"], 1) if vp else None
+        row["volume_thirds"] = [_r(x, 0) for x in vp["thirds"]] if vp else None
+        row["volume_declining"] = vp["declining"] if vp else False
         # Thumbnail: closes from a little before the rectangle to today, with the
         # rectangle's first/last bar given as fractions of the thumbnail width.
         t0 = max(0, start_i - 15)
@@ -346,7 +365,7 @@ def main(argv=None) -> int:
         "source_note": note,
         "provisional_last_bar": provisional,
         "universe": {"rule": UNIVERSE_RULE, "listed": len(universe), "scanned": stats["scanned"]},
-        "params": rectangle.DEFAULT_PARAMS,
+        "params": {**rectangle.DEFAULT_PARAMS, "volume_decline_pct": VOLUME_DECLINE_PCT, "volume_step_pct": VOLUME_STEP_PCT},
         "counts": {k: counts.get(k, 0) for k in ("inside", "breakout_up", "breakout_down")},
         "results": results,
     }

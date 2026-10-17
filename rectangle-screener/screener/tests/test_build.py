@@ -6,6 +6,7 @@ import unittest
 from datetime import datetime, timezone
 from unittest import mock
 
+import numpy as np
 import pandas as pd
 
 from screener import build
@@ -205,14 +206,38 @@ class BuildHelperTests(unittest.TestCase):
             with open(path) as fh:
                 self.assertEqual(json.load(fh), {"ok": 1})  # previous file left intact
 
-    def test_volume_trend(self):
-        self.assertAlmostEqual(build.volume_trend([100.0] * 10 + [80.0] * 10 + [50.0] * 10), -50.0)
-        self.assertAlmostEqual(build.volume_trend([50.0] * 10 + [100.0] * 10), 100.0)
-        # one spike in a third does not move its median; missing prints are skipped
-        self.assertAlmostEqual(build.volume_trend([100.0] * 9 + [1e9] + [70.0] * 10 + [60.0] * 10), -40.0)
-        self.assertAlmostEqual(build.volume_trend([100.0, float("nan"), 0.0] * 5 + [50.0] * 15), -50.0)
-        self.assertIsNone(build.volume_trend([100.0] * 8))
-        self.assertIsNone(build.volume_trend([float("nan")] * 30))
+    def test_volume_profile_declining_throughout(self):
+        steps = [100.0] * 10 + [80.0] * 10 + [50.0] * 10
+        p = build.volume_profile(steps)
+        self.assertEqual([round(x) for x in p["thirds"]], [100, 80, 50])
+        self.assertLess(p["trend_pct"], -15)
+        self.assertTrue(p["declining"])
+        # a steady fade with noise is declining throughout
+        rng = np.random.default_rng(1)
+        fade = list(1e6 * np.linspace(1.0, 0.5, 60) * rng.uniform(0.8, 1.2, 60))
+        self.assertTrue(build.volume_profile(fade)["declining"])
+
+    def test_volume_profile_not_declining_throughout(self):
+        # ends lower than it started, but the middle of the box traded the most
+        bump = [100.0] * 10 + [160.0] * 10 + [60.0] * 10
+        p = build.volume_profile(bump)
+        self.assertLess(p["thirds"][2], p["thirds"][0])
+        self.assertFalse(p["declining"])
+        # steps down but only slightly: not a meaningful decline
+        self.assertFalse(build.volume_profile([100.0] * 10 + [98.0] * 10 + [96.0] * 10)["declining"])
+        # falls, then goes flat (or flat, then falls): not declining *throughout*
+        self.assertFalse(build.volume_profile([100.0] * 10 + [80.0] * 10 + [79.0] * 10)["declining"])
+        self.assertFalse(build.volume_profile([100.0] * 10 + [99.0] * 10 + [60.0] * 10)["declining"])
+        self.assertFalse(build.volume_profile([50.0] * 15 + [100.0] * 15)["declining"])
+
+    def test_volume_profile_robust_inputs(self):
+        # one spike does not move a third's median; missing prints are skipped
+        p = build.volume_profile([100.0] * 9 + [1e9] + [70.0] * 10 + [60.0] * 10)
+        self.assertEqual([round(x) for x in p["thirds"]], [100, 70, 60])
+        p = build.volume_profile([100.0, float("nan"), 0.0] * 5 + [70.0] * 6 + [50.0] * 9)
+        self.assertEqual([round(x) for x in p["thirds"]], [100, 70, 50])
+        self.assertIsNone(build.volume_profile([100.0] * 8))
+        self.assertIsNone(build.volume_profile([float("nan")] * 30))
 
     def test_clean_name(self):
         self.assertEqual(build.clean_name("Apple Inc. Common Stock"), "Apple Inc.")
