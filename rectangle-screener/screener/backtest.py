@@ -44,6 +44,7 @@ import os
 import pickle
 import sys
 from collections import defaultdict
+from itertools import zip_longest
 from multiprocessing import Pool
 
 import numpy as np
@@ -199,6 +200,7 @@ def trades(rows, bars, pct, bench, max_hold=MAX_HOLD):
         t["path"] = [d * (c[k] / entry - 1) * 100 if k < len(c) and math.isfinite(c[k]) else None
                      for k in range(e + 1, e + 1 + max_hold)]
         bp = bench.path(when, df.index[e + 1], df.index[e + 1: e + 1 + max_hold])
+        bp += [None] * (max_hold - len(bp))           # the data ends inside the window
         t["xpath"] = [None if p is None or q is None else p - d * q for p, q in zip(t["path"], bp)]
         taken.append(t)
     return taken
@@ -309,7 +311,7 @@ def summarize(ts):
 
 def mean_path(ts, key="path"):
     """Average return path (in %) from the entry open to each of the next MAX_HOLD closes."""
-    cols = list(zip(*[t[key] for t in ts])) if ts else []
+    cols = list(zip_longest(*[t[key] for t in ts])) if ts else []
     return [round(float(np.mean([v for v in col if v is not None])), 3) if any(v is not None for v in col) else None
             for col in cols]
 

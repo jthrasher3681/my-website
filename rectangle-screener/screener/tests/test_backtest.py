@@ -92,6 +92,14 @@ class TradesTests(unittest.TestCase):
         self.assertEqual((three[0]["run_outcome"], three[0]["run_held"]), ("timeout", 20))
         self.assertFalse(three[0]["target_at_entry"])
 
+    def test_paths_cover_the_whole_window(self):
+        # a trade near the end of the data still gives full-length paths (None past the end)
+        ts = backtest.trades(self.rows, {"X": self.df}, 3.0, FlatBench(), max_hold=20)
+        self.assertEqual((len(ts[0]["path"]), len(ts[0]["xpath"])), (20, 20))
+        short = [{"path": [1.0, 2.0, None], "xpath": [1.0]}, {"path": [3.0, 4.0, 5.0], "xpath": [3.0, 4.0, 5.0]}]
+        self.assertEqual(backtest.mean_path(short), [2.0, 3.0, 5.0])
+        self.assertEqual(backtest.mean_path(short, "xpath"), [2.0, 4.0, 5.0])
+
     def test_one_signal_per_breakout(self):
         ts = backtest.trades(self.rows, {"X": self.df}, 1.0, FlatBench(), max_hold=5)
         self.assertEqual(len(ts), 1)
