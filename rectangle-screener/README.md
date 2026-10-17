@@ -28,9 +28,11 @@ and then tuned, using two yardsticks:
   whipsaws that must be rejected: precision 1.00, recall 0.86, status correct
   on every detection;
 - blind grading of its real-stock picks by two independent chart readers: on
-  the Oct 16, 2026 scan, 0.89 of the 118 picks were judged genuine rectangles
-  (borderline counted as half), status was right for all of them, and picks
-  scoring 60+ quality were judged 0.97.
+  the Oct 16, 2026 scan, 0.87 of the 185 picks were judged genuine rectangles
+  (borderline counted as half) and picks scoring 60+ quality were judged 0.95;
+- a replay of the last 25 sessions over the whole universe: a box shown inside
+  one day is shown as a breakout the day it breaks out (whipsaws excepted),
+  and boxes that still qualify do not drop out from one day to the next.
 
 ## How a refresh works
 
