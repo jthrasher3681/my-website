@@ -235,7 +235,8 @@ def confirmation(close: pd.Series, hit: dict) -> dict:
         beyond = (after / hit["top"] - 1) * 100
     else:
         beyond = (1 - after / hit["bottom"]) * 100
-    hits = beyond[beyond >= CONFIRM_PCT - 1e-9]
+    beyond = beyond.round(2)  # decide on the value the page shows (2.996% is not "3.00%" unconfirmed)
+    hits = beyond[beyond >= CONFIRM_PCT]
     out["close_beyond_pct"] = _r(beyond.iloc[-1], 2)
     out["max_close_beyond_pct"] = _r(beyond.max(), 2)
     out["confirmed_date"] = hits.index[0].strftime("%Y-%m-%d") if len(hits) else None

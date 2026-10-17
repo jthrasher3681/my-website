@@ -283,6 +283,11 @@ class BuildHelperTests(unittest.TestCase):
         c = build.confirmation(close.iloc[:3], down)
         self.assertIsNone(c["confirmed_date"])
         self.assertAlmostEqual(c["max_close_beyond_pct"], 2.8)
+        # shown as 3.00% past the line, so confirmed: the flag and the number never disagree
+        c = build.confirmation(pd.Series([102.996], index=days[:1]), {**up, "breakout_date": "2026-10-01"})
+        self.assertEqual((c["max_close_beyond_pct"], c["confirmed_date"]), (3.0, "2026-10-01"))
+        c = build.confirmation(pd.Series([102.994], index=days[:1]), {**up, "breakout_date": "2026-10-01"})
+        self.assertEqual((c["max_close_beyond_pct"], c["confirmed_date"]), (2.99, None))
         self.assertEqual(build.confirmation(close, {"status": "inside", "top": 60.0, "bottom": 50.0, "breakout_date": None}),
                          {"close_beyond_pct": None, "max_close_beyond_pct": None, "confirmed_date": None})
 
