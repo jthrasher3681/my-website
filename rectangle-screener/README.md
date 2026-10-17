@@ -41,7 +41,8 @@ the line. Once a box is established from later touches, its start is
 extended back to the first bounce after price entered the range. That bounce
 only needs to come from 30% of the height away. On the Oct 16, 2026 scan this
 moved 9 of 167 box starts earlier (AMT's to Jun 24) and changed nothing
-else.
+else. Three blind chart readers preferred the earlier start for 7 of the 9.
+The other two (HESM, IPAR) start on the last bar of the move into the range.
 
 ## Volume in box
 
@@ -67,7 +68,10 @@ breakout attempt, not to the range.
 AMT's Jun-Oct 2026 box is the reference case for "declining". Volume is busy
 when price enters the range, quiet through August, and picks up a little in
 September (thirds 100 → 57 → 79, trend −24%). It is declining, but not
-steadily.
+steadily. Two blind chart readers per chart labelled 78 boxes from the Oct 16
+scan (all 43 flagged declining, plus 35 others). Their verdicts matched the
+flag on about 85% of boxes (the two readers matched each other on 76%):
+precision 0.81, recall 0.90. Nearby thresholds did no better.
 
 ## Breakout confirmation
 
