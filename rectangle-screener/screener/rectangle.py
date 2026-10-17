@@ -29,9 +29,10 @@ How it works
 3. Validation (``_evaluate_box``), in order:
    * size: ``min_height_pct`` <= height / bottom <= ``max_height_pct`` and
      height >= ``min_height_atr`` * ATR;
-   * start: bar ``s`` touches its line and price came from at least ``retreat_frac`` of
+   * start: bar ``s`` touches its line and price came from at least ``approach_frac`` of
      the height away within ``approach_lookback`` bars, so a pause inside the trend leg
-     into the range is not a first touch;
+     into the range is not a first touch (``settled_approach_frac`` for a box that is
+     already established, see step 4);
    * breakout anchors: the close after the window is beyond the line by
      ``breakout_buffer_atr`` * ATR and no later close is back inside; every other rule
      is the same as for ``inside``, so a box reported inside one day is reported as a
@@ -78,8 +79,10 @@ How it works
 4. Selection.  Each anchor keeps the window with the best selection score (switches,
    touches, quality, fewer violations, slightly longer preferred).  The winner's start
    is then extended back over bars that already ranged inside the same box, when the
-   longer box still validates.  A box passed in as ``hint`` (the stock's rectangle from
-   the previous scan) is re-checked on every anchor as one more candidate.  The best
+   longer box still validates; its first touch then needs only the settled approach
+   (the first bounce after the trend leg into the range opens the box).  A box passed in
+   as ``hint`` (the stock's rectangle from the previous scan) is re-checked, with the
+   same settled approach, on every anchor as one more candidate.  The best
    candidate wins.
 
 Quality (0-100) scores how textbook the box is; it is the sum of
@@ -125,8 +128,10 @@ DEFAULT_PARAMS: dict = {
     "poke_clip": 2.0,                # pokes enter the flatness fit clipped at line +/- this * band
     "pivot_strength": 2,             # bars on each side of a swing pivot
     "max_skip_peaks": 2,             # isolated spikes that may be skipped when placing a line
-    "approach_lookback": 15,         # the first touch must be approached from retreat_frac * height
-                                     #   away within this many bars (not a pause in the trend leg)
+    "approach_frac": 0.45,           # the first touch must be approached from this * height away
+    "approach_lookback": 15,         #   within this many bars (not a pause in the trend leg) ...
+    "settled_approach_frac": 0.3,    # ... or from this fraction when a box already found from a
+                                     #   later start is extended back (or re-checked from a hint)
     # --- flatness ----------------------------------------------------------------
     "max_drift_frac": 0.25,          # a side's touch line moves <= this * height over the span
     "drift_min_span_frac": 0.5,      #   of its touches, but at least this fraction of the box
@@ -378,21 +383,23 @@ class _Series:
         return (self.tr_cum[e + 1] - self.tr_cum[s]) / (e - s + 1)
 
 
-def _evaluate_box(ser, s, e, mode, T, B):
+def _evaluate_box(ser, s, e, mode, T, B, settled=False):
     """Validate the box [B, T] over bars s..e (anchor mode "inside" / "up" / "down").
 
     Returns a dict describing the rectangle, or None when a rule fails.  A recent
     excursion that qualifies as a failed breakout may also be short enough to pass as
-    an ordinary false breakout; both readings are tried and the better one kept."""
-    m, used_failed = _evaluate_reading(ser, s, e, mode, T, B, allow_failed=True)
+    an ordinary false breakout; both readings are tried and the better one kept.
+    settled: the box was already established (extension of a found box, or a hint), so
+    its first touch only needs the shorter ``settled_approach_frac`` approach."""
+    m, used_failed = _evaluate_reading(ser, s, e, mode, T, B, True, settled)
     if used_failed:
-        alt, _ = _evaluate_reading(ser, s, e, mode, T, B, allow_failed=False)
+        alt, _ = _evaluate_reading(ser, s, e, mode, T, B, False, settled)
         if alt is not None and (m is None or alt["sel"] > m["sel"]):
             m = alt
     return m
 
 
-def _evaluate_reading(ser, s, e, mode, T, B, allow_failed):
+def _evaluate_reading(ser, s, e, mode, T, B, allow_failed, settled=False):
     """One reading of ``_evaluate_box``; returns (result or None, whether the latest
     excursion was read as a failed breakout)."""
     P = ser.P
@@ -412,8 +419,9 @@ def _evaluate_reading(ser, s, e, mode, T, B, allow_failed):
     buf = P["breakout_buffer_atr"] * atr
 
     # --- the window starts with a genuine test of one of the lines -------------------
-    if not ((ser.ph[s] and H[s] >= T - band and ser.pre_lo[s] <= T - retreat)
-            or (ser.pl[s] and L[s] <= B + band and ser.pre_hi[s] >= B + retreat)):
+    approach = (P["settled_approach_frac"] if settled else P["approach_frac"]) * height
+    if not ((ser.ph[s] and H[s] >= T - band and ser.pre_lo[s] <= T - approach)
+            or (ser.pl[s] and L[s] <= B + band and ser.pre_hi[s] >= B + approach)):
         return None, failed is not None
     bars = e - s + 1
     c = ser.C[s:e + 1]
@@ -700,14 +708,16 @@ def _extend_start(ser, best, e, mode):
     """The same box may have begun earlier than the window the scan settled on (that
     window's own swing extremes gave slightly different lines).  Walk back over bars
     whose closes stay inside the box and re-validate it, lines fixed, from earlier swing
-    pivots; the earliest start that validates and scores no worse wins."""
+    pivots; the earliest start that validates and scores no worse wins.  The box is
+    already established, so an earlier first touch needs only the settled approach
+    (the bounce that opened the range after the trend leg into it, say)."""
     T, B, s = best["T"], best["B"], best["s"]
     lo = max(0, e - ser.P["max_bars"] + 1)
     i = s - 1
     while i >= lo and B - best["buf"] <= ser.C[i] <= T + best["buf"]:
         i -= 1
     for s2 in (np.flatnonzero(ser.ph[i + 1:s] | ser.pl[i + 1:s]) + i + 1).tolist():
-        r = _evaluate_box(ser, s2, e, mode, T, B)
+        r = _evaluate_box(ser, s2, e, mode, T, B, settled=True)
         if r is not None and r["sel"] >= best["sel"]:
             return r
     return best
@@ -780,13 +790,13 @@ def _hinted(ser, index, hint, P):
         return []
     n = len(ser.C)
     out = []
-    r = _evaluate_box(ser, s, n - 1, "inside", T, B)
+    r = _evaluate_box(ser, s, n - 1, "inside", T, B, settled=True)
     if r is not None:
         r["status"], r["k"] = "inside", None
         out.append(r)
     for kb in range(max(s + P["min_bars"], n - 1 - P["max_breakout_age"]), n):
         for mode, status in (("up", "breakout_up"), ("down", "breakout_down")):
-            r = _evaluate_box(ser, s, kb - 1, mode, T, B)
+            r = _evaluate_box(ser, s, kb - 1, mode, T, B, settled=True)
             if r is not None:
                 r["status"], r["k"] = status, kb
                 out.append(r)

@@ -87,6 +87,8 @@ h1 em{font-style:italic;color:var(--accent)}
 .badge.up{background:var(--up-soft);color:var(--up)}
 .badge.down{background:var(--down-soft);color:var(--down)}
 .badge.warn{background:#fdf3e2;color:#92400e;font-weight:500}
+.badge.conf{background:none;box-shadow:inset 0 0 0 1px currentColor;font-weight:500}
+.badge.conf.up{color:var(--up)}.badge.conf.down{color:var(--down)}
 .cell-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-mute)}
 .cell-val{font-size:.92rem;font-variant-numeric:tabular-nums;color:var(--ink)}
 .cell-val .muted{color:var(--ink-mute)}
@@ -178,16 +180,20 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
         <label class="field">Breakout age<select id="age">
           <option value="0">Latest session</option><option value="3">≤ 3 sessions ago</option><option value="5" selected>≤ 5 sessions ago</option><option value="10">≤ 10 sessions ago</option>
         </select></label>
+        <label class="field" id="conf-label">Breakout confirmed<select id="conf" aria-describedby="conf-help">
+          <option value="">Any</option><option value="yes">Closed 3%+ past line</option><option value="no">Not yet</option>
+        </select></label>
         <label class="field">Quality<select id="minq">
           <option value="0">Any</option><option value="55">55+ solid</option><option value="60">60+ textbook</option>
         </select></label>
         <label class="field" id="vol-label">Volume in box<select id="vol" aria-describedby="vol-help">
-          <option value="">Any</option><option value="down">Declining throughout</option><option value="down30">Declining 30%+ throughout</option><option value="not">Not declining</option>
+          <option value="">Any</option><option value="down">Declining</option><option value="down30">Declining 30%+</option><option value="steady">Declining steadily</option><option value="not">Not declining</option>
         </select></label>
         <label class="field">Sort<select id="sort">
           <option value="quality">Pattern quality</option><option value="recent">Newest breakout</option><option value="voldry">Volume dry-up</option><option value="bvol">Breakout volume</option><option value="length">Longest range</option><option value="tight">Tightest range</option><option value="cap">Market cap</option><option value="symbol">Ticker A–Z</option>
         </select></label>
         <span class="sr-only" id="vol-help"></span>
+        <span class="sr-only" id="conf-help"></span>
         <button class="more" type="button" id="more" aria-expanded="false" aria-controls="adv">More filters <span class="n" id="adv-count" hidden></span></button>
         <button class="reset" type="button" id="reset">Reset</button>
       </div>
@@ -216,6 +222,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
           <div class="adv-title">Breakouts</div>
           <p class="adv-note">Applies to breakouts and breakdowns.</p>
           <div class="range" data-range="bv"><span>Breakout volume (× avg)</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Breakout volume (× avg), minimum"><input type="number" inputmode="decimal" min="0" step="any" placeholder="max" aria-label="Breakout volume (× avg), maximum"></div>
+          <div class="range" data-range="cb"><span>Furthest close past line (% of price)</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Furthest close past line (% of price), minimum"><input type="number" inputmode="decimal" min="0" step="any" placeholder="max" aria-label="Furthest close past line (% of price), maximum"></div>
           <div class="range" data-range="ext"><span>Beyond the line (% of height)</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Beyond the line (% of height), minimum"><input type="number" inputmode="decimal" min="0" step="any" placeholder="max" aria-label="Beyond the line (% of height), maximum"></div>
         </div>
         <div class="adv-group">
@@ -270,7 +277,8 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
             <li><strong>Touches</strong> — distinct tests of resistance (T) and support (B).</li>
             <li><strong>Target</strong> — the classic measured move: the box height projected from the broken line.</li>
             <li><strong>Vol ×</strong> — breakout-day volume against the prior 50-day average.</li>
-            <li><strong>Vol ↓ −32%</strong> (under the box) — the volume trend across the whole pattern: a robust trend line through every session's volume, first session to last. The ↓ marks volume <em>declining throughout</em>: each third of the box traded at least <span data-param="volume_step_pct">5</span>% less (median) than the third before it, the trend fell at least <span data-param="volume_decline_abs">15</span>%, the decline passes a trend test (it isn't noise), and volume didn't pick back up in the final week. Volume usually dries up as a rectangle matures; a breakout on heavy volume is the classic confirmation.</li>
+            <li><strong>Vol ↓ −32%</strong> (under the box) — the volume trend across the whole pattern: a robust trend line through the volume of every session in the box, first session to last (the dashed line on the chart's volume bars). Sessions that closed outside the box are left out: that volume belongs to a breakout attempt. The ↓ marks <em>declining</em> volume: the trend line fell at least <span data-param="volume_decline_abs">15</span>%, the last third of the box traded at least as much less than the first, and the decline passes a trend test (it isn't noise). <em>Declining steadily</em> is stricter: each third traded at least <span data-param="volume_step_pct">5</span>% less than the one before and volume didn't pick back up in the final week. Volume usually dries up as a rectangle matures; a breakout on heavy volume is the classic confirmation.</li>
+            <li><strong>Confirmed</strong> — a daily close at least <span data-param="confirm_pct">3</span>% past the broken line (above resistance for a breakout, below support for a breakdown). Until then the row shows how far past the line the latest close is.</li>
             <li><strong>Quality</strong> — how textbook the box is: many alternating touches, tight flat lines, clean containment, balanced fill. 60+ is the cleanest tier; lower scores are looser ranges worth a second look.</li>
           </ul>
         </div>
@@ -296,6 +304,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     vt: { get: r => r.volume_trend_pct },
     pos: { get: r => r.position_pct, scope: 'inside' },
     bv: { get: r => r.breakout_volume_ratio, scope: 'breakout' },
+    cb: { get: r => r.max_close_beyond_pct, scope: 'breakout' },
     ext: { get: r => r.extension_pct, scope: 'breakout' },
     px: { get: r => r.close },
     cap: { get: r => r.market_cap / 1e9 },
@@ -304,10 +313,10 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     chg: { get: r => r.change_pct },
   };
   const RANGE_KEYS = Object.keys(RANGE).flatMap(k => [k + 'min', k + 'max']);
-  const state = { status: 'all', q: '', sector: '', age: 5, minq: 0, vol: '', sort: 'quality', pos: '', fb: '', exch: '', ind: '' };
+  const state = { status: 'all', q: '', sector: '', age: 5, conf: '', minq: 0, vol: '', sort: 'quality', pos: '', fb: '', exch: '', ind: '' };
   for (const k of RANGE_KEYS) state[k] = null;
   const DEFAULTS = { ...state };
-  const SELECTS = ['sector', 'age', 'minq', 'vol', 'sort', 'pos', 'fb', 'exch'];
+  const SELECTS = ['sector', 'age', 'conf', 'minq', 'vol', 'sort', 'pos', 'fb', 'exch'];
   const TEXTS = ['q', 'ind'];
   // what a typed min/max field holds: tolerant of "2,000", "$50", "15%" and a typographic minus
   const parseTyped = v => { const t = String(v).replace(/[,$%\s]/g, '').replace(/\u2212/g, '-'); const n = t === '' ? NaN : Number(t); return Number.isFinite(n) ? n : null; };
@@ -321,6 +330,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
   const VOLUME = {
     down: r => r.volume_declining,
     down30: r => r.volume_declining && r.volume_trend_pct <= -30,
+    steady: r => r.volume_steady,
     not: r => !r.volume_declining,
   };
   let DATA = null, CHARTS = null, chartsPromise = null;
@@ -390,7 +400,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     const inside = state.status === 'all' || state.status === 'inside';
     const breakout = state.status === 'all' || isBreakout(state.status);
     for (const el of [$('#pos'), ...document.querySelectorAll('[data-range="pos"] input')]) el.disabled = !inside;
-    for (const el of document.querySelectorAll('[data-range="bv"] input, [data-range="ext"] input')) el.disabled = !breakout;
+    for (const el of [$('#conf'), ...document.querySelectorAll('[data-range="bv"] input, [data-range="cb"] input, [data-range="ext"] input')]) el.disabled = !breakout;
     const active = activeAdvanced();
     $('#adv-count').textContent = active;
     $('#adv-count').hidden = !active;
@@ -403,6 +413,8 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     if (state.sector && r.sector !== state.sector) return false;
     if (r.quality < state.minq) return false;
     if (isBreakout(r.status) && r.days_since_breakout > state.age) return false;
+    // like the age filter, confirmation leaves stocks still inside their box alone
+    if (state.conf && isBreakout(r.status) && (state.conf === 'yes') !== !!r.confirmed_date) return false;
     if (state.vol && !VOLUME[state.vol](r)) return false;
     if (state.exch && r.exchange !== state.exch) return false;
     const ind = state.ind.trim().toLowerCase();
@@ -479,7 +491,8 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
         <div class="posbar" title="${toTop.toFixed(1)}% below resistance · ${toBot.toFixed(1)}% above support"><i style="left:${p}%"></i></div>`;
     }
     const vol = r.breakout_volume_ratio != null ? ` · vol ${r.breakout_volume_ratio.toFixed(1)}×` : '';
-    return `<div class="status-detail">${ago(r.days_since_breakout)}${vol}</div>`;
+    const past = !r.confirmed_date && r.close_beyond_pct != null ? ` · ${r.close_beyond_pct.toFixed(1)}% past line` : '';
+    return `<div class="status-detail">${ago(r.days_since_breakout)}${vol}${past}</div>`;
   }
 
   function rowHTML(r) {
@@ -488,6 +501,8 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
       : r.status === 'inside'
         ? `<span class="badge warn" title="Closed back inside after a ${r.failed_breakout === 'up' ? 'breakout' : 'breakdown'}">failed ${r.failed_breakout === 'up' ? '↑' : '↓'}</span>`
         : `<span class="badge warn" title="An earlier ${r.failed_breakout === 'up' ? 'breakout' : 'breakdown'} attempt from this box fell back inside first">2nd try</span>`;
+    const conf = r.confirmed_date && isBreakout(r.status)
+      ? `<span class="badge conf ${st.cls}" title="Closed ${confirmPct()}%+ ${r.status === 'breakout_up' ? 'above resistance' : 'below support'} on ${fmtDate(r.confirmed_date)}">✓ confirmed</span>` : '';
     const chg = r.change_pct != null ? `<span style="color:${r.change_pct >= 0 ? 'var(--up)' : 'var(--down)'}">${fmtSigned(r.change_pct, 2)}</span>` : '';
     return `<article class="row" data-sym="${esc(r.symbol)}">
       <button class="row-main" type="button" aria-expanded="false" aria-controls="d-${esc(r.symbol)}">
@@ -497,8 +512,8 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
           <div class="name" title="${esc(r.name)}">${esc(r.name)}</div>
           <div class="sub">${fmtPrice(r.close)} ${chg}</div>
         </div>
-        <div class="c-status"><div style="display:flex;gap:6px;flex-wrap:wrap"><span class="badge ${st.cls}">${st.label}</span>${failed}</div>${statusDetail(r)}</div>
-        <div class="c-box"><div class="cell-label">Box</div><div class="cell-val">${fmtPrice(r.bottom)}–${fmtPrice(r.top)}</div><div class="sub">${fmtPct(r.height_pct)} tall${r.volume_trend_pct != null ? ` · <span${r.volume_declining ? ' class="vdown" title="Volume declining throughout the box"' : ''}>vol ${r.volume_declining ? '↓ ' : ''}${fmtSigned(r.volume_trend_pct, 0)}</span>` : ''}</div></div>
+        <div class="c-status"><div style="display:flex;gap:6px;flex-wrap:wrap"><span class="badge ${st.cls}">${st.label}</span>${conf}${failed}</div>${statusDetail(r)}</div>
+        <div class="c-box"><div class="cell-label">Box</div><div class="cell-val">${fmtPrice(r.bottom)}–${fmtPrice(r.top)}</div><div class="sub">${fmtPct(r.height_pct)} tall${r.volume_trend_pct != null ? ` · <span${r.volume_declining ? ` class="vdown" title="Volume declining${r.volume_steady ? ' steadily' : ''} across the box"` : ''}>vol ${r.volume_declining ? '↓ ' : ''}${fmtSigned(r.volume_trend_pct, 0)}</span>` : ''}</div></div>
         <div class="c-len"><div class="cell-label">Length</div><div class="cell-val">${weeks(r.bars)}</div><div class="sub">${r.top_touches}T · ${r.bottom_touches}B touches</div></div>
         <div class="c-q q"><div class="cell-label">Quality</div><div class="qbar"><i style="width:${Math.max(4, Math.min(100, r.quality))}%"></i></div><div class="sub">${Math.round(r.quality)}/100</div></div>
         <svg class="chev c-chev" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 8l5 5 5-5"/></svg>
@@ -519,10 +534,20 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
   }
 
   function volumeLabel(r) {
-    if (r.volume_declining) return 'Declining throughout';
+    if (r.volume_declining) return r.volume_steady ? 'Declining steadily' : 'Declining';
     const cut = Math.abs(DATA.params.volume_decline_pct ?? -15), th = r.volume_thirds || [100, 100, 100];
     if (Math.max(...th) / Math.min(...th) >= 1.25 && Math.abs(r.volume_trend_pct) < cut) return th[1] > Math.max(th[0], th[2]) ? 'Uneven, peaked mid-box' : th[1] < Math.min(th[0], th[2]) ? 'Uneven, dipped mid-box' : 'Uneven';
-    return r.volume_trend_pct <= -cut ? 'Down, not steadily' : r.volume_trend_pct >= cut ? 'Rising' : 'Flat';
+    return r.volume_trend_pct <= -cut ? 'Down, but unevenly' : r.volume_trend_pct >= cut ? 'Rising' : 'Flat';
+  }
+
+  // the close that confirms a break of the top (up) or the bottom (down)
+  const confirmPct = () => DATA.params.confirm_pct ?? 3;
+  const confirmLevel = (r, up) => up ? r.top * (1 + confirmPct() / 100) : r.bottom * (1 - confirmPct() / 100);
+  function confirmText(r) {
+    if (r.status === 'inside') return `on a close ≥ ${fmtPrice(confirmLevel(r, true))} or ≤ ${fmtPrice(confirmLevel(r, false))}`;
+    const up = r.status === 'breakout_up', best = r.max_close_beyond_pct;
+    if (r.confirmed_date) return `Confirmed ${fmtDate(r.confirmed_date)}${best != null ? ` <span class="muted">· furthest close ${best.toFixed(1)}% past line</span>` : ''}`;
+    return `Not yet <span class="muted">· needs a close ${up ? '≥' : '≤'} ${fmtPrice(confirmLevel(r, up))}${best != null ? `; furthest so far ${best.toFixed(1)}%` : ''}</span>`;
   }
 
   function stat(label, val) { return `<div class="stat"><div class="cell-label">${label}</div><div class="cell-val">${val}</div></div>`; }
@@ -535,11 +560,15 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     if (r.status === 'inside') {
       st.push(stat('To resistance', fmtSigned((r.top / r.close - 1) * 100)), stat('To support', fmtSigned((r.bottom / r.close - 1) * 100)));
       if (r.failed_breakout) st.push(stat('Note', `Failed ${r.failed_breakout === 'up' ? 'breakout' : 'breakdown'}`));
+      st.push(stat(`Confirms (${confirmPct()}%)`, confirmText(r)));
     } else {
       if (r.failed_breakout) st.push(stat('Note', `Second attempt: an earlier ${r.failed_breakout === 'up' ? 'breakout' : 'breakdown'} fell back inside`));
       st.push(stat('Breakout', `${fmtDate(r.breakout_date)} (${ago(r.days_since_breakout)})`));
       st.push(stat('Breakout vol', r.breakout_volume_ratio != null ? `${r.breakout_volume_ratio.toFixed(2)}× avg` : '–'));
-      st.push(stat('Beyond line', r.extension_pct != null ? `${r.extension_pct.toFixed(0)}% of height` : '–'));
+      st.push(stat(`Confirmation (${confirmPct()}%)`, confirmText(r)));
+      st.push(stat('Beyond line', r.close_beyond_pct != null
+        ? `${r.close_beyond_pct.toFixed(1)}%${r.extension_pct != null ? ` <span class="muted">· ${r.extension_pct.toFixed(0)}% of height</span>` : ''}`
+        : r.extension_pct != null ? `${r.extension_pct.toFixed(0)}% of height` : '–'));
       st.push(stat('Measured target', fmtPrice(r.target)));
     }
     st.push(stat('Volume in box', r.volume_trend_pct != null
@@ -551,8 +580,9 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
         <div class="legend">
           <span><i class="sw" style="background:var(--accent-soft);border:1px solid var(--box)"></i>Rectangle</span>
           <span><svg width="10" height="10"><circle cx="5" cy="5" r="3.5" fill="#fff" stroke="var(--box)" stroke-width="1.6"/></svg>Touch</span>
-          ${r.volume_trend_pct != null ? `<span><i class="sw" style="height:0;border-top:2px solid var(--ink-soft)"></i>Volume median by third of the box</span>` : ''}
+          ${r.volume_line ? `<span><i class="sw" style="height:0;border-top:2px dashed var(--ink-soft)"></i>Volume trend in box</span>` : ''}
           ${isBreakout(r.status) ? `<span><svg width="12" height="10"><path d="${r.status === 'breakout_up' ? 'M6 1l5 8H1z' : 'M6 9l5-8H1z'}" fill="${STATUS[r.status].color}"/></svg>${r.status === 'breakout_up' ? 'Breakout' : 'Breakdown'} close</span>` : ''}
+          ${isBreakout(r.status) ? `<span><i class="sw" style="height:0;border-top:1.5px dotted ${STATUS[r.status].color}"></i>${confirmPct()}% confirmation</span>` : ''}
           ${r.target != null ? `<span><i class="sw" style="height:0;border-top:1.5px dashed ${STATUS[r.status].color}"></i>Target</span>` : ''}
         </div>
         <div class="hover-read" data-read aria-live="polite"></div>
@@ -597,6 +627,8 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     let lo = Math.min(...c.l.filter(Number.isFinite), r.bottom), hi = Math.max(...c.h.filter(Number.isFinite), r.top);
     const span0 = (hi - lo) || Math.abs(hi) * 0.02 || 1;
     const target = r.target;
+    const confirm = isBreakout(r.status) ? confirmLevel(r, r.status === 'breakout_up') : null;
+    if (confirm != null) { hi = Math.max(hi, confirm); lo = Math.min(lo, confirm); }
     if (target != null && target > hi && target - hi < span0 * 0.35) hi = target;
     if (target != null && target < lo && lo - target < span0 * 0.35) lo = target;
     const pad = ((hi - lo) || span0) * 0.05; lo -= pad; hi += pad;
@@ -623,6 +655,9 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
       el('line', { x1: X(i0) - step / 2, x2: X(boxEnd) + step / 2, y1: Y(v), y2: Y(v), stroke: 'var(--box)', 'stroke-width': 1.6 }, svg);
       if (boxEnd < n - 1) el('line', { x1: X(boxEnd) + step / 2, x2: X(n - 1) + step / 2, y1: Y(v), y2: Y(v), stroke: 'var(--box)', 'stroke-width': 1, 'stroke-dasharray': '4 4', 'stroke-opacity': .7 }, svg);
     }
+    if (confirm != null) {
+      el('line', { x1: X(i1) + step / 2, x2: X(n - 1) + step / 2, y1: Y(confirm), y2: Y(confirm), stroke: STATUS[r.status].color, 'stroke-width': 1.3, 'stroke-dasharray': '1.5 3', 'stroke-linecap': 'round' }, svg);
+    }
     const targetOnChart = target != null && target >= lo && target <= hi;
     if (targetOnChart) {
       el('line', { x1: X(i1) + step / 2, x2: X(n - 1) + step / 2, y1: Y(target), y2: Y(target), stroke: STATUS[r.status].color, 'stroke-width': 1.3, 'stroke-dasharray': '5 4' }, svg);
@@ -635,20 +670,15 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
       const h = volH * v / vmax;
       el('rect', { x: X(i) - Math.max(.5, step * 0.35), y: H - padB - h, width: Math.max(1, step * 0.7), height: h, fill: c.c[i] >= c.o[i] ? 'var(--candle-up)' : 'var(--candle-down)', 'fill-opacity': i >= i0 && i <= boxEnd ? .28 : .16 }, svg);
     });
-    // median volume of each third of the box (the "Volume in box" thirds; same rule as
-    // the build: sessions with a volume print, split by count)
-    if (r.volume_trend_pct != null) {
-      const fs = full.d.indexOf(r.start), fe = full.d.indexOf(r.end);
-      const pts = [];
-      for (let i = fs; i >= 0 && i <= fe; i++) if (Number.isFinite(full.v[i]) && full.v[i] > 0) pts.push([i, full.v[i]]);
-      const k = Math.floor(pts.length / 3);
-      const med = a => { const v = a.map(p => p[1]).sort((x, y) => x - y); return (v[(v.length - 1) >> 1] + v[v.length >> 1]) / 2; };
-      if (k >= 3) for (const part of [pts.slice(0, k), pts.slice(k, pts.length - k), pts.slice(-k)]) {
-        const a = part[0][0] - s0, b = part[part.length - 1][0] - s0;
-        if (b < 0) continue;            // scrolled off a narrow chart
-        const y = H - padB - volH * Math.min(1, med(part) / vmax);
-        el('line', { x1: X(Math.max(0, a)) - step / 2, x2: X(b) + step / 2, y1: y, y2: y, stroke: 'var(--ink-soft)', 'stroke-width': 2, 'stroke-linecap': 'round' }, svg);
-      }
+    // the "Volume in box" trend line, first to last session of the box (exponential in
+    // time, so interpolate in log space when the box start is scrolled off a narrow chart)
+    const fs = full.d.indexOf(r.start), fe = full.d.indexOf(r.end);
+    if (r.volume_line && fs >= 0 && fe > fs && fe >= s0 && r.volume_line.every(v => v > 0)) {
+      const [v0, v1] = r.volume_line;
+      const at = i => v0 * Math.pow(v1 / v0, (i - fs) / (fe - fs));
+      const a = Math.max(fs, s0);
+      const vy = v => H - padB - volH * Math.min(1, v / vmax);
+      el('line', { x1: X(a - s0), x2: X(fe - s0), y1: vy(at(a)), y2: vy(at(fe)), stroke: 'var(--ink-soft)', 'stroke-width': 2, 'stroke-dasharray': '5 4', 'stroke-linecap': 'round' }, svg);
     }
 
     // candles: hollow up / solid down while there is room, solid fills when narrow
@@ -685,6 +715,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     ];
     const lastClose = c.c[n - 1];
     if (Number.isFinite(lastClose)) tags.push({ y: Y(lastClose), label: lastClose.toFixed(2), fill: 'var(--ink)' });
+    if (confirm != null) tags.push({ y: Y(confirm), label: confirm.toFixed(2), fill: STATUS[r.status].color, dim: true });
     if (target != null) {
       const above = target > hi;
       tags.push(targetOnChart
@@ -698,8 +729,8 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
       tags[k].y = Math.min(tags[k].y, k === tags.length - 1 ? yMax : tags[k + 1].y - TAG_H - GAP);
     }
     for (const t of tags) {
-      el('rect', { x: W - padR + 4, y: t.y - TAG_H / 2, width: padR - 6, height: TAG_H, rx: 4, fill: t.fill }, svg);
-      const tx = el('text', { x: W - padR + 4 + (padR - 6) / 2, y: t.y + 4, 'font-size': 11, 'text-anchor': 'middle', fill: '#fff', 'font-weight': 600 }, svg);
+      el('rect', { x: W - padR + 4, y: t.y - TAG_H / 2, width: padR - 6, height: TAG_H, rx: 4, ...(t.dim ? { fill: 'var(--surface)', stroke: t.fill, 'stroke-width': 1.2 } : { fill: t.fill }) }, svg);
+      const tx = el('text', { x: W - padR + 4 + (padR - 6) / 2, y: t.y + 4, 'font-size': 11, 'text-anchor': 'middle', fill: t.dim ? t.fill : '#fff', 'font-weight': 600 }, svg);
       tx.textContent = t.label;
     }
 
@@ -814,8 +845,12 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     $('#sector').insertAdjacentHTML('beforeend', sectors.map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join(''));
     const p = DATA.params || {};
     if (p.volume_decline_pct != null) p.volume_decline_abs = Math.abs(p.volume_decline_pct);
-    const help = `Declining throughout: each third of the box traded at least ${p.volume_step_pct ?? 5}% less volume than the one before, the volume trend fell at least ${p.volume_decline_abs ?? 15}%, the decline is statistically significant, and volume did not pick back up in the final week.`;
+    const help = `Declining: the volume trend line across the box fell at least ${p.volume_decline_abs ?? 15}%, the last third traded at least that much less than the first, and the decline is statistically significant. Declining steadily: also each third traded at least ${p.volume_step_pct ?? 5}% less than the one before, and volume did not pick back up in the final week.`;
     $('#vol-label').title = help; $('#vol-help').textContent = help;
+    const cp = p.confirm_pct ?? 3;
+    $('#conf option[value="yes"]').textContent = `Closed ${cp}%+ past line`;
+    const chelp = `A breakout is confirmed by a daily close at least ${cp}% above resistance (a breakdown: ${cp}% below support). Applies to breakouts and breakdowns; stocks still inside their box are not affected.`;
+    $('#conf-label').title = chelp; $('#conf-help').textContent = chelp;
     document.querySelectorAll('[data-param]').forEach(el => { if (p[el.dataset.param] != null) el.textContent = p[el.dataset.param]; });
   }
 

@@ -53,9 +53,11 @@ NOT_COMMON = re.compile(
     re.I,
 )
 
-VOLUME_DECLINE_PCT = -15.0  # "declining throughout": trend line down at least this much,
-VOLUME_STEP_PCT = 5.0       # and each third of the box at least this much below the one before,
-VOLUME_TREND_P = 0.05       # and a Mann-Kendall decline this significant (see volume_profile)
+VOLUME_DECLINE_PCT = -15.0  # "declining": trend line and last third vs first third down at least this much,
+VOLUME_TREND_P = 0.10       #   and a Mann-Kendall decline this significant (see volume_profile);
+VOLUME_STEP_PCT = 5.0       # "steadily": each third of the box at least this much below the one before,
+VOLUME_STEADY_P = 0.05      #   and a Mann-Kendall decline this significant
+CONFIRM_PCT = 3.0  # a breakout is confirmed by a daily close this far beyond the broken line (% of the line)
 MIN_COVERAGE = 0.8  # share of the universe that must have data through the scan date
 MIN_BARS = 60
 THUMB_POINTS = 90
@@ -166,33 +168,78 @@ def _round_hit(hit: dict) -> dict:
     return out
 
 
-def volume_profile(volume) -> dict | None:
-    """How volume behaved across a box (sessions with a volume print only).
+def volume_profile(volume, keep=None) -> dict | None:
+    """How volume behaved across a box.
 
-    trend_pct  change of a robust trend line through the log volume of every session
-               (Theil-Sen: the median of all pairwise slopes), first to last session, in %
-    thirds     median volume of the box's first, middle and last third, as % of the first
-    declining  volume falls throughout the box:
-               - each third trades at least VOLUME_STEP_PCT less than the one before,
-               - the trend line is down at least VOLUME_DECLINE_PCT,
-               - the decline is not noise (one-sided Mann-Kendall test, p < VOLUME_TREND_P),
-               - and it did not pick back up at the end: the last week and the last sixth
-                 of the box trade no more than the middle third
+    volume     the box's sessions in order; keep optionally masks the ones to use (the
+               build leaves out sessions that closed beyond a line: that volume belongs
+               to a breakout attempt, not to the range).  Sessions without a volume print
+               are skipped; the rest keep their place in time.
+    trend_pct  change of a robust trend line through the log volume (Theil-Sen: the
+               median of all pairwise slopes), first to last session of the box, in %
+    line       that trend line's volume at the box's first and last session
+    thirds     median volume of the first, middle and last third of the sessions used,
+               as % of the first
+    declining  the trend line is down at least VOLUME_DECLINE_PCT, the last third trades
+               at least that much below the first, and the decline is unlikely to be noise
+               (one-sided Mann-Kendall test, p < VOLUME_TREND_P)
+    steady     declining throughout: also each third at least VOLUME_STEP_PCT below the
+               one before, p < VOLUME_STEADY_P, and no pick-up at the end (the last week
+               and the last sixth trade no more than the middle third)
     None when a third would have fewer than three sessions."""
-    v = np.array([float(x) for x in volume if x is not None and math.isfinite(x) and x > 0])
+    raw = np.asarray(volume, dtype=float)
+    ok = np.isfinite(raw) & (raw > 0)
+    if keep is not None:
+        ok &= np.asarray(keep, dtype=bool)
+    t = np.flatnonzero(ok)
+    v = raw[t]
     n = len(v)
     k = n // 3
     if k < 3:
         return None
     i, j = np.triu_indices(n, 1)
     lv = np.log(v)
-    trend = (math.exp(float(np.median((lv[j] - lv[i]) / (j - i))) * (n - 1)) - 1) * 100
+    slope = float(np.median((lv[j] - lv[i]) / (t[j] - t[i])))
+    level = float(np.median(lv - slope * t))
+    span = len(raw) - 1
+    trend = (math.exp(slope * span) - 1) * 100
     m1, m2, m3 = (float(np.median(part)) for part in (v[:k], v[k:-k], v[-k:]))
+    p_down = _mann_kendall_p_down(v)
+    declining = trend <= VOLUME_DECLINE_PCT and m3 <= m1 * (1 + VOLUME_DECLINE_PCT / 100) and p_down < VOLUME_TREND_P
     step = 1 - VOLUME_STEP_PCT / 100
     late = max(float(np.median(v[-5:])), float(np.median(v[-max(3, n // 6):])))
-    declining = (m2 <= m1 * step and m3 <= m2 * step and trend <= VOLUME_DECLINE_PCT
-                 and _mann_kendall_p_down(v) < VOLUME_TREND_P and late <= m2)
-    return {"trend_pct": trend, "thirds": [100.0, m2 / m1 * 100, m3 / m1 * 100], "declining": bool(declining)}
+    steady = declining and m2 <= m1 * step and m3 <= m2 * step and p_down < VOLUME_STEADY_P and late <= m2
+    return {
+        "trend_pct": trend,
+        "line": [math.exp(level), math.exp(level + slope * span)],
+        "thirds": [100.0, m2 / m1 * 100, m3 / m1 * 100],
+        "declining": bool(declining),
+        "steady": bool(steady),
+    }
+
+
+def confirmation(close: pd.Series, hit: dict) -> dict:
+    """How far the closes since a breakout got beyond the broken line, as % of the line.
+
+    close_beyond_pct      the latest close
+    max_close_beyond_pct  the furthest close since the breakout (breakout day included)
+    confirmed_date        the first close at least CONFIRM_PCT beyond the line, or None
+    All None for a stock still inside its box."""
+    out = {"close_beyond_pct": None, "max_close_beyond_pct": None, "confirmed_date": None}
+    if hit["status"] == "inside" or not hit.get("breakout_date"):
+        return out
+    after = close[close.index >= pd.Timestamp(hit["breakout_date"])].dropna()
+    if after.empty:
+        return out
+    if hit["status"] == "breakout_up":
+        beyond = (after / hit["top"] - 1) * 100
+    else:
+        beyond = (1 - after / hit["bottom"]) * 100
+    hits = beyond[beyond >= CONFIRM_PCT - 1e-9]
+    out["close_beyond_pct"] = _r(beyond.iloc[-1], 2)
+    out["max_close_beyond_pct"] = _r(beyond.max(), 2)
+    out["confirmed_date"] = hits.index[0].strftime("%Y-%m-%d") if len(hits) else None
+    return out
 
 
 def _mann_kendall_p_down(v) -> float:
@@ -287,10 +334,15 @@ def scan(bars: dict[str, pd.DataFrame], universe: list[dict], as_of: pd.Timestam
             "dollar_volume": _r((df["close"] * df["volume"]).iloc[-LIQUIDITY_BARS:].median(), 0),
         }
         row.update(_round_hit(hit))
-        vp = volume_profile(df["volume"].iloc[start_i : end_i + 1].to_numpy())
+        box = df.iloc[start_i : end_i + 1]
+        inside = ((box["close"] <= hit["top"]) & (box["close"] >= hit["bottom"])).to_numpy()
+        vp = volume_profile(box["volume"].to_numpy(), keep=inside)
         row["volume_trend_pct"] = _r(vp["trend_pct"], 1) if vp else None
+        row["volume_line"] = [_r(x, 0) for x in vp["line"]] if vp else None
         row["volume_thirds"] = [_r(x, 0) for x in vp["thirds"]] if vp else None
         row["volume_declining"] = vp["declining"] if vp else False
+        row["volume_steady"] = vp["steady"] if vp else False
+        row.update(confirmation(df["close"], hit))
         # Thumbnail: closes from a little before the rectangle to today, with the
         # rectangle's first/last bar given as fractions of the thumbnail width.
         t0 = max(0, start_i - 15)
@@ -379,7 +431,8 @@ def main(argv=None) -> int:
         "source_note": note,
         "provisional_last_bar": provisional,
         "universe": {"rule": UNIVERSE_RULE, "listed": len(universe), "scanned": stats["scanned"]},
-        "params": {**rectangle.DEFAULT_PARAMS, "volume_decline_pct": VOLUME_DECLINE_PCT, "volume_step_pct": VOLUME_STEP_PCT},
+        "params": {**rectangle.DEFAULT_PARAMS, "volume_decline_pct": VOLUME_DECLINE_PCT, "volume_step_pct": VOLUME_STEP_PCT,
+                   "confirm_pct": CONFIRM_PCT},
         "counts": {k: counts.get(k, 0) for k in ("inside", "breakout_up", "breakout_down")},
         "results": results,
     }

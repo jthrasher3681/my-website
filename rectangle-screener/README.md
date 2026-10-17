@@ -6,7 +6,8 @@ pattern (a flat, horizontal trading range). It lists stocks that are
 - **inside** an active rectangle as of the latest close, or
 - broke out of one **recently** — a decisive close above resistance (bullish)
   or below support (bearish) within the last 10 sessions, with no close back
-  inside since.
+  inside since. A breakout counts as **confirmed** once a daily close has
+  reached 3% past the broken line.
 
 The page (`index.html`) is static. It reads two files that the scan writes:
 
@@ -34,17 +35,47 @@ and then tuned, using three checks:
   one day is shown as a breakout the day it breaks out (whipsaws excepted),
   and boxes that still qualify do not drop out from one day to the next.
 
+A box's first touch must be approached from at least 45% of the box height
+away, so a pause in the trend leg into the range doesn't count as a test of
+the line. Once a box is established from later touches, its start is
+extended back to the first bounce after price entered the range. That bounce
+only needs to come from 30% of the height away. On the Oct 16, 2026 scan this
+moved 9 of 167 box starts earlier (AMT's to Jun 24) and changed nothing
+else.
+
 ## Volume in box
 
-`build.py` adds three volume fields to each row (`volume_profile`):
-`volume_trend_pct`, a Theil-Sen trend line through the log volume of every
-session in the box (first to last session); `volume_thirds`, the median
-volume of each third of the box as % of the first; and `volume_declining`,
-true when volume falls *throughout* the box. That means each third trades at
-least 5% less than the one before, the trend falls at least 15%, a
-Mann-Kendall test says the decline is not noise (p < 0.05), and the last
-week and last sixth of the box trade no more than its middle third (no late
-surge). On trendless random volume the flag fires about 2% of the time.
+`build.py` adds these volume fields to each row (`volume_profile`). Sessions
+in the box that closed beyond a line are left out: that volume belongs to a
+breakout attempt, not to the range.
+
+- `volume_trend_pct`: a Theil-Sen trend line through the log volume of the
+  box's sessions, as the % change from its first to its last session;
+  `volume_line` is that line's volume at both ends (the dashed line on the
+  chart).
+- `volume_thirds`: the median volume of each third of the box, as % of the
+  first.
+- `volume_declining`: the trend line falls at least 15%, the last third
+  trades at least 15% below the first, and a Mann-Kendall test says the
+  decline is unlikely to be noise (p < 0.10). On trendless random volume this
+  fires 4-9% of the time.
+- `volume_steady`: declining *throughout*. Each third also trades at least 5%
+  less than the one before, p < 0.05, and the last week and last sixth of the
+  box trade no more than its middle third (no late surge). This fires about 2%
+  of the time on random volume.
+
+AMT's Jun-Oct 2026 box is the reference case for "declining". Volume is busy
+when price enters the range, quiet through August, and picks up a little in
+September (thirds 100 → 57 → 79, trend −24%). It is declining, but not
+steadily.
+
+## Breakout confirmation
+
+For a breakout row, `confirmation()` measures how far each close since the
+breakout day got past the broken line, as % of the line's price:
+`close_beyond_pct` (latest close), `max_close_beyond_pct` (furthest close)
+and `confirmed_date` (the first close at least `CONFIRM_PCT` = 3% past the
+line, or null). The page filters on it and draws the 3% level on the chart.
 
 ## How a refresh works
 

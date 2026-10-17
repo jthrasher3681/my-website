@@ -161,6 +161,22 @@ class RectangleStatusTests(unittest.TestCase):
         self.assertEqual(rectangle.detect(df, hint={"start": "not-a-date", "top": 1, "bottom": 0}), fresh)
         self.assertEqual(rectangle.detect(df, hint={"top": 110.0}), fresh)
 
+    def test_start_extends_to_the_bounce_after_the_trend_leg(self):
+        # a slide into a 100-110 box, a bounce to the top from a third of the height below
+        # (bar 23), then the range: the box starts at that bounce (AMT, Jun 2026), which a
+        # fresh scan alone would treat as a pause in the slide
+        slide = [(0, 130.0), (20, 106.5), (3, 110.0)]
+        swings = [(8, 100.0), (8, 110.0), (8, 100.0), (8, 110.0), (8, 100.0), (8, 110.0), (6, 104.0)]
+        df = series(slide + swings, seed=1)
+        start = lambda r: df.index.get_loc(pd.Timestamp(r["start"]))
+        r = rectangle.detect(df)
+        self.assertBox(r)
+        self.assertEqual(start(r), 23)
+        self.assertEqual(start(rectangle.detect(df, {"settled_approach_frac": 0.45})), 31)
+        # a shallow pause in the slide is not a first touch
+        df = series([(0, 130.0), (20, 108.8), (3, 110.0)] + swings, seed=1)
+        self.assertEqual(start(rectangle.detect(df)), 31)
+
     def test_stale_breakout_is_out_of_scope(self):
         # broke out 20 bars ago (> max_breakout_age) and kept trending
         df = series(LEAD + BOX + [(1, 114.0), (19, 128.0)])

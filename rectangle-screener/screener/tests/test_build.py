@@ -206,44 +206,85 @@ class BuildHelperTests(unittest.TestCase):
             with open(path) as fh:
                 self.assertEqual(json.load(fh), {"ok": 1})  # previous file left intact
 
-    def test_volume_profile_declining_throughout(self):
+    def test_volume_profile_declining_and_steady(self):
         steps = [100.0] * 10 + [80.0] * 10 + [50.0] * 10
         p = build.volume_profile(steps)
         self.assertEqual([round(x) for x in p["thirds"]], [100, 80, 50])
         self.assertLess(p["trend_pct"], -15)
         self.assertTrue(p["declining"])
+        self.assertTrue(p["steady"])
         # a steady fade with noise is declining throughout
         rng = np.random.default_rng(1)
         fade = list(1e6 * np.linspace(1.0, 0.5, 60) * rng.uniform(0.8, 1.2, 60))
-        self.assertTrue(build.volume_profile(fade)["declining"])
+        self.assertTrue(build.volume_profile(fade)["steady"])
 
-    def test_volume_profile_not_declining_throughout(self):
-        # ends lower than it started, but the middle of the box traded the most
-        bump = [100.0] * 10 + [160.0] * 10 + [60.0] * 10
-        p = build.volume_profile(bump)
-        self.assertLess(p["thirds"][2], p["thirds"][0])
-        self.assertFalse(p["declining"])
-        # steps down but only slightly: not a meaningful decline
-        self.assertFalse(build.volume_profile([100.0] * 10 + [98.0] * 10 + [96.0] * 10)["declining"])
-        # falls, then goes flat (or flat, then falls): not declining *throughout*
-        self.assertFalse(build.volume_profile([100.0] * 10 + [80.0] * 10 + [79.0] * 10)["declining"])
-        self.assertFalse(build.volume_profile([100.0] * 10 + [99.0] * 10 + [60.0] * 10)["declining"])
-        self.assertFalse(build.volume_profile([50.0] * 15 + [100.0] * 15)["declining"])
-
-    def test_volume_profile_late_surge_is_not_declining_throughout(self):
+    def test_volume_profile_declining_but_not_steadily(self):
+        # AMT, Jun-Oct 2026: busy start, quiet middle, a partial pick-up late in the box
+        # (thirds ~100 -> 57 -> 79): the trend line falls, but not every third is lower
+        rng = np.random.default_rng(3)
+        amt = list(np.array([100.0] * 26 + [57.0] * 26 + [79.0] * 26) * rng.uniform(0.85, 1.15, 78))
+        p = build.volume_profile(amt)
+        self.assertTrue(p["declining"])
+        self.assertFalse(p["steady"])
+        # falls, then goes flat (or flat, then falls): not steady
+        for v in ([100.0] * 10 + [80.0] * 10 + [79.0] * 10, [100.0] * 10 + [99.0] * 10 + [60.0] * 10):
+            self.assertFalse(build.volume_profile(v)["steady"])
         # a long fade whose last week trades back above the middle of the box (GEV, EPD)
-        fade = [100.0] * 30 + [85.0] * 30 + [70.0] * 25 + [140.0] * 5
-        p = build.volume_profile(fade)
-        self.assertLessEqual(p["thirds"][1], 95)
+        p = build.volume_profile([100.0] * 30 + [85.0] * 30 + [70.0] * 25 + [140.0] * 5)
         self.assertLessEqual(p["thirds"][2], p["thirds"][1] * 0.95)
-        self.assertFalse(p["declining"])
-        self.assertTrue(build.volume_profile([100.0] * 30 + [85.0] * 30 + [70.0] * 30)["declining"])
+        self.assertFalse(p["steady"])
+        self.assertTrue(build.volume_profile([100.0] * 30 + [85.0] * 30 + [70.0] * 30)["steady"])
+
+    def test_volume_profile_not_declining(self):
+        # steps down only slightly, rises, or the middle traded the most
+        self.assertFalse(build.volume_profile([100.0] * 10 + [98.0] * 10 + [96.0] * 10)["declining"])
+        self.assertFalse(build.volume_profile([50.0] * 15 + [100.0] * 15)["declining"])
+        self.assertFalse(build.volume_profile([100.0] * 10 + [160.0] * 10 + [60.0] * 10)["steady"])
+        # a trend line that falls while the last third trades like the first
+        self.assertFalse(build.volume_profile([100.0] * 10 + [40.0] * 10 + [95.0] * 10)["declining"])
 
     def test_volume_profile_rarely_flags_noise(self):
         rng = np.random.default_rng(7)
         for n in (15, 30, 60):
-            flagged = sum(build.volume_profile(list(np.exp(rng.normal(0, 0.35, n))))["declining"] for _ in range(400))
-            self.assertLess(flagged / 400, 0.05, n)
+            runs = [build.volume_profile(list(np.exp(rng.normal(0, 0.35, n)))) for _ in range(400)]
+            self.assertLess(sum(p["declining"] for p in runs) / 400, 0.12, n)
+            self.assertLess(sum(p["steady"] for p in runs) / 400, 0.05, n)
+
+    def test_volume_profile_keep_and_line(self):
+        decay = [1e6 * 0.99 ** t for t in range(30)]
+        p = build.volume_profile(decay)
+        self.assertAlmostEqual(p["trend_pct"], (0.99 ** 29 - 1) * 100, places=6)
+        self.assertAlmostEqual(p["line"][0], 1e6, delta=1)
+        self.assertAlmostEqual(p["line"][1], 1e6 * 0.99 ** 29, delta=1)
+        # sessions left out (a breakout attempt's heavy volume) neither count nor shift the others in time
+        spiked = list(decay)
+        spiked[20] = spiked[21] = 9e6
+        keep = [i not in (20, 21) for i in range(30)]
+        q = build.volume_profile(spiked, keep=keep)
+        self.assertAlmostEqual(q["trend_pct"], p["trend_pct"], places=6)
+        self.assertAlmostEqual(q["line"][1], p["line"][1], delta=1)
+        self.assertGreater(build.volume_profile(spiked)["trend_pct"], p["trend_pct"])
+
+    def test_confirmation(self):
+        days = pd.bdate_range("2026-10-01", periods=6)
+        close = pd.Series([99.0, 99.5, 101.0, 103.2, 102.5, 102.0], index=days)
+        up = {"status": "breakout_up", "top": 100.0, "bottom": 90.0, "breakout_date": "2026-10-05"}
+        c = build.confirmation(close, up)
+        self.assertEqual(c["confirmed_date"], "2026-10-06")
+        self.assertAlmostEqual(c["max_close_beyond_pct"], 3.2)
+        self.assertAlmostEqual(c["close_beyond_pct"], 2.0)
+        # the breakout day itself can confirm; a close exactly 3% beyond counts
+        down = {"status": "breakout_down", "top": 60.0, "bottom": 50.0, "breakout_date": "2026-10-02"}
+        close = pd.Series([51.0, 49.0, 48.6, 48.5, 49.5, 49.0], index=days)
+        c = build.confirmation(close, down)
+        self.assertEqual(c["confirmed_date"], "2026-10-06")
+        self.assertAlmostEqual(c["max_close_beyond_pct"], 3.0)
+        self.assertAlmostEqual(c["close_beyond_pct"], 2.0)
+        c = build.confirmation(close.iloc[:3], down)
+        self.assertIsNone(c["confirmed_date"])
+        self.assertAlmostEqual(c["max_close_beyond_pct"], 2.8)
+        self.assertEqual(build.confirmation(close, {"status": "inside", "top": 60.0, "bottom": 50.0, "breakout_date": None}),
+                         {"close_beyond_pct": None, "max_close_beyond_pct": None, "confirmed_date": None})
 
     def test_volume_profile_robust_inputs(self):
         # one spike does not move a third's median; missing prints are skipped
