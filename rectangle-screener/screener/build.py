@@ -149,9 +149,10 @@ def _r(x: float, nd: int = 2):
 def _round_hit(hit: dict) -> dict:
     """Trim the detector's floats to what the page displays."""
     out = dict(hit)
-    for k in ("top", "bottom", "target"):
-        if out.get(k) is not None:
-            out[k] = _r(out[k], 2 if abs(out[k]) >= 1 else 4)
+    # top / bottom keep the detector's precision: the next scan re-checks this box
+    # from these numbers (see previous_boxes), and rounding can tip a marginal rule
+    if out.get("target") is not None:
+        out["target"] = _r(out["target"], 2 if abs(out["target"]) >= 1 else 4)
     for k in ("height_pct", "position_pct", "extension_pct", "atr_pct", "breakout_volume_ratio"):
         if out.get(k) is not None:
             out[k] = _r(out[k], 2)
@@ -159,6 +160,19 @@ def _round_hit(hit: dict) -> dict:
         out["quality"] = _r(out["quality"], 1)
     out["touches"] = [{**t, "price": _r(t["price"], 2 if abs(t["price"]) >= 1 else 4)} for t in out.get("touches") or []]
     return out
+
+
+def volume_trend(volume) -> float | None:
+    """Median volume over the last third of a box vs its first third, in % (negative =
+    volume drying up, the classic sign of a maturing rectangle).  Sessions without a
+    volume print are ignored; None when a third has fewer than three of them."""
+    v = [float(x) for x in volume if x is not None and math.isfinite(x) and x > 0]
+    k = len(v) // 3
+    if k < 3:
+        return None
+    first, last = sorted(v[:k]), sorted(v[-k:])
+    med = lambda a: (a[(len(a) - 1) // 2] + a[len(a) // 2]) / 2
+    return (med(last) / med(first) - 1) * 100
 
 
 def thumb(closes) -> list:
@@ -243,6 +257,7 @@ def scan(bars: dict[str, pd.DataFrame], universe: list[dict], as_of: pd.Timestam
             "dollar_volume": _r((df["close"] * df["volume"]).iloc[-LIQUIDITY_BARS:].median(), 0),
         }
         row.update(_round_hit(hit))
+        row["volume_trend_pct"] = _r(volume_trend(df["volume"].iloc[start_i : end_i + 1].to_numpy()), 1)
         # Thumbnail: closes from a little before the rectangle to today, with the
         # rectangle's first/last bar given as fractions of the thumbnail width.
         t0 = max(0, start_i - 15)

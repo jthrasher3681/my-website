@@ -39,7 +39,7 @@ h1 em{font-style:italic;color:var(--accent)}
 .seg button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
 .seg .n{font-variant-numeric:tabular-nums;font-size:.8rem;padding:1px 7px;border-radius:999px;background:var(--line-soft);color:var(--ink-soft)}
 .seg button[aria-pressed="true"] .n{background:rgba(255,255,255,.16);color:var(--bg)}
-.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:end}
+.filters{display:flex;flex-wrap:wrap;gap:10px 8px;align-items:end}
 .field{display:grid;gap:4px;font-size:.74rem;color:var(--ink-mute);text-transform:uppercase;letter-spacing:.05em}
 .field input,.field select{height:38px;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:0 10px;font-size:.92rem;text-transform:none;letter-spacing:0;color:var(--ink);min-width:0}
 .field input{width:140px}
@@ -47,6 +47,23 @@ h1 em{font-style:italic;color:var(--accent)}
 .field input:focus,.field select:focus{outline:2px solid var(--accent-soft);border-color:var(--accent)}
 .field select:disabled{opacity:.45;cursor:not-allowed}
 .reset{height:38px;padding:0 14px;border-radius:10px;border:1px solid transparent;background:none;color:var(--accent);cursor:pointer;font-size:.9rem}
+.more{height:38px;display:inline-flex;align-items:center;gap:8px;padding:0 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:.9rem;font-weight:500}
+.more:hover{border-color:var(--ink-mute)}
+.more[aria-expanded="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.more .n{font-variant-numeric:tabular-nums;font-size:.76rem;padding:1px 7px;border-radius:999px;background:var(--ink);color:var(--bg)}
+.adv{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px 22px;padding:18px 20px;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+.adv[hidden]{display:none}
+.adv-group{display:grid;gap:10px;align-content:start}
+.adv-title{font-size:.8rem;font-weight:600;color:var(--ink)}
+.adv .field select,.adv .field input{width:100%}
+.range{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:.74rem;color:var(--ink-mute);text-transform:uppercase;letter-spacing:.05em}
+.range span{grid-column:1 / -1}
+.range[data-only] input{grid-column:1 / 2}
+.range input{height:36px;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:0 10px;font-size:.92rem;color:var(--ink);min-width:0;width:100%}
+.range input:focus{outline:2px solid var(--accent-soft);border-color:var(--accent)}
+.range input.set{border-color:var(--accent)}
+.range input{-moz-appearance:textfield;appearance:textfield}
+.range input::-webkit-inner-spin-button,.range input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
 .reset:hover{text-decoration:underline}
 .summary{font-size:.88rem;color:var(--ink-mute)}
 
@@ -156,19 +173,55 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
         <label class="field">Breakout age<select id="age">
           <option value="0">Latest session</option><option value="3">≤ 3 sessions ago</option><option value="5" selected>≤ 5 sessions ago</option><option value="10">≤ 10 sessions ago</option>
         </select></label>
-        <label class="field">Min. length<select id="minlen">
-          <option value="0">Any</option><option value="20">4+ weeks</option><option value="40">8+ weeks</option><option value="63">3+ months</option>
-        </select></label>
         <label class="field">Quality<select id="minq">
           <option value="0">Any</option><option value="55">55+ solid</option><option value="60">60+ textbook</option>
         </select></label>
-        <label class="field" title="Applies to stocks inside their range">Position<select id="pos">
-          <option value="">Anywhere</option><option value="top">Near resistance</option><option value="mid">Middle</option><option value="bottom">Near support</option>
+        <label class="field" title="Median volume in the last third of the box vs the first third">Volume in box<select id="vol">
+          <option value="">Any</option><option value="down15">Declining 15%+</option><option value="down30">Drying up 30%+</option><option value="flat">Flat or rising</option>
         </select></label>
         <label class="field">Sort<select id="sort">
-          <option value="quality">Pattern quality</option><option value="recent">Newest breakout</option><option value="length">Longest range</option><option value="tight">Tightest range</option><option value="cap">Market cap</option><option value="symbol">Ticker A–Z</option>
+          <option value="quality">Pattern quality</option><option value="recent">Newest breakout</option><option value="voldry">Volume dry-up</option><option value="bvol">Breakout volume</option><option value="length">Longest range</option><option value="tight">Tightest range</option><option value="cap">Market cap</option><option value="symbol">Ticker A–Z</option>
         </select></label>
+        <button class="more" type="button" id="more" aria-expanded="false" aria-controls="adv">More filters <span class="n" id="adv-count" hidden></span></button>
         <button class="reset" type="button" id="reset">Reset</button>
+      </div>
+      <div class="adv" id="adv" hidden>
+        <div class="adv-group">
+          <div class="adv-title">Pattern</div>
+          <div class="range" data-range="len"><span>Length (weeks)</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Minimum length in weeks"><input type="number" inputmode="decimal" min="0" step="any" placeholder="max" aria-label="Maximum length in weeks"></div>
+          <div class="range" data-range="h"><span>Height (% of support)</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Minimum height %"><input type="number" inputmode="decimal" min="0" step="any" placeholder="max" aria-label="Maximum height %"></div>
+          <div class="range" data-range="tt" data-only="min"><span>Top touches</span><input type="number" inputmode="numeric" min="0" step="1" placeholder="min" aria-label="Minimum top touches"></div>
+          <div class="range" data-range="bt" data-only="min"><span>Bottom touches</span><input type="number" inputmode="numeric" min="0" step="1" placeholder="min" aria-label="Minimum bottom touches"></div>
+          <div class="range" data-range="sw" data-only="min"><span>Crossings (side switches)</span><input type="number" inputmode="numeric" min="0" step="1" placeholder="min" aria-label="Minimum side switches"></div>
+          <div class="range" data-range="vt"><span>Volume trend in box (%)</span><input type="number" inputmode="decimal" step="any" placeholder="min" aria-label="Minimum volume trend %"><input type="number" inputmode="decimal" step="any" placeholder="max" aria-label="Maximum volume trend %"></div>
+        </div>
+        <div class="adv-group">
+          <div class="adv-title">Inside range</div>
+          <label class="field">Position in box<select id="pos">
+            <option value="">Anywhere</option><option value="top">Near resistance</option><option value="mid">Middle</option><option value="bottom">Near support</option>
+          </select></label>
+          <div class="range" data-range="pos"><span>Position (% up the box)</span><input type="number" inputmode="decimal" step="any" placeholder="min" aria-label="Minimum position %"><input type="number" inputmode="decimal" step="any" placeholder="max" aria-label="Maximum position %"></div>
+          <label class="field">Failed breakouts<select id="fb">
+            <option value="">Include</option><option value="hide">Hide</option><option value="only">Only these</option>
+          </select></label>
+        </div>
+        <div class="adv-group">
+          <div class="adv-title">Breakouts</div>
+          <div class="range" data-range="bv"><span>Breakout volume (× avg)</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Minimum breakout volume ratio"><input type="number" inputmode="decimal" min="0" step="any" placeholder="max" aria-label="Maximum breakout volume ratio"></div>
+          <div class="range" data-range="ext"><span>Beyond the line (% of height)</span><input type="number" inputmode="decimal" step="any" placeholder="min" aria-label="Minimum extension %"><input type="number" inputmode="decimal" step="any" placeholder="max" aria-label="Maximum extension %"></div>
+        </div>
+        <div class="adv-group">
+          <div class="adv-title">Stock</div>
+          <div class="range" data-range="px"><span>Price ($)</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Minimum price"><input type="number" inputmode="decimal" min="0" step="any" placeholder="max" aria-label="Maximum price"></div>
+          <div class="range" data-range="cap"><span>Market cap ($B)</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Minimum market cap in billions"><input type="number" inputmode="decimal" min="0" step="any" placeholder="max" aria-label="Maximum market cap in billions"></div>
+          <div class="range" data-range="dv" data-only="min"><span>Traded per day ($M)</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Minimum dollar volume in millions"></div>
+          <div class="range" data-range="atr"><span>ATR (14) %</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="min" aria-label="Minimum ATR %"><input type="number" inputmode="decimal" min="0" step="any" placeholder="max" aria-label="Maximum ATR %"></div>
+          <div class="range" data-range="chg"><span>Last session change (%)</span><input type="number" inputmode="decimal" step="any" placeholder="min" aria-label="Minimum change %"><input type="number" inputmode="decimal" step="any" placeholder="max" aria-label="Maximum change %"></div>
+          <label class="field">Exchange<select id="exch">
+            <option value="">All exchanges</option><option value="NASDAQ">Nasdaq</option><option value="NYSE">NYSE</option><option value="AMEX">NYSE American</option>
+          </select></label>
+          <label class="field">Industry<input id="ind" type="search" placeholder="e.g. semiconductors" autocomplete="off"></label>
+        </div>
       </div>
       <div class="summary" id="summary" aria-live="polite"></div>
     </div>
@@ -208,6 +261,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
             <li><strong>Touches</strong> — distinct tests of resistance (T) and support (B).</li>
             <li><strong>Target</strong> — the classic measured move: the box height projected from the broken line.</li>
             <li><strong>Vol ×</strong> — breakout-day volume against the prior 50-day average.</li>
+            <li><strong>Vol −32%</strong> (under the box) — median daily volume in the last third of the pattern against the first third. Volume usually dries up as a rectangle matures; a breakout on heavy volume is the classic confirmation.</li>
             <li><strong>Quality</strong> — how textbook the box is: many alternating touches, tight flat lines, clean containment, balanced fill. 60+ is the cleanest tier; lower scores are looser ranges worth a second look.</li>
           </ul>
         </div>
@@ -222,9 +276,32 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
 (() => {
   const $ = s => document.querySelector(s);
   const listEl = $('#list');
-  const state = { status: 'all', q: '', sector: '', age: 5, minlen: 0, minq: 0, pos: '', sort: 'quality' };
+  // Range filters ("More filters") are declared in the markup: <div class="range" data-range="key">
+  // holds a min and (unless data-only="min") a max input, stored as state[key + 'min' / 'max'].
+  const RANGE = {
+    len: { get: r => r.bars / 5 },                 // weeks
+    h: { get: r => r.height_pct },
+    tt: { get: r => r.top_touches },
+    bt: { get: r => r.bottom_touches },
+    sw: { get: r => r.switches },
+    vt: { get: r => r.volume_trend_pct },
+    pos: { get: r => r.position_pct, scope: 'inside' },
+    bv: { get: r => r.breakout_volume_ratio, scope: 'breakout' },
+    ext: { get: r => r.extension_pct, scope: 'breakout' },
+    px: { get: r => r.close },
+    cap: { get: r => r.market_cap / 1e9 },
+    dv: { get: r => r.dollar_volume / 1e6 },
+    atr: { get: r => r.atr_pct },
+    chg: { get: r => r.change_pct },
+  };
+  const RANGE_KEYS = Object.keys(RANGE).flatMap(k => [k + 'min', k + 'max']);
+  const state = { status: 'all', q: '', sector: '', age: 5, minq: 0, vol: '', sort: 'quality', pos: '', fb: '', exch: '', ind: '' };
+  for (const k of RANGE_KEYS) state[k] = null;
   const DEFAULTS = { ...state };
-  const SELECTS = ['sector', 'age', 'minlen', 'minq', 'pos', 'sort'];
+  const SELECTS = ['sector', 'age', 'minq', 'vol', 'sort', 'pos', 'fb', 'exch'];
+  const TEXTS = ['q', 'ind'];
+  const ADVANCED = ['pos', 'fb', 'exch', 'ind', ...RANGE_KEYS];   // the "More filters" panel
+  const VOLUME = { down15: v => v <= -15, down30: v => v <= -30, flat: v => v > -15 };
   let DATA = null, CHARTS = null, chartsPromise = null;
   const open = new Set();
 
@@ -255,9 +332,13 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     for (const k of Object.keys(state)) {
       if (!p.has(k)) continue;
       const v = p.get(k);
-      if (typeof DEFAULTS[k] === 'number') { const n = Number(v); state[k] = Number.isFinite(n) ? n : DEFAULTS[k]; }
-      else state[k] = v;
+      if (typeof DEFAULTS[k] === 'number' || RANGE_KEYS.includes(k)) {
+        const n = v.trim() === '' ? NaN : Number(v);
+        state[k] = Number.isFinite(n) ? n : DEFAULTS[k];
+      } else state[k] = v;
     }
+    // links made before the length range existed: minlen was in sessions
+    if (p.has('minlen') && !p.has('lenmin') && Number(p.get('minlen')) > 0) state.lenmin = Number(p.get('minlen')) / 5;
     if (p.has('open')) p.get('open').split(',').filter(Boolean).forEach(s => open.add(s));
   }
   // Drop values a hand-edited link may carry that no control can show.
@@ -268,17 +349,31 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
   }
   function writeURL() {
     const p = new URLSearchParams();
-    for (const [k, v] of Object.entries(state)) if (v !== DEFAULTS[k]) p.set(k, v);
+    for (const [k, v] of Object.entries(state)) if (v !== DEFAULTS[k] && v !== null) p.set(k, v);
     if (open.size) p.set('open', [...open].join(','));
     const qs = p.toString();
     history.replaceState(null, '', (qs ? `?${qs}` : location.pathname) + location.hash);
   }
   function syncControls() {
     document.querySelectorAll('#seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.status === state.status)));
-    $('#q').value = state.q;
+    for (const k of TEXTS) $('#' + k).value = state[k];
     for (const k of SELECTS) $('#' + k).value = String(state[k]);
-    // Position in the box only means something for stocks still inside it.
-    $('#pos').disabled = isBreakout(state.status);
+    document.querySelectorAll('.range').forEach(el => {
+      const [lo, hi] = el.querySelectorAll('input');
+      for (const [input, key] of [[lo, el.dataset.range + 'min'], [hi, el.dataset.range + 'max']]) {
+        if (!input) continue;
+        input.value = state[key] ?? '';
+        input.classList.toggle('set', state[key] != null);
+      }
+    });
+    // Inside-only and breakout-only filters are disabled when the status view excludes them.
+    const inside = state.status === 'all' || state.status === 'inside';
+    const breakout = state.status === 'all' || isBreakout(state.status);
+    for (const el of [$('#pos'), $('#fb'), ...document.querySelectorAll('[data-range="pos"] input')]) el.disabled = !inside;
+    for (const el of document.querySelectorAll('[data-range="bv"] input, [data-range="ext"] input')) el.disabled = !breakout;
+    const active = ADVANCED.filter(k => state[k] !== DEFAULTS[k] && state[k] !== '').length;
+    $('#adv-count').textContent = active;
+    $('#adv-count').hidden = !active;
   }
 
   // ---------- filtering ----------
@@ -286,9 +381,22 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     const q = state.q.trim().toLowerCase();
     if (q && !r.symbol.toLowerCase().startsWith(q) && !r.name.toLowerCase().includes(q)) return false;
     if (state.sector && r.sector !== state.sector) return false;
-    if (r.bars < state.minlen) return false;
     if (r.quality < state.minq) return false;
     if (isBreakout(r.status) && r.days_since_breakout > state.age) return false;
+    if (state.vol && !(r.volume_trend_pct != null && VOLUME[state.vol](r.volume_trend_pct))) return false;
+    if (state.exch && r.exchange !== state.exch) return false;
+    const ind = state.ind.trim().toLowerCase();
+    if (ind && !(r.industry || '').toLowerCase().includes(ind)) return false;
+    if (state.fb && r.status === 'inside' && (state.fb === 'hide') === !!r.failed_breakout) return false;
+    for (const [key, f] of Object.entries(RANGE)) {
+      const lo = state[key + 'min'], hi = state[key + 'max'];
+      if (lo == null && hi == null) continue;
+      // status-specific ranges leave the other statuses alone, like the breakout-age filter
+      if (f.scope === 'inside' && r.status !== 'inside') continue;
+      if (f.scope === 'breakout' && !isBreakout(r.status)) continue;
+      const v = f.get(r);
+      if (v == null || !Number.isFinite(v) || (lo != null && v < lo) || (hi != null && v > hi)) return false;
+    }
     return true;
   }
   function passesPos(r) {
@@ -304,6 +412,8 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
     recent: (a, b) => (a.days_since_breakout ?? 99) - (b.days_since_breakout ?? 99) || b.quality - a.quality,
     length: (a, b) => b.bars - a.bars,
     tight: (a, b) => a.height_pct - b.height_pct,
+    voldry: (a, b) => (a.volume_trend_pct ?? Infinity) - (b.volume_trend_pct ?? Infinity),
+    bvol: (a, b) => (b.breakout_volume_ratio ?? -1) - (a.breakout_volume_ratio ?? -1) || b.quality - a.quality,
     cap: (a, b) => (b.market_cap || 0) - (a.market_cap || 0),
     symbol: (a, b) => a.symbol.localeCompare(b.symbol),
   };
@@ -367,7 +477,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
           <div class="sub">${fmtPrice(r.close)} ${chg}</div>
         </div>
         <div class="c-status"><div style="display:flex;gap:6px;flex-wrap:wrap"><span class="badge ${st.cls}">${st.label}</span>${failed}</div>${statusDetail(r)}</div>
-        <div class="c-box"><div class="cell-label">Box</div><div class="cell-val">${fmtPrice(r.bottom)}–${fmtPrice(r.top)}</div><div class="sub">${fmtPct(r.height_pct)} tall</div></div>
+        <div class="c-box"><div class="cell-label">Box</div><div class="cell-val">${fmtPrice(r.bottom)}–${fmtPrice(r.top)}</div><div class="sub">${fmtPct(r.height_pct)} tall${r.volume_trend_pct != null ? ` · vol ${fmtSigned(r.volume_trend_pct, 0)}` : ''}</div></div>
         <div class="c-len"><div class="cell-label">Length</div><div class="cell-val">${weeks(r.bars)}</div><div class="sub">${r.top_touches}T · ${r.bottom_touches}B touches</div></div>
         <div class="c-q q"><div class="cell-label">Quality</div><div class="qbar"><i style="width:${Math.max(4, Math.min(100, r.quality))}%"></i></div><div class="sub">${Math.round(r.quality)}/100</div></div>
         <svg class="chev c-chev" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 8l5 5 5-5"/></svg>
@@ -404,12 +514,14 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
       st.push(stat('Beyond line', r.extension_pct != null ? `${r.extension_pct.toFixed(0)}% of height` : '–'));
       st.push(stat('Measured target', fmtPrice(r.target)));
     }
+    st.push(stat('Volume in box', r.volume_trend_pct != null ? `${fmtSigned(r.volume_trend_pct, 0)} <span class="muted">last ⅓ vs first ⅓</span>` : '–'));
     st.push(stat('ATR (14)', fmtPct(r.atr_pct, 2)), stat('Market cap', fmtCap(r.market_cap)), stat('Sector', esc(r.sector || '–')));
     const tv = `https://www.tradingview.com/chart/?symbol=${encodeURIComponent((r.exchange ? r.exchange + ':' : '') + r.symbol)}`;
     return `<div class="chart-head">
         <div class="legend">
           <span><i class="sw" style="background:var(--accent-soft);border:1px solid var(--box)"></i>Rectangle</span>
           <span><svg width="10" height="10"><circle cx="5" cy="5" r="3.5" fill="#fff" stroke="var(--box)" stroke-width="1.6"/></svg>Touch</span>
+          ${r.volume_trend_pct != null ? `<span><i class="sw" style="height:0;border-top:2px solid var(--ink-soft)"></i>Volume median, first / last ⅓</span>` : ''}
           ${isBreakout(r.status) ? `<span><svg width="12" height="10"><path d="${r.status === 'breakout_up' ? 'M6 1l5 8H1z' : 'M6 9l5-8H1z'}" fill="${STATUS[r.status].color}"/></svg>${r.status === 'breakout_up' ? 'Breakout' : 'Breakdown'} close</span>` : ''}
           ${r.target != null ? `<span><i class="sw" style="height:0;border-top:1.5px dashed ${STATUS[r.status].color}"></i>Target</span>` : ''}
         </div>
@@ -493,6 +605,21 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
       const h = volH * v / vmax;
       el('rect', { x: X(i) - Math.max(.5, step * 0.35), y: H - padB - h, width: Math.max(1, step * 0.7), height: h, fill: c.c[i] >= c.o[i] ? 'var(--candle-up)' : 'var(--candle-down)', 'fill-opacity': i >= i0 && i <= boxEnd ? .28 : .16 }, svg);
     });
+    // median volume over the first and last third of the box (the "Volume in box" figure;
+    // same rule as the build: sessions with a volume print, split by count)
+    if (r.volume_trend_pct != null) {
+      const fs = full.d.indexOf(r.start), fe = full.d.indexOf(r.end);
+      const pts = [];
+      for (let i = fs; i >= 0 && i <= fe; i++) if (Number.isFinite(full.v[i]) && full.v[i] > 0) pts.push([i, full.v[i]]);
+      const k = Math.floor(pts.length / 3);
+      const med = a => { const v = a.map(p => p[1]).sort((x, y) => x - y); return (v[(v.length - 1) >> 1] + v[v.length >> 1]) / 2; };
+      if (k >= 3) for (const part of [pts.slice(0, k), pts.slice(-k)]) {
+        const a = part[0][0] - s0, b = part[part.length - 1][0] - s0;
+        if (b < 0) continue;            // scrolled off a narrow chart
+        const y = H - padB - volH * Math.min(1, med(part) / vmax);
+        el('line', { x1: X(Math.max(0, a)) - step / 2, x2: X(b) + step / 2, y1: y, y2: y, stroke: 'var(--ink-soft)', 'stroke-width': 2, 'stroke-linecap': 'round' }, svg);
+      }
+    }
 
     // candles: hollow up / solid down while there is room, solid fills when narrow
     const bw = Math.max(1, Math.min(9, step * 0.62));
@@ -593,18 +720,38 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
   // ---------- wiring ----------
   function bind() {
     let qt;
-    // Apply any search typed in the last few ms before another control re-renders.
-    const flushSearch = () => { clearTimeout(qt); state.q = $('#q').value; };
+    // Typed filters (search boxes, min/max fields) apply after a short pause; flush them
+    // first whenever another control re-renders so nothing typed is lost.
+    const readTyped = () => {
+      for (const k of TEXTS) state[k] = $('#' + k).value;
+      document.querySelectorAll('.range').forEach(el => {
+        const [lo, hi] = el.querySelectorAll('input');
+        for (const [input, key] of [[lo, el.dataset.range + 'min'], [hi, el.dataset.range + 'max']]) {
+          if (!input) continue;
+          const n = input.value.trim() === '' ? NaN : Number(input.value);
+          state[key] = Number.isFinite(n) ? n : null;
+        }
+      });
+    };
+    const flushTyped = () => { clearTimeout(qt); readTyped(); };
+    const update = () => { syncControls(); writeURL(); render(); };
     document.querySelectorAll('#seg button').forEach(b => b.addEventListener('click', () => {
-      flushSearch(); state.status = b.dataset.status; syncControls(); writeURL(); render();
+      flushTyped(); state.status = b.dataset.status; update();
     }));
-    $('#q').addEventListener('input', e => { clearTimeout(qt); qt = setTimeout(() => { state.q = e.target.value; writeURL(); render(); }, 120); });
+    const typed = () => { clearTimeout(qt); qt = setTimeout(() => { readTyped(); update(); }, 250); };
+    for (const k of TEXTS) $('#' + k).addEventListener('input', typed);
+    document.querySelectorAll('.range input').forEach(input => input.addEventListener('input', typed));
     for (const k of SELECTS) {
       $('#' + k).addEventListener('change', e => {
-        flushSearch(); state[k] = typeof DEFAULTS[k] === 'number' ? Number(e.target.value) : e.target.value; writeURL(); render();
+        flushTyped(); state[k] = typeof DEFAULTS[k] === 'number' ? Number(e.target.value) : e.target.value; update();
       });
     }
-    $('#reset').addEventListener('click', () => { clearTimeout(qt); Object.assign(state, DEFAULTS); open.clear(); syncControls(); writeURL(); render(); });
+    $('#more').addEventListener('click', () => {
+      const show = $('#adv').hidden;
+      $('#adv').hidden = !show;
+      $('#more').setAttribute('aria-expanded', String(show));
+    });
+    $('#reset').addEventListener('click', () => { clearTimeout(qt); Object.assign(state, DEFAULTS); open.clear(); update(); });
     listEl.addEventListener('click', e => { const b = e.target.closest('.row-main'); if (b) expand(b.closest('.row')); });
     let rt;
     window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => {
@@ -661,6 +808,7 @@ footer{padding:28px 0;border-top:1px solid var(--line);font-size:.85rem;color:va
       header();
       validateState();
       syncControls();
+      if (ADVANCED.some(k => state[k] !== DEFAULTS[k] && state[k] !== '')) { $('#adv').hidden = false; $('#more').setAttribute('aria-expanded', 'true'); }
       writeURL();
       render();
       if (open.size) {

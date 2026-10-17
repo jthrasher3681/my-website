@@ -205,18 +205,27 @@ class BuildHelperTests(unittest.TestCase):
             with open(path) as fh:
                 self.assertEqual(json.load(fh), {"ok": 1})  # previous file left intact
 
+    def test_volume_trend(self):
+        self.assertAlmostEqual(build.volume_trend([100.0] * 10 + [80.0] * 10 + [50.0] * 10), -50.0)
+        self.assertAlmostEqual(build.volume_trend([50.0] * 10 + [100.0] * 10), 100.0)
+        # one spike in a third does not move its median; missing prints are skipped
+        self.assertAlmostEqual(build.volume_trend([100.0] * 9 + [1e9] + [70.0] * 10 + [60.0] * 10), -40.0)
+        self.assertAlmostEqual(build.volume_trend([100.0, float("nan"), 0.0] * 5 + [50.0] * 15), -50.0)
+        self.assertIsNone(build.volume_trend([100.0] * 8))
+        self.assertIsNone(build.volume_trend([float("nan")] * 30))
+
     def test_clean_name(self):
         self.assertEqual(build.clean_name("Apple Inc. Common Stock"), "Apple Inc.")
         self.assertEqual(build.clean_name("Alphabet Inc. Class A Common Stock"), "Alphabet Inc.")
         self.assertEqual(build.clean_name("Taiwan Semiconductor Manufacturing Company Ltd."), "Taiwan Semiconductor Manufacturing Company Ltd.")
 
     def test_round_hit(self):
-        hit = {"top": 12.3456, "bottom": 0.123456, "target": None, "height_pct": 3.14159, "quality": 77.77,
+        hit = {"top": 12.3456, "bottom": 0.123456, "target": 0.98765, "height_pct": 3.14159, "quality": 77.77,
                "touches": [{"date": "2026-10-01", "side": "top", "price": 12.3456}]}
         r = build._round_hit(hit)
-        self.assertEqual(r["top"], 12.35)
-        self.assertEqual(r["bottom"], 0.1235)
-        self.assertIsNone(r["target"])
+        self.assertEqual(r["top"], 12.3456)          # levels are re-checked next scan: kept exact
+        self.assertEqual(r["bottom"], 0.123456)
+        self.assertEqual(r["target"], 0.9877)
         self.assertEqual(r["height_pct"], 3.14)
         self.assertEqual(r["quality"], 77.8)
         self.assertEqual(r["touches"][0]["price"], 12.35)
