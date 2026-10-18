@@ -380,3 +380,38 @@ C = A against its 0.85 / 1.15 controls. Mean R difference, for each
 direction and dataset, gives 12 tests: BH in-sample, then a held-out
 replication at p < 0.05. This is the test of whether the Fibonacci numbers
 themselves matter.
+
+## Amendments before the first real-data run
+
+**Why.** Before any setup or test touched real prices, the scoring was
+calibrated on simulated random walks, where no setup can have an edge. That
+code is in `calibration/`, with results in `calibration/*_result.txt`. The
+walks used 300 symbols x 2,700 bars, and each bar was 16 sub-steps of one
+price path. The calibration showed two flaws in the scoring as first
+written.
+
+1. **Minimum stop distance.** Some F4 stops sat 0.1-0.2 ATR from entry, at
+   the 5th percentile. That gave R values up to ±165, which decided the
+   means. So a trade whose entry-to-stop distance is under 0.5 x log ATR (as
+   of the bar before entry) is skipped and does not hold the slot. Twins
+   follow the same rule.
+2. **Twins of limit-order setups** (F2, F4, S5 and their controls).
+   - **Problem.** Entry-bar twins penalized limit trades on random walks:
+     edges of -0.03 to -0.5 R, several with intervals excluding zero.
+   - **Change.** Each twin now places the same order on its own symbol, at
+     the signal bar's time, liquid on that bar. The limit, cancel level,
+     cancel-open level, stop and target sit at the same log-ATR distances
+     from the twin's signal-bar close (ATR of the signal bar). Expiry and
+     time exit are the same. Only twins whose orders fill count: up to 200
+     draws per trade for 20 fills, with 10 the minimum.
+   - **Market setups** keep entry-bar twins.
+3. **Non-positive targets.** A target at or below zero, possible for short
+   arithmetic targets, counts as no target.
+
+**Results after the amendments.**
+- **The 14 confirmatory setup x direction combinations:** random-walk edges
+  run from -0.056 to +0.055 R, and every 95% interval includes zero.
+- **Exploratory S6:** ±0.10 to 0.18 R, with intervals excluding zero. Its
+  real-data results are read with that in mind.
+- **Behavior tests on random walks:** excesses run from -0.022 to +0.007,
+  and every interval includes zero.

@@ -4,66 +4,116 @@ import numpy as np
 from elliott import waves
 
 
-def bars(closes, spread=0.0):
-    c = np.asarray(closes, float)
-    return c + spread, c - spread, c
+def walk(n, seed, vol=0.01):
+    rng = np.random.default_rng(seed)
+    c = 100 * np.exp(np.cumsum(rng.normal(0, vol, n)))
+    o = np.concatenate(([c[0]], c[:-1])) * np.exp(rng.normal(0, vol / 4, n))
+    h = np.maximum(o, c) * np.exp(np.abs(rng.normal(0, vol / 2, n)))
+    l = np.minimum(o, c) * np.exp(-np.abs(rng.normal(0, vol / 2, n)))
+    return o, h, l, c
+
+
+class AtrTests(unittest.TestCase):
+    def test_wilder_log_atr(self):
+        o, h, l, c = walk(40, 1)
+        a = waves.log_atr(h, l, c)
+        tr = [np.log(h[0] / l[0])] + [max(np.log(h[t] / l[t]), abs(np.log(h[t] / c[t - 1])), abs(np.log(l[t] / c[t - 1]))) for t in range(1, 40)]
+        self.assertTrue(np.isnan(a[12]))
+        self.assertAlmostEqual(a[13], np.mean(tr[:14]))
+        self.assertAlmostEqual(a[14], (13 * a[13] + tr[14]) / 14)
 
 
 class ZigzagTests(unittest.TestCase):
-    def test_pivots_and_confirmation_bars(self):
-        # up to 10, down to 4, up to 9; ATR fixed at 1, k = 3
-        c = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 9, 8, 7, 6, 5, 4, 5, 6, 7, 8, 9]
-        h, l, _ = bars(c)
-        a = np.ones(len(c))
-        p = waves.zigzag(h, l, a, 3)
-        # first move up from the start: the low at bar 0 is confirmed at bar 3 (4 >= 1 + 3)
-        self.assertEqual((p[0].i, p[0].kind, p[0].confirm), (0, -1, 3))
-        # high 10 at bar 9, confirmed when a low reaches 7, at bar 12
-        self.assertEqual((p[1].i, p[1].price, p[1].kind, p[1].confirm), (9, 10.0, 1, 12))
-        # low 4 at bar 15, confirmed when a high reaches 7, at bar 18
-        self.assertEqual((p[2].i, p[2].price, p[2].kind, p[2].confirm), (15, 4.0, -1, 18))
-        self.assertEqual(len(p), 3)
+    def test_hand_example(self):
+        # flat warm-up, then up to 130, down to 100, up again; ATR about 1% (log), k = 2
+        base = [100.0] * 55
+        up = list(np.linspace(100, 130, 16)[1:])
+        down = list(np.linspace(130, 100, 16)[1:])
+        up2 = list(np.linspace(100, 115, 8)[1:])
+        c = np.array(base + up + down + up2)
+        h, l = c * 1.005, c * 0.995
+        a = np.full(len(c), 0.01)
+        p = waves.pivots(h, l, c, 2.0, a)
+        # the high at the top of the first leg (bar 69) is confirmed once a close is
+        # 2% (log) below it; the low at bar 84 is confirmed by a close 2% above it
+        hi = int(np.flatnonzero(p["kind"] == 1)[0])
+        self.assertEqual(p["e"][hi], 69)
+        self.assertAlmostEqual(p["p"][hi], 130 * 1.005)
+        cc = p["c"][hi]
+        self.assertTrue(np.log(c[cc]) <= np.log(130 * 1.005) - 0.02)
+        self.assertTrue(np.log(c[cc - 1]) > np.log(130 * 1.005) - 0.02)
+        lo = int(np.flatnonzero((p["kind"] == -1) & (p["e"] > 69))[0])
+        self.assertEqual(p["e"][lo], 84)
 
-    def test_no_pivot_uses_a_later_bar(self):
-        rng = np.random.default_rng(3)
-        c = 100 + np.cumsum(rng.normal(0, 1, 2000))
-        h, l = c + rng.uniform(0, 1, 2000), c - rng.uniform(0, 1, 2000)
-        a = waves.atr(h, l, c)
-        full = waves.zigzag(h, l, a, 2.5)
-        # the pivots known at bar t are exactly those found on data cut at t
-        for t in (300, 777, 1500):
-            cut = waves.zigzag(h[:t + 1], l[:t + 1], a[:t + 1], 2.5)
-            known = [p for p in full if p.confirm <= t]
-            self.assertEqual(cut, known)
+    def test_causal(self):
+        o, h, l, c = walk(3000, 3)
+        a = waves.log_atr(h, l, c)
+        full = waves.pivots(h, l, c, 2.0, a)
+        for t in (400, 1234, 2500):
+            cut = waves.pivots(h[:t + 1], l[:t + 1], c[:t + 1], 2.0, a[:t + 1])
+            known = full["c"] <= t
+            for key in ("e", "c", "kind", "p"):
+                np.testing.assert_array_equal(cut[key], full[key][known])
 
-    def test_alternates(self):
-        rng = np.random.default_rng(4)
-        c = 50 + np.cumsum(rng.normal(0, 1, 3000))
-        h, l = c + 0.5, c - 0.5
-        p = waves.zigzag(h, l, waves.atr(h, l, c), 3)
-        self.assertTrue(all(a.kind != b.kind for a, b in zip(p, p[1:])))
-        self.assertTrue(all(a.i < b.i and a.confirm <= b.confirm and a.i < a.confirm for a, b in zip(p, p[1:])))
+    def test_alternation_and_thresholds(self):
+        o, h, l, c = walk(5000, 4)
+        a = waves.log_atr(h, l, c)
+        p = waves.pivots(h, l, c, 2.0, a)
+        self.assertTrue(np.all(p["kind"][1:] != p["kind"][:-1]))
+        self.assertTrue(np.all(p["e"] < p["c"]))
+        self.assertTrue(np.all(np.diff(p["e"]) > 0))
+        # each confirmation close is at least k x ATR(extreme bar) beyond the extreme
+        for e, cc, kd, pr in zip(p["e"], p["c"], p["kind"], p["p"]):
+            self.assertGreaterEqual(-kd * (np.log(c[cc]) - np.log(pr)), 2.0 * a[e] - 1e-12)
+        # a pivot high is the highest high from after the previous pivot's extreme to its own
+        # confirmation (and a low the lowest low)
+        for i in range(1, len(p["e"])):
+            seg = slice(p["e"][i - 1] + 1, p["c"][i] + 1)
+            if p["kind"][i] == 1:
+                self.assertEqual(p["p"][i], h[seg].max())
+            else:
+                self.assertEqual(p["p"][i], l[seg].min())
 
 
-class SimulateTests(unittest.TestCase):
-    def test_long_target_stop_time(self):
-        o = np.array([10, 10, 10, 10, 10.0]); h = o + 1; l = o - 1; c = o
-        self.assertEqual(waves.simulate(o, h, l, c, 1, 1, 8.5, 10.8, 3), (1, 10.8, "target"))
-        self.assertEqual(waves.simulate(o, h, l, c, 1, 1, 9.5, 12, 3), (1, 9.5, "stop"))
-        self.assertEqual(waves.simulate(o, h, l, c, 1, 1, 8, 12, 3), (3, 10.0, "time"))
-        self.assertIsNone(waves.simulate(o, h, l, c, 3, 1, 8, 12, 3))
+class ExitTests(unittest.TestCase):
+    def setUp(self):
+        self.o = np.array([10, 10, 10, 10, 10.0])
+        self.h, self.l, self.c = self.o + 1, self.o - 1, self.o.copy()
+        self.dm = np.full(5, np.nan)
 
-    def test_both_in_one_bar_is_a_stop(self):
-        o = np.array([10, 10.0]); h = np.array([11, 11.0]); l = np.array([9, 9.0]); c = o
-        self.assertEqual(waves.simulate(o, h, l, c, 1, 1, 9.5, 10.5, 1)[2], "stop")
-        self.assertEqual(waves.simulate(o, h, l, c, 1, -1, 10.5, 9.5, 1)[2], "stop")
+    def ex(self, entry, d, stop, target, n, limit=False, o=None, h=None, l=None):
+        o = self.o if o is None else o
+        h = self.h if h is None else h
+        l = self.l if l is None else l
+        return waves.run_exit(o, h, l, self.c, entry, o[entry], d, stop, target, n, limit, np.nan, self.dm)
 
-    def test_short_and_gaps(self):
-        o = np.array([10, 10, 12, 7.0]); h = o + 0.2; l = o - 0.2; c = o
-        # short with stop 11: bar 2 opens at 12, through the stop
-        self.assertEqual(waves.simulate(o, h, l, c, 1, -1, 11, 8, 3), (2, 12.0, "stop"))
-        # long with target 11: bar 2 opens at 12, through the target
-        self.assertEqual(waves.simulate(o, h, l, c, 1, 1, 9, 11, 3), (2, 12.0, "target"))
+    def test_market_long(self):
+        self.assertEqual(self.ex(1, 1, 8.5, 10.8, 2)[1:], (10.8, 1))
+        self.assertEqual(self.ex(1, 1, 9.5, 12.0, 2)[1:], (9.5, 0))
+        self.assertEqual(self.ex(1, 1, 8.0, 12.0, 2), (3, 10.0, 2))
+        self.assertEqual(self.ex(3, 1, 8.0, 12.0, 2)[0], -1)
+
+    def test_both_in_bar_is_stop(self):
+        self.assertEqual(self.ex(1, 1, 9.5, 10.5, 1)[2], 0)
+        self.assertEqual(self.ex(1, -1, 10.5, 9.5, 1)[2], 0)
+
+    def test_limit_fill_bar_checks_stop_not_target(self):
+        r = self.ex(1, 1, 8.0, 10.5, 2, limit=True)
+        self.assertEqual((r[0], r[2]), (2, 1))          # target only from the next bar
+        r = self.ex(1, 1, 9.5, 20.0, 2, limit=True)
+        self.assertEqual((r[0], r[2]), (1, 0))          # stop on the fill bar
+
+    def test_gaps(self):
+        o = np.array([10, 10, 12, 7.0]); h, l = o + 0.2, o - 0.2
+        self.assertEqual(self.ex(1, -1, 11, 8, 2, o=o, h=h, l=l)[1:], (12.0, 0))
+        self.assertEqual(self.ex(1, 1, 9, 11, 2, o=o, h=h, l=l)[1:], (12.0, 1))
+
+    def test_s3_dma_exit(self):
+        o = np.array([10, 10, 11, 12, 11, 10.5]); h, l, c = o + 0.3, o - 0.3, o.copy()
+        dm = np.array([np.nan, 9, 10, 11, 11.5, 11])
+        r = waves.run_exit(o, h, l, c, 1, 10.0, 1, 5.0, np.nan, 4, False, 12.1, dm)
+        # bar 3 trades above 12.1; bar 4 closes below its DMA; exit at bar 5's open
+        self.assertEqual(r, (5, 10.5, 3))
 
 
 if __name__ == "__main__":

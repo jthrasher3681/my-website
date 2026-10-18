@@ -50,10 +50,19 @@ def etf_daily():
 
 
 def _hourly_frames():
+    """Regular-session hourly bars; a symbol is dropped when an overnight gap exceeds a
+    factor of 3 (an unadjusted split or bad data) or it has fewer than 1,000 bars."""
     for f in sorted(glob.glob(os.path.join(LAB, "data", "yahoo_1h", "*.csv.gz"))):
         df = pd.read_csv(f, index_col=0, parse_dates=True)
-        df = df[(df["open"] > 0) & (df["high"] >= df["low"]) & (df["volume"] >= 0)]
+        df = df[(df["open"] > 0) & (df["low"] > 0) & (df["high"] >= df["low"]) & (df["volume"] >= 0)]
         df = df[(df.index.time >= pd.Timestamp("09:30").time()) & (df.index.time < pd.Timestamp("16:00").time())]
+        if len(df) < 1000:
+            continue
+        day = df.index.normalize()
+        first = ~day.duplicated()
+        gap = np.log(df["open"].to_numpy()[first][1:] / df.groupby(day)["close"].last().to_numpy()[:-1])
+        if np.any(np.abs(gap) > np.log(3)):
+            continue
         yield os.path.basename(f)[:-7], df
 
 
@@ -85,3 +94,26 @@ def stocks_4h():
 
 
 DATASETS = {"stocks_daily": stocks_daily, "etf_daily": etf_daily, "stocks_4h": stocks_4h, "stocks_1h": stocks_1h}
+
+# signal periods (PROTOCOL.md, "Data and periods"): (in-sample start, in-sample end, held-out start)
+PERIODS = {
+    "stocks_daily": ("2016-01-04", "2021-12-31", "2022-01-03"),
+    "stocks_1h": ("2023-11-17", "2025-09-30 23:59", "2025-10-01"),
+    "stocks_4h": ("2023-11-17", "2025-09-30 23:59", "2025-10-01"),
+    "etf_daily": ("1993-01-29", "2015-12-31", "2016-01-04"),
+}
+DAILY = {"stocks_daily": True, "etf_daily": True, "stocks_1h": False, "stocks_4h": False}
+COST = {"stocks_daily": 0.0005, "etf_daily": 0.0005, "stocks_1h": 0.0010, "stocks_4h": 0.0010}
+NEED_LIQUID = {"stocks_daily": True, "etf_daily": False, "stocks_1h": False, "stocks_4h": False}
+HALF = {"stocks_daily": "2019-01-01", "stocks_1h": "2024-11-01", "stocks_4h": "2024-11-01", "etf_daily": "2004-01-01"}
+
+
+def truncate(data, end):
+    """Every series cut after ``end``: what an in-sample run may read."""
+    end = np.datetime64(pd.Timestamp(end))
+    out = {}
+    for s, d in data.items():
+        k = int(np.searchsorted(d["t"], end, side="right"))
+        if k >= 300:
+            out[s] = {key: (v[:k] if isinstance(v, np.ndarray) else v) for key, v in d.items()}
+    return out
