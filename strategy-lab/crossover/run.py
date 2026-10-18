@@ -32,13 +32,17 @@ def build(dataset, period):
     r, _, gspc = L.returns(end=read_end)
     if dataset == "sp500":
         g = gspc.to_numpy(float)
+        # the lab calendar starts 1988-01-04; two earlier ^GSPC sessions give the
+        # first bars their held exposure (h_i = s_{i-2}), as the engine does
+        cal = gspc.index[gspc.index < r.index[0]][-2:].append(r.index)
 
         def source(name, rule):
             sig = pd.Series(S.signal(rule, g), index=gspc.index)
-            return sig.reindex(sig.index.union(r.index)).ffill().reindex(r.index).to_numpy(float)
-        assets = {"S&P 500": {"t": r.index.to_numpy("datetime64[ns]"), "close": None,
-                              "tr": np.cumprod(1 + r["spy"].to_numpy(float)), "liquid": np.ones(len(r), bool)}}
-        panel = P.Panel(assets, r["bil"], source=source)
+            return sig.reindex(sig.index.union(cal)).ffill().reindex(cal).to_numpy(float)
+        rs = r["spy"].reindex(cal).fillna(0.0).to_numpy(float)
+        assets = {"S&P 500": {"t": cal.to_numpy("datetime64[ns]"), "close": None,
+                              "tr": np.cumprod(1 + rs), "liquid": np.ones(len(cal), bool)}}
+        panel = P.Panel(assets, r["bil"].reindex(cal).fillna(0.0), source=source)
     else:
         assets = D.DATASETS[dataset]()
         if period == "insample":
