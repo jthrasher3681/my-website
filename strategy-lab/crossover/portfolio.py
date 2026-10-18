@@ -21,6 +21,8 @@ import pandas as pd
 
 from lab import metrics
 
+SHIFT_MIN = 260       # bars: past the longest average (200) plus its lag, and EMA memory
+
 
 class Panel:
     def __init__(self, assets, cash_day, need_liquid=False, source=None):
@@ -140,7 +142,9 @@ class Panel:
         M = self.member(H)[sl]
         years = (self.cal[j1] - self.cal[j0]).days / 365.25
         avg_members = M.sum() / (j1 - j0 + 1)
-        return {"time_in_market": float(H[sl][M].mean()),
+        h = np.where(M, H[sl], 0.0)
+        per_bar = h.sum(1) / np.maximum(M.sum(1), 1)
+        return {"time_in_market": float(per_bar[M.any(1)].mean()),
                 "switches_per_asset_year": float(np.nan_to_num(W[sl])[M].sum() / avg_members / years) if years > 0 else None,
                 "mean_members": float(avg_members), "assets": int(M.any(0).sum())}
 
@@ -148,6 +152,42 @@ class Panel:
     def null_sharpes(self, H, j0, j1, block, draws=1000, seed=0):
         """Gross Sharpe ratios of the portfolio with its held exposures moved in
         blocks of ``block`` bars, in one random order for every asset."""
+        c, X, n, hf, cash, real = self._null_parts(H, j0, j1)
+        rng = np.random.default_rng(seed)
+        idx = np.arange(j1 - j0 + 1)
+        out = np.empty(draws)
+        for k in range(draws):
+            perm = metrics.block_shuffle(idx, block, rng)
+            x = c + (X * hf[perm]).sum(1) / n
+            out[k] = _sharpe(self.to_daily(x, j0, j1), cash)
+        return real, out
+
+    def shift_sharpes(self, H, j0, j1, min_shift=SHIFT_MIN, draws=1000, seed=0):
+        """Gross Sharpe ratios with the held exposures shifted in a circle by k
+        bars, one k for every asset, min_shift <= k <= T - min_shift (added after
+        the independent review; not pre-registered).
+
+        The block shuffle above can set an exposure computed after bar j against
+        the return of bar j, which the averages behind that exposure already
+        contain, and that look-ahead lifts the draws. A shift of at least the
+        averages' memory moves every exposure either well past the returns it
+        was computed from, or (after the wrap) to a later bar, so no draw sees
+        its own return. Every k is used when there are fewer than ``draws``."""
+        c, X, n, hf, cash, real = self._null_parts(H, j0, j1)
+        T = j1 - j0 + 1
+        ks = np.arange(min_shift, T - min_shift + 1)
+        if len(ks) == 0:
+            raise ValueError("window too short for the shift null")
+        if len(ks) > draws:
+            ks = np.sort(np.random.default_rng(seed).choice(ks, draws, replace=False))
+        idx = np.arange(T)
+        out = np.empty(len(ks))
+        for i, k in enumerate(ks):
+            x = c + (X * hf[(idx + k) % T]).sum(1) / n
+            out[i] = _sharpe(self.to_daily(x, j0, j1), cash)
+        return real, out
+
+    def _null_parts(self, H, j0, j1):
         sl = slice(j0, j1 + 1)
         M = self.member(H)[sl]
         h = H[sl]
@@ -157,15 +197,8 @@ class Panel:
         mean_a = np.array([h[M[:, a], a].mean() if M[:, a].any() else 0.0 for a in range(self.A)])
         hf = np.where(np.isfinite(h), h, mean_a[None, :])
         cash = self.cash_day.reindex(self.daily_index(j0, j1)).to_numpy(float)
-        rng = np.random.default_rng(seed)
-        idx = np.arange(j1 - j0 + 1)
         real = _sharpe(self.to_daily(c + (X * np.nan_to_num(h)).sum(1) / n, j0, j1), cash)
-        out = np.empty(draws)
-        for k in range(draws):
-            perm = metrics.block_shuffle(idx, block, rng)
-            x = c + (X * hf[perm]).sum(1) / n
-            out[k] = _sharpe(self.to_daily(x, j0, j1), cash)
-        return real, out
+        return c, X, n, hf, cash, real
 
 
 def _sharpe(daily, cash):

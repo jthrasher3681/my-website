@@ -35,12 +35,30 @@ def insample():
                       "checks": checks, "finalist": fin})
         if fin:
             finalists.append({"dataset": r["dataset"], "rule": r["rule"]})
-    json.dump({"confirmatory": table, "finalists": finalists}, open(f"{HERE}/results/finalists.json", "w"), indent=1)
+    # robustness, added after the independent review: the same rule with the leak-free shift null
+    qs = bh([r["r"]["full"]["null_shift"]["p"] for r in rows])
+    robust, robust_fin = [], []
+    for r, qq in zip(rows, qs):
+        f = r["r"]
+        checks = {"bar": f["full"]["passes_bar"],
+                  "timing_edge_bh": bool(qq < 0.05 and f["full"]["null_shift"]["edge"] > 0),
+                  "bar_at_2x_cost": f["full"]["passes_bar_2x_cost"],
+                  "edge_both_halves": bool(f["half1"]["null_shift"]["edge"] > 0 and f["half2"]["null_shift"]["edge"] > 0)}
+        robust.append({"dataset": r["dataset"], "rule": r["rule"], "edge": f["full"]["null_shift"]["edge"],
+                       "p": f["full"]["null_shift"]["p"], "q_bh": float(qq), "checks": checks, "finalist": all(checks.values())})
+        if all(checks.values()):
+            robust_fin.append({"dataset": r["dataset"], "rule": r["rule"]})
+    json.dump({"confirmatory": table, "finalists": finalists,
+               "robustness_shift_null": {"tests": robust, "finalists": robust_fin}},
+              open(f"{HERE}/results/finalists.json", "w"), indent=1)
     for t in table:
         print(f"{t['dataset']:13} {t['rule']} CAGR {t['cagr']:+.2%} vs {t['bench_cagr']:+.2%}  Sharpe {t['sharpe']:.2f} vs {t['bench_sharpe']:.2f}  "
               f"DD {t['max_dd']:.1%} vs {t['bench_max_dd']:.1%}  edge {t['edge']:+.3f} p {t['p']:.3f} q {t['q_bh']:.3f}  "
               + " ".join(k for k, v in t["checks"].items() if v) + ("  FINALIST" if t["finalist"] else ""))
     print("finalists:", finalists)
+    print("robustness, shift null: min q", round(min(x["q_bh"] for x in robust), 3), "finalists:", robust_fin)
+    for x in sorted(robust, key=lambda x: x["p"])[:5]:
+        print(f"  {x['dataset']:13} {x['rule']} shift edge {x['edge']:+.3f} p {x['p']:.3f} q {x['q_bh']:.3f}")
 
 
 def heldout():
@@ -63,7 +81,8 @@ def heldout():
             every.append({"dataset": ds, "rule": rule, "cagr": f["net"]["cagr"], "bench_cagr": f["benchmark"]["cagr"],
                           "spy_cagr": f["spy"]["cagr"], "sharpe": f["net"]["sharpe"], "bench_sharpe": f["benchmark"]["sharpe"],
                           "max_dd": f["net"]["max_dd"], "bench_max_dd": f["benchmark"]["max_dd"], "passes_bar": f["passes_bar"],
-                          "passes_vs_spy": f["passes_vs_spy"], "edge": f["null"]["edge"], "p": f["null"]["p"]})
+                          "passes_vs_spy": f["passes_vs_spy"], "edge": f["null"]["edge"], "p": f["null"]["p"],
+                          "shift_edge": f["null_shift"]["edge"], "shift_p": f["null_shift"]["p"]})
     json.dump({"finalists": verdict, "all_rules_transparency": every}, open(f"{HERE}/results/heldout_verdict.json", "w"), indent=1)
     for v in verdict:
         print(v["dataset"], v["rule"], v["checks"], "PASSES" if v["passes"] else "fails",
@@ -73,7 +92,7 @@ def heldout():
     for e in every:
         print(f"  {e['dataset']:13} {e['rule']} CAGR {e['cagr']:+.2%} vs {e['bench_cagr']:+.2%} (SPY {e['spy_cagr']:+.2%})  "
               f"Sharpe {e['sharpe']:.2f} vs {e['bench_sharpe']:.2f}  DD {e['max_dd']:.1%} vs {e['bench_max_dd']:.1%}  "
-              f"bar {'pass' if e['passes_bar'] else 'fail'}  edge {e['edge']:+.3f} p {e['p']:.3f}")
+              f"bar {'pass' if e['passes_bar'] else 'fail'}  edge {e['edge']:+.3f} p {e['p']:.3f}  shift p {e['shift_p']:.3f}")
 
 
 if __name__ == "__main__":

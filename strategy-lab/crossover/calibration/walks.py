@@ -1,14 +1,15 @@
 """Calibration of the random-timing test on random walks (PROTOCOL.md,
 "Calibration"), run before any real-data run.
 
-    python3 -m crossover.calibration.walks [--reps 200] [--draws 200]
+    python3 -m crossover.calibration.walks [--reps 200] [--draws 200] [--null shift]
 
 On data with no timing information the share of replications with p < 0.05
 should be at most 8% for every rule in the gated cases (ii)-(iv). The
 asymmetric (GJR) case is reported, not gated: there volatility rises after
 drops, so exiting after drops really does avoid risk.
 
-Writes calibration/results.json and results.txt.
+Writes calibration/results.json and results.txt (results_shift.* for the
+leak-free shift null that was added after the independent review).
 """
 import argparse, json, os, time
 import multiprocessing as mp
@@ -81,7 +82,7 @@ def market(case, seed):
 
 
 def one(job):
-    case, rep, draws = job
+    case, rep, draws, null = job
     assets, cash = market(case, seed=1000 * rep + 7)
     p = P.Panel(assets, cash)
     block = 63 if CASES[case][3] == 1 else 70
@@ -89,7 +90,10 @@ def one(job):
     for rule in RULES:
         H, W = p.rule(rule)
         j0, j1 = p.window(H, p.cal[0])
-        real, d = p.null_sharpes(H, j0, j1, block, draws, seed=P.seed_of(case, rep, rule))
+        if null == "shift":
+            real, d = p.shift_sharpes(H, j0, j1, draws=draws, seed=P.seed_of(case, rep, rule, "shift"))
+        else:
+            real, d = p.null_sharpes(H, j0, j1, block, draws, seed=P.seed_of(case, rep, rule))
         out[rule] = (P.null_test(real, d)["p"], real - d.mean())
     return case, rep, out
 
@@ -99,9 +103,11 @@ def main():
     ap.add_argument("--reps", type=int, default=200)
     ap.add_argument("--draws", type=int, default=200)
     ap.add_argument("--cases", nargs="*", default=list(CASES))
+    ap.add_argument("--null", choices=["block", "shift"], default="block",
+                    help="block: the pre-registered test; shift: the leak-free check added after review")
     a = ap.parse_args()
     t0 = time.time()
-    jobs = [(c, rep, a.draws) for c in a.cases for rep in range(a.reps)]
+    jobs = [(c, rep, a.draws, a.null) for c in a.cases for rep in range(a.reps)]
     with mp.get_context("fork").Pool(4) as pool:
         rows = pool.map(one, jobs, chunksize=4)
     res = {"reps": a.reps, "draws": a.draws, "cases": {}}
@@ -121,8 +127,10 @@ def main():
                          f"mean p {v['mean_p']:.3f}, mean Sharpe edge {v['mean_edge']:+.4f}")
     res["all_gated_ok"] = all(v["ok"] for v in res["cases"].values())
     lines.append(f"all gated cases at most 8%: {res['all_gated_ok']}  ({time.time() - t0:.0f}s)")
-    json.dump(res, open(f"{HERE}/results.json", "w"), indent=1)
-    open(f"{HERE}/results.txt", "w").write("\n".join(lines) + "\n")
+    tag = "" if a.null == "block" else "_shift"
+    res["null"] = a.null
+    json.dump(res, open(f"{HERE}/results{tag}.json", "w"), indent=1)
+    open(f"{HERE}/results{tag}.txt", "w").write("\n".join(lines) + "\n")
     print("\n".join(lines))
 
 

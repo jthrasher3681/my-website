@@ -184,6 +184,30 @@ class Null(unittest.TestCase):
         real, draws = p.null_sharpes(H, j0, j1, block=63, draws=200)
         self.assertLess(P.null_test(real, draws)["p"], 0.01)
 
+    def test_shift_null(self):
+        """The shift null moves every exposure by at least 260 bars, one shift for all assets."""
+        p = P.Panel(self.assets, self.cash)
+        H, W = p.rule("R1")
+        j0, j1 = p.window(H, "2000-01-01")
+        T = j1 - j0 + 1
+        real, draws = p.shift_sharpes(H, j0, j1, draws=10_000)
+        self.assertEqual(len(draws), T - 2 * 260 + 1)          # every shift used
+        k = 300
+        h = np.nan_to_num(H[j0:j1 + 1])
+        M = p.member(H)[j0:j1 + 1]
+        x = np.where(M, p.R[j0:j1 + 1] * h[(np.arange(T) + k) % T], 0).sum(1) / M.sum(1)
+        cash = p.cash_day.reindex(p.daily_index(j0, j1)).to_numpy()
+        self.assertAlmostEqual(draws[k - 260], P._sharpe(p.to_daily(x, j0, j1), cash), places=10)
+        a = walk(1200, seed=99)
+        c = a["close"]
+        fut = np.r_[c[2:] / c[1:-1] - 1, 0.0, 0.0]
+        q = P.Panel({"A": a}, self.cash.reindex(pd.DatetimeIndex(a["t"])).fillna(0),
+                    source=lambda name, rule: np.where(np.arange(1200) >= 259, (fut > 0).astype(float), np.nan))
+        H, W = q.rule("any")
+        j0, j1 = q.window(H, "2000-01-01")
+        real, draws = q.shift_sharpes(H, j0, j1)
+        self.assertLess(P.null_test(real, draws)["p"], 0.01)
+
     def test_time_in_market_is_kept(self):
         p = P.Panel(self.assets, self.cash)
         H, W = p.rule("R1")

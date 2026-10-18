@@ -6,10 +6,12 @@ returns use, "liquid": whether the asset passes the liquidity rule}.
   Robinhood daily bars. Price only, so ``tr`` is the close.
 - ``etf_daily``: the 26 ETFs in ``../data/yahoo``. ``close`` is the
   split-adjusted close and ``tr`` adds the cash dividends (``lab.data.growth``).
-- ``stocks_1h`` / ``stocks_4h``: the Elliott study's hourly symbols.
+- ``stocks_1h`` / ``stocks_4h``: the Elliott study's hourly symbols and data
+  rules, applied to the bars a run may read.
 
 ``sp500`` is not here: it runs on the SPY lab's own series (``lab.data.returns``).
 """
+import glob, os
 import numpy as np
 import pandas as pd
 
@@ -42,12 +44,37 @@ def stocks_daily():
     return _from_elliott(E.stocks_daily())
 
 
-def stocks_1h():
-    return _from_elliott(E.stocks_1h())
+def _hourly(end=None, four=False):
+    """The Elliott study's hourly symbols and data rules (``elliott.data._hourly_frames``),
+    with the rules applied only to bars up to ``end``: an in-sample run's universe
+    must not depend on later bars (a fix after the independent review)."""
+    out = {}
+    for f in sorted(glob.glob(os.path.join(E.LAB, "data", "yahoo_1h", "*.csv.gz"))):
+        df = pd.read_csv(f, index_col=0, parse_dates=True)
+        if end is not None:
+            df = df.loc[:pd.Timestamp(end)]
+        df = df[(df["open"] > 0) & (df["low"] > 0) & (df["high"] >= df["low"]) & (df["volume"] >= 0)]
+        df = df[(df.index.time >= pd.Timestamp("09:30").time()) & (df.index.time < pd.Timestamp("16:00").time())]
+        if len(df) < 1000:
+            continue
+        day = df.index.normalize()
+        first = ~day.duplicated()
+        gap = np.log(df["open"].to_numpy()[first][1:] / df.groupby(day)["close"].last().to_numpy()[:-1])
+        if np.any(np.abs(gap) > np.log(3)):
+            continue
+        if four:
+            df = E.to_4h(df)
+        d = E._frame(df)
+        out[os.path.basename(f)[:-7]] = {"t": d["t"], "close": d["close"], "tr": d["close"], "liquid": np.ones(len(df), bool)}
+    return out
 
 
-def stocks_4h():
-    return _from_elliott(E.stocks_4h())
+def stocks_1h(end=None):
+    return _hourly(end)
+
+
+def stocks_4h(end=None):
+    return _hourly(end, four=True)
 
 
 def etf_daily():

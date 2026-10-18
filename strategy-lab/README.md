@@ -24,6 +24,12 @@ Buy-and-hold SPY stays the recommendation. Nothing is traded.
   other candidate passed.
 - **Random timing:** with its exposure shuffled at random, 91% of shuffles
   beat its held-out CAGR.
+  - The crossover study's review later found that this block shuffle can
+    move an exposure in front of returns its average already contains,
+    which flatters the shuffles.
+  - A leak-free check gives a stronger result: with the exposures shifted
+    in a circle by at least 260 sessions instead, 96% of shifts beat C3's
+    held-out CAGR (`crossover/README.md`).
 - **Stress test (1962-87):** C3 was 2x long through the 1987 crash and lost
   41% on 1987-10-19.
 

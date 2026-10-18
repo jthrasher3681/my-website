@@ -1,0 +1,43 @@
+i_iid_sp500 (reported)
+  R1: p<0.05 in 6.5%, p<0.10 in 13.0%, mean p 0.483, mean Sharpe edge +0.0100
+  R2: p<0.05 in 6.0%, p<0.10 in 12.5%, mean p 0.486, mean Sharpe edge +0.0064
+  R3: p<0.05 in 4.0%, p<0.10 in 10.5%, mean p 0.475, mean Sharpe edge +0.0131
+  R4: p<0.05 in 4.5%, p<0.10 in 7.0%, mean p 0.484, mean Sharpe edge +0.0101
+  R5: p<0.05 in 4.5%, p<0.10 in 10.0%, mean p 0.477, mean Sharpe edge +0.0096
+  X6: p<0.05 in 6.5%, p<0.10 in 10.5%, mean p 0.499, mean Sharpe edge +0.0055
+ii_garch_sp500 (gated)  ABOVE 8%
+  R1: p<0.05 in 7.0%, p<0.10 in 11.5%, mean p 0.510, mean Sharpe edge +0.0018
+  R2: p<0.05 in 8.5%, p<0.10 in 12.5%, mean p 0.486, mean Sharpe edge +0.0079
+  R3: p<0.05 in 5.5%, p<0.10 in 12.0%, mean p 0.488, mean Sharpe edge +0.0085
+  R4: p<0.05 in 4.0%, p<0.10 in 9.5%, mean p 0.502, mean Sharpe edge +0.0047
+  R5: p<0.05 in 5.0%, p<0.10 in 11.5%, mean p 0.473, mean Sharpe edge +0.0126
+  X6: p<0.05 in 6.5%, p<0.10 in 11.0%, mean p 0.486, mean Sharpe edge +0.0117
+iii_panel_stocks (gated)  ABOVE 8%
+  R1: p<0.05 in 12.0%, p<0.10 in 17.5%, mean p 0.524, mean Sharpe edge +0.0178
+  R2: p<0.05 in 4.5%, p<0.10 in 9.0%, mean p 0.541, mean Sharpe edge -0.0085
+  R3: p<0.05 in 6.0%, p<0.10 in 9.5%, mean p 0.531, mean Sharpe edge -0.0079
+  R4: p<0.05 in 5.0%, p<0.10 in 9.0%, mean p 0.535, mean Sharpe edge -0.0124
+  R5: p<0.05 in 5.5%, p<0.10 in 9.0%, mean p 0.525, mean Sharpe edge -0.0092
+  X6: p<0.05 in 8.5%, p<0.10 in 13.5%, mean p 0.548, mean Sharpe edge +0.0100
+iv_hourly_garch (gated)  ABOVE 8%
+  R1: p<0.05 in 9.0%, p<0.10 in 12.5%, mean p 0.513, mean Sharpe edge +0.0039
+  R2: p<0.05 in 4.5%, p<0.10 in 9.0%, mean p 0.512, mean Sharpe edge -0.0044
+  R3: p<0.05 in 3.0%, p<0.10 in 9.0%, mean p 0.503, mean Sharpe edge -0.0049
+  R4: p<0.05 in 3.0%, p<0.10 in 7.0%, mean p 0.501, mean Sharpe edge -0.0127
+  R5: p<0.05 in 4.5%, p<0.10 in 11.0%, mean p 0.503, mean Sharpe edge -0.0055
+  X6: p<0.05 in 4.5%, p<0.10 in 11.5%, mean p 0.530, mean Sharpe edge -0.0262
+iv_hourly_panel (gated)
+  R1: p<0.05 in 3.5%, p<0.10 in 9.0%, mean p 0.537, mean Sharpe edge -0.0141
+  R2: p<0.05 in 5.0%, p<0.10 in 8.5%, mean p 0.539, mean Sharpe edge -0.0168
+  R3: p<0.05 in 5.0%, p<0.10 in 9.5%, mean p 0.524, mean Sharpe edge -0.0059
+  R4: p<0.05 in 5.0%, p<0.10 in 8.0%, mean p 0.520, mean Sharpe edge -0.0131
+  R5: p<0.05 in 6.0%, p<0.10 in 11.0%, mean p 0.527, mean Sharpe edge -0.0088
+  X6: p<0.05 in 3.5%, p<0.10 in 8.5%, mean p 0.533, mean Sharpe edge -0.0019
+gjr_sp500 (reported)
+  R1: p<0.05 in 10.5%, p<0.10 in 17.5%, mean p 0.445, mean Sharpe edge +0.0287
+  R2: p<0.05 in 15.5%, p<0.10 in 23.5%, mean p 0.402, mean Sharpe edge +0.0506
+  R3: p<0.05 in 14.5%, p<0.10 in 23.0%, mean p 0.381, mean Sharpe edge +0.0588
+  R4: p<0.05 in 6.5%, p<0.10 in 11.5%, mean p 0.466, mean Sharpe edge +0.0206
+  R5: p<0.05 in 15.0%, p<0.10 in 22.0%, mean p 0.384, mean Sharpe edge +0.0578
+  X6: p<0.05 in 16.0%, p<0.10 in 22.5%, mean p 0.401, mean Sharpe edge +0.0521
+all gated cases at most 8%: False  (195s)

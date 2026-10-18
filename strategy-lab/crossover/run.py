@@ -44,7 +44,8 @@ def build(dataset, period):
                               "tr": np.cumprod(1 + rs), "liquid": np.ones(len(cal), bool)}}
         panel = P.Panel(assets, r["bil"].reindex(cal).fillna(0.0), source=source)
     else:
-        assets = D.DATASETS[dataset]()
+        hourly = dataset in ("stocks_1h", "stocks_4h")
+        assets = D.DATASETS[dataset](end=read_end) if hourly else D.DATASETS[dataset]()
         if period == "insample":
             assets = D.truncate(assets, is_end)
         days = pd.DatetimeIndex(np.unique(np.concatenate([pd.DatetimeIndex(a["t"]).normalize().to_numpy() for a in assets.values()])))
@@ -77,7 +78,11 @@ def score(rule):
             first, last = idx[0], idx[-1]
             sim = engine.run(target, r, first, last)
             res["net"] = P.stats(sim["equity"], r["bil"])
-            res["net_2x_cost"] = P.stats(engine.run(target, r, first, last, cost=2 * engine.COST)["equity"], r["bil"])
+            # double the switch costs only: the engine at 2x also doubles the opening
+            # purchase, which scales every later value by the same factor
+            eq2 = engine.run(target, r, first, last, cost=2 * engine.COST)["equity"]
+            eq2.iloc[1:] *= (1 - engine.COST) / (1 - 2 * engine.COST)
+            res["net_2x_cost"] = P.stats(eq2, r["bil"])
             res["benchmark"] = P.stats(engine.buy_and_hold(r, first, last, 1.0)["equity"], r["bil"])
             eq = sim["equity"]
             bench_eq = engine.buy_and_hold(r, first, last, 1.0)["equity"]
@@ -99,6 +104,12 @@ def score(rule):
         res.update(panel.exposure_stats(H, W, j0, j1))
         real, draws = panel.null_sharpes(H, j0, j1, D.BLOCK[daily], DRAWS, seed=P.seed_of(dataset, period, rule, wname))
         res["null"] = P.null_test(real, draws)
+        # robustness, added after the independent review: the leak-free shift null
+        if j1 - j0 + 1 >= 2 * P.SHIFT_MIN + 1:
+            real_s, shifts = panel.shift_sharpes(H, j0, j1, seed=P.seed_of(dataset, period, rule, wname, "shift"))
+            res["null_shift"] = P.null_test(real_s, shifts)
+        else:
+            res["null_shift"] = None          # window too short to shift past the averages' memory
         out[wname] = res
         if wname == "full":
             curves = {rule: eq, "benchmark": bench_eq, "SPY": spy_eq}
@@ -132,7 +143,8 @@ def main():
         print(f"{rule} {out['name'][:28]:28} CAGR {n['cagr']:+.2%} (bench {b['cagr']:+.2%}, SPY {s['cagr']:+.2%})  "
               f"Sharpe {n['sharpe']:.2f} ({b['sharpe']:.2f})  DD {n['max_dd']:.1%} ({b['max_dd']:.1%})  "
               f"in mkt {f['time_in_market']:.0%}  sw/yr {f['switches_per_asset_year']:.1f}  "
-              f"bar {'PASS' if f['passes_bar'] else 'fail'}  null edge {f['null']['edge']:+.3f} p {f['null']['p']:.3f}")
+              f"bar {'PASS' if f['passes_bar'] else 'fail'}  null edge {f['null']['edge']:+.3f} p {f['null']['p']:.3f}  "
+              + (f"shift edge {f['null_shift']['edge']:+.3f} p {f['null_shift']['p']:.3f}" if f["null_shift"] else ""))
     print(f"done, {time.time() - t0:.0f}s")
 
 
