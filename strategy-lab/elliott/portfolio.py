@@ -37,9 +37,10 @@ def stats(eq, cash_r):
             "max_dd": float((eq / eq.cummax() - 1).min()), "end": float(eq.iloc[-1] / eq.iloc[0])}
 
 
-def run(trades, bars, cost, seed):
+def run(trades, bars, cost, seed, start):
     rng = np.random.default_rng(seed)
     times = np.unique(np.concatenate([bars[s]["tk"] for s in {t["symbol"] for t in trades}]))
+    times = times[times >= int(np.datetime64(start, "ns").astype("int64"))]
     ix = {int(t): i for i, t in enumerate(times)}
     entries, exits = {}, {}
     for k, t in enumerate(trades):
@@ -86,7 +87,8 @@ def main(dataset, setup, direction):
     for b in bars.values():
         X.prepare(b)
     spy, bil = _tr("SPY"), _tr("BIL")
-    runs = [run(tr, bars, D.COST[dataset], seed) for seed in range(10)]
+    start = pd.Timestamp(D.PERIODS[dataset][2])
+    runs = [run(tr, bars, D.COST[dataset], seed, start) for seed in range(10)]
     start = min(r.index[0] for r in runs)
     end = max(r.index[-1] for r in runs)
     cash_r = bil.pct_change()
