@@ -42,12 +42,12 @@ def _fill_limit(op, hi, lo, sig, d, limit, cancel_level, cancel_open, expiry):
             return -1, np.nan, -1
         if d * (op[j] - cancel_open) <= 0:
             return -1, np.nan, j
-        if d * (op[j] - limit) <= 0:
-            return j, op[j], j
         far = hi[j] if d > 0 else lo[j]
         near = lo[j] if d > 0 else hi[j]
-        if d * (far - cancel_level) > 0:
+        if d * (far - cancel_level) > 0:           # no fill on a bar that breaches the cancel level
             return -1, np.nan, j
+        if d * (op[j] - limit) <= 0:
+            return j, op[j], j
         if d * (limit - near) >= 0:
             return j, limit, j
     return -1, np.nan, expiry
@@ -95,7 +95,9 @@ def run_symbol(sym, b, orders, cost, need_liquid):
             limit_fill = True
         a = b["atr"][e - 1]
         if not (a > 0) or abs(np.log(E) - np.log(o["stop"])) < MIN_RISK_ATR * a:
-            # a stop inside half a bar's typical range: noise decides it (amendment 1); the slot is not held
+            # a stop inside half a bar's typical range: noise decides it (amendment 1). The order held
+            # the slot while it was pending, up to the fill bar; it is not held after the skip.
+            slots[key] = e
             continue
         target = o["target"] if o["target"] > 0 else np.nan
         j, px, kind = waves.run_exit(b["open"], b["high"], b["low"], b["close"], e, E, d, o["stop"], target,
@@ -188,10 +190,9 @@ def twins(trades, data, pool, cost, k=N_TWINS, sig_pool=None):
                 continue
             rng = np.random.default_rng(zlib.crc32(f"{t['symbol']}|{t['setup']}|{t['d']}|{t['sig']}".encode()))
             got = []
-            for _ in range(10 * k):
+            for s in [cands[i] for i in rng.permutation(len(cands))[:10 * k]]:      # without replacement
                 if len(got) >= k:
                     break
-                s = cands[rng.integers(len(cands))]
                 r = _order_twin(data[s], data[s]["pos"][T], g, t, cost)
                 if r is not None:
                     got.append(r)
@@ -207,10 +208,9 @@ def twins(trades, data, pool, cost, k=N_TWINS, sig_pool=None):
             continue
         rng = np.random.default_rng(zlib.crc32(f"{t['symbol']}|{t['setup']}|{t['d']}|{t['sig']}".encode()))
         got = []
-        for _ in range(3 * k):
+        for s in [cands[i] for i in rng.permutation(len(cands))[:3 * k]]:          # without replacement
             if len(got) >= k:
                 break
-            s = cands[rng.integers(len(cands))]
             bb = data[s]
             j = bb["pos"][T]
             a = bb["atr"][j - 1] if j >= 1 else np.nan

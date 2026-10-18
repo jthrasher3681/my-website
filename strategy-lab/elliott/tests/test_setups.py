@@ -36,6 +36,8 @@ class LimitFillTests(unittest.TestCase):
         self.assertEqual(X.fill_limit(b2, self.order()), (None, 1))          # opened through the stop
         b3 = {"open": o, "high": o + 0.5, "low": o - 0.5}
         self.assertEqual(X.fill_limit(b3, self.order()), (None, 3))          # expired
+        b4 = {"open": np.array([10, 8.5, 10, 10.0]), "high": np.array([10.5, 11.5, 10.5, 10.5]), "low": o - 0.5}
+        self.assertEqual(X.fill_limit(b4, self.order()), (None, 1))          # opened below the limit but broke 11
 
     def test_short_mirror(self):
         o = np.array([10, 10, 10, 10.0]); h = np.array([10.5, 10.5, 11.1, 10.5]); l = o - 0.5
@@ -75,13 +77,14 @@ class SetupTests(unittest.TestCase):
         n = 140
         cl = np.full(n, 105.0)
         b = bars_from(cl.copy(), cl + 1, cl - 1, cl)
-        o = [x for x in setups.pivot_setups(b, piv) if x["family"] == "S1"]
-        self.assertEqual(len(o), 1)
-        x = o[0]
+        allo = [x for x in setups.pivot_setups(b, piv) if x["family"] == "S1"]
+        self.assertEqual(sorted(x["setup"] for x in allo), ["S1", "S1-p2stop"])     # closes never pass p1: no trigger
+        x = next(x for x in allo if x["setup"] == "S1")
         self.assertEqual((x["setup"], x["d"], x["sig"]), ("S1", 1, 103))
         self.assertAlmostEqual(x["stop"], 95 * (1 - 1e-4))
         self.assertAlmostEqual(x["target"], 102 * np.exp(1.618 * np.log(110 / 95)))
         self.assertEqual(x["n_time"], 30)
+        self.assertAlmostEqual(next(x for x in allo if x["setup"] == "S1-p2stop")["stop"], 102 * (1 - 1e-4))
 
     def test_f2_levels(self):
         e = np.array([60, 70, 80, 90]); c_ = e + 3

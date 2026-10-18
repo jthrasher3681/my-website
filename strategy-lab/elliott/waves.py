@@ -127,10 +127,11 @@ def pivots(h, l, c, k, a=None):
 
 
 def sma(x, n):
+    """Simple moving average, each window summed directly (no running-sum rounding)."""
+    x = np.asarray(x, float)
     out = np.full(len(x), np.nan)
     if len(x) >= n:
-        cs = np.cumsum(np.concatenate(([0.0], x)))
-        out[n - 1:] = (cs[n:] - cs[:-n]) / n
+        out[n - 1:] = np.lib.stride_tricks.sliding_window_view(x, n).mean(axis=1)
     return out
 
 
@@ -182,7 +183,7 @@ def run_exit(o, h, l, c, entry, entry_px, d, stop, target, n_time, limit_fill, s
         if (j > entry or not limit_fill) and not np.isnan(target) and hi >= d * target:
             return j, target, 1
         if not np.isnan(s3_level):
-            if hi >= d * s3_level:
+            if hi > d * s3_level:
                 beyond = True
             if beyond and d * (c[j] - dma_arr[j]) < 0 and j < last:
                 return j + 1, o[j + 1], 3

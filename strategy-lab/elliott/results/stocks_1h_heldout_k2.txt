@@ -1,44 +1,48 @@
-318 symbols, 183409 trades, 9s
-in-sample reproduction: 112502 of 112502 in-sample trades identical; 112512 found here
-66295 trades in the period; twins...
-twins done, 29s
-F2-500|long        n   3366  mean R -0.029  twin R -0.015  edge -0.013 p 0.6762
-F2-500|short       n   3456  mean R -0.163  twin R -0.151  edge -0.012 p 0.6599
-F2-618|long        n   3844  mean R -0.069  twin R -0.044  edge -0.025 p 0.7931
-F2-618|short       n   4029  mean R -0.192  twin R -0.192  edge 0.001 p 0.5047
-F2-c437|long       n   2907  mean R +0.018  twin R -0.002  edge 0.02 p 0.2408
-F2-c437|short      n   3024  mean R -0.149  twin R -0.141  edge -0.008 p 0.6211
-F2-c556|long       n   3674  mean R -0.068  twin R -0.028  edge -0.04 p 0.9236
-F2-c556|short      n   3781  mean R -0.177  twin R -0.177  edge -0.0 p 0.5201
-F2-c697|long       n   3935  mean R -0.079  twin R -0.083  edge 0.003 p 0.4545
-F2-c697|short      n   4099  mean R -0.201  twin R -0.248  edge 0.047 p 0.0751
-F4-236|long        n    226  mean R -0.104  twin R -0.063  edge -0.041 p 0.6551
-F4-236|short       n    224  mean R -0.199  twin R -0.164  edge -0.036 p 0.6664
-F4-382|long        n    720  mean R -0.102  twin R -0.141  edge 0.039 p 0.3325
-F4-382|short       n    725  mean R -0.230  twin R -0.193  edge -0.037 p 0.6641
-F4-c309|long       n    539  mean R -0.035  twin R -0.031  edge -0.004 p 0.5228
-F4-c309|short      n    525  mean R -0.110  twin R -0.154  edge 0.044 p 0.3221
-F4-c437|long       n    660  mean R -0.146  twin R -0.167  edge 0.024 p 0.4076
-F4-c437|short      n    627  mean R -0.219  twin R -0.264  edge 0.046 p 0.2984
-S1-base|long       n   2672  mean R -0.019  twin R -0.01  edge -0.008 p 0.6446
-S1-base|short      n   2683  mean R -0.088  twin R -0.107  edge 0.019 p 0.2059
-S1|long            n   2377  mean R -0.033  twin R 0.003  edge -0.037 p 0.9496
-S1|short           n   2381  mean R -0.073  twin R -0.098  edge 0.025 p 0.1508
-S2-base|long       n    152  mean R -0.128  twin R -0.05  edge -0.078 p 0.8242
-S2-base|short      n    183  mean R -0.077  twin R -0.1  edge 0.024 p 0.3404
-S2|long            n    462  mean R +0.008  twin R -0.073  edge 0.08 p 0.0453
-S2|short           n    422  mean R +0.011  twin R -0.072  edge 0.082 p 0.0189
-S3-base|long       n   2696  mean R -0.042  twin R -0.066  edge 0.024 p 0.2988
-S3-base|short      n   2678  mean R -0.199  twin R -0.202  edge 0.003 p 0.474
-S3|long            n   1269  mean R -0.034  twin R -0.084  edge 0.05 p 0.1704
-S3|short           n   1095  mean R -0.114  twin R -0.171  edge 0.057 p 0.1939
-S4|long            n     27  mean R +0.258  twin R -0.145  edge 0.403 p 0.053
-S4|short           n     41  mean R +0.151  twin R -0.073  edge 0.224 p 0.1272
-S5-c085|long       n   1345  mean R +0.035  twin R 0.014  edge 0.02 p 0.3276
-S5-c085|short      n   1321  mean R -0.152  twin R -0.103  edge -0.05 p 0.9599
-S5-c115|long       n    872  mean R +0.029  twin R 0.048  edge -0.022 p 0.6374
-S5-c115|short      n    843  mean R -0.190  twin R -0.193  edge 0.001 p 0.4958
-S5|long            n   1079  mean R +0.013  twin R 0.02  edge -0.007 p 0.5667
-S5|short           n   1076  mean R -0.140  twin R -0.118  edge -0.022 p 0.7168
-S6|long            n    120  mean R -0.082  twin R -0.069  edge -0.013 p 0.603
-S6|short           n    140  mean R +0.008  twin R -0.081  edge 0.089 p 0.0997
+318 symbols, 203249 trades, 11s
+in-sample reproduction: 124875 of 124875 in-sample trades identical; 124891 found here
+73534 trades in the period; twins...
+twins done, 31s
+F2-500|long        n   3364  mean R -0.030  twin R -0.02  edge -0.01 p 0.6353
+F2-500|short       n   3453  mean R -0.163  twin R -0.16  edge -0.003 p 0.5468
+F2-618|long        n   3843  mean R -0.070  twin R -0.054  edge -0.016 p 0.6932
+F2-618|short       n   4027  mean R -0.194  twin R -0.21  edge 0.016 p 0.2978
+F2-c437|long       n   2903  mean R +0.016  twin R 0.007  edge 0.009 p 0.3747
+F2-c437|short      n   3022  mean R -0.149  twin R -0.141  edge -0.008 p 0.6138
+F2-c556|long       n   3672  mean R -0.071  twin R -0.027  edge -0.044 p 0.9292
+F2-c556|short      n   3780  mean R -0.176  twin R -0.177  edge 0.0 p 0.5079
+F2-c697|long       n   3932  mean R -0.083  twin R -0.088  edge 0.005 p 0.4365
+F2-c697|short      n   4096  mean R -0.204  twin R -0.247  edge 0.044 p 0.0923
+F4-236|long        n    224  mean R -0.100  twin R -0.077  edge -0.022 p 0.5955
+F4-236|short       n    224  mean R -0.199  twin R -0.072  edge -0.127 p 0.9489
+F4-382|long        n    720  mean R -0.102  twin R -0.155  edge 0.053 p 0.2674
+F4-382|short       n    725  mean R -0.230  twin R -0.216  edge -0.014 p 0.5553
+F4-c309|long       n    539  mean R -0.035  twin R -0.089  edge 0.054 p 0.2834
+F4-c309|short      n    525  mean R -0.110  twin R -0.143  edge 0.033 p 0.3702
+F4-c437|long       n    660  mean R -0.146  twin R -0.209  edge 0.066 p 0.2407
+F4-c437|short      n    627  mean R -0.219  twin R -0.241  edge 0.023 p 0.3914
+S1-base|long       n   2672  mean R -0.019  twin R -0.006  edge -0.012 p 0.7083
+S1-base|short      n   2683  mean R -0.088  twin R -0.105  edge 0.017 p 0.2369
+S1-ktrig|long      n   1171  mean R -0.021  twin R -0.009  edge -0.012 p 0.6575
+S1-ktrig|short     n   1188  mean R -0.088  twin R -0.072  edge -0.015 p 0.7521
+S1-p2stop|long     n   2460  mean R -0.062  twin R -0.037  edge -0.025 p 0.7546
+S1-p2stop|short    n   2451  mean R -0.117  twin R -0.162  edge 0.044 p 0.1191
+S1|long            n   2377  mean R -0.033  twin R 0.005  edge -0.038 p 0.9624
+S1|short           n   2381  mean R -0.073  twin R -0.09  edge 0.017 p 0.2225
+S2-base|long       n    152  mean R -0.128  twin R -0.074  edge -0.054 p 0.7484
+S2-base|short      n    183  mean R -0.077  twin R -0.119  edge 0.042 p 0.2289
+S2|long            n    462  mean R +0.008  twin R -0.056  edge 0.064 p 0.0782
+S2|short           n    422  mean R +0.011  twin R -0.076  edge 0.086 p 0.0187
+S3-base|long       n   2696  mean R -0.042  twin R -0.049  edge 0.007 p 0.4428
+S3-base|short      n   2678  mean R -0.199  twin R -0.198  edge -0.001 p 0.5131
+S3|long            n   1269  mean R -0.034  twin R -0.097  edge 0.064 p 0.0891
+S3|short           n   1094  mean R -0.114  twin R -0.181  edge 0.067 p 0.155
+S4|long            n     27  mean R +0.258  twin R -0.08  edge 0.338 p 0.1008
+S4|short           n     41  mean R +0.151  twin R -0.013  edge 0.164 p 0.2225
+S5-c085|long       n   1344  mean R +0.034  twin R 0.008  edge 0.025 p 0.2781
+S5-c085|short      n   1320  mean R -0.152  twin R -0.102  edge -0.05 p 0.9533
+S5-c115|long       n    872  mean R +0.029  twin R 0.064  edge -0.041 p 0.7327
+S5-c115|short      n    842  mean R -0.194  twin R -0.192  edge -0.003 p 0.5238
+S5|long            n   1079  mean R +0.013  twin R 0.018  edge -0.005 p 0.5495
+S5|short           n   1074  mean R -0.142  twin R -0.137  edge -0.007 p 0.5774
+S6|long            n    120  mean R -0.082  twin R -0.051  edge -0.031 p 0.7089
+S6|short           n    140  mean R +0.008  twin R -0.105  edge 0.113 p 0.0618

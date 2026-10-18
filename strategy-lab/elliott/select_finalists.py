@@ -109,20 +109,28 @@ def behavior():
         path = f"{HERE}/results/behavior_{ds}_heldout_k2.json"
         out = json.load(open(path)) if os.path.exists(path) else {}
         for t, v in ins.items():
+            if t in ("B1a_arith", "B1b_arith"):
+                continue
             rows.append({"dataset": ds, "test": t, "insample": v, "heldout": out.get(t)})
     q = X.bh([r["insample"]["p"] for r in rows])
-    for r, qq in zip(rows, q):
+    qc = X.bh([r["insample"].get("calendar", {}).get("p", 1.0) for r in rows])
+    for r, qq, qqc in zip(rows, q, qc):
         r["q_bh"] = float(qq)
         r["significant_insample"] = bool(qq < 0.05 and r["insample"]["excess"] > 0)
         h = r["heldout"]
         r["replicates"] = bool(r["significant_insample"] and h is not None and h["p"] < 0.05 and h["excess"] > 0)
         r["supported"] = r["replicates"]
+        # robustness (after review): calendar-clustered p-values, BH across the same 16 tests
+        r["q_bh_calendar"] = float(qqc)
+        r["supported_calendar"] = bool(qqc < 0.05 and r["insample"]["excess"] > 0 and h is not None
+                                       and h.get("calendar", {}).get("p", 1.0) < 0.05 and h["excess"] > 0)
     json.dump(rows, open(f"{HERE}/results/behavior_verdict.json", "w"), indent=1)
     for r in rows:
         i, h = r["insample"], r["heldout"]
         print(f"{r['dataset']:13} {r['test']:4} in: real {i['real_share']:.4f} null {i['null_share']:.4f} excess {i['excess']:+.4f} q {r['q_bh']:.3f}"
               + (f" | held out: excess {h['excess']:+.4f} [{h['lo']:+.4f},{h['hi']:+.4f}] p {h['p']:.4f}" if h else "")
-              + ("  SUPPORTED" if r["supported"] else ("  (significant in-sample only)" if r["significant_insample"] else "")))
+              + ("  SUPPORTED" if r["supported"] else ("  (significant in-sample only)" if r["significant_insample"] else ""))
+              + f"  | calendar q {r['q_bh_calendar']:.3f}" + ("  supported by calendar too" if r["supported_calendar"] else ""))
 
 
 if __name__ == "__main__":

@@ -19,10 +19,9 @@ def job(s):
 def main(n_sym=120):
     with ProcessPoolExecutor(4) as ex:
         res = list(ex.map(job, range(n_sym)))
+    by = {r[0]: (r[1], r[2]) for r in res}
     for t in B.TESTS:
-        R = np.array([r[1][t] for r in res], float)
-        S = np.array([r[2][t] for r in res], float)
-        o = B.symbol_bootstrap(R, S, draws=2000)
+        o = B.symbol_bootstrap(*B.per_symbol(by, t), draws=2000)
         print(f"{t}: n {o['events']:6d} real {o['real_share']:.4f} null {o['null_share']:.4f} "
               f"excess {o['excess']:+.4f} [{o['lo']:+.4f},{o['hi']:+.4f}]")
 

@@ -11,7 +11,12 @@ tests"), against stationary-bootstrap surrogates.
   previous close.
 - The statistic is the pooled share in real data minus the pooled share in
   the surrogates. Its interval and one-sided p come from a bootstrap over
-  symbols.
+  symbols, as pre-registered.
+- A robustness version resamples calendar months (daily) or ISO weeks
+  (hourly) instead: stocks swing together on the same dates, so symbols are
+  not independent. That version was added after an independent review.
+- B1a_arith and B1b_arith repeat B1a and B1b with arithmetic (chart)
+  ratios. They are exploratory.
 """
 import argparse, json, os, sys, zlib
 from concurrent.futures import ProcessPoolExecutor
@@ -24,9 +29,10 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 N_SURR = 20
 BLOCK = {"stocks_daily": 20, "etf_daily": 20, "stocks_1h": 35, "stocks_4h": 10}
 TESTS = ["B1a", "B1b", "B2", "B3", "B4", "B5", "B6", "B7"]
+EXTRA = ["B1a_arith", "B1b_arith"]
 # (name, test, centre, half-width in log for ratio tests / relative for B3, B6, B7 / absolute for B5)
 CONTROLS = {"B1a": [0.437, 0.556, 0.697], "B1b": [0.309, 0.437], "B3": [0.8, 1.25], "B5": [0.5, -0.5],
-            "B6": [1.4, 1.8], "B7": [0.85, 1.15]}
+            "B6": [1.4, 1.8], "B7": [0.85, 1.15], "B1a_arith": [0.437, 0.556, 0.697], "B1b_arith": [0.309, 0.437]}
 
 
 def _near_log(r, f, w=0.03):
@@ -37,30 +43,40 @@ def _near_rel(r, f, w=0.10):
     return abs(r / f - 1) <= w
 
 
-def measure(b, piv, ok):
-    """Counts per test for one series: {test: [events, hits, control hits...]} for
-    patterns whose last confirmation bar passes ``ok`` (a boolean array)."""
+def measure(b, piv, ok, cl):
+    """Counts per test and calendar cluster for one series:
+    {test: {cluster: [events, hits, control hits...]}}, for patterns whose last
+    confirmation bar passes ``ok`` (a boolean array). ``cl`` holds each bar's
+    calendar cluster."""
     h, l = b["high"], b["low"]
     e, cc, kind, p = piv["e"], piv["c"], piv["kind"], piv["p"]
     x = np.log(p)
     n = len(p)
     m = len(h)
-    cnt = {t: np.zeros(2 + len(CONTROLS.get(t, [])), np.int64) for t in TESTS}
+    cnt = {t: {} for t in TESTS + EXTRA}
+    cur = [0]
 
     def add(t, hit, ctl=()):
-        cnt[t][0] += 1
-        cnt[t][1] += hit
+        row = cnt[t].get(cur[0])
+        if row is None:
+            row = cnt[t][cur[0]] = np.zeros(2 + len(CONTROLS.get(t, [])), np.int64)
+        row[0] += 1
+        row[1] += hit
         for i, cflag in enumerate(ctl):
-            cnt[t][2 + i] += cflag
+            row[2 + i] += cflag
 
     for j in range(1, n):
         if not ok[cc[j]]:
             continue
+        cur[0] = int(cl[cc[j]])
         if j >= 3:                                            # B1a: P0-P1-P2 = j-2..j
             W1, W2 = abs(x[j - 1] - x[j - 2]), abs(x[j] - x[j - 1])
             r2 = W2 / W1
             if r2 < 1:
                 add("B1a", _near_log(r2, 0.618) or _near_log(r2, 0.5), [_near_log(r2, f) for f in CONTROLS["B1a"]])
+            ra = abs(p[j] - p[j - 1]) / abs(p[j - 1] - p[j - 2])
+            if ra < 1:
+                add("B1a_arith", _near_log(ra, 0.618) or _near_log(ra, 0.5), [_near_log(ra, f) for f in CONTROLS["B1a"]])
         if j >= 4:                                            # B6 on P0..P3, B7 on A0, A1, B, C
             q = (j - 3, j - 2, j - 1, j)
             d = 1 if kind[q[3]] == 1 else -1                  # a high ends an up wave 3
@@ -78,6 +94,8 @@ def measure(b, piv, ok):
             if d * (x[q[2]] - x[q[0]]) > 0 and d * (x[q[3]] - x[q[1]]) > 0 and d * (x[q[4]] - x[q[1]]) > 0:
                 r4 = abs(x[q[4]] - x[q[3]]) / abs(x[q[3]] - x[q[2]])
                 add("B1b", _near_log(r4, 0.382), [_near_log(r4, f) for f in CONTROLS["B1b"]])
+                ra = abs(p[q[4]] - p[q[3]]) / abs(p[q[3]] - p[q[2]])
+                add("B1b_arith", _near_log(ra, 0.382), [_near_log(ra, f) for f in CONTROLS["B1b"]])
         if j >= 6:                                            # B2-B5 on P0..P5
             q = list(range(j - 5, j + 1))
             d = 1 if kind[j] == 1 else -1                     # a high ends an up impulse
@@ -133,18 +151,53 @@ def surrogate(b, block, seed):
     return out
 
 
+def clusters(t, daily):
+    """Calendar cluster of each bar: its month (daily) or its Monday-based week."""
+    if daily:
+        return t.astype("datetime64[M]").astype(np.int64)
+    return (t.astype("datetime64[D]").astype(np.int64) + 3) // 7
+
+
 def _symbol(args):
-    sym, b, lo, hi, block, k = args
+    sym, b, lo, hi, block, k = args[:6]
+    daily = args[6] if len(args) > 6 else True
     t = b["t"]
     ok = b["liquid"] & (t >= lo) & (t <= hi)
-    real = measure(b, waves.pivots(b["high"], b["low"], b["close"], k), ok)
-    surr = {tt: np.zeros_like(v, dtype=float) for tt, v in real.items()}
+    cl = clusters(t, daily)
+    real = measure(b, waves.pivots(b["high"], b["low"], b["close"], k), ok, cl)
+    surr = {tt: {} for tt in real}
     for r in range(N_SURR):
         sb = surrogate(b, block, zlib.crc32(f"{sym}|{r}".encode()))
-        sm = measure(sb, waves.pivots(sb["high"], sb["low"], sb["close"], k), ok)
-        for tt in surr:
-            surr[tt] += sm[tt] / N_SURR
+        sm = measure(sb, waves.pivots(sb["high"], sb["low"], sb["close"], k), ok, cl)
+        for tt, by in sm.items():
+            for c_, v in by.items():
+                surr[tt][c_] = surr[tt].get(c_, 0) + v / N_SURR
     return sym, real, surr
+
+
+def _width(t):
+    return 2 + len(CONTROLS.get(t, []))
+
+
+def per_symbol(res, t):
+    """(symbols x counts) arrays of real and surrogate totals for test t."""
+    syms = sorted(res)
+    R = np.array([sum(res[s][0][t].values(), np.zeros(_width(t))) for s in syms], float)
+    S = np.array([sum(res[s][1][t].values(), np.zeros(_width(t))) for s in syms], float)
+    return R, S
+
+
+def per_cluster(res, t):
+    """(calendar clusters x counts) arrays of real and surrogate totals for test t."""
+    keys = sorted({c_ for s in res for c_ in list(res[s][0][t]) + list(res[s][1][t])})
+    pos = {c_: i for i, c_ in enumerate(keys)}
+    R = np.zeros((len(keys), _width(t))); S = np.zeros((len(keys), _width(t)))
+    for s in res:
+        for c_, v in res[s][0][t].items():
+            R[pos[c_]] += v
+        for c_, v in res[s][1][t].items():
+            S[pos[c_]] += v
+    return R, S
 
 
 def symbol_bootstrap(real, surr, draws=10_000, seed=0):
@@ -186,7 +239,7 @@ def main():
     else:
         bars = full
         lo, hi = np.datetime64(pd.Timestamp(ho_start)), np.datetime64("2100-01-01")
-    jobs = [(s, b, lo, hi, BLOCK[a.dataset], a.k) for s, b in sorted(bars.items())]
+    jobs = [(s, b, lo, hi, BLOCK[a.dataset], a.k, D.DAILY[a.dataset]) for s, b in sorted(bars.items())]
     res = {}
     with ProcessPoolExecutor(a.workers) as ex:
         for i, (sym, real, surr) in enumerate(ex.map(_symbol, jobs, chunksize=8)):
@@ -194,13 +247,13 @@ def main():
             if i % 200 == 0:
                 print(f"{i}/{len(jobs)}", flush=True)
     out = {}
-    for t in TESTS:
-        R = np.array([res[s][0][t] for s in sorted(res)], float)
-        S = np.array([res[s][1][t] for s in sorted(res)], float)
-        out[t] = symbol_bootstrap(R, S)
+    for t in TESTS + EXTRA:
+        out[t] = symbol_bootstrap(*per_symbol(res, t))
+        cal = symbol_bootstrap(*per_cluster(res, t))
+        out[t]["calendar"] = {"lo": cal["lo"], "hi": cal["hi"], "p": cal["p"], "clusters": len(per_cluster(res, t)[0])}
         o = out[t]
         print(f"{t}: events {o['events']:7d}  real {o['real_share']:.4f}  null {o['null_share']:.4f}  "
-              f"excess {o['excess']:+.4f} [{o['lo']:+.4f}, {o['hi']:+.4f}] p {o['p']:.4f}  controls "
+              f"excess {o['excess']:+.4f} [{o['lo']:+.4f}, {o['hi']:+.4f}] p {o['p']:.4f}  calendar p {o['calendar']['p']:.4f}  controls "
               + ", ".join(f"{c['excess']:+.4f}" for c in o["controls"]), flush=True)
     os.makedirs(f"{HERE}/results", exist_ok=True)
     json.dump(out, open(f"{HERE}/results/behavior_{a.dataset}_{a.period}_k{a.k:g}.json", "w"), indent=1)

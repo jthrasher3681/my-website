@@ -120,6 +120,9 @@ def summarize(trades, dataset):
              "limit_fill_at_open": int(((g["kind"] == "limit") & (g["entry_px"] != g.get("limit", np.nan))).sum()) if "limit" in g else 0,
              "R_stats": X.cluster_bootstrap(g["R"], g["cluster"]),
              "edge": X.cluster_bootstrap(edge, gt["cluster"])}
+        if "ref_p1" in g and g["ref_p1"].notna().any():
+            gg = g[g["ref_p1"].notna()]
+            s["fills_at_or_beyond_p1"] = float((gg["d"] * (gg["entry_px"] - gg["ref_p1"]) >= 0).mean())
         ts = pd.to_datetime(gt["t_sig"])
         s["edge_halves"] = [float(edge[ts < half].mean()) if (ts < half).any() else None,
                             float(edge[ts >= half].mean()) if (ts >= half).any() else None]

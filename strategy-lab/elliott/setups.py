@@ -73,7 +73,23 @@ def pivot_setups(bars, piv):
                 r2 = W2 / W1
                 setup = "S1" if 0.50 <= r2 <= 0.786 else "S1-base"
                 tgt = np.exp(x[p2] + d * 1.618 * W1)
-                out.append(_market(setup, "S1", d, cc[j], _stop(p[p0], d), tgt, 3 * D1))
+                o = _market(setup, "S1", d, cc[j], _stop(p[p0], d), tgt, 3 * D1)
+                o["ref_p1"] = float(p[p1])
+                out.append(o)
+                if setup == "S1":
+                    # exploratory: the stop a tick beyond p2, and Kennedy's conservative trigger
+                    out.append({**_market("S1-p2stop", "S1", d, cc[j], _stop(p[p2], d), tgt, 3 * D1), "ref_p1": float(p[p1])})
+                    nxt = cc[j + 1] if j + 1 < n else len(c)
+                    t_end = min(nxt, cc[j] + 3 * D1, len(c) - 2)
+                    stop = _stop(p[p0], d)
+                    for t in range(cc[j] + 1, t_end + 1):
+                        if t >= nxt:
+                            break
+                        if d * ((bars["low"] if d > 0 else bars["high"])[t] - stop) <= 0:
+                            break                       # the stop was touched before any trigger
+                        if d * (c[t] - p[p1]) > 0:
+                            out.append({**_market("S1-ktrig", "S1", d, t, stop, tgt, 3 * D1), "ref_p1": float(p[p1])})
+                            break
         if j >= 5:                                   # S2 on P0 .. P4 = j-4 .. j
             q0, q1, q2, q3, q4 = j - 4, j - 3, j - 2, j - 1, j
             W1, W2, W3, W4 = (abs(x[b] - x[a]) for a, b in ((q0, q1), (q1, q2), (q2, q3), (q3, q4)))

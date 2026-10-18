@@ -52,9 +52,9 @@ def run(trades, bars, cost, seed, start):
     for i, T in enumerate(times):
         for k in rng.permutation(entries.get(i, [])):
             t = trades[k]
-            equity = cash + sum(p["sh"] * t2["d"] * (last_px.get(t2["symbol"], t2["entry_px"]) - t2["entry_px"])
-                                for k2, p in open_.items() for t2 in [trades[k2]])
-            gross = sum(abs(p["sh"]) * last_px.get(trades[k2]["symbol"], trades[k2]["entry_px"]) for k2, p in open_.items())
+            equity = cash + sum(p["sh"] * trades[k2]["d"] * (last_px.get(k2, trades[k2]["entry_px"]) - trades[k2]["entry_px"])
+                                for k2, p in open_.items())
+            gross = sum(abs(p["sh"]) * last_px.get(k2, trades[k2]["entry_px"]) for k2, p in open_.items())
             risk_frac = abs(t["entry_px"] - t["stop"]) / t["entry_px"]
             value = min(equity * RISK / risk_frac, equity * CAP)
             if gross + value > GROSS * equity or value <= 0:
@@ -71,8 +71,8 @@ def run(trades, bars, cost, seed, start):
             b = bars[t["symbol"]]
             j = b["pos"].get(int(T))
             if j is not None:
-                last_px[t["symbol"]] = b["close"][j]
-        eq[i] = cash + sum(p["sh"] * trades[k]["d"] * (last_px.get(trades[k]["symbol"], trades[k]["entry_px"]) - trades[k]["entry_px"])
+                last_px[k] = b["close"][j]
+        eq[i] = cash + sum(p["sh"] * trades[k]["d"] * (last_px.get(k, trades[k]["entry_px"]) - trades[k]["entry_px"])
                            for k, p in open_.items())
     s = pd.Series(eq, index=pd.to_datetime(times))
     return s.groupby(s.index.normalize()).last()

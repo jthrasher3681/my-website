@@ -1,16 +1,16 @@
-stocks_daily  B1a  in: real 0.0949 null 0.0948 excess +0.0001 q 0.659 | held out: excess +0.0010 [-0.0013,+0.0032] p 0.2022
-stocks_daily  B1b  in: real 0.0663 null 0.0671 excess -0.0007 q 0.750 | held out: excess +0.0059 [-0.0001,+0.0118] p 0.0263
-stocks_daily  B2   in: real 0.6633 null 0.6687 excess -0.0055 q 0.885 | held out: excess +0.0378 [+0.0264,+0.0491] p 0.0000
-stocks_daily  B3   in: real 0.2599 null 0.2318 excess +0.0281 q 0.048 | held out: excess +0.0287 [+0.0058,+0.0514] p 0.0061  SUPPORTED
-stocks_daily  B4   in: real 0.8155 null 0.8082 excess +0.0073 q 0.240 | held out: excess -0.0156 [-0.0268,-0.0045] p 0.9976
-stocks_daily  B5   in: real 0.1251 null 0.1102 excess +0.0150 q 0.010 | held out: excess -0.0022 [-0.0111,+0.0068] p 0.6884  (significant in-sample only)
-stocks_daily  B6   in: real 0.0939 null 0.0926 excess +0.0013 q 0.417 | held out: excess +0.0006 [-0.0022,+0.0033] p 0.3343
-stocks_daily  B7   in: real 0.1673 null 0.1722 excess -0.0049 q 0.981 | held out: excess +0.0041 [-0.0005,+0.0088] p 0.0421
-stocks_1h     B1a  in: real 0.0989 null 0.0969 excess +0.0020 q 0.065 | held out: excess +0.0015 [-0.0023,+0.0052] p 0.2255
-stocks_1h     B1b  in: real 0.0695 null 0.0676 excess +0.0019 q 0.498 | held out: excess +0.0074 [-0.0011,+0.0163] p 0.0462
-stocks_1h     B2   in: real 0.6980 null 0.6821 excess +0.0160 q 0.033 | held out: excess +0.0106 [-0.0078,+0.0294] p 0.1302  (significant in-sample only)
-stocks_1h     B3   in: real 0.2145 null 0.2260 excess -0.0115 q 0.885 | held out: excess -0.0225 [-0.0570,+0.0122] p 0.9035
-stocks_1h     B4   in: real 0.8106 null 0.8078 excess +0.0028 q 0.540 | held out: excess -0.0139 [-0.0311,+0.0037] p 0.9450
-stocks_1h     B5   in: real 0.1162 null 0.1030 excess +0.0132 q 0.033 | held out: excess +0.0126 [-0.0020,+0.0274] p 0.0430  SUPPORTED
-stocks_1h     B6   in: real 0.0924 null 0.0921 excess +0.0002 q 0.659 | held out: excess +0.0007 [-0.0037,+0.0052] p 0.3794
-stocks_1h     B7   in: real 0.1674 null 0.1680 excess -0.0006 q 0.750 | held out: excess +0.0028 [-0.0043,+0.0099] p 0.2220
+stocks_daily  B1a  in: real 0.0949 null 0.0948 excess +0.0001 q 0.659 | held out: excess +0.0010 [-0.0013,+0.0032] p 0.2022  | calendar q 0.671
+stocks_daily  B1b  in: real 0.0663 null 0.0671 excess -0.0007 q 0.750 | held out: excess +0.0059 [-0.0001,+0.0118] p 0.0263  | calendar q 0.671
+stocks_daily  B2   in: real 0.6633 null 0.6687 excess -0.0055 q 0.885 | held out: excess +0.0378 [+0.0264,+0.0491] p 0.0000  | calendar q 0.671
+stocks_daily  B3   in: real 0.2599 null 0.2318 excess +0.0281 q 0.048 | held out: excess +0.0287 [+0.0058,+0.0514] p 0.0061  SUPPORTED  | calendar q 0.063
+stocks_daily  B4   in: real 0.8155 null 0.8082 excess +0.0073 q 0.240 | held out: excess -0.0156 [-0.0268,-0.0045] p 0.9976  | calendar q 0.447
+stocks_daily  B5   in: real 0.1251 null 0.1102 excess +0.0150 q 0.010 | held out: excess -0.0022 [-0.0111,+0.0068] p 0.6884  (significant in-sample only)  | calendar q 0.059
+stocks_daily  B6   in: real 0.0939 null 0.0926 excess +0.0013 q 0.417 | held out: excess +0.0006 [-0.0022,+0.0033] p 0.3343  | calendar q 0.610
+stocks_daily  B7   in: real 0.1673 null 0.1722 excess -0.0049 q 0.981 | held out: excess +0.0041 [-0.0005,+0.0088] p 0.0421  | calendar q 0.847
+stocks_1h     B1a  in: real 0.0989 null 0.0969 excess +0.0020 q 0.065 | held out: excess +0.0015 [-0.0023,+0.0052] p 0.2255  | calendar q 0.336
+stocks_1h     B1b  in: real 0.0695 null 0.0676 excess +0.0019 q 0.498 | held out: excess +0.0074 [-0.0011,+0.0163] p 0.0462  | calendar q 0.610
+stocks_1h     B2   in: real 0.6980 null 0.6821 excess +0.0160 q 0.033 | held out: excess +0.0106 [-0.0078,+0.0294] p 0.1302  (significant in-sample only)  | calendar q 0.240
+stocks_1h     B3   in: real 0.2145 null 0.2260 excess -0.0115 q 0.885 | held out: excess -0.0225 [-0.0570,+0.0122] p 0.9035  | calendar q 0.837
+stocks_1h     B4   in: real 0.8106 null 0.8078 excess +0.0028 q 0.540 | held out: excess -0.0139 [-0.0311,+0.0037] p 0.9450  | calendar q 0.610
+stocks_1h     B5   in: real 0.1162 null 0.1030 excess +0.0132 q 0.033 | held out: excess +0.0126 [-0.0020,+0.0274] p 0.0430  SUPPORTED  | calendar q 0.059
+stocks_1h     B6   in: real 0.0924 null 0.0921 excess +0.0002 q 0.659 | held out: excess +0.0007 [-0.0037,+0.0052] p 0.3794  | calendar q 0.671
+stocks_1h     B7   in: real 0.1674 null 0.1680 excess -0.0006 q 0.750 | held out: excess +0.0028 [-0.0043,+0.0099] p 0.2220  | calendar q 0.671

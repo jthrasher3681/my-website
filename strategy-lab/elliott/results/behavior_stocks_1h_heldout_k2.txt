@@ -1,10 +1,12 @@
 0/318
 200/318
-B1a: events   22152  real 0.0992  null 0.0977  excess +0.0015 [-0.0023, +0.0052] p 0.2255  controls +0.0003, +0.0002, +0.0011
-B1b: events    3031  real 0.0746  null 0.0672  excess +0.0074 [-0.0011, +0.0163] p 0.0462  controls -0.0051, +0.0078
-B2: events    1949  real 0.6916  null 0.6810  excess +0.0106 [-0.0078, +0.0294] p 0.1302  controls 
-B3: events     508  real 0.2008  null 0.2233  excess -0.0225 [-0.0570, +0.0122] p 0.9035  controls -0.0144, +0.0197
-B4: events    1882  real 0.7875  null 0.8013  excess -0.0139 [-0.0311, +0.0037] p 0.9450  controls 
-B5: events    1789  real 0.1112  null 0.0987  excess +0.0126 [-0.0020, +0.0274] p 0.0430  controls -0.0043, +0.0055
-B6: events   14436  real 0.0924  null 0.0917  excess +0.0007 [-0.0037, +0.0052] p 0.3794  controls +0.0055, +0.0012
-B7: events    8470  real 0.1698  null 0.1670  excess +0.0028 [-0.0043, +0.0099] p 0.2220  controls +0.0038, +0.0044
+B1a: events   22152  real 0.0992  null 0.0977  excess +0.0015 [-0.0023, +0.0052] p 0.2255  calendar p 0.2601  controls +0.0003, +0.0002, +0.0011
+B1b: events    3031  real 0.0746  null 0.0672  excess +0.0074 [-0.0011, +0.0163] p 0.0462  calendar p 0.0751  controls -0.0051, +0.0078
+B2: events    1949  real 0.6916  null 0.6810  excess +0.0106 [-0.0078, +0.0294] p 0.1302  calendar p 0.1969  controls 
+B3: events     508  real 0.2008  null 0.2233  excess -0.0225 [-0.0570, +0.0122] p 0.9035  calendar p 0.8873  controls -0.0144, +0.0197
+B4: events    1882  real 0.7875  null 0.8013  excess -0.0139 [-0.0311, +0.0037] p 0.9450  calendar p 0.9043  controls 
+B5: events    1789  real 0.1112  null 0.0987  excess +0.0126 [-0.0020, +0.0274] p 0.0430  calendar p 0.0705  controls -0.0043, +0.0055
+B6: events   14436  real 0.0924  null 0.0917  excess +0.0007 [-0.0037, +0.0052] p 0.3794  calendar p 0.4033  controls +0.0055, +0.0012
+B7: events    8470  real 0.1698  null 0.1670  excess +0.0028 [-0.0043, +0.0099] p 0.2220  calendar p 0.2690  controls +0.0038, +0.0044
+B1a_arith: events   22152  real 0.0983  null 0.0976  excess +0.0007 [-0.0030, +0.0043] p 0.3585  calendar p 0.3631  controls -0.0000, -0.0002, +0.0008
+B1b_arith: events    3031  real 0.0633  null 0.0671  excess -0.0037 [-0.0117, +0.0046] p 0.8127  calendar p 0.8027  controls -0.0041, +0.0091
