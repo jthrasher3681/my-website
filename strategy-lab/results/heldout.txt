@@ -1,0 +1,17 @@
+SPY buy-and-hold                             CAGR  14.85%  Sharpe  0.75  maxDD  -33.7%  vol  17.7%  worst yr  -18.2% (2022)  expo 1.00  trades/yr   0.0  
+SSO buy-and-hold (2x)                        CAGR  22.94%  Sharpe  0.70  maxDD  -59.3%  vol  35.4%  worst yr  -39.0% (2022)  expo 2.00  trades/yr   0.0  fail sharpe,max_dd
+1.5x constant                                CAGR  19.26%  Sharpe  0.72  maxDD  -47.3%  vol  26.7%  worst yr  -30.3% (2022)  expo 1.53  trades/yr   0.2  fail sharpe,max_dd
+C1 200-day average, 1x                       CAGR  10.48%  Sharpe  0.73  maxDD  -22.8%  vol  11.7%  worst yr  -16.5% (2022)  expo 0.82  trades/yr   5.7  fail cagr,sharpe
+C2 200-day average, 2x                       CAGR  17.02%  Sharpe  0.70  maxDD  -41.5%  vol  23.2%  worst yr  -31.0% (2022)  expo 1.64  trades/yr   5.7  fail sharpe,max_dd
+C3 10-month average, 2x  <- finalist         CAGR  12.80%  Sharpe  0.53  maxDD  -48.8%  vol  24.6%  worst yr  -40.0% (2022)  expo 1.65  trades/yr   2.0  fail cagr,sharpe,max_dd
+C4 15% volatility target, cap 2x             CAGR  12.54%  Sharpe  0.70  maxDD  -20.9%  vol  15.6%  worst yr  -15.5% (2022)  expo 1.17  trades/yr  32.7  fail cagr,sharpe
+C5 200-day average x 15% volatility target   CAGR  10.10%  Sharpe  0.61  maxDD  -19.3%  vol  13.9%  worst yr  -13.6% (2022)  expo 1.06  trades/yr  34.6  fail cagr,sharpe
+
+Finalist C3: FAILS the held-out bar {'cagr': False, 'sharpe': False, 'max_dd': False}
+Yearly log-return difference vs SPY -1.80 pp, 90% interval [-9.87, 6.14] pp
+Random timing: {'cagr_percentile': 9.3, 'sharpe_percentile': 24.0, 'cagr_null_median': 0.18162, 'sharpe_null_median': 0.6131}
+Calendar years (finalist / SPY): {2016: (14.6, 12.0), 2017: (44.4, 21.7), 2018: (-17.7, -4.6), 2019: (12.7, 31.2), 2020: (35.6, 18.4), 2021: (60.6, 28.7), 2022: (-40.0, -18.2), 2023: (8.6, 26.2), 2024: (43.5, 24.9), 2025: (17.3, 17.7)} 2026 to date: {'finalist': 0.1, 'SPY': 12.8}
+Simulated 2x vs real SSO, 2016-2026: {'tracking_error_daily': 0.01534, 'tracking_error_monthly': 0.00453, 'cagr_sim': 0.23263, 'cagr_sso': 0.22965}
+Taxable account, finalist: CAGR before tax 12.80%, after tax as held 10.07%, liquidated 9.74%
+Taxable account, SPY: CAGR before tax 14.85%, after tax as held 14.50%, liquidated 12.92%
+Finalist trade dates: ['2016-01-04', '2016-04-01', '2018-11-01', '2018-12-03', '2019-01-02', '2019-03-01', '2019-06-03', '2019-07-01', '2020-03-02', '2020-06-01', '2022-03-01', '2022-04-01', '2022-05-02', '2022-12-01', '2023-01-03', '2023-02-01', '2023-11-01', '2023-12-01', '2025-04-01', '2025-06-02', '2026-04-01', '2026-05-01']

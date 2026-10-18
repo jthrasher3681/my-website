@@ -30,7 +30,7 @@ def _needs_trade(target, current, band):
     return abs(target - current) > max(band, 1e-9)
 
 
-def run(target, r, start, end, cost=COST, band=BAND, lag=1, at_open=None):
+def run(target, r, start, end, cost=COST, band=BAND, lag=1, at_open=None, record=False):
     """Simulate from the close of the session before ``start`` (when the opening
     position is bought from cash) to ``end``.
 
@@ -41,7 +41,9 @@ def run(target, r, start, end, cost=COST, band=BAND, lag=1, at_open=None):
 
     Returns a DataFrame indexed from that first close: ``equity`` (starting at 1
     less the opening cost), ``exposure`` (S&P exposure held over the session),
-    ``traded`` (1 on sessions with a trade).
+    ``traded`` (1 on sessions with a trade). With ``record``, also each
+    instrument's value at the close before and after that close's trade
+    (``spy_pre`` .. ``bil_post``; close-execution runs only).
     """
     cal = r.index
     if at_open is not None:
@@ -63,6 +65,7 @@ def run(target, r, start, end, cost=COST, band=BAND, lag=1, at_open=None):
         raise ValueError(f"no target before {cal[i0].date()}")
     v = weights(first) * (1 - cost)
     eq, expo, traded = [v.sum()], [float(LEVER @ weights(first))], [1]
+    pre, post = [np.zeros(3)], [v.copy()]
     pending = _decide(tgt[i0], v, band, cal[i0]) if lag == 1 else None
     if at_open is not None:
         ON, ID = on.loc[cal].to_numpy(float), intra.loc[cal].to_numpy(float)
@@ -79,6 +82,7 @@ def run(target, r, start, end, cost=COST, band=BAND, lag=1, at_open=None):
             pending = _decide(tgt[i], v, band, cal[i])
         else:
             v = v * (1 + R[i])
+            pre.append(v.copy())
             if lag == 1:
                 if pending is not None:
                     v, did = _trade(v, pending, cost), 1
@@ -90,7 +94,15 @@ def run(target, r, start, end, cost=COST, band=BAND, lag=1, at_open=None):
         eq.append(v.sum())
         expo.append(e_held)
         traded.append(did)
-    return pd.DataFrame({"equity": eq, "exposure": expo, "traded": traded}, index=cal[i0:i1 + 1])
+        post.append(v.copy())
+    out = pd.DataFrame({"equity": eq, "exposure": expo, "traded": traded}, index=cal[i0:i1 + 1])
+    if record:
+        if at_open is not None:
+            raise ValueError("record needs close execution")
+        for j, name in enumerate(("spy", "sso", "bil")):
+            out[f"{name}_pre"] = [x[j] for x in pre]
+            out[f"{name}_post"] = [x[j] for x in post]
+    return out
 
 
 def _decide(e, v, band, day):

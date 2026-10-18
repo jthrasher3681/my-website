@@ -191,5 +191,35 @@ class MetricTests(unittest.TestCase):
         self.assertAlmostEqual(metrics.longest_underwater_years(eq), 731 / 365.25)
 
 
+class TaxTests(unittest.TestCase):
+    def test_netting(self):
+        from lab.tax import _net
+        z = {"st": 0.0, "lt": 0.0}
+        self.assertEqual(_net(10, -4, z)[:2], (6, 0))
+        self.assertEqual(_net(-10, 4, z)[:2], (0, 0))
+        self.assertEqual(_net(-10, 4, z)[2], {"st": -6, "lt": 0})
+        self.assertEqual(_net(3, 5, {"st": -4, "lt": 0})[:2], (0, 4))
+
+    def test_fifo_holding_period(self):
+        from lab.tax import _sell
+        lots = [[1.0, 10.0, pd.Timestamp("2020-01-02")], [1.0, 20.0, pd.Timestamp("2021-06-01")]]
+        out = {"st": 0.0, "lt": 0.0}
+        _sell(lots, 1.5, 30.0, pd.Timestamp("2021-07-01"), out)
+        self.assertAlmostEqual(out["lt"], 20.0)       # first lot, held 18 months
+        self.assertAlmostEqual(out["st"], 5.0)        # half the second, held a month
+        self.assertAlmostEqual(lots[0][0], 0.5)
+        self.assertAlmostEqual(lots[0][1], 10.0)
+
+    def test_buy_and_hold_spy_taxes(self):
+        from lab import tax
+        r, c, gspc = data.returns(end="2010-12-31")
+        sim = engine.run(pd.Series(1.0, index=r.index), r, "2008-01-02", "2010-12-31", cost=0.0, record=True)
+        out = tax.after_tax(sim, "2008-01-02", "2010-12-31")
+        self.assertAlmostEqual(out["pre_tax"], sim["equity"].iloc[-1] / sim["equity"].iloc[0])
+        # only dividends are taxed while held: 20% of a ~2% yield
+        self.assertLess(out["pre_tax"] - out["after_tax_held"], 0.02)
+        self.assertGreater(out["pre_tax"] - out["after_tax_held"], 0.005)
+
+
 if __name__ == "__main__":
     unittest.main()

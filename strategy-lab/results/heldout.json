@@ -1,0 +1,284 @@
+{
+ "period": [
+  "2016-01-04",
+  "2026-10-16"
+ ],
+ "finalist": "C3",
+ "c_2x": 0.01501,
+ "candidates": {
+  "C1": {
+   "name": "200-day average, 1x",
+   "start": "2015-12-31",
+   "end": "2026-10-16",
+   "cagr": 0.10483,
+   "vol": 0.11678,
+   "sharpe": 0.7318,
+   "max_dd": -0.228,
+   "worst_year": -0.16519,
+   "worst_year_is": 2022,
+   "longest_underwater_years": 2.36277,
+   "avg_exposure": 0.8216,
+   "time_in_market": 0.8216,
+   "trades_per_year": 5.74467,
+   "end_value": 2.93262,
+   "passes": false,
+   "checks": {
+    "cagr": false,
+    "sharpe": false,
+    "max_dd": true
+   }
+  },
+  "C2": {
+   "name": "200-day average, 2x",
+   "start": "2015-12-31",
+   "end": "2026-10-16",
+   "cagr": 0.17018,
+   "vol": 0.23235,
+   "sharpe": 0.70354,
+   "max_dd": -0.41531,
+   "worst_year": -0.30966,
+   "worst_year_is": 2022,
+   "longest_underwater_years": 2.51061,
+   "avg_exposure": 1.6432,
+   "time_in_market": 0.8216,
+   "trades_per_year": 5.74467,
+   "end_value": 5.45291,
+   "passes": false,
+   "checks": {
+    "cagr": true,
+    "sharpe": false,
+    "max_dd": false
+   }
+  },
+  "C3": {
+   "name": "10-month average, 2x",
+   "start": "2015-12-31",
+   "end": "2026-10-16",
+   "cagr": 0.12805,
+   "vol": 0.24637,
+   "sharpe": 0.5278,
+   "max_dd": -0.48803,
+   "worst_year": -0.3998,
+   "worst_year_is": 2022,
+   "longest_underwater_years": 3.12936,
+   "avg_exposure": 1.64615,
+   "time_in_market": 0.82307,
+   "trades_per_year": 2.03843,
+   "end_value": 3.6707,
+   "passes": false,
+   "checks": {
+    "cagr": false,
+    "sharpe": false,
+    "max_dd": false
+   }
+  },
+  "C4": {
+   "name": "15% volatility target, cap 2x",
+   "start": "2015-12-31",
+   "end": "2026-10-16",
+   "cagr": 0.12542,
+   "vol": 0.15604,
+   "sharpe": 0.70071,
+   "max_dd": -0.2087,
+   "worst_year": -0.15528,
+   "worst_year_is": 2022,
+   "longest_underwater_years": 1.53593,
+   "avg_exposure": 1.16922,
+   "time_in_market": 1.0,
+   "trades_per_year": 32.70757,
+   "end_value": 3.57932,
+   "passes": false,
+   "checks": {
+    "cagr": false,
+    "sharpe": false,
+    "max_dd": true
+   }
+  },
+  "C5": {
+   "name": "200-day average x 15% volatility target",
+   "start": "2015-12-31",
+   "end": "2026-10-16",
+   "cagr": 0.101,
+   "vol": 0.13886,
+   "sharpe": 0.61094,
+   "max_dd": -0.19299,
+   "worst_year": -0.13558,
+   "worst_year_is": 2022,
+   "longest_underwater_years": 2.13552,
+   "avg_exposure": 1.05802,
+   "time_in_market": 0.8216,
+   "trades_per_year": 34.56069,
+   "end_value": 2.8249,
+   "passes": false,
+   "checks": {
+    "cagr": false,
+    "sharpe": false,
+    "max_dd": true
+   }
+  }
+ },
+ "references": {
+  "SPY buy-and-hold": {
+   "start": "2015-12-31",
+   "end": "2026-10-16",
+   "cagr": 0.14847,
+   "vol": 0.17686,
+   "sharpe": 0.75246,
+   "max_dd": -0.337,
+   "worst_year": -0.18172,
+   "worst_year_is": 2022,
+   "longest_underwater_years": 1.94114,
+   "avg_exposure": 1.0,
+   "time_in_market": 1.0,
+   "trades_per_year": 0.0,
+   "end_value": 4.45485
+  },
+  "SSO buy-and-hold (2x)": {
+   "start": "2015-12-31",
+   "end": "2026-10-16",
+   "cagr": 0.22939,
+   "vol": 0.35378,
+   "sharpe": 0.70339,
+   "max_dd": -0.59341,
+   "worst_year": -0.38976,
+   "worst_year_is": 2022,
+   "longest_underwater_years": 2.15743,
+   "avg_exposure": 2.0,
+   "time_in_market": 1.0,
+   "trades_per_year": 0.0,
+   "end_value": 9.28958
+  },
+  "1.5x constant": {
+   "start": "2015-12-31",
+   "end": "2026-10-16",
+   "cagr": 0.19263,
+   "vol": 0.26669,
+   "sharpe": 0.71626,
+   "max_dd": -0.4734,
+   "worst_year": -0.3028,
+   "worst_year_is": 2022,
+   "longest_underwater_years": 2.09446,
+   "avg_exposure": 1.53327,
+   "time_in_market": 1.0,
+   "trades_per_year": 0.18531,
+   "end_value": 6.69388
+  }
+ },
+ "finalist_passes": false,
+ "log_return_diff_per_year": -0.01798,
+ "log_return_diff_ci90": [
+  -0.09875,
+  0.06142
+ ],
+ "random_timing": {
+  "cagr_percentile": 9.3,
+  "sharpe_percentile": 24.0,
+  "cagr_null_median": 0.18162,
+  "sharpe_null_median": 0.6131
+ },
+ "calendar_years": {
+  "finalist": {
+   "2016": 0.14566,
+   "2017": 0.44352,
+   "2018": -0.17694,
+   "2019": 0.12728,
+   "2020": 0.35623,
+   "2021": 0.60569,
+   "2022": -0.3998,
+   "2023": 0.08603,
+   "2024": 0.43475,
+   "2025": 0.17342
+  },
+  "SPY": {
+   "2016": 0.12001,
+   "2017": 0.217,
+   "2018": -0.04557,
+   "2019": 0.31222,
+   "2020": 0.18373,
+   "2021": 0.28744,
+   "2022": -0.18172,
+   "2023": 0.26189,
+   "2024": 0.24885,
+   "2025": 0.17715
+  }
+ },
+ "2026_to_date": {
+  "finalist": 0.00102,
+  "SPY": 0.12802
+ },
+ "sim_2x_check_2016_2026": {
+  "tracking_error_daily": 0.01534,
+  "tracking_error_monthly": 0.00453,
+  "cagr_sim": 0.23263,
+  "cagr_sso": 0.22965
+ },
+ "taxes": {
+  "finalist": {
+   "pre_tax": 3.6707,
+   "after_tax_held": 2.81525,
+   "after_tax_liquidated": 2.72664,
+   "cagr_pre_tax": 0.12805,
+   "cagr_after_tax_held": 0.10065,
+   "cagr_after_tax_liquidated": 0.0974,
+   "tax_paid_share_by_year": {
+    "2016": 0.00111,
+    "2017": 0.00135,
+    "2018": 0.1036,
+    "2019": 0.00294,
+    "2020": 0.00049,
+    "2021": 0.00061,
+    "2022": 0.05989,
+    "2023": 0.00329,
+    "2024": 0.00297,
+    "2025": 0.0311,
+    "2026": 0.04862
+   }
+  },
+  "SPY": {
+   "pre_tax": 4.45485,
+   "after_tax_held": 4.31236,
+   "after_tax_liquidated": 3.70992,
+   "cagr_pre_tax": 0.14847,
+   "cagr_after_tax_held": 0.14501,
+   "cagr_after_tax_liquidated": 0.12916,
+   "tax_paid_share_by_year": {
+    "2016": 0.00401,
+    "2017": 0.00356,
+    "2018": 0.00403,
+    "2019": 0.00345,
+    "2020": 0.00301,
+    "2021": 0.00239,
+    "2022": 0.00327,
+    "2023": 0.00277,
+    "2024": 0.00239,
+    "2025": 0.00212,
+    "2026": 0.00146
+   }
+  }
+ },
+ "finalist_trades": [
+  "2016-01-04",
+  "2016-04-01",
+  "2018-11-01",
+  "2018-12-03",
+  "2019-01-02",
+  "2019-03-01",
+  "2019-06-03",
+  "2019-07-01",
+  "2020-03-02",
+  "2020-06-01",
+  "2022-03-01",
+  "2022-04-01",
+  "2022-05-02",
+  "2022-12-01",
+  "2023-01-03",
+  "2023-02-01",
+  "2023-11-01",
+  "2023-12-01",
+  "2025-04-01",
+  "2025-06-02",
+  "2026-04-01",
+  "2026-05-01"
+ ],
+ "finalist_exposure_at_end": 2.0
+}
