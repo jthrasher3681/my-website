@@ -1,0 +1,41 @@
+stocks_daily  S1      long  n   5803 R +0.188 edge -0.006 [-0.036,+0.023] q 0.950 base 0.02 
+stocks_daily  S1      short n   4958 R -0.108 edge +0.019 [-0.006,+0.043] q 0.304 base 0.059 
+stocks_daily  S2      long  n   1245 R +0.125 edge +0.021 [-0.028,+0.072] q 0.489 base 0.051 
+stocks_daily  S2      short n    651 R -0.015 edge +0.047 [-0.012,+0.107] q 0.304 base 0.03 
+stocks_daily  S3      long  n   2590 R +0.208 edge +0.052 [-0.024,+0.131] q 0.341 base 0.075 
+stocks_daily  S3      short n   2468 R -0.404 edge -0.077 [-0.141,-0.019] q 0.993 base -0.081 
+stocks_daily  S5      long  n   2363 R +0.053 edge -0.060 [-0.109,-0.009] q 0.993 base -0.007 
+stocks_daily  S5      short n   2009 R -0.127 edge +0.019 [-0.033,+0.072] q 0.512 base -0.007 
+stocks_daily  F2-618  long  n   8514 R +0.299 edge +0.026 [-0.023,+0.077] q 0.438 base 0.025 
+stocks_daily  F2-618  short n   8816 R -0.199 edge +0.031 [-0.008,+0.073] q 0.304 base -0.01 
+stocks_daily  F2-500  long  n   7165 R +0.271 edge -0.011 [-0.088,+0.049] q 0.909 base -0.004 
+stocks_daily  F2-500  short n   7300 R -0.147 edge +0.043 [+0.005,+0.079] q 0.296 base 0.041 
+stocks_daily  F4-382  long  n   1596 R +0.138 edge +0.025 [-0.078,+0.127] q 0.546 base -0.012 
+stocks_daily  F4-382  short n   1219 R -0.128 edge +0.074 [-0.025,+0.174] q 0.304 base 0.029 
+stocks_1h     S1      long  n   4469 R +0.054 edge +0.010 [-0.021,+0.038] q 0.537 base -0.02 
+stocks_1h     S1      short n   3849 R -0.146 edge +0.013 [-0.018,+0.046] q 0.489 base -0.01 
+stocks_1h     S2      long  n    893 R -0.017 edge -0.018 [-0.087,+0.057] q 0.956 base -0.042 
+stocks_1h     S2      short n    674 R -0.194 edge -0.039 [-0.102,+0.024] q 0.993 base 0.064 
+stocks_1h     S3      long  n   1966 R -0.150 edge -0.037 [-0.130,+0.056] q 0.956 base -0.122 
+stocks_1h     S3      short n   1720 R -0.407 edge -0.059 [-0.143,+0.038] q 0.993 base -0.057 
+stocks_1h     S5      long  n   1697 R -0.075 edge -0.083 [-0.169,-0.002] q 0.993 base -0.014 
+stocks_1h     S5      short n   1929 R -0.157 edge +0.024 [-0.035,+0.087] q 0.489 base -0.015 
+stocks_1h     F2-618  long  n   6729 R +0.057 edge -0.004 [-0.049,+0.041] q 0.909 base -0.003 
+stocks_1h     F2-618  short n   6535 R -0.213 edge +0.048 [-0.002,+0.100] q 0.296 base -0.004 
+stocks_1h     F2-500  long  n   5969 R +0.098 edge +0.012 [-0.029,+0.052] q 0.543 base 0.037 
+stocks_1h     F2-500  short n   5789 R -0.162 edge +0.040 [-0.002,+0.084] q 0.296 base 0.047 
+stocks_1h     F4-382  long  n   1418 R -0.075 edge -0.038 [-0.149,+0.079] q 0.956 base 0.003 
+stocks_1h     F4-382  short n   1123 R -0.369 edge -0.039 [-0.141,+0.073] q 0.956 base -0.068 
+finalists: []
+fib stocks_daily  F2|long   n 15679/22849 diff 0.011692928398855718 q 0.266
+fib stocks_daily  F2|short  n 16116/23334 diff 0.013130227484259765 q 0.202
+fib stocks_daily  F4|long   n 1596/2610 diff -0.011767554977485106 q 0.910
+fib stocks_daily  F4|short  n 1219/1920 diff 0.0292344103135605 q 0.748
+fib stocks_daily  S5|long   n 2363/4897 diff -0.007013221896503781 q 0.910
+fib stocks_daily  S5|short  n 2009/4148 diff -0.006801920444652776 q 0.910
+fib stocks_1h     F2|long   n 12698/18357 diff 0.01567568652317937 q 0.218
+fib stocks_1h     F2|short  n 12324/17868 diff 0.02013481956009383 q 0.072
+fib stocks_1h     F4|long   n 1418/2338 diff 0.003457967695118927 q 0.910
+fib stocks_1h     F4|short  n 1123/1892 diff -0.06826386976714854 q 0.959
+fib stocks_1h     S5|long   n 1697/3487 diff -0.013999519308753663 q 0.910
+fib stocks_1h     S5|short  n 1929/3954 diff -0.0150438578083667 q 0.959

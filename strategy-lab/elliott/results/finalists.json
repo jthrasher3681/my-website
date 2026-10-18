@@ -1,0 +1,1027 @@
+{
+ "confirmatory": [
+  {
+   "dataset": "stocks_daily",
+   "setup": "S1",
+   "direction": "long",
+   "trades": 5803,
+   "mean_R": 0.18814353530672032,
+   "mean_twin_R": 0.19375789209407882,
+   "edge": -0.005614356787358492,
+   "edge_lo": -0.035552924944990065,
+   "edge_hi": 0.02335507262963887,
+   "edge_p": 0.6448,
+   "edge_q_bh": 0.9502315789473684,
+   "baseline_diff": 0.019622977557593124,
+   "baseline_p": 0.1509,
+   "mean_R_2x_cost": 0.1785285816109177,
+   "edge_halves": [
+    0.01530467335188975,
+    -0.02130362939179467
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": true,
+    "beats_baseline": false,
+    "positive_at_2x_cost": true,
+    "both_halves": false
+   },
+   "finalist": false
+  },
+  {
+   "dataset": "stocks_daily",
+   "setup": "S1",
+   "direction": "short",
+   "trades": 4958,
+   "mean_R": -0.10788829472688184,
+   "mean_twin_R": -0.1265785405171293,
+   "edge": 0.01869024579024744,
+   "edge_lo": -0.0063472122224478246,
+   "edge_hi": 0.0429970131085524,
+   "edge_p": 0.0737,
+   "edge_q_bh": 0.30439999999999995,
+   "baseline_diff": 0.05920102983319757,
+   "baseline_p": 0.0549,
+   "mean_R_2x_cost": -0.11587133629388925,
+   "edge_halves": [
+    0.026176165595646797,
+    0.012122704635718726
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": false,
+    "beats_baseline": false,
+    "positive_at_2x_cost": false,
+    "both_halves": true
+   },
+   "finalist": false
+  },
+  {
+   "dataset": "stocks_daily",
+   "setup": "S2",
+   "direction": "long",
+   "trades": 1245,
+   "mean_R": 0.1248021329495965,
+   "mean_twin_R": 0.10340183500564575,
+   "edge": 0.021400297943950743,
+   "edge_lo": -0.027885803173056594,
+   "edge_hi": 0.07241127596372213,
+   "edge_p": 0.1897,
+   "edge_q_bh": 0.4893,
+   "baseline_diff": 0.05113258535383661,
+   "baseline_p": 0.15,
+   "mean_R_2x_cost": 0.11237288909667033,
+   "edge_halves": [
+    0.044483085874763253,
+    0.006469764480766455
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": true,
+    "beats_baseline": false,
+    "positive_at_2x_cost": true,
+    "both_halves": true
+   },
+   "finalist": false
+  },
+  {
+   "dataset": "stocks_daily",
+   "setup": "S2",
+   "direction": "short",
+   "trades": 651,
+   "mean_R": -0.014763329733514201,
+   "mean_twin_R": -0.06162600442660776,
+   "edge": 0.046862674693093555,
+   "edge_lo": -0.012203727057977384,
+   "edge_hi": 0.10712712518247638,
+   "edge_p": 0.0561,
+   "edge_q_bh": 0.30439999999999995,
+   "baseline_diff": 0.02967703929400735,
+   "baseline_p": 0.2938,
+   "mean_R_2x_cost": -0.02460828587259677,
+   "edge_halves": [
+    0.030973513010860654,
+    0.061307367131487114
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": false,
+    "beats_baseline": false,
+    "positive_at_2x_cost": false,
+    "both_halves": true
+   },
+   "finalist": false
+  },
+  {
+   "dataset": "stocks_daily",
+   "setup": "S3",
+   "direction": "long",
+   "trades": 2590,
+   "mean_R": 0.20822587314052532,
+   "mean_twin_R": 0.15618613700073802,
+   "edge": 0.0520397361397873,
+   "edge_lo": -0.024127910937673604,
+   "edge_hi": 0.13079374085739023,
+   "edge_p": 0.0974,
+   "edge_q_bh": 0.3409,
+   "baseline_diff": 0.07533396050563795,
+   "baseline_p": 0.0587,
+   "mean_R_2x_cost": 0.185186139656937,
+   "edge_halves": [
+    0.060320214570644654,
+    0.04782956859748186
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": true,
+    "beats_baseline": false,
+    "positive_at_2x_cost": true,
+    "both_halves": true
+   },
+   "finalist": false
+  },
+  {
+   "dataset": "stocks_daily",
+   "setup": "S3",
+   "direction": "short",
+   "trades": 2468,
+   "mean_R": -0.4037813696092227,
+   "mean_twin_R": -0.3267073351761159,
+   "edge": -0.07707403443310681,
+   "edge_lo": -0.14135675157832162,
+   "edge_hi": -0.019369558012618332,
+   "edge_p": 0.9929,
+   "edge_q_bh": 0.9929,
+   "baseline_diff": -0.08081711455485929,
+   "baseline_p": 0.7441,
+   "mean_R_2x_cost": -0.4248863953108649,
+   "edge_halves": [
+    -0.047661651959134126,
+    -0.09631430607827926
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": false,
+    "beats_baseline": false,
+    "positive_at_2x_cost": false,
+    "both_halves": false
+   },
+   "finalist": false
+  },
+  {
+   "dataset": "stocks_daily",
+   "setup": "S5",
+   "direction": "long",
+   "trades": 2363,
+   "mean_R": 0.05328516476469519,
+   "mean_twin_R": 0.10897197674810914,
+   "edge": -0.059774378957486295,
+   "edge_lo": -0.10853028904680771,
+   "edge_hi": -0.009027670028236767,
+   "edge_p": 0.9892,
+   "edge_q_bh": 0.9929,
+   "baseline_diff": -0.007013221896503781,
+   "baseline_p": 0.6731,
+   "mean_R_2x_cost": 0.03736422233446787,
+   "edge_halves": [
+    -0.10881362891885753,
+    -0.019748573693064934
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": false,
+    "beats_baseline": false,
+    "positive_at_2x_cost": true,
+    "both_halves": false
+   },
+   "finalist": false
+  },
+  {
+   "dataset": "stocks_daily",
+   "setup": "S5",
+   "direction": "short",
+   "trades": 2009,
+   "mean_R": -0.12736425198856516,
+   "mean_twin_R": -0.14802810852008452,
+   "edge": 0.019340435118667777,
+   "edge_lo": -0.03297167717377358,
+   "edge_hi": 0.07175766025514213,
+   "edge_p": 0.2379,
+   "edge_q_bh": 0.5124,
+   "baseline_diff": -0.006801920444652776,
+   "baseline_p": 0.7218,
+   "mean_R_2x_cost": -0.1407952791111243,
+   "edge_halves": [
+    0.019944341505969927,
+    0.018789067432364182
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": false,
+    "beats_baseline": false,
+    "positive_at_2x_cost": false,
+    "both_halves": true
+   },
+   "finalist": false
+  },
+  {
+   "dataset": "stocks_daily",
+   "setup": "F2-618",
+   "direction": "long",
+   "trades": 8514,
+   "mean_R": 0.29924782248877957,
+   "mean_twin_R": 0.2726506994339864,
+   "edge": 0.026495263823118495,
+   "edge_lo": -0.023328125268681926,
+   "edge_hi": 0.07686924679368269,
+   "edge_p": 0.1407,
+   "edge_q_bh": 0.4377333333333333,
+   "baseline_diff": 0.02458307396364806,
+   "baseline_p": 0.0437,
+   "mean_R_2x_cost": 0.279412575825153,
+   "edge_halves": [
+    0.0410169794264827,
+    0.012953096149392992
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": true,
+    "beats_baseline": true,
+    "positive_at_2x_cost": true,
+    "both_halves": true
+   },
+   "finalist": false
+  },
+  {
+   "dataset": "stocks_daily",
+   "setup": "F2-618",
+   "direction": "short",
+   "trades": 8816,
+   "mean_R": -0.19850560701816072,
+   "mean_twin_R": -0.23027679562125755,
+   "edge": 0.030838855848614476,
+   "edge_lo": -0.008399897907829265,
+   "edge_hi": 0.07306582143931742,
+   "edge_p": 0.0601,
+   "edge_q_bh": 0.30439999999999995,
+   "baseline_diff": -0.010140150732333958,
+   "baseline_p": 0.8105,
+   "mean_R_2x_cost": -0.21862524357813984,
+   "edge_halves": [
+    0.04337668037392588,
+    0.01893901796950256
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": false,
+    "beats_baseline": false,
+    "positive_at_2x_cost": false,
+    "both_halves": true
+   },
+   "finalist": false
+  },
+  {
+   "dataset": "stocks_daily",
+   "setup": "F2-500",
+   "direction": "long",
+   "trades": 7165,
+   "mean_R": 0.2710406218871913,
+   "mean_twin_R": 0.2819334047021201,
+   "edge": -0.010599487041006002,
+   "edge_lo": -0.08834331877374897,
+   "edge_hi": 0.04902363776263245,
+   "edge_p": 0.5842,
+   "edge_q_bh": 0.9087555555555556,
+   "baseline_diff": -0.003624126637940206,
+   "baseline_p": 0.6107,
+   "mean_R_2x_cost": 0.2576434855154395,
+   "edge_halves": [
+    -0.008787456508301096,
+    -0.012354253624477311
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": true,
+    "beats_baseline": false,
+    "positive_at_2x_cost": true,
+    "both_halves": false
+   },
+   "finalist": false
+  },
+  {
+   "dataset": "stocks_daily",
+   "setup": "F2-500",
+   "direction": "short",
+   "trades": 7300,
+   "mean_R": -0.14713226245122582,
+   "mean_twin_R": -0.19037750944587384,
+   "edge": 0.042718288400658576,
+   "edge_lo": 0.004582309800637353,
+   "edge_hi": 0.07937013265211952,
+   "edge_p": 0.0134,
+   "edge_q_bh": 0.29586666666666667,
+   "baseline_diff": 0.041233193834600945,
+   "baseline_p": 0.0031,
+   "mean_R_2x_cost": -0.16014480045888543,
+   "edge_halves": [
+    0.052383802519390905,
+    0.03306865409701726
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": false,
+    "beats_baseline": true,
+    "positive_at_2x_cost": false,
+    "both_halves": true
+   },
+   "finalist": false
+  },
+  {
+   "dataset": "stocks_daily",
+   "setup": "F4-382",
+   "direction": "long",
+   "trades": 1596,
+   "mean_R": 0.13799803078092646,
+   "mean_twin_R": 0.11244852474460078,
+   "edge": 0.025309137420899377,
+   "edge_lo": -0.07848458132876644,
+   "edge_hi": 0.1268278898837225,
+   "edge_p": 0.3119,
+   "edge_q_bh": 0.545825,
+   "baseline_diff": -0.011767554977485106,
+   "baseline_p": 0.6057,
+   "mean_R_2x_cost": 0.10517353920557888,
+   "edge_halves": [
+    -0.021547593313680703,
+    0.06519994302885199
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": false,
+    "beats_baseline": false,
+    "positive_at_2x_cost": true,
+    "both_halves": false
+   },
+   "finalist": false
+  },
+  {
+   "dataset": "stocks_daily",
+   "setup": "F4-382",
+   "direction": "short",
+   "trades": 1219,
+   "mean_R": -0.1275674754346549,
+   "mean_twin_R": -0.20200047916450772,
+   "edge": 0.0744879885468538,
+   "edge_lo": -0.024537474801422796,
+   "edge_hi": 0.1736093624583694,
+   "edge_p": 0.0761,
+   "edge_q_bh": 0.30439999999999995,
+   "baseline_diff": 0.0292344103135605,
+   "baseline_p": 0.3115,
+   "mean_R_2x_cost": -0.15848304845939937,
+   "edge_halves": [
+    0.0948718179415954,
+    0.05433730752754227
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": false,
+    "beats_baseline": false,
+    "positive_at_2x_cost": false,
+    "both_halves": true
+   },
+   "finalist": false
+  },
+  {
+   "dataset": "stocks_1h",
+   "setup": "S1",
+   "direction": "long",
+   "trades": 4469,
+   "mean_R": 0.054197118697967006,
+   "mean_twin_R": 0.044475114161231365,
+   "edge": 0.009722004536735647,
+   "edge_lo": -0.02098882206684219,
+   "edge_hi": 0.03846442436092795,
+   "edge_p": 0.2686,
+   "edge_q_bh": 0.5372,
+   "baseline_diff": -0.019528927709890384,
+   "baseline_p": 0.8314,
+   "mean_R_2x_cost": -0.001314401511712435,
+   "edge_halves": [
+    -0.010509396663241648,
+    0.030832227462363537
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": false,
+    "beats_baseline": false,
+    "positive_at_2x_cost": false,
+    "both_halves": false
+   },
+   "finalist": false
+  },
+  {
+   "dataset": "stocks_1h",
+   "setup": "S1",
+   "direction": "short",
+   "trades": 3849,
+   "mean_R": -0.14600919900141443,
+   "mean_twin_R": -0.1593722003302903,
+   "edge": 0.013363001328875896,
+   "edge_lo": -0.018247668462612065,
+   "edge_hi": 0.0462944483197396,
+   "edge_p": 0.2059,
+   "edge_q_bh": 0.4893,
+   "baseline_diff": -0.009927556120035902,
+   "baseline_p": 0.6698,
+   "mean_R_2x_cost": -0.19722178651748865,
+   "edge_halves": [
+    -0.0027827778625844233,
+    0.029283839324170356
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": false,
+    "beats_baseline": false,
+    "positive_at_2x_cost": false,
+    "both_halves": false
+   },
+   "finalist": false
+  },
+  {
+   "dataset": "stocks_1h",
+   "setup": "S2",
+   "direction": "long",
+   "trades": 893,
+   "mean_R": -0.0171695461670175,
+   "mean_twin_R": 0.0005236900361433391,
+   "edge": -0.017693236203160833,
+   "edge_lo": -0.0866369964745316,
+   "edge_hi": 0.05684104256431103,
+   "edge_p": 0.686,
+   "edge_q_bh": 0.9557739130434783,
+   "baseline_diff": -0.04216921827554711,
+   "baseline_p": 0.749,
+   "mean_R_2x_cost": -0.0876872275062624,
+   "edge_halves": [
+    -0.027226241656710896,
+    -0.009113531294965806
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": false,
+    "beats_baseline": false,
+    "positive_at_2x_cost": false,
+    "both_halves": false
+   },
+   "finalist": false
+  },
+  {
+   "dataset": "stocks_1h",
+   "setup": "S2",
+   "direction": "short",
+   "trades": 674,
+   "mean_R": -0.19402935201791705,
+   "mean_twin_R": -0.15461360950412728,
+   "edge": -0.03941574251378975,
+   "edge_lo": -0.10225641623710839,
+   "edge_hi": 0.02350665999364356,
+   "edge_p": 0.8919,
+   "edge_q_bh": 0.9929,
+   "baseline_diff": 0.0637604024839949,
+   "baseline_p": 0.223,
+   "mean_R_2x_cost": -0.25892687286152,
+   "edge_halves": [
+    -0.0025109098939686335,
+    -0.07545477260880569
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": false,
+    "beats_baseline": false,
+    "positive_at_2x_cost": false,
+    "both_halves": false
+   },
+   "finalist": false
+  },
+  {
+   "dataset": "stocks_1h",
+   "setup": "S3",
+   "direction": "long",
+   "trades": 1966,
+   "mean_R": -0.14994788328416317,
+   "mean_twin_R": -0.11329680527011622,
+   "edge": -0.03665107801404695,
+   "edge_lo": -0.13024572796472428,
+   "edge_hi": 0.0559908911486908,
+   "edge_p": 0.7851,
+   "edge_q_bh": 0.9557739130434783,
+   "baseline_diff": -0.12209292029349386,
+   "baseline_p": 0.9778,
+   "mean_R_2x_cost": -0.29646213007971767,
+   "edge_halves": [
+    -0.02878268690896163,
+    -0.04393377105450296
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": false,
+    "beats_baseline": false,
+    "positive_at_2x_cost": false,
+    "both_halves": false
+   },
+   "finalist": false
+  },
+  {
+   "dataset": "stocks_1h",
+   "setup": "S3",
+   "direction": "short",
+   "trades": 1720,
+   "mean_R": -0.406569809288533,
+   "mean_twin_R": -0.3473980705717232,
+   "edge": -0.05917173871680973,
+   "edge_lo": -0.14286427298716925,
+   "edge_hi": 0.037584175528635286,
+   "edge_p": 0.8924,
+   "edge_q_bh": 0.9929,
+   "baseline_diff": -0.0571401349710125,
+   "baseline_p": 0.8078,
+   "mean_R_2x_cost": -0.5418524990589951,
+   "edge_halves": [
+    -0.014276189126664313,
+    -0.09134240199597582
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": false,
+    "beats_baseline": false,
+    "positive_at_2x_cost": false,
+    "both_halves": false
+   },
+   "finalist": false
+  },
+  {
+   "dataset": "stocks_1h",
+   "setup": "S5",
+   "direction": "long",
+   "trades": 1697,
+   "mean_R": -0.07535065432619426,
+   "mean_twin_R": 0.004864956281157348,
+   "edge": -0.0830786082190933,
+   "edge_lo": -0.1691925021107124,
+   "edge_hi": -0.0016694384393288167,
+   "edge_p": 0.9765,
+   "edge_q_bh": 0.9929,
+   "baseline_diff": -0.013999519308753663,
+   "baseline_p": 0.7587,
+   "mean_R_2x_cost": -0.17510523359230562,
+   "edge_halves": [
+    -0.08968514807387823,
+    -0.07681695733584587
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": false,
+    "beats_baseline": false,
+    "positive_at_2x_cost": false,
+    "both_halves": false
+   },
+   "finalist": false
+  },
+  {
+   "dataset": "stocks_1h",
+   "setup": "S5",
+   "direction": "short",
+   "trades": 1929,
+   "mean_R": -0.1572628838640837,
+   "mean_twin_R": -0.1816734070860544,
+   "edge": 0.02442601399967519,
+   "edge_lo": -0.03542765715568139,
+   "edge_hi": 0.08697838049840999,
+   "edge_p": 0.2097,
+   "edge_q_bh": 0.4893,
+   "baseline_diff": -0.0150438578083667,
+   "baseline_p": 0.8825,
+   "mean_R_2x_cost": -0.24110429709826897,
+   "edge_halves": [
+    0.007583721466423259,
+    0.0424842910153925
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": false,
+    "beats_baseline": false,
+    "positive_at_2x_cost": false,
+    "both_halves": true
+   },
+   "finalist": false
+  },
+  {
+   "dataset": "stocks_1h",
+   "setup": "F2-618",
+   "direction": "long",
+   "trades": 6729,
+   "mean_R": 0.057004265880277245,
+   "mean_twin_R": 0.06037850052815073,
+   "edge": -0.00394745983936492,
+   "edge_lo": -0.0486483162183447,
+   "edge_hi": 0.04085793454163234,
+   "edge_p": 0.5757,
+   "edge_q_bh": 0.9087555555555556,
+   "baseline_diff": -0.003389568479619416,
+   "baseline_p": 0.6015,
+   "mean_R_2x_cost": -0.064171194024521,
+   "edge_halves": [
+    -0.0017516479445635906,
+    -0.006365875943776895
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": false,
+    "beats_baseline": false,
+    "positive_at_2x_cost": false,
+    "both_halves": false
+   },
+   "finalist": false
+  },
+  {
+   "dataset": "stocks_1h",
+   "setup": "F2-618",
+   "direction": "short",
+   "trades": 6535,
+   "mean_R": -0.21310193060166627,
+   "mean_twin_R": -0.2615251044928677,
+   "edge": 0.04806814046298102,
+   "edge_lo": -0.0023605926155729883,
+   "edge_hi": 0.10017087426539478,
+   "edge_p": 0.0306,
+   "edge_q_bh": 0.29586666666666667,
+   "baseline_diff": -0.003655270934843108,
+   "baseline_p": 0.6142,
+   "mean_R_2x_cost": -0.3363378457229482,
+   "edge_halves": [
+    0.040691597118579136,
+    0.055879555688027
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": false,
+    "beats_baseline": false,
+    "positive_at_2x_cost": false,
+    "both_halves": true
+   },
+   "finalist": false
+  },
+  {
+   "dataset": "stocks_1h",
+   "setup": "F2-500",
+   "direction": "long",
+   "trades": 5969,
+   "mean_R": 0.09756225013652436,
+   "mean_twin_R": 0.08583352653770866,
+   "edge": 0.011910655986863224,
+   "edge_lo": -0.02941324790254704,
+   "edge_hi": 0.052197015693024,
+   "edge_p": 0.2909,
+   "edge_q_bh": 0.5430133333333332,
+   "baseline_diff": 0.0371684157766277,
+   "baseline_p": 0.0177,
+   "mean_R_2x_cost": 0.01601294687746104,
+   "edge_halves": [
+    0.013967868203126057,
+    0.009681589971339007
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": true,
+    "beats_baseline": true,
+    "positive_at_2x_cost": true,
+    "both_halves": true
+   },
+   "finalist": false
+  },
+  {
+   "dataset": "stocks_1h",
+   "setup": "F2-500",
+   "direction": "short",
+   "trades": 5789,
+   "mean_R": -0.16245603748375242,
+   "mean_twin_R": -0.2029161439219597,
+   "edge": 0.04039564032208614,
+   "edge_lo": -0.0017758553573146822,
+   "edge_hi": 0.08395100530220434,
+   "edge_p": 0.0317,
+   "edge_q_bh": 0.29586666666666667,
+   "baseline_diff": 0.046990622183070735,
+   "baseline_p": 0.0,
+   "mean_R_2x_cost": -0.24186644929979906,
+   "edge_halves": [
+    0.006632131338436423,
+    0.07550397712214489
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": false,
+    "beats_baseline": true,
+    "positive_at_2x_cost": false,
+    "both_halves": true
+   },
+   "finalist": false
+  },
+  {
+   "dataset": "stocks_1h",
+   "setup": "F4-382",
+   "direction": "long",
+   "trades": 1418,
+   "mean_R": -0.07495774393023534,
+   "mean_twin_R": -0.035737751475522696,
+   "edge": -0.0378204040801384,
+   "edge_lo": -0.14908301443023633,
+   "edge_hi": 0.07878158519776551,
+   "edge_p": 0.7471,
+   "edge_q_bh": 0.9557739130434783,
+   "baseline_diff": 0.003457967695118927,
+   "baseline_p": 0.4741,
+   "mean_R_2x_cost": -0.2623207537528422,
+   "edge_halves": [
+    -0.06378503625807802,
+    -0.013037610332367075
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": false,
+    "beats_baseline": false,
+    "positive_at_2x_cost": false,
+    "both_halves": false
+   },
+   "finalist": false
+  },
+  {
+   "dataset": "stocks_1h",
+   "setup": "F4-382",
+   "direction": "short",
+   "trades": 1123,
+   "mean_R": -0.36871787910922,
+   "mean_twin_R": -0.32992570972872615,
+   "edge": -0.03879216938049385,
+   "edge_lo": -0.14089897306125979,
+   "edge_hi": 0.07281398800642327,
+   "edge_p": 0.7657,
+   "edge_q_bh": 0.9557739130434783,
+   "baseline_diff": -0.06826386976714854,
+   "baseline_p": 0.9588,
+   "mean_R_2x_cost": -0.5458849349511463,
+   "edge_halves": [
+    -0.007733866628733791,
+    -0.06615677113497591
+   ],
+   "checks": {
+    "edge_bh": false,
+    "mean_R_positive": false,
+    "beats_baseline": false,
+    "positive_at_2x_cost": false,
+    "both_halves": false
+   },
+   "finalist": false
+  }
+ ],
+ "finalists": [],
+ "fib_contrasts": [
+  {
+   "dataset": "stocks_daily",
+   "contrast": "F2|long",
+   "fib": [
+    "F2-618",
+    "F2-500"
+   ],
+   "controls": [
+    "F2-c437",
+    "F2-c556",
+    "F2-c697"
+   ],
+   "fib_trades": 15679,
+   "control_trades": 22849,
+   "diff": 0.011692928398855718,
+   "lo": -0.005361601157622941,
+   "hi": 0.02773728328210051,
+   "p": 0.0887,
+   "q_bh": 0.2661,
+   "significant": false
+  },
+  {
+   "dataset": "stocks_daily",
+   "contrast": "F2|short",
+   "fib": [
+    "F2-618",
+    "F2-500"
+   ],
+   "controls": [
+    "F2-c437",
+    "F2-c556",
+    "F2-c697"
+   ],
+   "fib_trades": 16116,
+   "control_trades": 23334,
+   "diff": 0.013130227484259765,
+   "lo": -0.0009920513196299701,
+   "hi": 0.02668148479905171,
+   "p": 0.0336,
+   "q_bh": 0.2016,
+   "significant": false
+  },
+  {
+   "dataset": "stocks_daily",
+   "contrast": "F4|long",
+   "fib": [
+    "F4-382"
+   ],
+   "controls": [
+    "F4-c309",
+    "F4-c437"
+   ],
+   "fib_trades": 1596,
+   "control_trades": 2610,
+   "diff": -0.011767554977485106,
+   "lo": -0.08902771139152707,
+   "hi": 0.06466695179425311,
+   "p": 0.6057,
+   "q_bh": 0.91044,
+   "significant": false
+  },
+  {
+   "dataset": "stocks_daily",
+   "contrast": "F4|short",
+   "fib": [
+    "F4-382"
+   ],
+   "controls": [
+    "F4-c309",
+    "F4-c437"
+   ],
+   "fib_trades": 1219,
+   "control_trades": 1920,
+   "diff": 0.0292344103135605,
+   "lo": -0.07546652924762086,
+   "hi": 0.12508852386127825,
+   "p": 0.3115,
+   "q_bh": 0.7476,
+   "significant": false
+  },
+  {
+   "dataset": "stocks_daily",
+   "contrast": "S5|long",
+   "fib": [
+    "S5"
+   ],
+   "controls": [
+    "S5-c085",
+    "S5-c115"
+   ],
+   "fib_trades": 2363,
+   "control_trades": 4897,
+   "diff": -0.007013221896503781,
+   "lo": -0.033425206468812946,
+   "hi": 0.024932740312077768,
+   "p": 0.6731,
+   "q_bh": 0.91044,
+   "significant": false
+  },
+  {
+   "dataset": "stocks_daily",
+   "contrast": "S5|short",
+   "fib": [
+    "S5"
+   ],
+   "controls": [
+    "S5-c085",
+    "S5-c115"
+   ],
+   "fib_trades": 2009,
+   "control_trades": 4148,
+   "diff": -0.006801920444652776,
+   "lo": -0.027887975492380666,
+   "hi": 0.015396245518299389,
+   "p": 0.7218,
+   "q_bh": 0.91044,
+   "significant": false
+  },
+  {
+   "dataset": "stocks_1h",
+   "contrast": "F2|long",
+   "fib": [
+    "F2-618",
+    "F2-500"
+   ],
+   "controls": [
+    "F2-c437",
+    "F2-c556",
+    "F2-c697"
+   ],
+   "fib_trades": 12698,
+   "control_trades": 18357,
+   "diff": 0.01567568652317937,
+   "lo": -0.003395061999454548,
+   "hi": 0.0348042814095044,
+   "p": 0.0546,
+   "q_bh": 0.2184,
+   "significant": false
+  },
+  {
+   "dataset": "stocks_1h",
+   "contrast": "F2|short",
+   "fib": [
+    "F2-618",
+    "F2-500"
+   ],
+   "controls": [
+    "F2-c437",
+    "F2-c556",
+    "F2-c697"
+   ],
+   "fib_trades": 12324,
+   "control_trades": 17868,
+   "diff": 0.02013481956009383,
+   "lo": 0.004207251555646626,
+   "hi": 0.035469894154615794,
+   "p": 0.006,
+   "q_bh": 0.07200000000000001,
+   "significant": false
+  },
+  {
+   "dataset": "stocks_1h",
+   "contrast": "F4|long",
+   "fib": [
+    "F4-382"
+   ],
+   "controls": [
+    "F4-c309",
+    "F4-c437"
+   ],
+   "fib_trades": 1418,
+   "control_trades": 2338,
+   "diff": 0.003457967695118927,
+   "lo": -0.0872772850996938,
+   "hi": 0.0968108002847487,
+   "p": 0.4741,
+   "q_bh": 0.91044,
+   "significant": false
+  },
+  {
+   "dataset": "stocks_1h",
+   "contrast": "F4|short",
+   "fib": [
+    "F4-382"
+   ],
+   "controls": [
+    "F4-c309",
+    "F4-c437"
+   ],
+   "fib_trades": 1123,
+   "control_trades": 1892,
+   "diff": -0.06826386976714854,
+   "lo": -0.1515201983173286,
+   "hi": 0.008398074146448636,
+   "p": 0.9588,
+   "q_bh": 0.9588,
+   "significant": false
+  },
+  {
+   "dataset": "stocks_1h",
+   "contrast": "S5|long",
+   "fib": [
+    "S5"
+   ],
+   "controls": [
+    "S5-c085",
+    "S5-c115"
+   ],
+   "fib_trades": 1697,
+   "control_trades": 3487,
+   "diff": -0.013999519308753663,
+   "lo": -0.05351900925699828,
+   "hi": 0.02613000450472033,
+   "p": 0.7587,
+   "q_bh": 0.91044,
+   "significant": false
+  },
+  {
+   "dataset": "stocks_1h",
+   "contrast": "S5|short",
+   "fib": [
+    "S5"
+   ],
+   "controls": [
+    "S5-c085",
+    "S5-c115"
+   ],
+   "fib_trades": 1929,
+   "control_trades": 3954,
+   "diff": -0.0150438578083667,
+   "lo": -0.04020205650940532,
+   "hi": 0.00961350229977583,
+   "p": 0.8825,
+   "q_bh": 0.9588,
+   "significant": false
+  }
+ ]
+}

@@ -16,6 +16,7 @@ Writes results/<dataset>_<period>_k<k>.json (per-setup summaries). The
 trade rows are written to the scratch folder named by ELLIOTT_OUT.
 """
 import argparse, json, os, pickle, sys, time
+import multiprocessing as mp
 import numpy as np
 import pandas as pd
 
@@ -31,20 +32,32 @@ FIB_CONTRASTS = {"F2": (["F2-618", "F2-500"], ["F2-c437", "F2-c556", "F2-c697"])
                  "F4": (["F4-382"], ["F4-c309", "F4-c437"]), "S5": (["S5"], ["S5-c085", "S5-c115"])}
 
 
-def build(dataset, period, k):
+_G = {}          # shared with forked workers: bars, pools, settings
+
+
+def _symbol_trades(sym):
+    b = _G["bars"][sym]
+    piv = waves.pivots(b["high"], b["low"], b["close"], _G["k"], b["atr"])
+    return X.run_symbol(sym, b, setups.orders(b, piv), D.COST[_G["dataset"]], D.NEED_LIQUID[_G["dataset"]])
+
+
+def _twin_chunk(trades):
+    return X.twins(trades, _G["bars"], _G["pool"], D.COST[_G["dataset"]], sig_pool=_G["sig_pool"])
+
+
+def build(dataset, period, k, workers=4):
     full = D.DATASETS[dataset]()
     start, is_end, ho_start = D.PERIODS[dataset]
     bars = D.truncate(full, is_end) if period == "insample" else full
     for b in bars.values():
         X.prepare(b)
-    trades = []
+    _G.update({"bars": bars, "k": k, "dataset": dataset})
     t0 = time.time()
-    for i, (s, b) in enumerate(sorted(bars.items())):
-        piv = waves.pivots(b["high"], b["low"], b["close"], k, b["atr"])
-        orders = setups.orders(b, piv)
-        trades += X.run_symbol(s, b, orders, D.COST[dataset], D.NEED_LIQUID[dataset])
-        if i % 200 == 0:
-            print(f"{i}/{len(bars)} symbols, {len(trades)} trades, {time.time() - t0:.0f}s", flush=True)
+    ctx = mp.get_context("fork")
+    with ctx.Pool(workers) as pool:
+        per = pool.map(_symbol_trades, sorted(bars), chunksize=16)
+    trades = [t for ts in per for t in ts]
+    print(f"{len(bars)} symbols, {len(trades)} trades, {time.time() - t0:.0f}s", flush=True)
     # period membership: signal date and the deadline inside the data read
     lo, hi = (start, is_end) if period == "insample" else (ho_start, None)
     keep = []
@@ -56,9 +69,15 @@ def build(dataset, period, k):
         t["t_sig"] = str(ts)
         keep.append(t)
     print(f"{len(keep)} trades in the period; twins...", flush=True)
-    pool = X.twin_pool(bars, D.NEED_LIQUID[dataset])
-    sig_pool = X.twin_pool(bars, D.NEED_LIQUID[dataset], lag=0)
-    tw = X.twins(keep, bars, pool, D.COST[dataset], sig_pool=sig_pool)
+    _G["pool"] = X.twin_pool(bars, D.NEED_LIQUID[dataset])
+    _G["sig_pool"] = X.twin_pool(bars, D.NEED_LIQUID[dataset], lag=0)
+    chunks = [keep[i::workers * 8] for i in range(workers * 8)]
+    with ctx.Pool(workers) as pool:
+        parts = pool.map(_twin_chunk, chunks)
+    tw = np.empty(len(keep))
+    for i, part in enumerate(parts):
+        tw[i::workers * 8] = part
+    print(f"twins done, {time.time() - t0:.0f}s", flush=True)
     for t, v in zip(keep, tw):
         t["twin_R"] = float(v)
     # 2x costs

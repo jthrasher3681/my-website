@@ -16,6 +16,7 @@ exit and its fill-bar rule.
 import zlib
 import numpy as np
 import pandas as pd
+from numba import njit
 
 from . import waves
 
@@ -33,26 +34,31 @@ def prepare(bars):
     return bars
 
 
+@njit(cache=True)
+def _fill_limit(op, hi, lo, sig, d, limit, cancel_level, cancel_open, expiry):
+    n = len(op)
+    for j in range(sig + 1, expiry + 1):
+        if j >= n:
+            return -1, np.nan, -1
+        if d * (op[j] - cancel_open) <= 0:
+            return -1, np.nan, j
+        if d * (op[j] - limit) <= 0:
+            return j, op[j], j
+        far = hi[j] if d > 0 else lo[j]
+        near = lo[j] if d > 0 else hi[j]
+        if d * (far - cancel_level) > 0:
+            return -1, np.nan, j
+        if d * (limit - near) >= 0:
+            return j, limit, j
+    return -1, np.nan, expiry
+
+
 def fill_limit(b, o):
     """(fill_bar, fill_price), or (None, end_bar) when cancelled or expired
     (end_bar -1 when the data ends first)."""
-    op, hi, lo = b["open"], b["high"], b["low"]
-    n = len(op)
-    d = o["d"]
-    for j in range(o["sig"] + 1, o["expiry"] + 1):
-        if j >= n:
-            return None, -1
-        if d * (op[j] - o["cancel_open"]) <= 0:
-            return None, j
-        if d * (op[j] - o["limit"]) <= 0:
-            return j, op[j]
-        far = hi[j] if d > 0 else lo[j]
-        near = lo[j] if d > 0 else hi[j]
-        if d * (far - o["cancel_level"]) > 0:
-            return None, j
-        if d * (o["limit"] - near) >= 0:
-            return j, o["limit"]
-    return None, o["expiry"]
+    j, px, end = _fill_limit(b["open"], b["high"], b["low"], int(o["sig"]), int(o["d"]), float(o["limit"]),
+                             float(o["cancel_level"]), float(o["cancel_open"]), int(o["expiry"]))
+    return (int(j), float(px)) if j >= 0 else (None, int(end))
 
 
 def r_multiple(d, E, stop, exit_px, cost):
