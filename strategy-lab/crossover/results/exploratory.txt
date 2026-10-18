@@ -1,0 +1,56 @@
+X1: each rule at 2x on the S&P 500 (SSO when bullish), against SPY buy-and-hold
+  insample: SPY CAGR +10.00%  Sharpe 0.44  max DD -55.2%
+    R1 2x CAGR +14.46%  Sharpe 0.54  max DD -40.0%  beats SPY on all three
+    R2 2x CAGR +4.12%  Sharpe 0.16  max DD -64.2%  
+    R3 2x CAGR +6.20%  Sharpe 0.24  max DD -59.6%  
+    R4 2x CAGR -0.93%  Sharpe -0.07  max DD -79.3%  
+    R5 2x CAGR +3.09%  Sharpe 0.11  max DD -61.6%  
+    X6 2x CAGR +11.53%  Sharpe 0.45  max DD -45.4%  beats SPY on all three
+  heldout: SPY CAGR +14.84%  Sharpe 0.75  max DD -33.7%
+    R1 2x CAGR +13.78%  Sharpe 0.51  max DD -59.3%  
+    R2 2x CAGR +15.81%  Sharpe 0.67  max DD -49.0%  
+    R3 2x CAGR +12.94%  Sharpe 0.57  max DD -35.7%  
+    R4 2x CAGR +9.11%  Sharpe 0.43  max DD -33.5%  
+    R5 2x CAGR +16.09%  Sharpe 0.71  max DD -32.8%  
+    X6 2x CAGR +17.01%  Sharpe 0.70  max DD -41.5%  
+X2: long/short (-1 when bearish, no borrowing fee), against buy-and-hold of the same assets
+  sp500_insample R1 CAGR +8.29%  Sharpe 0.36  max DD -37.8%  (hold CAGR +10.00%  Sharpe 0.44  max DD -55.2%)
+  sp500_insample R2 CAGR -2.41%  Sharpe -0.22  max DD -64.4%  (hold CAGR +10.00%  Sharpe 0.44  max DD -55.2%)
+  sp500_insample R3 CAGR -1.07%  Sharpe -0.14  max DD -56.0%  (hold CAGR +10.00%  Sharpe 0.44  max DD -55.2%)
+  sp500_insample R4 CAGR -8.81%  Sharpe -0.59  max DD -93.6%  (hold CAGR +10.00%  Sharpe 0.44  max DD -55.2%)
+  sp500_insample R5 CAGR -4.29%  Sharpe -0.32  max DD -74.9%  (hold CAGR +10.00%  Sharpe 0.44  max DD -55.2%)
+  sp500_heldout R1 CAGR +3.90%  Sharpe 0.18  max DD -41.5%  (hold CAGR +14.85%  Sharpe 0.75  max DD -33.7%)
+  sp500_heldout R2 CAGR +3.28%  Sharpe 0.15  max DD -43.7%  (hold CAGR +14.85%  Sharpe 0.75  max DD -33.7%)
+  sp500_heldout R3 CAGR +0.21%  Sharpe -0.02  max DD -33.7%  (hold CAGR +14.85%  Sharpe 0.75  max DD -33.7%)
+  sp500_heldout R4 CAGR -5.26%  Sharpe -0.34  max DD -53.6%  (hold CAGR +14.85%  Sharpe 0.75  max DD -33.7%)
+  sp500_heldout R5 CAGR +2.63%  Sharpe 0.11  max DD -26.8%  (hold CAGR +14.85%  Sharpe 0.75  max DD -33.7%)
+  etf_daily_insample R1 CAGR +4.56%  Sharpe 0.21  max DD -33.4%  (hold CAGR +9.50%  Sharpe 0.49  max DD -40.0%)
+  etf_daily_insample R2 CAGR -0.42%  Sharpe -0.13  max DD -43.1%  (hold CAGR +9.50%  Sharpe 0.49  max DD -40.0%)
+  etf_daily_insample R3 CAGR +0.44%  Sharpe -0.07  max DD -40.0%  (hold CAGR +9.50%  Sharpe 0.49  max DD -40.0%)
+  etf_daily_insample R4 CAGR -7.12%  Sharpe -0.64  max DD -82.3%  (hold CAGR +9.50%  Sharpe 0.49  max DD -40.0%)
+  etf_daily_insample R5 CAGR -1.46%  Sharpe -0.20  max DD -49.1%  (hold CAGR +9.50%  Sharpe 0.49  max DD -40.0%)
+  etf_daily_heldout R1 CAGR +1.82%  Sharpe 0.01  max DD -31.4%  (hold CAGR +10.38%  Sharpe 0.69  max DD -26.9%)
+  etf_daily_heldout R2 CAGR +0.62%  Sharpe -0.10  max DD -24.8%  (hold CAGR +10.38%  Sharpe 0.69  max DD -26.9%)
+  etf_daily_heldout R3 CAGR -0.12%  Sharpe -0.16  max DD -23.0%  (hold CAGR +10.38%  Sharpe 0.69  max DD -26.9%)
+  etf_daily_heldout R4 CAGR -1.20%  Sharpe -0.26  max DD -23.2%  (hold CAGR +10.38%  Sharpe 0.69  max DD -26.9%)
+  etf_daily_heldout R5 CAGR -0.78%  Sharpe -0.23  max DD -22.6%  (hold CAGR +10.38%  Sharpe 0.69  max DD -26.9%)
+X3: fast/slow grid on the S&P 500 (1x), net of costs
+  best in-sample by cagr: EMA 50/250  in-sample CAGR +10.67% Sharpe 0.60 DD -19.0% | held out CAGR +8.78% Sharpe 0.50 DD -33.9%
+  best in-sample by sharpe: EMA 50/250  in-sample CAGR +10.67% Sharpe 0.60 DD -19.0% | held out CAGR +8.78% Sharpe 0.50 DD -33.9%
+  insample: SPY CAGR +10.00%  Sharpe 0.44  max DD -55.2%; 16 of 70 pairs beat it on all three; 16 on CAGR
+  heldout: SPY CAGR +14.84%  Sharpe 0.75  max DD -33.7%; 0 of 70 pairs beat it on all three; 0 on CAGR
+  rank correlation of in-sample and held-out Sharpe across the 70 pairs: -0.37
+X4: stress test 1962-1987 (^GSPC plus a 3.6% yield; the 2x cost as in the SPY lab)
+  hold CAGR +8.71%  Sharpe 0.20  max DD -44.9%
+  R1 1x CAGR +10.08%  Sharpe 0.35  max DD -32.9%  1987-10-19 -20.5%
+  R1 2x CAGR +11.26%  Sharpe 0.31  max DD -58.8%  1987-10-19 -41.0%
+  R2 1x CAGR +6.48%  Sharpe 0.02  max DD -26.3%  1987-10-19 +0.1%
+  R2 2x CAGR +5.10%  Sharpe 0.00  max DD -54.8%  1987-10-19 +0.1%
+  R3 1x CAGR +7.94%  Sharpe 0.18  max DD -15.5%  1987-10-19 +0.1%
+  R3 2x CAGR +8.28%  Sharpe 0.17  max DD -38.9%  1987-10-19 +0.1%
+  R4 1x CAGR +5.46%  Sharpe -0.09  max DD -41.4%  1987-10-19 +0.1%
+  R4 2x CAGR +4.53%  Sharpe -0.03  max DD -69.6%  1987-10-19 +0.1%
+  R5 1x CAGR +6.42%  Sharpe 0.01  max DD -26.5%  1987-10-19 +0.1%
+  R5 2x CAGR +5.50%  Sharpe 0.02  max DD -54.7%  1987-10-19 +0.1%
+  X6 1x CAGR +10.96%  Sharpe 0.47  max DD -16.8%  1987-10-19 +0.1%
+  X6 2x CAGR +13.97%  Sharpe 0.45  max DD -32.1%  1987-10-19 +0.1%

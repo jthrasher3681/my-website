@@ -1,0 +1,566 @@
+{
+ "dataset": "stocks_4h",
+ "period": "heldout",
+ "periods": [
+  "2023-11-17",
+  "2025-09-30 23:59",
+  "2025-10-01"
+ ],
+ "cost_per_switch": 0.001,
+ "null_block": 70,
+ "draws": 1000,
+ "rules": {
+  "R1": {
+   "rule": "R1",
+   "name": "golden cross, SMA 50/200",
+   "exploratory": false,
+   "full": {
+    "net": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.19472147074477397,
+     "vol": 0.11231024281946862,
+     "sharpe": 1.3131326101359697,
+     "max_dd": -0.05437262826062461,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "net_2x_cost": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.1910242334683976,
+     "vol": 0.11230974680480885,
+     "sharpe": 1.2855800124658394,
+     "max_dd": -0.054851285671800754,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "benchmark": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.2679427516876747,
+     "vol": 0.1584621722046963,
+     "sharpe": 1.3459861588778026,
+     "max_dd": -0.07458826632427995,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "spy": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.15049771701392967,
+     "vol": 0.12861957618312142,
+     "sharpe": 0.8692848743164462,
+     "max_dd": -0.08881366200683538,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "gross": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.19843015004376752,
+     "vol": 0.11231081607624009,
+     "sharpe": 1.3406840849496222,
+     "max_dd": -0.053893733794157406,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "bar": {
+     "cagr": false,
+     "sharpe": false,
+     "max_dd": true
+    },
+    "passes_bar": false,
+    "bar_2x_cost": {
+     "cagr": false,
+     "sharpe": false,
+     "max_dd": true
+    },
+    "passes_bar_2x_cost": false,
+    "vs_spy": {
+     "cagr": true,
+     "sharpe": true,
+     "max_dd": true
+    },
+    "passes_vs_spy": true,
+    "time_in_market": 0.5945758251398078,
+    "switches_per_asset_year": 3.1203793709757783,
+    "mean_members": 313.2709923664122,
+    "assets": 318,
+    "null": {
+     "real_gross_sharpe": 1.3406840849496207,
+     "null_mean": 1.8352861453756086,
+     "null_sd": 0.47199818037229835,
+     "edge": -0.494602060425988,
+     "p": 0.8471528471528471,
+     "draws": 1000
+    }
+   }
+  },
+  "R2": {
+   "rule": "R2",
+   "name": "SMA 20/50",
+   "exploratory": false,
+   "full": {
+    "net": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.1590181314843344,
+     "vol": 0.0948827904742814,
+     "sharpe": 1.2173065291683751,
+     "max_dd": -0.0394982942016453,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "net_2x_cost": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.1460577792139448,
+     "vol": 0.09488154227232627,
+     "sharpe": 1.098855352509044,
+     "max_dd": -0.03978940390327679,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "benchmark": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.2679427516876747,
+     "vol": 0.1584621722046963,
+     "sharpe": 1.3459861588778026,
+     "max_dd": -0.07458826632427995,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "spy": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.15049771701392967,
+     "vol": 0.12861957618312142,
+     "sharpe": 0.8692848743164462,
+     "max_dd": -0.08881366200683538,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "gross": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.17212468258370794,
+     "vol": 0.09488485157138803,
+     "sharpe": 1.3357461064621299,
+     "max_dd": -0.03920710558746998,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "bar": {
+     "cagr": false,
+     "sharpe": false,
+     "max_dd": true
+    },
+    "passes_bar": false,
+    "bar_2x_cost": {
+     "cagr": false,
+     "sharpe": false,
+     "max_dd": true
+    },
+    "passes_bar_2x_cost": false,
+    "vs_spy": {
+     "cagr": true,
+     "sharpe": true,
+     "max_dd": true
+    },
+    "passes_vs_spy": true,
+    "time_in_market": 0.534662572949791,
+    "switches_per_asset_year": 11.340139778885426,
+    "mean_members": 313.2709923664122,
+    "assets": 318,
+    "null": {
+     "real_gross_sharpe": 1.3357461064621254,
+     "null_mean": 1.4718737939599489,
+     "null_sd": 0.5912356654899936,
+     "edge": -0.13612768749782345,
+     "p": 0.5074925074925075,
+     "draws": 1000
+    }
+   }
+  },
+  "R3": {
+   "rule": "R3",
+   "name": "MACD line above zero (EMA 12/26)",
+   "exploratory": false,
+   "full": {
+    "net": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.13589916842008898,
+     "vol": 0.08772274133785933,
+     "sharpe": 1.0802816428173363,
+     "max_dd": -0.03853701874093762,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "net_2x_cost": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.1153279265258893,
+     "vol": 0.08771685004837068,
+     "sharpe": 0.8719990181322888,
+     "max_dd": -0.04021606274557832,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "benchmark": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.2679427516876747,
+     "vol": 0.1584621722046963,
+     "sharpe": 1.3459861588778026,
+     "max_dd": -0.07458826632427995,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "spy": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.15049771701392967,
+     "vol": 0.12861957618312142,
+     "sharpe": 0.8692848743164462,
+     "max_dd": -0.08881366200683538,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "gross": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.156848910105021,
+     "vol": 0.08773059268687014,
+     "sharpe": 1.2885122622161114,
+     "max_dd": -0.03800805024737708,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "bar": {
+     "cagr": false,
+     "sharpe": false,
+     "max_dd": true
+    },
+    "passes_bar": false,
+    "bar_2x_cost": {
+     "cagr": false,
+     "sharpe": false,
+     "max_dd": true
+    },
+    "passes_bar_2x_cost": false,
+    "vs_spy": {
+     "cagr": false,
+     "sharpe": true,
+     "max_dd": true
+    },
+    "passes_vs_spy": false,
+    "time_in_market": 0.5276204052292359,
+    "switches_per_asset_year": 18.277384378468746,
+    "mean_members": 313.2709923664122,
+    "assets": 318,
+    "null": {
+     "real_gross_sharpe": 1.2885122622161096,
+     "null_mean": 1.402230355218041,
+     "null_sd": 0.44279892865111886,
+     "edge": -0.11371809300193148,
+     "p": 0.5734265734265734,
+     "draws": 1000
+    }
+   }
+  },
+  "R4": {
+   "rule": "R4",
+   "name": "MACD above its signal line",
+   "exploratory": false,
+   "full": {
+    "net": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.07653579453885584,
+     "vol": 0.08264952256255943,
+     "sharpe": 0.49172161971797634,
+     "max_dd": -0.06194997091700449,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "net_2x_cost": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.03432423663704287,
+     "vol": 0.08280014015434277,
+     "sharpe": 0.008151701611792152,
+     "max_dd": -0.0686046096709989,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "benchmark": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.2679427516876747,
+     "vol": 0.1584621722046963,
+     "sharpe": 1.3459861588778026,
+     "max_dd": -0.07458826632427995,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "spy": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.15049771701392967,
+     "vol": 0.12861957618312142,
+     "sharpe": 0.8692848743164462,
+     "max_dd": -0.08881366200683538,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "gross": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.12046591642341098,
+     "vol": 0.08250589926741861,
+     "sharpe": 0.9770077467096755,
+     "max_dd": -0.0552484624816163,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "bar": {
+     "cagr": false,
+     "sharpe": false,
+     "max_dd": true
+    },
+    "passes_bar": false,
+    "bar_2x_cost": {
+     "cagr": false,
+     "sharpe": false,
+     "max_dd": true
+    },
+    "passes_bar_2x_cost": false,
+    "vs_spy": {
+     "cagr": false,
+     "sharpe": false,
+     "max_dd": true
+    },
+    "passes_vs_spy": false,
+    "time_in_market": 0.5034784409761566,
+    "switches_per_asset_year": 40.08935777892775,
+    "mean_members": 313.2709923664122,
+    "assets": 318,
+    "null": {
+     "real_gross_sharpe": 0.9770077467096617,
+     "null_mean": 1.177575388363778,
+     "null_sd": 0.5141220324162739,
+     "edge": -0.20056764165411634,
+     "p": 0.6533466533466533,
+     "draws": 1000
+    }
+   }
+  },
+  "R5": {
+   "rule": "R5",
+   "name": "EMA 9/21",
+   "exploratory": false,
+   "full": {
+    "net": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.1292793362841893,
+     "vol": 0.08633032995309373,
+     "sharpe": 1.0286227902619738,
+     "max_dd": -0.04445229667259787,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "net_2x_cost": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.10333673460584625,
+     "vol": 0.08631802251215191,
+     "sharpe": 0.7595150191435095,
+     "max_dd": -0.05112679169205392,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "benchmark": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.2679427516876747,
+     "vol": 0.1584621722046963,
+     "sharpe": 1.3459861588778026,
+     "max_dd": -0.07458826632427995,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "spy": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.15049771701392967,
+     "vol": 0.12861957618312142,
+     "sharpe": 0.8692848743164462,
+     "max_dd": -0.08881366200683538,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "gross": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.15583043945891184,
+     "vol": 0.08634555955458423,
+     "sharpe": 1.2976208324398877,
+     "max_dd": -0.03773124536058625,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "bar": {
+     "cagr": false,
+     "sharpe": false,
+     "max_dd": true
+    },
+    "passes_bar": false,
+    "bar_2x_cost": {
+     "cagr": false,
+     "sharpe": false,
+     "max_dd": true
+    },
+    "passes_bar_2x_cost": false,
+    "vs_spy": {
+     "cagr": false,
+     "sharpe": true,
+     "max_dd": true
+    },
+    "passes_vs_spy": false,
+    "time_in_market": 0.5225398101782472,
+    "switches_per_asset_year": 23.373697195765466,
+    "mean_members": 313.2709923664122,
+    "assets": 318,
+    "null": {
+     "real_gross_sharpe": 1.2976208324398988,
+     "null_mean": 1.381584171479195,
+     "null_sd": 0.4424971851490899,
+     "edge": -0.0839633390392962,
+     "p": 0.5714285714285714,
+     "draws": 1000
+    }
+   }
+  },
+  "X6": {
+   "rule": "X6",
+   "name": "price above SMA 200",
+   "exploratory": true,
+   "full": {
+    "net": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.1794827852379317,
+     "vol": 0.1033015711821146,
+     "sharpe": 1.2943649945737503,
+     "max_dd": -0.05304035748833935,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "net_2x_cost": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.16001684895159163,
+     "vol": 0.1033015992949838,
+     "sharpe": 1.1334799485066323,
+     "max_dd": -0.0560618559990842,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "benchmark": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.2679427516876747,
+     "vol": 0.1584621722046963,
+     "sharpe": 1.3459861588778026,
+     "max_dd": -0.07458826632427995,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "spy": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.15049771701392967,
+     "vol": 0.12861957618312142,
+     "sharpe": 0.8692848743164462,
+     "max_dd": -0.08881366200683538,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "gross": {
+     "start": "2025-10-01",
+     "end": "2026-10-16",
+     "cagr": 0.19927444329229216,
+     "vol": 0.10330304636267514,
+     "sharpe": 1.4552334002055776,
+     "max_dd": -0.05000934913173816,
+     "worst_year": null,
+     "worst_year_is": null,
+     "calendar_years": {}
+    },
+    "bar": {
+     "cagr": false,
+     "sharpe": false,
+     "max_dd": true
+    },
+    "passes_bar": false,
+    "bar_2x_cost": {
+     "cagr": false,
+     "sharpe": false,
+     "max_dd": true
+    },
+    "passes_bar_2x_cost": false,
+    "vs_spy": {
+     "cagr": true,
+     "sharpe": true,
+     "max_dd": true
+    },
+    "passes_vs_spy": true,
+    "time_in_market": 0.5818256027876263,
+    "switches_per_asset_year": 16.663500849330827,
+    "mean_members": 313.2709923664122,
+    "assets": 318,
+    "null": {
+     "real_gross_sharpe": 1.4552334002055625,
+     "null_mean": 1.8334577687488185,
+     "null_sd": 0.4834765244435916,
+     "edge": -0.37822436854325603,
+     "p": 0.7622377622377622,
+     "draws": 1000
+    }
+   }
+  }
+ }
+}
