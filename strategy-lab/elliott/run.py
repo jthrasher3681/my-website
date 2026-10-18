@@ -58,6 +58,20 @@ def build(dataset, period, k, workers=4):
         per = pool.map(_symbol_trades, sorted(bars), chunksize=16)
     trades = [t for ts in per for t in ts]
     print(f"{len(bars)} symbols, {len(trades)} trades, {time.time() - t0:.0f}s", flush=True)
+    if period == "heldout":
+        # the in-sample part of this full-data run must reproduce the in-sample run's trades
+        path = f"{OUT}/{dataset}_insample_k{k:g}_trades.pkl"
+        if os.path.exists(path):
+            ref = {(t["symbol"], t["setup"], t["d"], t["sig"]): (t["entry"], t["exit"], round(t["R"], 9)) for t in pickle.load(open(path, "rb"))}
+            is_end_ts = pd.Timestamp(is_end)
+            mine = {}
+            for t in trades:
+                b = bars[t["symbol"]]
+                if pd.Timestamp(start) <= pd.Timestamp(b["t"][t["sig"]]) <= is_end_ts and t["deadline"] < len(b["t"]) \
+                        and pd.Timestamp(b["t"][t["deadline"]]) <= is_end_ts:
+                    mine[(t["symbol"], t["setup"], t["d"], t["sig"])] = (t["entry"], t["exit"], round(t["R"], 9))
+            same = sum(1 for k2, v in ref.items() if mine.get(k2) == v)
+            print(f"in-sample reproduction: {same} of {len(ref)} in-sample trades identical; {len(mine)} found here", flush=True)
     # period membership: signal date and the deadline inside the data read
     lo, hi = (start, is_end) if period == "insample" else (ho_start, None)
     keep = []

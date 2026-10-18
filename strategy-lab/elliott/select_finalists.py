@@ -101,5 +101,29 @@ def heldout():
         print(v["dataset"], v["setup"], v["direction"], v["checks"], "PASSES" if v["passes"] else "fails")
 
 
+def behavior():
+    """BH across the 16 in-sample behavior tests; held-out replication (p < 0.05) of the significant ones."""
+    rows = []
+    for ds in DATASETS:
+        ins = json.load(open(f"{HERE}/results/behavior_{ds}_insample_k2.json"))
+        path = f"{HERE}/results/behavior_{ds}_heldout_k2.json"
+        out = json.load(open(path)) if os.path.exists(path) else {}
+        for t, v in ins.items():
+            rows.append({"dataset": ds, "test": t, "insample": v, "heldout": out.get(t)})
+    q = X.bh([r["insample"]["p"] for r in rows])
+    for r, qq in zip(rows, q):
+        r["q_bh"] = float(qq)
+        r["significant_insample"] = bool(qq < 0.05 and r["insample"]["excess"] > 0)
+        h = r["heldout"]
+        r["replicates"] = bool(r["significant_insample"] and h is not None and h["p"] < 0.05 and h["excess"] > 0)
+        r["supported"] = r["replicates"]
+    json.dump(rows, open(f"{HERE}/results/behavior_verdict.json", "w"), indent=1)
+    for r in rows:
+        i, h = r["insample"], r["heldout"]
+        print(f"{r['dataset']:13} {r['test']:4} in: real {i['real_share']:.4f} null {i['null_share']:.4f} excess {i['excess']:+.4f} q {r['q_bh']:.3f}"
+              + (f" | held out: excess {h['excess']:+.4f} [{h['lo']:+.4f},{h['hi']:+.4f}] p {h['p']:.4f}" if h else "")
+              + ("  SUPPORTED" if r["supported"] else ("  (significant in-sample only)" if r["significant_insample"] else "")))
+
+
 if __name__ == "__main__":
-    {"insample": insample, "heldout": heldout}[sys.argv[1]]()
+    {"insample": insample, "heldout": heldout, "behavior": behavior}[sys.argv[1]]()

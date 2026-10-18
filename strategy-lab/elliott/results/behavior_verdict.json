@@ -1,0 +1,464 @@
+[
+ {
+  "dataset": "stocks_daily",
+  "test": "B1a",
+  "insample": {
+   "events": 50732,
+   "surrogate_events": 50490.6,
+   "real_share": 0.0949302215564141,
+   "null_share": 0.09481269780909714,
+   "excess": 0.00011752374731696658,
+   "lo": -0.002040415453447165,
+   "hi": 0.0023011937569239107,
+   "p": 0.453,
+   "controls": [
+    {
+     "real_share": 0.030749822597177325,
+     "null_share": 0.031473185107723026,
+     "excess": -0.0007233625105457012
+    },
+    {
+     "real_share": 0.04728770795553103,
+     "null_share": 0.0474583387798917,
+     "excess": -0.00017063082436067495
+    },
+    {
+     "real_share": 0.06222896790980052,
+     "null_share": 0.06335040581811267,
+     "excess": -0.0011214379083121506
+    }
+   ]
+  },
+  "heldout": null,
+  "q_bh": 0.6589090909090909,
+  "significant_insample": false,
+  "replicates": false,
+  "supported": false
+ },
+ {
+  "dataset": "stocks_daily",
+  "test": "B1b",
+  "insample": {
+   "events": 6813,
+   "surrogate_events": 6772.2,
+   "real_share": 0.06634375458681932,
+   "null_share": 0.06709045804908301,
+   "excess": -0.000746703462263687,
+   "lo": -0.006101781823114919,
+   "hi": 0.004898295546552362,
+   "p": 0.6097,
+   "controls": [
+    {
+     "real_share": 0.048436811977102597,
+     "null_share": 0.04542836891999645,
+     "excess": 0.0030084430571061457
+    },
+    {
+     "real_share": 0.07691178629091443,
+     "null_share": 0.07478367443371431,
+     "excess": 0.0021281118572001184
+    }
+   ]
+  },
+  "heldout": null,
+  "q_bh": 0.7504000000000001,
+  "significant_insample": false,
+  "replicates": false,
+  "supported": false
+ },
+ {
+  "dataset": "stocks_daily",
+  "test": "B2",
+  "insample": {
+   "events": 4502,
+   "surrogate_events": 4495.55,
+   "real_share": 0.6632607729897824,
+   "null_share": 0.6687279643202723,
+   "excess": -0.005467191330489896,
+   "lo": -0.017336820262329702,
+   "hi": 0.006639164084353857,
+   "p": 0.8136,
+   "controls": []
+  },
+  "heldout": null,
+  "q_bh": 0.8846933333333333,
+  "significant_insample": false,
+  "replicates": false,
+  "supported": false
+ },
+ {
+  "dataset": "stocks_daily",
+  "test": "B3",
+  "insample": {
+   "events": 1162,
+   "surrogate_events": 1163.65,
+   "real_share": 0.25989672977624784,
+   "null_share": 0.231813689683324,
+   "excess": 0.02808304009292384,
+   "lo": 0.0037543966119353823,
+   "hi": 0.053151752896017534,
+   "p": 0.012,
+   "controls": [
+    {
+     "real_share": 0.1764199655765921,
+     "null_share": 0.16981051003308556,
+     "excess": 0.006609455543506532
+    },
+    {
+     "real_share": 0.16523235800344235,
+     "null_share": 0.17127143041292484,
+     "excess": -0.006039072409482482
+    }
+   ]
+  },
+  "heldout": null,
+  "q_bh": 0.048,
+  "significant_insample": true,
+  "replicates": false,
+  "supported": false
+ },
+ {
+  "dataset": "stocks_daily",
+  "test": "B4",
+  "insample": {
+   "events": 4335,
+   "surrogate_events": 4315.4,
+   "real_share": 0.8154555940023068,
+   "null_share": 0.8081521991008945,
+   "excess": 0.007303394901412297,
+   "lo": -0.0033443030955742914,
+   "hi": 0.018067931228076976,
+   "p": 0.09,
+   "controls": []
+  },
+  "heldout": null,
+  "q_bh": 0.24,
+  "significant_insample": false,
+  "replicates": false,
+  "supported": false
+ },
+ {
+  "dataset": "stocks_daily",
+  "test": "B5",
+  "insample": {
+   "events": 4116,
+   "surrogate_events": 4049.65,
+   "real_share": 0.1251214771622935,
+   "null_share": 0.11017001469262774,
+   "excess": 0.01495146246966575,
+   "lo": 0.005435366448254597,
+   "hi": 0.02464695750935067,
+   "p": 0.0006,
+   "controls": [
+    {
+     "real_share": 0.1151603498542274,
+     "null_share": 0.12508488387885372,
+     "excess": -0.009924534024626314
+    },
+    {
+     "real_share": 0.0706997084548105,
+     "null_share": 0.0658822367365081,
+     "excess": 0.0048174717183023935
+    }
+   ]
+  },
+  "heldout": null,
+  "q_bh": 0.0096,
+  "significant_insample": true,
+  "replicates": false,
+  "supported": false
+ },
+ {
+  "dataset": "stocks_daily",
+  "test": "B6",
+  "insample": {
+   "events": 32876,
+   "surrogate_events": 32692.999999999996,
+   "real_share": 0.09389828446283002,
+   "null_share": 0.0926192151225033,
+   "excess": 0.001279069340326719,
+   "lo": -0.001621141975190299,
+   "hi": 0.004194865720492249,
+   "p": 0.1825,
+   "controls": [
+    {
+     "real_share": 0.1169850346757513,
+     "null_share": 0.11641177010369193,
+     "excess": 0.000573264572059376
+    },
+    {
+     "real_share": 0.0778075191629152,
+     "null_share": 0.07597192059462271,
+     "excess": 0.0018355985682924902
+    }
+   ]
+  },
+  "heldout": null,
+  "q_bh": 0.41714285714285715,
+  "significant_insample": false,
+  "replicates": false,
+  "supported": false
+ },
+ {
+  "dataset": "stocks_daily",
+  "test": "B7",
+  "insample": {
+   "events": 18812,
+   "surrogate_events": 18678.949999999997,
+   "real_share": 0.16728683818839038,
+   "null_share": 0.17218312592517246,
+   "excess": -0.004896287736782079,
+   "lo": -0.009471382573069554,
+   "hi": -0.00026749591967977453,
+   "p": 0.981,
+   "controls": [
+    {
+     "real_share": 0.19280246651073782,
+     "null_share": 0.1954285438956687,
+     "excess": -0.0026260773849308694
+    },
+    {
+     "real_share": 0.14682117797150754,
+     "null_share": 0.14412748039905887,
+     "excess": 0.0026936975724486667
+    }
+   ]
+  },
+  "heldout": null,
+  "q_bh": 0.981,
+  "significant_insample": false,
+  "replicates": false,
+  "supported": false
+ },
+ {
+  "dataset": "stocks_1h",
+  "test": "B1a",
+  "insample": {
+   "events": 38513,
+   "surrogate_events": 38283.8,
+   "real_share": 0.09887570430763638,
+   "null_share": 0.09691305460795427,
+   "excess": 0.0019626496996821147,
+   "lo": 6.779608618194823e-05,
+   "hi": 0.00385988176340818,
+   "p": 0.0204,
+   "controls": [
+    {
+     "real_share": 0.034118349648170745,
+     "null_share": 0.03335614541921125,
+     "excess": 0.0007622042289594927
+    },
+    {
+     "real_share": 0.04824345026354737,
+     "null_share": 0.04767813017516548,
+     "excess": 0.0005653200883818932
+    },
+    {
+     "real_share": 0.06340716121828993,
+     "null_share": 0.06305277950464686,
+     "excess": 0.000354381713643076
+    }
+   ]
+  },
+  "heldout": null,
+  "q_bh": 0.06528,
+  "significant_insample": false,
+  "replicates": false,
+  "supported": false
+ },
+ {
+  "dataset": "stocks_1h",
+  "test": "B1b",
+  "insample": {
+   "events": 5466,
+   "surrogate_events": 5458.1,
+   "real_share": 0.06952067325283572,
+   "null_share": 0.06761510415712428,
+   "excess": 0.0019055690957114346,
+   "lo": -0.0034109772253927916,
+   "hi": 0.007348709079086135,
+   "p": 0.2489,
+   "controls": [
+    {
+     "real_share": 0.042810098792535674,
+     "null_share": 0.046939411150400324,
+     "excess": -0.004129312357864651
+    },
+    {
+     "real_share": 0.0761068422978412,
+     "null_share": 0.07574980304501566,
+     "excess": 0.0003570392528255417
+    }
+   ]
+  },
+  "heldout": null,
+  "q_bh": 0.4978,
+  "significant_insample": false,
+  "replicates": false,
+  "supported": false
+ },
+ {
+  "dataset": "stocks_1h",
+  "test": "B2",
+  "insample": {
+   "events": 3378,
+   "surrogate_events": 3501.2,
+   "real_share": 0.6980461811722913,
+   "null_share": 0.6820518679309951,
+   "excess": 0.015994313241296187,
+   "lo": 0.003286547164559625,
+   "hi": 0.028335701799488758,
+   "p": 0.0062,
+   "controls": []
+  },
+  "heldout": null,
+  "q_bh": 0.03306666666666667,
+  "significant_insample": true,
+  "replicates": false,
+  "supported": false
+ },
+ {
+  "dataset": "stocks_1h",
+  "test": "B3",
+  "insample": {
+   "events": 979,
+   "surrogate_events": 961.25,
+   "real_share": 0.21450459652706844,
+   "null_share": 0.22595578673602082,
+   "excess": -0.011451190208952383,
+   "lo": -0.035165939402328324,
+   "hi": 0.012219962114747398,
+   "p": 0.8294,
+   "controls": [
+    {
+     "real_share": 0.15832482124616956,
+     "null_share": 0.15802340702210663,
+     "excess": 0.0003014142240629347
+    },
+    {
+     "real_share": 0.1634320735444331,
+     "null_share": 0.16827048114434331,
+     "excess": -0.004838407599910222
+    }
+   ]
+  },
+  "heldout": null,
+  "q_bh": 0.8846933333333333,
+  "significant_insample": false,
+  "replicates": false,
+  "supported": false
+ },
+ {
+  "dataset": "stocks_1h",
+  "test": "B4",
+  "insample": {
+   "events": 3269,
+   "surrogate_events": 3360.45,
+   "real_share": 0.8106454573263995,
+   "null_share": 0.807808478031216,
+   "excess": 0.0028369792951834505,
+   "lo": -0.008057936717604863,
+   "hi": 0.0132571286838142,
+   "p": 0.3039,
+   "controls": []
+  },
+  "heldout": null,
+  "q_bh": 0.5402666666666667,
+  "significant_insample": false,
+  "replicates": false,
+  "supported": false
+ },
+ {
+  "dataset": "stocks_1h",
+  "test": "B5",
+  "insample": {
+   "events": 3209,
+   "surrogate_events": 3285.75,
+   "real_share": 0.11623558741040822,
+   "null_share": 0.10300540211519442,
+   "excess": 0.013230185295213803,
+   "lo": 0.003408948295691646,
+   "hi": 0.02296222059314591,
+   "p": 0.0044,
+   "controls": [
+    {
+     "real_share": 0.12683078840760362,
+     "null_share": 0.12216388952294,
+     "excess": 0.004666898884663623
+    },
+    {
+     "real_share": 0.0747896540978498,
+     "null_share": 0.06879707829262725,
+     "excess": 0.005992575805222541
+    }
+   ]
+  },
+  "heldout": null,
+  "q_bh": 0.03306666666666667,
+  "significant_insample": true,
+  "replicates": false,
+  "supported": false
+ },
+ {
+  "dataset": "stocks_1h",
+  "test": "B6",
+  "insample": {
+   "events": 24517,
+   "surrogate_events": 24479.299999999996,
+   "real_share": 0.09238487580046498,
+   "null_share": 0.0921390726042003,
+   "excess": 0.00024580319626467395,
+   "lo": -0.0022635923532343836,
+   "hi": 0.002794562396726524,
+   "p": 0.423,
+   "controls": [
+    {
+     "real_share": 0.11261573601990456,
+     "null_share": 0.11217436773110344,
+     "excess": 0.00044136828880111945
+    },
+    {
+     "real_share": 0.07468287310845535,
+     "null_share": 0.07558426915802333,
+     "excess": -0.0009013960495679735
+    }
+   ]
+  },
+  "heldout": null,
+  "q_bh": 0.6589090909090909,
+  "significant_insample": false,
+  "replicates": false,
+  "supported": false
+ },
+ {
+  "dataset": "stocks_1h",
+  "test": "B7",
+  "insample": {
+   "events": 14244,
+   "surrogate_events": 14105.85,
+   "real_share": 0.16736871665262568,
+   "null_share": 0.16797995158037268,
+   "excess": -0.0006112349277470064,
+   "lo": -0.0051485069243824,
+   "hi": 0.004005324054175339,
+   "p": 0.6037,
+   "controls": [
+    {
+     "real_share": 0.18463914630721706,
+     "null_share": 0.18635176185766902,
+     "excess": -0.0017126155504519625
+    },
+    {
+     "real_share": 0.14195450716090985,
+     "null_share": 0.1430293105342819,
+     "excess": -0.0010748033733720408
+    }
+   ]
+  },
+  "heldout": null,
+  "q_bh": 0.7504000000000001,
+  "significant_insample": false,
+  "replicates": false,
+  "supported": false
+ }
+]

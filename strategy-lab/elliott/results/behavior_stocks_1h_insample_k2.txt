@@ -1,0 +1,10 @@
+0/317
+200/317
+B1a: events   38513  real 0.0989  null 0.0969  excess +0.0020 [+0.0001, +0.0039] p 0.0204  controls +0.0008, +0.0006, +0.0004
+B1b: events    5466  real 0.0695  null 0.0676  excess +0.0019 [-0.0034, +0.0073] p 0.2489  controls -0.0041, +0.0004
+B2: events    3378  real 0.6980  null 0.6821  excess +0.0160 [+0.0033, +0.0283] p 0.0062  controls 
+B3: events     979  real 0.2145  null 0.2260  excess -0.0115 [-0.0352, +0.0122] p 0.8294  controls +0.0003, -0.0048
+B4: events    3269  real 0.8106  null 0.8078  excess +0.0028 [-0.0081, +0.0133] p 0.3039  controls 
+B5: events    3209  real 0.1162  null 0.1030  excess +0.0132 [+0.0034, +0.0230] p 0.0044  controls +0.0047, +0.0060
+B6: events   24517  real 0.0924  null 0.0921  excess +0.0002 [-0.0023, +0.0028] p 0.4230  controls +0.0004, -0.0009
+B7: events   14244  real 0.1674  null 0.1680  excess -0.0006 [-0.0051, +0.0040] p 0.6037  controls -0.0017, -0.0011
