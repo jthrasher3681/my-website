@@ -1,0 +1,42 @@
+name: Strategy lab intraday data
+
+# One-off: downloads the hourly bars the Elliott Wave study tests on (Yahoo
+# Finance keeps 730 days) and commits them to the branch that asked for it.
+on:
+  push:
+    branches: [claude/rectangle-pattern-screener-c0rhj3]
+    paths: [strategy-lab/fetch_intraday.py, strategy-lab/elliott/hourly_symbols.txt, .github/workflows/strategy-lab-intraday.yml]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: pip install -r rectangle-screener/screener/requirements.txt
+
+      - name: Download hourly bars
+        run: python strategy-lab/fetch_intraday.py
+
+      - name: Commit data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add strategy-lab/data/yahoo_1h
+          git diff --cached --quiet && { echo "No changes"; exit 0; }
+          git commit -m "Strategy lab: Yahoo hourly bars through $(date -u +%F)"
+          for attempt in 1 2 3; do
+            git pull --rebase && git push && exit 0
+            sleep $((attempt * 10))
+          done
+          exit 1
