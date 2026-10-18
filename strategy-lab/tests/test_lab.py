@@ -26,6 +26,7 @@ class RunTests(unittest.TestCase):
     def test_constant_one_is_spy(self):
         r = frame(20, spy=0.01)
         sim = engine.run(pd.Series(1.0, index=r.index), r, r.index[2], r.index[-1], cost=0.001)
+        self.assertEqual(sim["equity"].iloc[0], 1.0)
         self.assertAlmostEqual(sim["equity"].iloc[-1], 0.999 * 1.01 ** 18)
         self.assertEqual(sim["traded"].iloc[1:].sum(), 0)
 
@@ -105,6 +106,11 @@ class SignalTests(unittest.TestCase):
     def test_month_ends(self):
         idx = pd.DatetimeIndex(["2020-01-30", "2020-01-31", "2020-02-03", "2020-02-28", "2020-03-02", "2020-03-03"])
         self.assertEqual(list(strategies.month_ends(idx)), list(pd.DatetimeIndex(["2020-01-31", "2020-02-28"])))
+
+    def test_month_end_at_data_end(self):
+        idx = pd.DatetimeIndex(["2015-12-29", "2015-12-30", "2015-12-31"])
+        self.assertEqual(list(strategies.month_ends(idx)), [pd.Timestamp("2015-12-31")])
+        self.assertEqual(len(strategies.month_ends(pd.DatetimeIndex(["2026-10-15", "2026-10-16"]))), 0)
 
     def test_monthly_sma_carried(self):
         idx = pd.bdate_range("2019-01-01", "2020-12-31")
@@ -209,6 +215,12 @@ class TaxTests(unittest.TestCase):
         self.assertAlmostEqual(out["st"], 5.0)        # half the second, held a month
         self.assertAlmostEqual(lots[0][0], 0.5)
         self.assertAlmostEqual(lots[0][1], 10.0)
+
+    def test_one_year_exactly_is_short_term(self):
+        from lab.tax import _sell
+        out = {"st": 0.0, "lt": 0.0}
+        _sell([[1.0, 10.0, pd.Timestamp("2020-01-02")]], 1.0, 30.0, pd.Timestamp("2021-01-02"), out)
+        self.assertEqual(out, {"st": 20.0, "lt": 0.0})
 
     def test_buy_and_hold_spy_taxes(self):
         from lab import tax

@@ -5,7 +5,8 @@ Tracks first-in-first-out lots of a recorded run's SPY / SSO / BIL holdings
 lot on its ex-date. Taxes per calendar year:
 
 - short-term gains, and SSO's and BIL's distributions: ``ORDINARY_RATE``;
-- long-term gains (lots held more than a year) and SPY's dividends:
+- long-term gains (lots sold after the anniversary of their purchase) and
+  SPY's dividends:
   ``LONG_RATE``.
 
 Gains and losses net within each tax year. A net loss carries forward,
@@ -27,13 +28,18 @@ QUALIFIED = {"spy"}
 SYMBOLS = {"spy": "SPY", "sso": "SSO", "bil": "BIL"}
 
 
+def _long(bought, sold):
+    """Held more than one year: sold after the anniversary of the purchase."""
+    return sold > bought + pd.DateOffset(years=1)
+
+
 def _sell(lots, shares, price, day, out):
     while shares > 1e-12 and lots:
         lot = lots[0]
         take = min(shares, lot[0])
         basis = lot[1] * take / lot[0]
         gain = take * price - basis
-        out["lt" if (day - lot[2]).days > 365 else "st"] += gain
+        out["lt" if _long(lot[2], day) else "st"] += gain
         lot[0] -= take
         lot[1] -= basis
         shares -= take
@@ -78,7 +84,7 @@ def realized(sim, start, end):
     for k in SYMBOLS:
         p = px[k]["close"].iloc[-1]
         for sh, basis, bought in lots[k]:
-            unreal["lt" if (last - bought).days > 365 else "st"] += sh * p - basis
+            unreal["lt" if _long(bought, last) else "st"] += sh * p - basis
     year_end = part["equity"].groupby(part.index.year).last()
     return years, unreal, year_end, part["equity"]
 

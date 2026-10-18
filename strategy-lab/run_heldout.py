@@ -79,7 +79,7 @@ def main():
     sso_real = data.on_calendar(data.growth(data.load("SSO")), r.index).loc[START:END]
     sim2x = data.simulated_2x(r["spy"], r["bil"], c).loc[START:END]
     monthly = lambda x: (1 + x).groupby(x.index.to_period("M")).prod() - 1
-    yrs = (sim2x.index[-1] - sim2x.index[0]).days / 365.25
+    yrs = (sim2x.index[-1] - r.index[r.index.searchsorted(pd.Timestamp(START)) - 1]).days / 365.25
     out["sim_2x_check_2016_2026"] = {
         "tracking_error_daily": float((sim2x - sso_real).std() * np.sqrt(252)),
         "tracking_error_monthly": float((monthly(sim2x) - monthly(sso_real)).std() * np.sqrt(12)),

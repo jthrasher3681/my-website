@@ -39,8 +39,9 @@ def run(target, r, start, end, cost=COST, band=BAND, lag=1, at_open=None, record
     at_open (overnight, intraday) return frames: trade decisions at the next open
             instead of a close; ``lag`` is then ignored
 
-    Returns a DataFrame indexed from that first close: ``equity`` (starting at 1
-    less the opening cost), ``exposure`` (S&P exposure held over the session),
+    Returns a DataFrame indexed from that first close: ``equity`` (1 there, the
+    capital before the opening purchase, so its cost falls in the first
+    session's return), ``exposure`` (S&P exposure held over the session),
     ``traded`` (1 on sessions with a trade). With ``record``, also each
     instrument's value at the close before and after that close's trade
     (``spy_pre`` .. ``bil_post``; close-execution runs only).
@@ -64,7 +65,7 @@ def run(target, r, start, end, cost=COST, band=BAND, lag=1, at_open=None, record
     if np.isnan(first):
         raise ValueError(f"no target before {cal[i0].date()}")
     v = weights(first) * (1 - cost)
-    eq, expo, traded = [v.sum()], [float(LEVER @ weights(first))], [1]
+    eq, expo, traded = [1.0], [float(LEVER @ weights(first))], [1]
     pre, post = [np.zeros(3)], [v.copy()]
     pending = _decide(tgt[i0], v, band, cal[i0]) if lag == 1 else None
     if at_open is not None:

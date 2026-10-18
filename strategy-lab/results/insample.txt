@@ -1,11 +1,11 @@
 2x simulation: c = 1.501% a year; tracking error vs SSO 2006-06-22..2015-12-31 5.17% a year daily, 0.88% on monthly returns (SPY's closing prints were 4:15pm until 2008)
 SPY buy-and-hold                             CAGR  10.00%  Sharpe  0.44  maxDD  -55.2%  vol  18.1%  worst yr  -36.8% (2008)  expo 1.00  trades/yr   0.0  
-SSO buy-and-hold (2x)                        CAGR  11.75%  Sharpe  0.40  maxDD  -88.7%  vol  35.8%  worst yr  -67.9% (2008)  expo 2.00  trades/yr   0.0  fail sharpe,max_dd
+SSO buy-and-hold (2x)                        CAGR  11.74%  Sharpe  0.40  maxDD  -88.7%  vol  35.8%  worst yr  -67.9% (2008)  expo 2.00  trades/yr   0.0  fail sharpe,max_dd
 1.5x constant                                CAGR  11.49%  Sharpe  0.42  maxDD  -74.1%  vol  27.0%  worst yr  -53.7% (2008)  expo 1.52  trades/yr   0.3  fail sharpe,max_dd
 C1 200-day average, 1x                       CAGR   8.24%  Sharpe  0.47  maxDD  -23.1%  vol  11.7%  worst yr  -16.3% (2000)  expo 0.73  trades/yr   7.0  fail cagr
 C2 200-day average, 2x                       CAGR  11.53%  Sharpe  0.45  maxDD  -45.4%  vol  23.4%  worst yr  -35.3% (2000)  expo 1.46  trades/yr   7.0  PASS
 C3 10-month average, 2x                      CAGR  14.28%  Sharpe  0.54  maxDD  -41.0%  vol  24.9%  worst yr  -30.0% (1990)  expo 1.48  trades/yr   1.1  PASS
-C4 15% volatility target, cap 2x             CAGR   9.89%  Sharpe  0.47  maxDD  -44.0%  vol  15.8%  worst yr  -20.8% (2008)  expo 1.13  trades/yr  31.9  fail cagr
+C4 15% volatility target, cap 2x             CAGR   9.88%  Sharpe  0.47  maxDD  -44.0%  vol  15.8%  worst yr  -20.8% (2008)  expo 1.13  trades/yr  31.9  fail cagr
 C5 200-day average x 15% volatility target   CAGR   8.25%  Sharpe  0.42  maxDD  -20.3%  vol  13.5%  worst yr  -17.0% (2015)  expo 0.92  trades/yr  32.5  fail cagr,sharpe
 
 Finalist: C3 10-month average, 2x
@@ -14,24 +14,24 @@ Robustness (in-sample, warnings only):
   8-month                                    CAGR  12.59%  Sharpe  0.48  maxDD  -41.0%  vol  23.9%  worst yr  -30.0% (1990)  expo 1.42  trades/yr   1.7  PASS
   12-month                                   CAGR  13.96%  Sharpe  0.52  maxDD  -42.8%  vol  25.4%  worst yr  -32.2% (1990)  expo 1.52  trades/yr   1.0  PASS
   traded at the signal close                 CAGR  14.67%  Sharpe  0.55  maxDD  -40.2%  vol  24.8%  worst yr  -29.3% (1990)  expo 1.48  trades/yr   1.1  PASS
-  costs 0.10% a side                         CAGR  14.16%  Sharpe  0.53  maxDD  -41.1%  vol  24.9%  worst yr  -30.2% (1990)  expo 1.48  trades/yr   1.1  PASS
-  2007-06-01.. next open                     CAGR  12.17%  Sharpe  0.56  maxDD  -33.4%  vol  25.5%  worst yr  -15.7% (2015)  expo 1.44  trades/yr   1.2  PASS
+  costs 0.10% a side                         CAGR  14.15%  Sharpe  0.53  maxDD  -41.1%  vol  24.9%  worst yr  -30.2% (1990)  expo 1.48  trades/yr   1.1  PASS
+  2007-06-01.. next open                     CAGR  12.16%  Sharpe  0.56  maxDD  -33.4%  vol  25.5%  worst yr  -15.7% (2015)  expo 1.44  trades/yr   1.2  PASS
   2007-06-01.. next close (base)             CAGR  11.43%  Sharpe  0.53  maxDD  -33.3%  vol  25.6%  worst yr  -18.5% (2015)  expo 1.44  trades/yr   1.2  PASS
   2007-06-01.. SPY                           CAGR   5.60%  Sharpe  0.34  maxDD  -55.2%  vol  21.9%  worst yr  -36.8% (2008)  expo 1.00  trades/yr   0.0  
-  1988-1997 finalist                         CAGR  18.49%  Sharpe  0.61  maxDD  -41.0%  vol  23.8%  worst yr  -30.0% (1990)  expo 1.64  trades/yr   1.1  fail sharpe,max_dd
+  1988-1997 finalist                         CAGR  18.48%  Sharpe  0.61  maxDD  -41.0%  vol  23.8%  worst yr  -30.0% (1990)  expo 1.64  trades/yr   1.1  fail sharpe,max_dd
   1988-1997 SPY                              CAGR  17.44%  Sharpe  0.86  maxDD  -19.2%  vol  13.6%  worst yr   -3.2% (1990)  expo 1.00  trades/yr   0.0  
   1998-2007 finalist                         CAGR  10.56%  Sharpe  0.39  maxDD  -35.8%  vol  25.9%  worst yr  -10.2% (2000)  expo 1.39  trades/yr   1.1  PASS
   1998-2007 SPY                              CAGR   5.78%  Sharpe  0.21  maxDD  -47.5%  vol  18.5%  worst yr  -21.6% (2002)  expo 1.00  trades/yr   0.0  
   2008-2015 finalist                         CAGR  13.86%  Sharpe  0.64  maxDD  -33.3%  vol  24.9%  worst yr  -18.5% (2015)  expo 1.42  trades/yr   1.1  PASS
   2008-2015 SPY                              CAGR   6.46%  Sharpe  0.38  maxDD  -52.3%  vol  22.1%  worst yr  -36.8% (2008)  expo 1.00  trades/yr   0.0  
 
-Random timing (same exposures, 63-session blocks shuffled): {'draws': 1000, 'block': 63, 'cagr_percentile': 95.3, 'sharpe_percentile': 97.9, 'cagr_null_median': 0.09245, 'sharpe_null_median': 0.33835}
+Random timing (same exposures, 63-session blocks shuffled): {'draws': 1000, 'block': 63, 'cagr_percentile': 95.3, 'sharpe_percentile': 97.9, 'cagr_null_median': 0.09243, 'sharpe_null_median': 0.33829}
 
 Stress test 1962-1987 (S&P price + 3.6% yield; simulated 2x):
   S&P 1x buy-and-hold                        CAGR   8.71%  Sharpe  0.20  maxDD  -44.9%  vol  14.1%  worst yr  -27.1% (1974)  expo 1.00  trades/yr   0.0  
-  2x constant                                CAGR   6.88%  Sharpe  0.15  maxDD  -75.4%  vol  28.2%  worst yr  -53.9% (1974)  expo 2.00  trades/yr   0.0  fail cagr,sharpe,max_dd
-  C1 200-day average, 1x                     CAGR  10.96%  Sharpe  0.48  maxDD  -16.8%  vol   9.2%  worst yr   -5.7% (1973)  expo 0.64  trades/yr   5.5  PASS  worst day -5.2% (1987-10-16)
+  2x constant                                CAGR   6.87%  Sharpe  0.15  maxDD  -75.4%  vol  28.2%  worst yr  -53.9% (1974)  expo 2.00  trades/yr   0.0  fail cagr,sharpe,max_dd
+  C1 200-day average, 1x                     CAGR  10.96%  Sharpe  0.47  maxDD  -16.8%  vol   9.2%  worst yr   -5.7% (1973)  expo 0.64  trades/yr   5.5  PASS  worst day -5.2% (1987-10-16)
   C2 200-day average, 2x                     CAGR  13.97%  Sharpe  0.45  maxDD  -32.1%  vol  18.3%  worst yr  -16.8% (1973)  expo 1.28  trades/yr   5.5  PASS  worst day -10.4% (1987-10-16)
-  C3 10-month average, 2x                    CAGR  11.07%  Sharpe  0.30  maxDD  -58.8%  vol  21.1%  worst yr  -20.1% (1987)  expo 1.27  trades/yr   1.7  fail max_dd  worst day -41.0% (1987-10-19)
-  C4 15% volatility target, cap 2x           CAGR   6.57%  Sharpe  0.07  maxDD  -47.4%  vol  15.3%  worst yr  -22.8% (1966)  expo 1.35  trades/yr  32.8  fail cagr,sharpe,max_dd  worst day -13.6% (1987-10-19)
+  C3 10-month average, 2x                    CAGR  11.06%  Sharpe  0.30  maxDD  -58.8%  vol  21.1%  worst yr  -20.1% (1987)  expo 1.27  trades/yr   1.7  fail max_dd  worst day -41.0% (1987-10-19)
+  C4 15% volatility target, cap 2x           CAGR   6.57%  Sharpe  0.07  maxDD  -47.4%  vol  15.4%  worst yr  -22.8% (1966)  expo 1.35  trades/yr  32.8  fail cagr,sharpe,max_dd  worst day -13.6% (1987-10-19)
   C5 200-day average x 15% volatility target CAGR  10.69%  Sharpe  0.38  maxDD  -21.1%  vol  11.6%  worst yr  -10.3% (1973)  expo 0.93  trades/yr  24.6  PASS  worst day -5.1% (1963-11-22)

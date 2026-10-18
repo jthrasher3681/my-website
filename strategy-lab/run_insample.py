@@ -47,7 +47,7 @@ def random_timing(sim, r, cash, draws=NULL_DRAWS, block=NULL_BLOCK, seed=0):
     out = []
     for _ in range(draws):
         t = pd.Series(metrics.block_shuffle(held, block, rng), index=days[:-1])
-        s = metrics.stats(engine.run(t, r, days[1], days[-1], lag=0), cash)
+        s = metrics.stats(engine.run(t, r, days[1], days[-1], lag=0, band=0.0), cash)
         out.append((s["cagr"], s["sharpe"]))
     return np.array(out)
 
@@ -112,7 +112,8 @@ def main():
         s_open = metrics.stats(engine.run(rule(gspc), r, o0, o1, at_open=(on, intra)), cash)
         s_close = metrics.stats(metrics.window(sims[fin], o0, o1), cash)
         s_spy = metrics.stats(metrics.window(spy, o0, o1), cash)
-        rob["next open, 2006-2015"] = {"next_open": s_open, "next_close": s_close, "spy": s_spy}
+        # BIL's opens start 2007-05-30, so the window starts there rather than in 2006-07
+        rob[f"next open, {o0:%Y-%m} to 2015"] = {"next_open": s_open, "next_close": s_close, "spy": s_spy}
         print(line(f"  {o0.date()}.. next open", s_open, s_spy))
         print(line(f"  {o0.date()}.. next close (base)", s_close, s_spy))
         print(line(f"  {o0.date()}.. SPY", s_spy))

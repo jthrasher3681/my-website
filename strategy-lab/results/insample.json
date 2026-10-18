@@ -13,9 +13,9 @@
    "name": "200-day average, 1x",
    "start": "1988-01-04",
    "end": "2015-12-31",
-   "cagr": 0.08244,
+   "cagr": 0.08242,
    "vol": 0.11716,
-   "sharpe": 0.46566,
+   "sharpe": 0.4655,
    "max_dd": -0.23147,
    "worst_year": -0.16266,
    "worst_year_is": 2000,
@@ -23,7 +23,7 @@
    "avg_exposure": 0.73105,
    "time_in_market": 0.73105,
    "trades_per_year": 6.96701,
-   "end_value": 9.18208,
+   "end_value": 9.17749,
    "passes": false,
    "checks": {
     "cagr": false,
@@ -35,9 +35,9 @@
    "name": "200-day average, 2x",
    "start": "1988-01-04",
    "end": "2015-12-31",
-   "cagr": 0.1153,
+   "cagr": 0.11528,
    "vol": 0.23415,
-   "sharpe": 0.44891,
+   "sharpe": 0.44883,
    "max_dd": -0.45363,
    "worst_year": -0.35269,
    "worst_year_is": 2000,
@@ -45,7 +45,7 @@
    "avg_exposure": 1.46209,
    "time_in_market": 0.73105,
    "trades_per_year": 6.96701,
-   "end_value": 21.20628,
+   "end_value": 21.19567,
    "passes": true,
    "checks": {
     "cagr": true,
@@ -57,9 +57,9 @@
    "name": "10-month average, 2x",
    "start": "1988-01-04",
    "end": "2015-12-31",
-   "cagr": 0.14285,
+   "cagr": 0.14283,
    "vol": 0.24859,
-   "sharpe": 0.53519,
+   "sharpe": 0.53512,
    "max_dd": -0.40957,
    "worst_year": -0.29989,
    "worst_year_is": 1990,
@@ -67,7 +67,7 @@
    "avg_exposure": 1.4842,
    "time_in_market": 0.7421,
    "trades_per_year": 1.10758,
-   "end_value": 41.981,
+   "end_value": 41.96001,
    "passes": true,
    "checks": {
     "cagr": true,
@@ -79,9 +79,9 @@
    "name": "15% volatility target, cap 2x",
    "start": "1988-01-04",
    "end": "2015-12-31",
-   "cagr": 0.09886,
+   "cagr": 0.09884,
    "vol": 0.15847,
-   "sharpe": 0.47481,
+   "sharpe": 0.4747,
    "max_dd": -0.4398,
    "worst_year": -0.20797,
    "worst_year_is": 2008,
@@ -89,7 +89,7 @@
    "avg_exposure": 1.12599,
    "time_in_market": 1.0,
    "trades_per_year": 31.94106,
-   "end_value": 13.9928,
+   "end_value": 13.9858,
    "passes": false,
    "checks": {
     "cagr": false,
@@ -101,9 +101,9 @@
    "name": "200-day average x 15% volatility target",
    "start": "1988-01-04",
    "end": "2015-12-31",
-   "cagr": 0.08247,
+   "cagr": 0.08245,
    "vol": 0.13491,
-   "sharpe": 0.42143,
+   "sharpe": 0.4213,
    "max_dd": -0.20328,
    "worst_year": -0.16951,
    "worst_year_is": 2015,
@@ -111,7 +111,7 @@
    "avg_exposure": 0.9201,
    "time_in_market": 0.73105,
    "trades_per_year": 32.54844,
-   "end_value": 9.18933,
+   "end_value": 9.18474,
    "passes": false,
    "checks": {
     "cagr": false,
@@ -124,9 +124,9 @@
   "SPY buy-and-hold": {
    "start": "1988-01-04",
    "end": "2015-12-31",
-   "cagr": 0.10004,
+   "cagr": 0.10002,
    "vol": 0.18118,
-   "sharpe": 0.44177,
+   "sharpe": 0.44167,
    "max_dd": -0.55201,
    "worst_year": -0.36807,
    "worst_year_is": 2008,
@@ -134,14 +134,14 @@
    "avg_exposure": 1.0,
    "time_in_market": 1.0,
    "trades_per_year": 0.0,
-   "end_value": 14.42209
+   "end_value": 14.41488
   },
   "SSO buy-and-hold (2x)": {
    "start": "1988-01-04",
    "end": "2015-12-31",
-   "cagr": 0.11747,
+   "cagr": 0.11745,
    "vol": 0.35754,
-   "sharpe": 0.4013,
+   "sharpe": 0.40125,
    "max_dd": -0.88651,
    "worst_year": -0.67937,
    "worst_year_is": 2008,
@@ -149,14 +149,14 @@
    "avg_exposure": 2.0,
    "time_in_market": 1.0,
    "trades_per_year": 0.0,
-   "end_value": 22.39085
+   "end_value": 22.37965
   },
   "1.5x constant": {
    "start": "1988-01-04",
    "end": "2015-12-31",
-   "cagr": 0.11492,
+   "cagr": 0.1149,
    "vol": 0.27029,
-   "sharpe": 0.42051,
+   "sharpe": 0.42044,
    "max_dd": -0.74129,
    "worst_year": -0.53718,
    "worst_year_is": 2008,
@@ -164,7 +164,7 @@
    "avg_exposure": 1.52407,
    "time_in_market": 1.0,
    "trades_per_year": 0.2501,
-   "end_value": 21.00285
+   "end_value": 20.99235
   }
  },
  "finalist": "C3",
@@ -172,9 +172,9 @@
   "parameter: 8-month": {
    "start": "1988-01-04",
    "end": "2015-12-31",
-   "cagr": 0.12592,
+   "cagr": 0.1259,
    "vol": 0.23919,
-   "sharpe": 0.48409,
+   "sharpe": 0.48402,
    "max_dd": -0.40957,
    "worst_year": -0.29989,
    "worst_year_is": 1990,
@@ -182,14 +182,14 @@
    "avg_exposure": 1.41703,
    "time_in_market": 0.70852,
    "trades_per_year": 1.67923,
-   "end_value": 27.64856
+   "end_value": 27.63473
   },
   "parameter: 12-month": {
    "start": "1988-01-04",
    "end": "2015-12-31",
-   "cagr": 0.13965,
+   "cagr": 0.13962,
    "vol": 0.25377,
-   "sharpe": 0.51831,
+   "sharpe": 0.51824,
    "max_dd": -0.42842,
    "worst_year": -0.32224,
    "worst_year_is": 1990,
@@ -197,29 +197,29 @@
    "avg_exposure": 1.51906,
    "time_in_market": 0.75953,
    "trades_per_year": 0.96466,
-   "end_value": 38.80868
+   "end_value": 38.78928
   },
   "traded at the signal close": {
    "start": "1988-01-04",
    "end": "2015-12-31",
-   "cagr": 0.14672,
+   "cagr": 0.14666,
    "vol": 0.24755,
-   "sharpe": 0.55006,
+   "sharpe": 0.54984,
    "max_dd": -0.40227,
    "worst_year": -0.29272,
    "worst_year_is": 1990,
    "longest_underwater_years": 4.24641,
    "avg_exposure": 1.48448,
    "time_in_market": 0.74224,
-   "trades_per_year": 1.10758,
-   "end_value": 46.14718
+   "trades_per_year": 1.1433,
+   "end_value": 46.07798
   },
   "costs 0.10% a side": {
    "start": "1988-01-04",
    "end": "2015-12-31",
-   "cagr": 0.14158,
+   "cagr": 0.14154,
    "vol": 0.24859,
-   "sharpe": 0.53073,
+   "sharpe": 0.53059,
    "max_dd": -0.41075,
    "worst_year": -0.30199,
    "worst_year_is": 1990,
@@ -227,15 +227,15 @@
    "avg_exposure": 1.4842,
    "time_in_market": 0.7421,
    "trades_per_year": 1.10758,
-   "end_value": 40.69766
+   "end_value": 40.65696
   },
-  "next open, 2006-2015": {
+  "next open, 2007-06 to 2015": {
    "next_open": {
     "start": "2007-05-31",
     "end": "2015-12-31",
-    "cagr": 0.12165,
+    "cagr": 0.12159,
     "vol": 0.25503,
-    "sharpe": 0.56044,
+    "sharpe": 0.56022,
     "max_dd": -0.33418,
     "worst_year": -0.15669,
     "worst_year_is": 2015,
@@ -243,7 +243,7 @@
     "avg_exposure": 1.43782,
     "time_in_market": 0.71891,
     "trades_per_year": 1.1647,
-    "end_value": 2.67969
+    "end_value": 2.67835
    },
    "next_close": {
     "start": "2007-05-31",
@@ -281,9 +281,9 @@
     "finalist": {
      "start": "1988-01-04",
      "end": "1997-12-31",
-     "cagr": 0.18488,
+     "cagr": 0.18482,
      "vol": 0.23762,
-     "sharpe": 0.6092,
+     "sharpe": 0.60899,
      "max_dd": -0.40957,
      "worst_year": -0.29989,
      "worst_year_is": 1990,
@@ -291,14 +291,14 @@
      "avg_exposure": 1.63528,
      "time_in_market": 0.81764,
      "trades_per_year": 1.10106,
-     "end_value": 5.44555
+     "end_value": 5.44283
     },
     "spy": {
      "start": "1988-01-04",
      "end": "1997-12-31",
-     "cagr": 0.17443,
-     "vol": 0.13574,
-     "sharpe": 0.86058,
+     "cagr": 0.17437,
+     "vol": 0.13573,
+     "sharpe": 0.86024,
      "max_dd": -0.19197,
      "worst_year": -0.03197,
      "worst_year_is": 1990,
@@ -306,7 +306,7 @@
      "avg_exposure": 1.0,
      "time_in_market": 1.0,
      "trades_per_year": 0.0,
-     "end_value": 4.98437
+     "end_value": 4.98188
     }
    },
    "1998-2007": {
@@ -380,16 +380,16 @@
   "block": 63,
   "cagr_percentile": 95.3,
   "sharpe_percentile": 97.9,
-  "cagr_null_median": 0.09245,
-  "sharpe_null_median": 0.33835
+  "cagr_null_median": 0.09243,
+  "sharpe_null_median": 0.33829
  },
  "stress_1962_1987": {
   "S&P 1x": {
    "start": "1961-12-29",
    "end": "1987-12-31",
-   "cagr": 0.08715,
+   "cagr": 0.08713,
    "vol": 0.14094,
-   "sharpe": 0.20472,
+   "sharpe": 0.20459,
    "max_dd": -0.4487,
    "worst_year": -0.27128,
    "worst_year_is": 1974,
@@ -397,14 +397,14 @@
    "avg_exposure": 1.0,
    "time_in_market": 1.0,
    "trades_per_year": 0.0,
-   "end_value": 8.78305
+   "end_value": 8.77866
   },
   "2x constant": {
    "start": "1961-12-29",
    "end": "1987-12-31",
-   "cagr": 0.06876,
+   "cagr": 0.06874,
    "vol": 0.28215,
-   "sharpe": 0.15159,
+   "sharpe": 0.15153,
    "max_dd": -0.75357,
    "worst_year": -0.53857,
    "worst_year_is": 1974,
@@ -412,14 +412,14 @@
    "avg_exposure": 2.0,
    "time_in_market": 1.0,
    "trades_per_year": 0.0,
-   "end_value": 5.63692
+   "end_value": 5.6341
   },
   "C1": {
    "start": "1961-12-29",
    "end": "1987-12-31",
-   "cagr": 0.10963,
+   "cagr": 0.10961,
    "vol": 0.09158,
-   "sharpe": 0.47508,
+   "sharpe": 0.47487,
    "max_dd": -0.16782,
    "worst_year": -0.05736,
    "worst_year_is": 1973,
@@ -427,16 +427,16 @@
    "avg_exposure": 0.64198,
    "time_in_market": 0.64198,
    "trades_per_year": 5.49913,
-   "end_value": 14.95531,
+   "end_value": 14.94783,
    "worst_day": -0.0524,
    "worst_day_is": "1987-10-16"
   },
   "C2": {
    "start": "1961-12-29",
    "end": "1987-12-31",
-   "cagr": 0.13974,
+   "cagr": 0.13972,
    "vol": 0.18321,
-   "sharpe": 0.45284,
+   "sharpe": 0.45273,
    "max_dd": -0.32148,
    "worst_year": -0.16848,
    "worst_year_is": 1973,
@@ -444,16 +444,16 @@
    "avg_exposure": 1.28397,
    "time_in_market": 0.64198,
    "trades_per_year": 5.49913,
-   "end_value": 30.00691,
+   "end_value": 29.99191,
    "worst_day": -0.10406,
    "worst_day_is": "1987-10-16"
   },
   "C3": {
    "start": "1961-12-29",
    "end": "1987-12-31",
-   "cagr": 0.11067,
+   "cagr": 0.11065,
    "vol": 0.21072,
-   "sharpe": 0.30255,
+   "sharpe": 0.30245,
    "max_dd": -0.58804,
    "worst_year": -0.20112,
    "worst_year_is": 1987,
@@ -461,16 +461,16 @@
    "avg_exposure": 1.26928,
    "time_in_market": 0.63464,
    "trades_per_year": 1.65358,
-   "end_value": 15.32414,
+   "end_value": 15.31648,
    "worst_day": -0.40967,
    "worst_day_is": "1987-10-19"
   },
   "C4": {
    "start": "1961-12-29",
    "end": "1987-12-31",
-   "cagr": 0.0657,
+   "cagr": 0.06568,
    "vol": 0.1535,
-   "sharpe": 0.06956,
+   "sharpe": 0.06943,
    "max_dd": -0.47441,
    "worst_year": -0.228,
    "worst_year_is": 1966,
@@ -478,16 +478,16 @@
    "avg_exposure": 1.34774,
    "time_in_market": 1.0,
    "trades_per_year": 32.84097,
-   "end_value": 5.23139,
+   "end_value": 5.22877,
    "worst_day": -0.13603,
    "worst_day_is": "1987-10-19"
   },
   "C5": {
    "start": "1961-12-29",
    "end": "1987-12-31",
-   "cagr": 0.10693,
+   "cagr": 0.1069,
    "vol": 0.11585,
-   "sharpe": 0.37624,
+   "sharpe": 0.37607,
    "max_dd": -0.21123,
    "worst_year": -0.10261,
    "worst_year_is": 1973,
@@ -495,7 +495,7 @@
    "avg_exposure": 0.93049,
    "time_in_market": 0.64198,
    "trades_per_year": 24.6115,
-   "end_value": 14.03642,
+   "end_value": 14.0294,
    "worst_day": -0.05132,
    "worst_day_is": "1963-11-22"
   }

@@ -173,8 +173,8 @@
  "random_timing": {
   "cagr_percentile": 9.3,
   "sharpe_percentile": 24.0,
-  "cagr_null_median": 0.18162,
-  "sharpe_null_median": 0.6131
+  "cagr_null_median": 0.18156,
+  "sharpe_null_median": 0.61295
  },
  "calendar_years": {
   "finalist": {
@@ -209,8 +209,8 @@
  "sim_2x_check_2016_2026": {
   "tracking_error_daily": 0.01534,
   "tracking_error_monthly": 0.00453,
-  "cagr_sim": 0.23263,
-  "cagr_sso": 0.22965
+  "cagr_sim": 0.23237,
+  "cagr_sso": 0.22939
  },
  "taxes": {
   "finalist": {

@@ -21,10 +21,15 @@ def above_sma(px, n=200):
 
 
 def month_ends(index):
-    """Sessions whose next session falls in a later month (the last session of the
-    data is never one: its month may not be over)."""
+    """Sessions whose next session falls in a later month. The last session of the
+    data counts only when the next weekday does too (data that stops on
+    2015-12-31 knows December is over; data that stops mid-month does not)."""
     nxt = index[1:].to_period("M")
-    return index[:-1][nxt != index[:-1].to_period("M")]
+    out = index[:-1][nxt != index[:-1].to_period("M")]
+    last = index[-1]
+    if (last + pd.offsets.BDay(1)).month != last.month:
+        out = out.append(pd.DatetimeIndex([last]))
+    return out
 
 
 def above_monthly_sma(px, months=10):
