@@ -29,7 +29,33 @@
     }
    ]
   },
-  "heldout": null,
+  "heldout": {
+   "events": 62808,
+   "surrogate_events": 62120.75,
+   "real_share": 0.0965482104190549,
+   "null_share": 0.09557997931448027,
+   "excess": 0.0009682311045746267,
+   "lo": -0.0012619685538203394,
+   "hi": 0.003174983027983207,
+   "p": 0.2022,
+   "controls": [
+    {
+     "real_share": 0.03184307731499172,
+     "null_share": 0.031182817335592382,
+     "excess": 0.0006602599793993358
+    },
+    {
+     "real_share": 0.04865622213730735,
+     "null_share": 0.04807572349013816,
+     "excess": 0.000580498647169192
+    },
+    {
+     "real_share": 0.06419564386702331,
+     "null_share": 0.06401242740952097,
+     "excess": 0.0001832164575023415
+    }
+   ]
+  },
   "q_bh": 0.6589090909090909,
   "significant_insample": false,
   "replicates": false,
@@ -60,7 +86,28 @@
     }
    ]
   },
-  "heldout": null,
+  "heldout": {
+   "events": 7807,
+   "surrogate_events": 8102.25,
+   "real_share": 0.0748046624823876,
+   "null_share": 0.0689499830294054,
+   "excess": 0.005854679452982195,
+   "lo": -7.270769631651376e-05,
+   "hi": 0.011792544892456302,
+   "p": 0.0263,
+   "controls": [
+    {
+     "real_share": 0.04572819264762393,
+     "null_share": 0.046246413033416645,
+     "excess": -0.000518220385792717
+    },
+    {
+     "real_share": 0.08031254002817984,
+     "null_share": 0.07462741830972877,
+     "excess": 0.005685121718451064
+    }
+   ]
+  },
   "q_bh": 0.7504000000000001,
   "significant_insample": false,
   "replicates": false,
@@ -80,7 +127,17 @@
    "p": 0.8136,
    "controls": []
   },
-  "heldout": null,
+  "heldout": {
+   "events": 5131,
+   "surrogate_events": 5321.950000000001,
+   "real_share": 0.7285129604365621,
+   "null_share": 0.6906960794445643,
+   "excess": 0.03781688099199776,
+   "lo": 0.026362882282820976,
+   "hi": 0.04909535962954294,
+   "p": 0.0,
+   "controls": []
+  },
   "q_bh": 0.8846933333333333,
   "significant_insample": false,
   "replicates": false,
@@ -111,11 +168,32 @@
     }
    ]
   },
-  "heldout": null,
+  "heldout": {
+   "events": 1438,
+   "surrogate_events": 1431.9000000000003,
+   "real_share": 0.26564673157162727,
+   "null_share": 0.23699280676024853,
+   "excess": 0.02865392481137874,
+   "lo": 0.005813986096172309,
+   "hi": 0.051391319160101506,
+   "p": 0.0061,
+   "controls": [
+    {
+     "real_share": 0.1474269819193324,
+     "null_share": 0.16526992108387456,
+     "excess": -0.01784293916454216
+    },
+    {
+     "real_share": 0.18150208623087621,
+     "null_share": 0.17427893009288356,
+     "excess": 0.0072231561379926534
+    }
+   ]
+  },
   "q_bh": 0.048,
   "significant_insample": true,
-  "replicates": false,
-  "supported": false
+  "replicates": true,
+  "supported": true
  },
  {
   "dataset": "stocks_daily",
@@ -131,7 +209,17 @@
    "p": 0.09,
    "controls": []
   },
-  "heldout": null,
+  "heldout": {
+   "events": 4980,
+   "surrogate_events": 5133.55,
+   "real_share": 0.7907630522088354,
+   "null_share": 0.8063620691334457,
+   "excess": -0.015599016924610298,
+   "lo": -0.026760781747151415,
+   "hi": -0.004499493769029479,
+   "p": 0.9976,
+   "controls": []
+  },
   "q_bh": 0.24,
   "significant_insample": false,
   "replicates": false,
@@ -162,7 +250,28 @@
     }
    ]
   },
-  "heldout": null,
+  "heldout": {
+   "events": 4668,
+   "surrogate_events": 4749.200000000001,
+   "real_share": 0.10561268209083119,
+   "null_share": 0.10777604649204076,
+   "excess": -0.0021633644012095665,
+   "lo": -0.011104825791211232,
+   "hi": 0.0068404342128222245,
+   "p": 0.6884,
+   "controls": [
+    {
+     "real_share": 0.11096829477292203,
+     "null_share": 0.1224100901204413,
+     "excess": -0.011441795347519268
+    },
+    {
+     "real_share": 0.08718937446443874,
+     "null_share": 0.07156994862292596,
+     "excess": 0.015619425841512782
+    }
+   ]
+  },
   "q_bh": 0.0096,
   "significant_insample": true,
   "replicates": false,
@@ -193,7 +302,28 @@
     }
    ]
   },
-  "heldout": null,
+  "heldout": {
+   "events": 40969,
+   "surrogate_events": 40337.95,
+   "real_share": 0.09421757914520736,
+   "null_share": 0.09363886860884106,
+   "excess": 0.0005787105363662948,
+   "lo": -0.002196692994869975,
+   "hi": 0.0032815696273317306,
+   "p": 0.3343,
+   "controls": [
+    {
+     "real_share": 0.12074983524128,
+     "null_share": 0.1183042271607754,
+     "excess": 0.002445608080504591
+    },
+    {
+     "real_share": 0.07620395909102004,
+     "null_share": 0.07670568286192035,
+     "excess": -0.0005017237709003114
+    }
+   ]
+  },
   "q_bh": 0.41714285714285715,
   "significant_insample": false,
   "replicates": false,
@@ -224,7 +354,28 @@
     }
    ]
   },
-  "heldout": null,
+  "heldout": {
+   "events": 23752,
+   "surrogate_events": 23156.799999999996,
+   "real_share": 0.17632199393735265,
+   "null_share": 0.1721913217715747,
+   "excess": 0.004130672165777949,
+   "lo": -0.0005293238611086465,
+   "hi": 0.00878235963651478,
+   "p": 0.0421,
+   "controls": [
+    {
+     "real_share": 0.1913523071741327,
+     "null_share": 0.1950852449388517,
+     "excess": -0.003732937764719002
+    },
+    {
+     "real_share": 0.1498400134725497,
+     "null_share": 0.14519061355627724,
+     "excess": 0.004649399916272445
+    }
+   ]
+  },
   "q_bh": 0.981,
   "significant_insample": false,
   "replicates": false,
@@ -260,7 +411,33 @@
     }
    ]
   },
-  "heldout": null,
+  "heldout": {
+   "events": 22152,
+   "surrogate_events": 22085.350000000002,
+   "real_share": 0.09917840375586855,
+   "null_share": 0.09772315131976626,
+   "excess": 0.0014552524361022834,
+   "lo": -0.0023440258588057817,
+   "hi": 0.005158147277847274,
+   "p": 0.2255,
+   "controls": [
+    {
+     "real_share": 0.03340556157457566,
+     "null_share": 0.033098864179195706,
+     "excess": 0.0003066973953799526
+    },
+    {
+     "real_share": 0.04884434814012279,
+     "null_share": 0.048686119984514616,
+     "excess": 0.0001582281556081755
+    },
+    {
+     "real_share": 0.06360599494402311,
+     "null_share": 0.062464484375389116,
+     "excess": 0.0011415105686339924
+    }
+   ]
+  },
   "q_bh": 0.06528,
   "significant_insample": false,
   "replicates": false,
@@ -291,7 +468,28 @@
     }
    ]
   },
-  "heldout": null,
+  "heldout": {
+   "events": 3031,
+   "surrogate_events": 3122.9500000000003,
+   "real_share": 0.0745628505443748,
+   "null_share": 0.06721209113178245,
+   "excess": 0.0073507594125923476,
+   "lo": -0.001097548529035774,
+   "hi": 0.016271378019488136,
+   "p": 0.0462,
+   "controls": [
+    {
+     "real_share": 0.040580666446717255,
+     "null_share": 0.045645943739092844,
+     "excess": -0.005065277292375589
+    },
+    {
+     "real_share": 0.08215110524579347,
+     "null_share": 0.07435277542067596,
+     "excess": 0.007798329825117509
+    }
+   ]
+  },
   "q_bh": 0.4978,
   "significant_insample": false,
   "replicates": false,
@@ -311,7 +509,17 @@
    "p": 0.0062,
    "controls": []
   },
-  "heldout": null,
+  "heldout": {
+   "events": 1949,
+   "surrogate_events": 2009.7999999999997,
+   "real_share": 0.6916367367880965,
+   "null_share": 0.6809881580256744,
+   "excess": 0.01064857876242209,
+   "lo": -0.007836319342832765,
+   "hi": 0.029356334317772532,
+   "p": 0.1302,
+   "controls": []
+  },
   "q_bh": 0.03306666666666667,
   "significant_insample": true,
   "replicates": false,
@@ -342,7 +550,28 @@
     }
    ]
   },
-  "heldout": null,
+  "heldout": {
+   "events": 508,
+   "surrogate_events": 549.8000000000001,
+   "real_share": 0.20078740157480315,
+   "null_share": 0.22326300472899233,
+   "excess": -0.022475603154189172,
+   "lo": -0.05699681729257011,
+   "hi": 0.01224035209420856,
+   "p": 0.9035,
+   "controls": [
+    {
+     "real_share": 0.14763779527559054,
+     "null_share": 0.16205893052018913,
+     "excess": -0.014421135244598593
+    },
+    {
+     "real_share": 0.19094488188976377,
+     "null_share": 0.17124408875954888,
+     "excess": 0.01970079313021489
+    }
+   ]
+  },
   "q_bh": 0.8846933333333333,
   "significant_insample": false,
   "replicates": false,
@@ -362,7 +591,17 @@
    "p": 0.3039,
    "controls": []
   },
-  "heldout": null,
+  "heldout": {
+   "events": 1882,
+   "surrogate_events": 1929.7,
+   "real_share": 0.7874601487778958,
+   "null_share": 0.8013162667772191,
+   "excess": -0.013856117999323292,
+   "lo": -0.031140022759143283,
+   "hi": 0.0036594497191288194,
+   "p": 0.945,
+   "controls": []
+  },
   "q_bh": 0.5402666666666667,
   "significant_insample": false,
   "replicates": false,
@@ -393,11 +632,32 @@
     }
    ]
   },
-  "heldout": null,
+  "heldout": {
+   "events": 1789,
+   "surrogate_events": 1856.6,
+   "real_share": 0.11123532699832309,
+   "null_share": 0.0986749973069051,
+   "excess": 0.012560329691417987,
+   "lo": -0.0019958471461778327,
+   "hi": 0.027368834207257636,
+   "p": 0.043,
+   "controls": [
+    {
+     "real_share": 0.11906092789267747,
+     "null_share": 0.12334374663363137,
+     "excess": -0.004282818740953903
+    },
+    {
+     "real_share": 0.0737842370039128,
+     "null_share": 0.06829688678229022,
+     "excess": 0.005487350221622583
+    }
+   ]
+  },
   "q_bh": 0.03306666666666667,
   "significant_insample": true,
-  "replicates": false,
-  "supported": false
+  "replicates": true,
+  "supported": true
  },
  {
   "dataset": "stocks_1h",
@@ -424,7 +684,28 @@
     }
    ]
   },
-  "heldout": null,
+  "heldout": {
+   "events": 14436,
+   "surrogate_events": 14230.55,
+   "real_share": 0.09240786921584927,
+   "null_share": 0.09170411544177844,
+   "excess": 0.0007037537740708366,
+   "lo": -0.0036661977075470513,
+   "hi": 0.005173829891185249,
+   "p": 0.3794,
+   "controls": [
+    {
+     "real_share": 0.11970074812967581,
+     "null_share": 0.11419797548232499,
+     "excess": 0.005502772647350815
+    },
+    {
+     "real_share": 0.07668329177057356,
+     "null_share": 0.07552413645291292,
+     "excess": 0.0011591553176606428
+    }
+   ]
+  },
   "q_bh": 0.6589090909090909,
   "significant_insample": false,
   "replicates": false,
@@ -455,7 +736,28 @@
     }
    ]
   },
-  "heldout": null,
+  "heldout": {
+   "events": 8470,
+   "surrogate_events": 8260.0,
+   "real_share": 0.16977567886658795,
+   "null_share": 0.16699757869249396,
+   "excess": 0.002778100174093995,
+   "lo": -0.004343273455225962,
+   "hi": 0.00993725365144454,
+   "p": 0.222,
+   "controls": [
+    {
+     "real_share": 0.19315230224321134,
+     "null_share": 0.18931598062953994,
+     "excess": 0.003836321613671395
+    },
+    {
+     "real_share": 0.14805194805194805,
+     "null_share": 0.1436622276029056,
+     "excess": 0.004389720449042456
+    }
+   ]
+  },
   "q_bh": 0.7504000000000001,
   "significant_insample": false,
   "replicates": false,
