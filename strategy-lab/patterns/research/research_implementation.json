@@ -1,0 +1,272 @@
+{
+ "findings": [
+  {
+   "claim": "Causal fractal pivot, reference implementation. A top at bar k is reported at confirmation bar i = k + order. The test is that no bar within `order` bars on either side has a higher value, and each record holds both the confirmation index and the extreme's index. The comparisons are strict, so equal highs can both count as tops. The demo uses order=10 on daily BTC closes.",
+   "source": "neurotrader888/TechnicalAnalysisAutomation, rolling_window.py (rw_top, rw_bottom, rw_extremes)",
+   "url": "https://raw.githubusercontent.com/neurotrader888/TechnicalAnalysisAutomation/main/rolling_window.py",
+   "numbers": "Confirmation lag = order bars. Demo order=10. Nothing is flagged before index 2*order+1.",
+   "confidence": "read in full"
+  },
+  {
+   "claim": "The same author warns that scipy.signal.argrelextrema (centred window) is 'faster but use with care to not cheat with future data'. It labels the extreme on its own bar, using future bars.",
+   "source": "neurotrader888 rolling_window.py, trailing comment",
+   "url": "https://raw.githubusercontent.com/neurotrader888/TechnicalAnalysisAutomation/main/rolling_window.py",
+   "numbers": "Commented example uses order=3",
+   "confidence": "read in full"
+  },
+  {
+   "claim": "Causal zigzag (directional change). A top is confirmed on the first bar whose CLOSE falls more than sigma below the running max HIGH. The record holds the confirmation index and the extreme's index and price. After a confirmation, the search for the next extreme restarts from the confirmation bar's low or high, not from the extreme.",
+   "source": "neurotrader888/TechnicalAnalysisAutomation, directional_change.py",
+   "url": "https://raw.githubusercontent.com/neurotrader888/TechnicalAnalysisAutomation/main/directional_change.py",
+   "numbers": "sigma is a fraction. Demo sigma=0.02 on hourly BTC.",
+   "confidence": "read in full"
+  },
+  {
+   "claim": "TradingView built-in 'Pivot Points High Low' calls ta.pivothigh/ta.pivotlow(left, right) and draws the label back at bar_index[right]. The value only appears `right` bars after the pivot bar.",
+   "source": "GitHub mirror of TradingView 'Pivots HL' (Pine v5)",
+   "url": "https://raw.githubusercontent.com/TWODS-CAPITAL/Trading-View-Indicators/main/Technical-Indicators/Technical%20Indicators%20are%20Here%F0%9F%A4%A9/Pivot-Points-High-Low.pine",
+   "numbers": "Defaults: left=10, right=10 for both highs and lows",
+   "confidence": "read in full"
+  },
+  {
+   "claim": "TradingView built-in Zig Zag (library TradingView/ZigZag/6) defaults: percent reversal threshold plus a pivot-legs length. 'Extend to last bar' is on by default, so the last leg changes until it is confirmed.",
+   "source": "User script on GitHub that copies the built-in Zig Zag settings block (not TradingView's own file)",
+   "url": "https://raw.githubusercontent.com/msongkiet/TDV_share/main/ZigZag_EMA.pine",
+   "numbers": "Price deviation for reversals = 5.0%, Pivot legs = 10, Extend to last bar = true",
+   "confidence": "read in full"
+  },
+  {
+   "claim": "MetaTrader 4 stock ZigZag: deviation is measured in POINTS (InpDeviation*Point), not percent. Each update recounts the last ExtLevel=3 extremums, so the latest legs repaint.",
+   "source": "MetaQuotes ZigZag.mq4 (2006-2014), GitHub copy",
+   "url": "https://raw.githubusercontent.com/liangxifeng833/mt4/master/Indicators/ZigZag.mq4",
+   "numbers": "Depth=12, Deviation=5 points, Backstep=3, ExtLevel=3",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Pine FAQ example draws pivots with ta.pivothigh(pivotLegsInput, pivotLegsInput) back at the pivot bar, so the detected pivot is already `legs` bars old. The Pine docs name request.security() (another context or timeframe) as the most common cause of repainting.",
+   "source": "TradingView Pine Script docs FAQ/techniques (WebSearch result summary; page not fetchable from this environment)",
+   "url": "https://tradingview.com/pine-script-docs/faq/techniques/",
+   "numbers": "none",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "trendln (GregoryMorse) defaults: extrema by numerical differentiation (findiff). Trend lines come from a 2-point sorted-slope search inside windows that are then merged. A line needs at least 3 pivots and slope standard error <= errpct*(max-min)/len, where max, min and len are taken over the WHOLE input series.",
+   "source": "trendln PyPI page and trendln/__init__.py source",
+   "url": "https://raw.githubusercontent.com/GregoryMorse/trendln/master/trendln/__init__.py",
+   "numbers": "window=125, errpct=0.005, hough_scale=0.01, hough_prob_iter=10, accuracy=2, min points per line=3",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "trendln extrema are not causal. METHOD_NAIVE uses a centred 3-bar window (needs bar x+1). METHOD_NUMDIFF uses central finite differences and also checks mom[x+1]. The line tolerance is scaled by the full-series range. Point-in-time use requires re-running on data truncated at t.",
+   "source": "trendln/__init__.py get_extrema and calc_support_resistance",
+   "url": "https://raw.githubusercontent.com/GregoryMorse/trendln/master/trendln/__init__.py",
+   "numbers": "Naive window=3 centred; numdiff acc=2",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "trendln get_horizontal_levels clusters pivot prices. A pivot joins the cluster if it is within pctbound of the running cluster mean. A cluster is kept if it has at least min_touches pivots.",
+   "source": "trendln/__init__.py get_horizontal_levels docstring and code",
+   "url": "https://raw.githubusercontent.com/GregoryMorse/trendln/master/trendln/__init__.py",
+   "numbers": "pctbound=0.05 (5%), min_touches=2",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "zeta-zetra/chart_patterns triangle rule. Over a lookback of pivots up to the current bar, fit scipy linregress lines to the pivot highs and to the pivot lows, and require |r| >= rlimit. The docstring calls rlimit 'R-squared', but the code compares r. Ascending = low slope >= 1e-5 and |high slope| <= 1e-5. Descending is the mirror image. The slope limits are in raw price per bar, so they depend on the stock's price level.",
+   "source": "chart_patterns/triangles.py",
+   "url": "https://raw.githubusercontent.com/zeta-zetra/chart_patterns/main/chart_patterns/triangles.py",
+   "numbers": "lookback=25, min_points=3 (blocks a candidate only if BOTH sides have <3 pivots, because the test uses 'and'), rlimit=0.9, slmax_limit=slmin_limit=0.00001",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "chart_patterns pivots look ahead. Each pivot is labelled on its own bar using right_count future bars and computed once over the whole frame. The triangle window range(candle_idx-lookback, candle_idx+1) can therefore include pivots that are not yet confirmed at candle_idx, up to 3 bars of lookahead.",
+   "source": "chart_patterns/pivot_points.py and triangles.py",
+   "url": "https://raw.githubusercontent.com/zeta-zetra/chart_patterns/main/chart_patterns/pivot_points.py",
+   "numbers": "left_count=3, right_count=3; strict comparisons, so ties do not disqualify",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "BennyThadikaran/stock-pattern triangles. A, C, E are pivot highs; B, D are pivot lows; F is the last close. Two points count as a straight line if they are within the median bar range (High-Low) over A..D. Ascending: |a-c| and |c-e| <= that range and b<d<f<e. Descending: |b-d| <= that range and a>c>e>f>=d. The pattern is rejected if the upper and lower lines' durations to the last bar differ by more than a 1.8 ratio, or if any close in the frame is beyond either line. Detection is deliberately pre-breakout.",
+   "source": "stock-pattern src/utils.py (is_triangle, find_triangles) and wiki 'Pattern Algorithms'",
+   "url": "https://raw.githubusercontent.com/BennyThadikaran/stock-pattern/main/src/utils.py",
+   "numbers": "Duration ratio cap 1.8. Slope filters in raw price units per bar: ascending rejected if upper slope >0.1 and lower slope <0.2; descending if lower slope < -0.1 and upper slope > -0.2. get_atr window=15 exists but the triangle code does not use it.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "stock-pattern pivots have an off-by-one. The docs say a pivot is 'unbroken by 6 candles before or after' and takes 6 candles to confirm. The code takes the centre as win.index[barsLeft+1] in a 13-bar window, so in practice it uses 7 left bars and 5 right bars. idxmax picks the first occurrence, so a tie with an earlier bar blocks the pivot.",
+   "source": "stock-pattern utils.get_max_min and wiki",
+   "url": "https://github.com/BennyThadikaran/stock-pattern/wiki/Pattern-Algorithms",
+   "numbers": "Defaults barsLeft=6, barsRight=6 (CLI --left/--right 6); effective 7 left / 5 right",
+   "confidence": "read in full"
+  },
+  {
+   "claim": "stock-pattern higher timeframes: daily CSVs are resampled (weekly 'W-SUN', monthly 'MS'). The bar count stays constant across timeframes (period 160 daily -> 7*160 days for weekly, 30*160 for monthly). With an end_date, weekly rounds forward to that week's Saturday and monthly to month-end, which leaks the rest of the week or month in a mid-period replay.",
+   "source": "stock-pattern src/loaders/EODFileLoader.py",
+   "url": "https://raw.githubusercontent.com/BennyThadikaran/stock-pattern/main/src/loaders/EODFileLoader.py",
+   "numbers": "period=160 bars; weekly=7*period days; monthly=30*period days",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "LonesomeTheBlue 'Support Resistance Channels'. Pivots come from pivothigh/pivotlow(prd, prd). A zone gathers pivots whose spread is <= ChannelW% of the 300-bar highest-lowest range. Strength = 20 per pivot in the zone + 1 for each bar in the loopback whose high or low falls inside the zone. A break = close crosses the zone edge (close[1] <= top and close > top) while price is not inside any zone.",
+   "source": "Pine v4 GitHub mirror of LonesomeTheBlue's open-source script (MPL-2.0)",
+   "url": "https://raw.githubusercontent.com/vijankush/Stocks-PineScript-TradingView/main/Support-Resistance",
+   "numbers": "Pivot Period=10 (4-30); Max Channel Width=5% (1-8) of 300-bar range; Minimum Strength=1 (x20); Max S/R=6; Loopback=290 (100-400)",
+   "confidence": "read in full"
+  },
+  {
+   "claim": "LuxAlgo 'Support and Resistance Levels with Breaks'. Level = last pivothigh/pivotlow(15,15) taken with an extra [1] delay and plotted back with offset -(rightBars+1). Break = crossover(close, level). The 'B' label also needs a volume oscillator 100*(EMA5(vol)-EMA10(vol))/EMA10(vol) > threshold.",
+   "source": "Pine v4 GitHub mirror of LuxAlgo open-source script (CC BY-NC-SA 4.0)",
+   "url": "https://raw.githubusercontent.com/naiive/asian-quant/main/data/pinescripts/support%20and%20resistance%20levels%20with%20breaks.pine",
+   "numbers": "Left=15, Right=15, Volume Threshold=20 (%), volume EMAs 5 and 10",
+   "confidence": "read in full"
+  },
+  {
+   "claim": "Trendoscope 'Auto Chart Patterns'. Patterns are found from the last 5 (or 6) zigzag pivots. Trend lines must have similar slopes within errorRatio, and the bar spacing ratio must lie within [0.382, 1/0.382]. A line is invalid if any bar BODY (min/max of open, close) crosses it; wicks may cross. A line counts as flat if the angle ratio is within 1 +/- flatRatio. Scanning runs only on barstate.isconfirmed unless Repaint is on. Avoid Overlap skips a pattern that starts inside an existing one.",
+   "source": "GitHub mirror of Trendoscope ACP script, plus a v6 mirror of its chart-pattern library (version may differ from abstractchartpatterns/9 imported by ACP)",
+   "url": "https://raw.githubusercontent.com/regalouisei/collect-tradingview/main/pinescript/editors_picks/auto-chart-patterns-trendoscope.pine",
+   "numbers": "Zigzag1 length=8 depth=55 (on); Z2 13/34, Z3 21/21, Z4 34/13 (off); pivots=5; Error Threshold=20%; Flat Threshold=20%; bar ratio 0.382; avoidOverlap=true; repaint=false; maxPatterns=20",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Trendoscope library: 'offset: Zigzag pivot offset. Set it to 1 for non repainting scan.' The ACP script hard-codes offset = 0, so the newest zigzag pivot, which can still move, is used.",
+   "source": "Trendoscope chartpatterns library mirror (ScanProperties docstring) and ACP script line 'offset = 0'",
+   "url": "https://raw.githubusercontent.com/deepentropy/intellij-pinescript/main/examples/chartpatterns.pine",
+   "numbers": "offset default 0; non-repainting = 1",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "A third-party 'Market Adapted' fork of Trendoscope uses looser settings for volatile markets.",
+   "source": "TradingView script page (WebSearch summary only; TradingView not fetchable here)",
+   "url": "https://in.tradingview.com/script/fTropr3t-Auto-Chart-Patterns-Market-Adapted",
+   "numbers": "errorThreshold=30%, flatThreshold=20%, pivots=5, ZZ1 8/55, ZZ2 13/34",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Lo, Mamaysky and Wang (2000) as implemented in Systematic Investor Toolbox. Rolling windows of L+d days; a kernel-smoothed close with CV bandwidth; extrema taken from the raw data within +/-1 bar of the smoothed extrema. d is a detection lag: the final extremum must occur by t+L-1, and returns start at t+L+d. Rectangle top: E1, E3, E5 each within 0.75% of their mean, E2 and E4 within 0.75% of theirs, and min top > max bottom. Triangle top: E1>E3>E5 and E2<E4.",
+   "source": "SIT rfinance2012.r (comments quote the paper, pp. 14-16)",
+   "url": "https://raw.githubusercontent.com/systematicinvestor/SIT/master/R/rfinance2012.r",
+   "numbers": "L=35, d=3, window=38 days; rectangle tolerance 0.75%; 5 extrema per pattern",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "In the original paper the CV bandwidth is scaled by 0.3. The SIT port uses the plain CV bandwidth.",
+   "source": "Lo, Mamaysky & Wang, 'Foundations of Technical Analysis', Journal of Finance 55(4), 2000",
+   "url": "https://doi.org/10.1111/0022-1082.00265",
+   "numbers": "h = 0.3 x h_CV (not verified in this session)",
+   "confidence": "from memory/secondary"
+  },
+  {
+   "claim": "smart-money-concepts (Python) swing_highs_lows looks ahead. It compares each high to a window shifted -swing_length, then drops consecutive same-type swings using LATER swings, and forces the first and last bar of the series to be swings. Liquidity zones use range_percent of the WHOLE dataset's high-low range.",
+   "source": "joshyattridge/smart-money-concepts smc.py",
+   "url": "https://raw.githubusercontent.com/joshyattridge/smart-money-concepts/master/smartmoneyconcepts/smc.py",
+   "numbers": "swing_length=50 (about 49 bars left / 50 right); liquidity range_percent=0.01",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "PyPI 'tradingpattern' 0.0.5 detect_triangle_pattern adds no real filtering. rolling(3).max(High) >= High.shift(1) is always true because the window contains that bar (the same holds for the low), so 'Ascending Triangle' fires on every up-close bar and 'Descending' on every down close. Library names cannot be trusted.",
+   "source": "tradingpattern-0.0.5 wheel, tradingpatterns/tradingpatterns.py",
+   "url": "https://pypi.org/project/tradingpattern/",
+   "numbers": "window=3; S/R = rolling mean +/- 2 std of High/Low",
+   "confidence": "read in full"
+  },
+  {
+   "claim": "neurotrader888 TrendLineAutomation fits support and resistance on the last `lookback` bars only, so it is causal per bar. Start from the OLS slope of the closes and pivot on the bar furthest below or above that line. Then adjust the slope by step-halving so the line never crosses any low (or high) while minimising squared distance. The demo applies it to log prices.",
+   "source": "TrendLineAutomation/trendline_automation.py",
+   "url": "https://raw.githubusercontent.com/neurotrader888/TrendLineAutomation/main/trendline_automation.py",
+   "numbers": "lookback=30 (daily BTC demo); tolerance 1e-5; min_step=0.0001; slope_unit=(max-min)/len",
+   "confidence": "read in full"
+  },
+  {
+   "claim": "Edwards & Magee: a triangle needs at least four reversal points (two per boundary). Breakouts typically come between one-half and three-quarters of the way from base to apex. They suggest a roughly 3% close-beyond-the-line test for a decisive breakout.",
+   "source": "Edwards & Magee, Technical Analysis of Stock Trends",
+   "url": "",
+   "numbers": "4 reversal points; 1/2 to 3/4 of the way to apex; ~3% close penetration (unverified this session)",
+   "confidence": "from memory/secondary"
+  },
+  {
+   "claim": "Bulkowski defines the breakout as a CLOSE outside the pattern boundary (top line for ascending triangles and rectangles). A third-party summary of his cheat sheet operationalises the ascending triangle as 2+ touches of flat resistance, 2+ higher lows, and a close above resistance.",
+   "source": "Bulkowski, Encyclopedia of Chart Patterns (memory); third-party notes in GitHub repo AriGabay/new-b",
+   "url": "https://raw.githubusercontent.com/AriGabay/new-b/main/research/source_notes/source_04_chart_patterns_audit.md",
+   "numbers": "2+ touches each side (secondary)",
+   "confidence": "from memory/secondary"
+  },
+  {
+   "claim": "O'Neil (CAN SLIM) bases are judged on WEEKLY charts. Flat base at least 5 weeks with a 10-15% max correction; cup-with-handle at least 7 weeks. The buy point is a breakout above the base's pivot/high.",
+   "source": "W. O'Neil, How to Make Money in Stocks",
+   "url": "",
+   "numbers": "flat base >=5 weeks, depth <=10-15%; cup >=7 weeks (unverified this session)",
+   "confidence": "from memory/secondary"
+  }
+ ],
+ "rule_parameters": [
+  {
+   "item": "Swing pivot definition (causal)",
+   "value": "Fractal: bar k is a pivot high if High[k] > High of the k-L..k-1 and k+1..k+R bars. The pivot becomes known only at the CLOSE of bar k+R. Store both the extreme index and the confirmation index, and let the pattern logic see a pivot only from its confirmation index.",
+   "source": "neurotrader888 rolling_window.py; Pine ta.pivothigh usage in Pivots HL and LonesomeTheBlue (offset -prd)"
+  },
+  {
+   "item": "Pivot length defaults seen in open code",
+   "value": "2-3 bars (chart_patterns 3/3); 6/6 nominal, effectively 7/5 (stock-pattern); 10/10 (TradingView Pivots HL, LonesomeTheBlue S/R); 15/15 + 1 extra bar (LuxAlgo); 50 (smart-money-concepts, look-ahead)",
+   "source": "respective source files listed in findings"
+  },
+  {
+   "item": "Zigzag threshold defaults",
+   "value": "TradingView built-in: 5% reversal, 10 pivot legs. MT4: Depth 12, Deviation 5 POINTS, Backstep 3. neurotrader888 directional change: sigma=2% (hourly demo), confirmed on close. No open default for an ATR-multiple zigzag was found in the code read.",
+   "source": "ZigZag_EMA.pine copy of TV settings; ZigZag.mq4; directional_change.py"
+  },
+  {
+   "item": "Flatness test for the horizontal side",
+   "value": "Options seen: |p_i - p_j| <= median bar range over the pattern (stock-pattern); each touch within 0.75% of the touches' mean (Lo-Mamaysky-Wang rectangles); |OLS slope| <= 1e-5 price/bar with |r|>=0.9 (chart_patterns, scale-dependent, avoid); angle ratio within 1+/-0.20 (Trendoscope). A percent- or ATR-normalised tolerance avoids dependence on the stock's price level.",
+   "source": "stock-pattern utils.is_triangle; SIT rfinance2012.r; chart_patterns triangles.py; Trendoscope library mirror"
+  },
+  {
+   "item": "Horizontal S/R zone width",
+   "value": "5% of the 300-bar high-low range (LonesomeTheBlue, ChannelW=5); 5% of the cluster's mean price (trendln get_horizontal_levels pctbound=0.05); 1% of the full-sample range (smart-money-concepts, look-ahead). No ATR-based zone-width default was found in the open code read.",
+   "source": "vijankush mirror of SRchannel; trendln __init__.py; smc.py"
+  },
+  {
+   "item": "Minimum touches",
+   "value": "Horizontal level >=2 pivots (trendln min_touches=2; SRchannel tooltip says 2, but minstrength=1 lets a single pivot qualify). Sloped line >=3 pivots (trendln). Triangle: 3 highs + 2 lows plus the current bar (stock-pattern A,C,E/B,D,F); 5 alternating extrema (LMW); 5 or 6 zigzag pivots (Trendoscope).",
+   "source": "trendln; SRchannel mirror; stock-pattern wiki; SIT LMW; Trendoscope ACP"
+  },
+  {
+   "item": "Trend-line containment",
+   "value": "No bar close (stock-pattern) or no bar body (Trendoscope: min/max of open, close) beyond the line between its first pivot and the evaluation bar; wicks allowed.",
+   "source": "stock-pattern find_triangles; Trendoscope inspect()"
+  },
+  {
+   "item": "Breakout trigger in open code",
+   "value": "Close crosses the level/zone edge: SRchannel close[1]<=top and close>top while not inside any zone; LuxAlgo crossover(close, last pivot level), optionally volume oscillator EMA5/EMA10 > 20%. No intrabar-high triggers in these scripts.",
+   "source": "SRchannel mirror; LuxAlgo mirror"
+  },
+  {
+   "item": "Detection lag / pattern window (LMW benchmark)",
+   "value": "L=35 trading days pattern window + d=3 days detection lag (38-day rolling window); returns measured from t+L+d",
+   "source": "SIT rfinance2012.r quoting Lo, Mamaysky & Wang (2000) pp.14-15"
+  },
+  {
+   "item": "Look-back windows in open code",
+   "value": "chart_patterns lookback=25 bars; trendln window=125; LonesomeTheBlue loopback=290 and range reference 300; stock-pattern data period=160 bars per timeframe; neurotrader888 trendline lookback=30",
+   "source": "respective source files"
+  },
+  {
+   "item": "Trendoscope scan settings",
+   "value": "errorThreshold=20%, flatThreshold=20%, numberOfPivots=5, barRatioLimit=0.382, avoidOverlap=true, repaint=false, Zigzag 8/55; offset should be 1 for a non-repainting scan (script hard-codes 0)",
+   "source": "ACP mirror + library mirror"
+  },
+  {
+   "item": "Higher-timeframe bars",
+   "value": "Build weekly/monthly bars only from completed periods; evaluate signals only at period close. Do not round end_date forward to week/month end the way stock-pattern's loader does. Fractal confirmation lag in calendar time = R x bar length (e.g., R=5 on monthly bars = 5 months).",
+   "source": "stock-pattern EODFileLoader.py (counter-example); derived arithmetic"
+  }
+ ],
+ "caveats": [
+  "The 200-per-turn WebSearch budget, shared across agents, ran out partway through. No further searches were possible, so items 3 (higher-timeframe confirmation norms, duration scaling) and the Bulkowski, Edwards & Magee and O'Neil numbers come from memory and are not verified. Their findings are marked 'from memory/secondary'.",
+  "The egress proxy blocked TradingView, thepatternsite.com, SSRN, arXiv, JSTOR, Wikipedia, StockCharts and Investopedia (403 / DNS). Only raw.githubusercontent.com and PyPI could be fetched. All TradingView script code was read from third-party GitHub mirrors, which may be older versions than the live scripts (e.g., the LonesomeTheBlue mirror is Pine v4; the Trendoscope library mirror is a v6 'chartpatterns' copy, not necessarily abstractchartpatterns/9).",
+  "The TradingView built-in Zig Zag defaults (5%, 10 legs) come from a user script that copies the built-in settings block, not from TradingView's own source.",
+  "No open-source default for an ATR-based S/R zone width or an ATR zigzag threshold turned up in the code read. Typical claims like '0.5-1 ATR zone width' therefore remain unsourced and should be pre-registered as the researcher's own choice.",
+  "Several popular open implementations look ahead: chart_patterns pivots, trendln numdiff/naive extrema plus full-series scaling, smart-money-concepts swings forced at the last bar, and stock-pattern's weekly/monthly end-date rounding. One library is degenerate: tradingpattern's 'triangle' fires on any up/down close. Use none of them as-is in a point-in-time backtest.",
+  "Several thresholds in open code are in raw price units per bar (chart_patterns slope 1e-5, stock-pattern slope 0.1/0.2), so results depend on the stock's price level and split adjustment. Normalise by price or ATR instead.",
+  "Overlap and double counting seen in code: Trendoscope skips patterns that start inside an existing one (avoidOverlap) and does not re-report the same pivot set. LonesomeTheBlue strength adds +1 for every bar touching the zone over 290 bars, so one congested level is counted many times. A backtest should de-duplicate on (ticker, level, confirmation bar) and allow at most one active pattern per level.",
+  "Downloaded source copies are in /tmp/claude-0/-home-user-my-website/7e6193d5-03fd-55b8-ab0d-60cef84cba96/scratchpad/src (and the tradingpattern wheel in /tmp/claude-0/-home-user-my-website/7e6193d5-03fd-55b8-ab0d-60cef84cba96/scratchpad/pypi_tp)."
+ ]
+}

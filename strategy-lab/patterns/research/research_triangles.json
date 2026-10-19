@@ -1,0 +1,298 @@
+{
+ "findings": [
+  {
+   "claim": "Bulkowski identification rule for ascending triangles: two trendlines, the top one horizontal and the bottom one sloping upward. Price must touch one line at least 3 times and the other at least 2 times, forming distinct peaks and valleys. Price must also cross the pattern from side to side, so the triangle is filled with price movement rather than white space.",
+   "source": "Bulkowski, 'Bulkowski on Ascending Triangles', thepatternsite.com (Identification Guidelines)",
+   "url": "https://thepatternsite.com/at.html",
+   "numbers": "touches: >=3 on one line, >=2 on the other; no numeric flatness tolerance found",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Bulkowski's ascending triangle breakout facts: breakouts are upward 63% of the time and come about 64% of the way to the apex in both directions. Volume trends downward during the pattern at least 78% of the time.",
+   "source": "thepatternsite.com at.html",
+   "url": "https://thepatternsite.com/at.html",
+   "numbers": "up 63%; breakout at 64% of base-to-apex distance; volume falls in >=78% of patterns",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Bulkowski's bull-market results for ascending triangles, from more than 1,400 'perfect trades'. Upward breakouts rank 16 of 39 with a 17% break-even failure rate, a 43% average rise, a 64% throwback rate and 70% meeting the price target. Downward breakouts rank 30 of 36 with a 38% break-even failure rate, a 13% average decline, a 63% pullback rate and 44% meeting the target. A secondary site says the data was last refreshed 8/26/2020.",
+   "source": "thepatternsite.com at.html (Important Bull Market Results); refresh date from chartscout.io (secondary)",
+   "url": "https://thepatternsite.com/at.html",
+   "numbers": "Up: rank 16/39, BE fail 17%, rise 43%, throwback 64%, target 70%. Down: rank 30/36, BE fail 38%, decline 13%, pullback 63%, target 44%. n>1,400",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Ascending triangle busts: 46% of downward breakouts bust upward, rising 36% on average to the ultimate high, and 67% of those busts are single busts. In a bull market, an upward breakout that busts falls 13% on average. Definition of a bust: the breakout is a close outside the trendline, price moves less than 10% before reversing, then it closes beyond the opposite side. A single bust also needs a move of at least 10% in the new direction.",
+   "source": "thepatternsite.com at.html and BustAscTriangles.html",
+   "url": "https://www.thepatternsite.com/BustAscTriangles.html",
+   "numbers": "46% of down breakouts bust (+36%); up-breakout bust -13%; bust threshold <10% then >=10%",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Bulkowski's identification rule for descending triangles: a horizontal bottom trendline and a top trendline sloping downward, with at least 3 touches on one line and 2 on the other. The median breakout comes 61% to 65% of the way to the apex. Volume recedes in 78% of patterns and gets quite low just before the breakout. The site says breakouts are upward 53% of the time; secondary sites quoting older Bulkowski data say about 54% are downward.",
+   "source": "Bulkowski, 'Bulkowski on Descending Triangles', thepatternsite.com",
+   "url": "https://thepatternsite.com/dt.html",
+   "numbers": "touches 3/2; breakout at 61-65% of the way to the apex; volume recedes 78%; up 53% / down 47% (site); ~54% down (secondary, older)",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Bulkowski's bull-market results for descending triangles. Upward breakouts rank 33 of 39 with a 22% break-even failure rate, a 38% average rise, a 60% throwback rate and 64% meeting the target. Downward breakouts rank 15 of 36 with a 23% break-even failure rate, a 15% average decline, a 58% pullback rate and 50% meeting the target. A secondary site gives the sample as more than 1,300 trades.",
+   "source": "thepatternsite.com dt.html",
+   "url": "https://thepatternsite.com/dt.html",
+   "numbers": "Up: 33/39, BE 22%, +38%, TB 60%, target 64%. Down: 15/36, BE 23%, -15%, PB 58%, target 50%",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Descending triangle busts: Bulkowski counts 276 busted patterns out of 650 downward breakouts in a bull market, and these rise 40% on average. His busted-performance table gives bust rates of 28% for upward breakouts and 42% for downward breakouts.",
+   "source": "thepatternsite.com BustDescTriangles.html and BustPerformance.html",
+   "url": "https://thepatternsite.com/BustDescTriangles.html",
+   "numbers": "276/650 busted; +40%; bust rate 28% (up) / 42% (down)",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "How Bulkowski measures performance. He treats a breakout as a close outside the trendline. Average rise runs from the breakout price to the 'ultimate high', defined as the highest high before price drops at least 20% or closes below the bottom of the pattern; that exit uses hindsight. Break-even failure means price fails to move more than 5% beyond the breakout. A throwback or pullback is a return to the breakout price within 30 calendar days.",
+   "source": "thepatternsite.com faq.html, id84.html, throwbacks.html, BustAscTriangles.html",
+   "url": "https://www.thepatternsite.com/faq.html",
+   "numbers": "ultimate high: 20% reversal or close below pattern; failure: <5% move; throwback window: 30 calendar days",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Bulkowski's current measure rule for ascending triangles: the height is the horizontal top line minus the lowest valley in the pattern. He multiplies that height by the 'percentage meeting price target' and adds the result to the breakout price (subtracting it for a downward breakout). For descending triangles the height runs from the highest peak to the horizontal line. The plain full-height target is met 70%/44% of the time (ascending up/down) and 64%/50% (descending up/down).",
+   "source": "thepatternsite.com at.html, scat.html, dt.html",
+   "url": "https://thepatternsite.com/at.html",
+   "numbers": "scale factors 0.70/0.44 (ascending), 0.64/0.50 (descending)",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Bulkowski's scoring system for ascending triangles uses height relative to the 52-week range, shares outstanding, the volume trend, and whether breakout volume is above its 30-day average. Patterns scoring above 0 averaged a 50% rise (upward breakouts) or a 23% decline (downward). Patterns scoring below 0 averaged a 21% rise or a 12% decline. The point weights were not visible.",
+   "source": "thepatternsite.com scat.html",
+   "url": "https://thepatternsite.com/scat.html",
+   "numbers": "score>0: +50% / -23%; score<0: +21% / -12%",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Bulkowski's own tested trade for ascending triangles. He split the sample into in-sample and out-of-sample halves, and the results flipped: the best in-sample rule ranked near the bottom out of sample. He then used two databases going back to 1991, which raised the sample from 230 to more than 1,000 patterns. The best setup buys a penny above the top line and exits at the close 3 days later: 2% average profit, 5-day average hold, 65% wins, win/loss ratio above 3, 16% maximum drawdown. He calls it a weak setup because price tends to rise a few days and then collapse.",
+   "source": "Bulkowski, 'Ascending Triangle Setup', thepatternsite.com",
+   "url": "https://thepatternsite.com/AscTriangleSetup.html",
+   "numbers": "n 230 -> >1,000 (since 1991); +2%/trade, 5-day hold, 65% win, W/L>3, maxDD 16%",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Bierovic setup on ascending triangles (from Bierovic's 2002 Active Trader article), as tested by Bulkowski. Once price reaches the top plus the pattern height, a trailing stop goes 10 cents below the prior bar's low. A secondary summary of the page says the pattern must run at least 15 bars from start to the day before the breakout. The setup made 0.8% per trade, or 1.7% after excluding patterns that were too short or price below the EMA(s). Average hold was 15 days, maximum drawdown 21%. Bulkowski concludes the entry filters do more harm than good.",
+   "source": "thepatternsite.com BierovicSetup.html",
+   "url": "https://thepatternsite.com/BierovicSetup.html",
+   "numbers": "0.8%/trade (all), 1.7% (filtered); hold 15 days; maxDD 21%; >=15 bars (secondary)",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Bulkowski's practitioner entry and stop for ascending triangles: a buy-stop a penny above the top of the triangle, or buy at the open if price gaps above it. The stop goes a penny below the bottom of the triangle. His stop-location page says that for right-angled ascending patterns the stop belongs slightly below the pattern bottom, because throwbacks often plunge into the pattern.",
+   "source": "thepatternsite.com ppAscTriangle.html and Stoplocate.html",
+   "url": "https://thepatternsite.com/ppAscTriangle.html",
+   "numbers": "entry: top + $0.01; stop: bottom - $0.01",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Bulkowski's figures on stop distance: a stop closer than 4% below the breakout price is hit within the following month almost half the time. A stop at least 8% away holds 75% of the time. A stop 2 cents below the current low is hit almost two-thirds of the time.",
+   "source": "thepatternsite.com stop pages (Stoplocate / stops)",
+   "url": "https://thepatternsite.com/Stoplocate.html",
+   "numbers": "<4% stop: ~50% hit within 1 month; >=8%: 75% survive",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Bulkowski's throwback statistics across all patterns since 2000. Of 10,305 upward breakouts, 58% threw back. Price peaks about 6 days after the breakout, about 8% above the breakout price, and the whole round trip takes about 10 days. Breakouts on high volume throw back about 70-74% of the time.",
+   "source": "thepatternsite.com throwbacks.html and Volume.html",
+   "url": "https://thepatternsite.com/throwbacks.html",
+   "numbers": "58% of 10,305; peak +8% at ~6 days; ~10 days total; 70-74% on high volume",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "No Bulkowski statistics were found for ascending or descending triangles on weekly or monthly charts. He does report weekly results separately for some other studies. His volume study shows weekly and daily results differing by only 1-2 percentage points, and his chart-pattern setup page found 518 daily versus 213 weekly patterns in 367 stocks, with a 6% break-even failure rate (3% on weekly).",
+   "source": "thepatternsite.com Volume.html, CPSetup.html",
+   "url": "https://thepatternsite.com/CPSetup.html",
+   "numbers": "none for triangles; CPSetup 518 daily / 213 weekly; BE fail 6% (weekly 3%)",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "An older Bulkowski data set as summarised by QuantifiedStrategies: 725 ascending triangles in 500 stocks from 1991 to 1996, with 230 false signals (32%). Successful patterns averaged a 44% rise and failed ones a 21% decline. This appears to be the 1st-edition Encyclopedia data, but it was not verified in the book.",
+   "source": "QuantifiedStrategies, 'Breakout Triangle Trading Strategy' (secondary)",
+   "url": "https://www.quantifiedstrategies.com/breakout-triangle-strategy/",
+   "numbers": "n=725; 230 failures (32%); +44% / -21%",
+   "confidence": "from memory/secondary"
+  },
+  {
+   "claim": "Edwards & Magee call the ascending and descending triangles the bullish and bearish 'Right-Angle Triangles': one boundary is 'practically horizontal' and the other slants toward it. When prices stop reacting all the way to the lower boundary, it warns that the breakout is near.",
+   "source": "Edwards & Magee, Technical Analysis of Stock Trends, 8th ed. (anyflip excerpt, pp. 151-250)",
+   "url": "http://anyflip.com/gfisv/hsoi/basic/151-200",
+   "numbers": "no numeric tolerance",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Edwards & Magee's penetration filter: a close beyond the line by about 3% of price for an individual medium-priced stock, and about 2% for the averages. They also expect volume to rise notably on a genuine upside breakout.",
+   "source": "Edwards & Magee as quoted by secondary sources (Peter L. Brandt blog; 9th-edition-based PDF)",
+   "url": "https://www.peterlbrandt.com/gold-trendline/",
+   "numbers": "3% close penetration (stocks), 2% (averages)",
+   "confidence": "from memory/secondary"
+  },
+  {
+   "claim": "Breakout location in the classical texts. StockCharts gives 1/2 to 3/4 of the way from base to apex as the ideal breakout zone for symmetrical triangles, in an Edwards & Magee context. Murphy is paraphrased as 2/3 to 3/4 of the horizontal width. Triangles that drift to the apex lose reliability. No primary quotation was found for the right-angle triangles specifically.",
+   "source": "StockCharts ChartSchool, Symmetrical Triangle; finaccfundas blog summary of Murphy; Recognia PDF",
+   "url": "https://chartschool.stockcharts.com/table-of-contents/chart-analysis/chart-patterns/symmetrical-triangle",
+   "numbers": "1/2-3/4 (E&M/StockCharts); 2/3-3/4 (Murphy)",
+   "confidence": "from memory/secondary"
+  },
+  {
+   "claim": "Murphy's rules as summarised by others: a triangle needs at least 4 reversal points, 2 on each line. The target for all three triangle types is the height at the widest (left) part of the pattern, projected from the breakout point.",
+   "source": "Murphy, Charting Made Easy (StockCharts) and a blog summary of Technical Analysis of the Financial Markets",
+   "url": "https://finaccfundas.blogspot.com/2014/09/john-murphy-rules-of-technical-trading.html",
+   "numbers": ">=4 reversal points; target = widest height",
+   "confidence": "from memory/secondary"
+  },
+  {
+   "claim": "StockCharts ChartSchool's ascending triangle rules: at least 2 distinct reaction lows, each higher than the last. The target is the widest distance of the pattern added to the resistance breakout.",
+   "source": "StockCharts ChartSchool, Ascending Triangle",
+   "url": "https://chartschool.stockcharts.com/table-of-contents/chart-analysis/chart-patterns/ascending-triangle",
+   "numbers": ">=2 rising lows; target = widest height",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Peter Brandt, a practitioner who trades classical patterns on weekly charts, prefers patterns lasting 8 to 16 weeks, including rectangles and right-angle triangles. He separately describes 10 to 26 week horizontal patterns, which he prefers over diagonal ones. His 'Last Day Rule' stop sits at the low of the last day inside the pattern; in later versions he uses the low of the breakout day if at least half of that bar is below the boundary. He treats the pattern height as the minimum expected move.",
+   "source": "Peter L. Brandt, peterlbrandt.com (3DTSR excerpt from his book Diary of a Professional Commodity Trader, pp. 48-51; posts); interview transcript",
+   "url": "https://www.peterlbrandt.com/chart-patterns/",
+   "numbers": "8-16 weeks preferred; 10-26 weeks horizontal; target >= pattern height",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Lo, Mamaysky & Wang (2000) define a triangle top (TTOP) as 5 consecutive kernel-smoothed extrema E1..E5 with E1 a maximum, E1>E3>E5 and E2<E4. A triangle bottom (TBOT) has E1 a minimum, E1<E3<E5 and E2>E4. These are contracting (symmetrical) triangles, not ascending or descending ones; the paper has no right-angle triangle. Its rectangle definitions (RTOP/RBOT) require the tops within 0.75% of their average, the bottoms within 0.75% of theirs, and the lowest top above the highest bottom. That flat-line tolerance can be reused for the horizontal side of an ascending or descending triangle.",
+   "source": "Lo, Mamaysky & Wang, J. Finance 55(4):1705-1765 (2000), Definitions 3-4; also NBER w7613",
+   "url": "https://web.mit.edu/wangj/www/pap/LoMamayskyWang00.pdf",
+   "numbers": "5 extrema; RTOP/RBOT band 0.75%",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Lo, Mamaysky & Wang results for triangles, using NYSE/AMEX and Nasdaq stocks from 1962 to 1996. NYSE/AMEX goodness-of-fit (decile) test: every pattern except BBOT, TTOP and DBOT showed a significantly different conditional return distribution, so TBOT was significant and TTOP was not. NYSE/AMEX Kolmogorov-Smirnov test: only HS, BBOT, RTOP, RBOT and DTOP rejected, so neither TTOP nor TBOT did. Nasdaq: all 10 patterns significant. The test is distributional (informativeness), not a profitability test.",
+   "source": "Park & Irwin (2004) review summarising LMW; farmdoc AgMAS04_04",
+   "url": "https://farmdoc.illinois.edu/assets/marketing/agmas/AgMAS04_04.pdf",
+   "numbers": "NYSE/AMEX GoF: 7/10 significant (TBOT yes, TTOP no); KS: 5/10 (no triangles); Nasdaq: 10/10",
+   "confidence": "from memory/secondary"
+  },
+  {
+   "claim": "Lo, Mamaysky & Wang method details. Rolling 38-day windows (l=35 plus a lag of d=3); the 38-day figure is confirmed by a secondary source, the split into 35 and 3 is from memory. The kernel bandwidth was reduced to 0.3 times the cross-validated value (memory). The conditional return is a one-day return measured from the end of day t+l+d+1, after the pattern completes. Returns are normalised per stock. The sample is 10 stocks from each of 5 size quintiles in each 5-year subperiod; the quintile design is confirmed by a replication report, the subperiod structure is from memory.",
+   "source": "LMW (2000); MPRA 60825 (window sizes: LMW 38 days, Savin-Weller-Zvingelis 63 days); letyourmoneygrow replication report",
+   "url": "https://mpra.ub.uni-muenchen.de/60825/1/MPRA_paper_60825.pdf",
+   "numbers": "window 38 days; l=35, d=3 (memory); bandwidth 0.3x CV (memory)",
+   "confidence": "from memory/secondary"
+  },
+  {
+   "claim": "Dawson & Steeley (2003) applied the LMW method to FTSE 100 and FTSE 250 stocks from 1986 to 2001. Conditional return distributions differ from unconditional ones, and returns move the way chartists would predict, but average market-adjusted returns after the patterns are negative. Being informative therefore did not translate into profit. No triangle-specific numbers were found.",
+   "source": "Dawson & Steeley, J. Business Finance & Accounting 30(1-2):263-293; Park & Irwin (2007) summary",
+   "url": "https://onlinelibrary.wiley.com/doi/abs/10.1111/1468-5957.00492",
+   "numbers": "UK 1986-2001; triangle-specific figures not found",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "An independent replication of LMW (letyourmoneygrow report) tabulates TTOP and TBOT counts, but the extracted text is garbled and the columns are unlabelled. The counts appear to be TBOT/TTOP = 29/20, 35/21 and 31/21 across three tables. Do not use these as parameters.",
+   "source": "'Reproducing the Foundations of Technical Analysis' (letyourmoneygrow.com report)",
+   "url": "https://letyourmoneygrow.com/wp-content/uploads/2018/03/report.pdf",
+   "numbers": "TBOT/TTOP 29/20, 35/21, 31/21 (unclear)",
+   "confidence": "from memory/secondary"
+  }
+ ],
+ "rule_parameters": [
+  {
+   "item": "Flat-line tolerance (horizontal side)",
+   "value": "No number published by Bulkowski, Edwards & Magee, Murphy or StockCharts ('horizontal', 'practically horizontal', 'peaks near the same price'). The only codified tolerance found is LMW's rectangle band: each extremum within 0.75% of the mean of its group.",
+   "source": "thepatternsite.com/at.html; E&M 8th ed. excerpt; LMW (2000) RTOP/RBOT"
+  },
+  {
+   "item": "Touches",
+   "value": ">=3 on one line and >=2 on the other, as distinct peaks and valleys (Bulkowski). The classical minimum is 4 reversal points, 2 per line (Murphy, secondary). StockCharts asks for >=2 consecutively higher reaction lows.",
+   "source": "thepatternsite.com/at.html, dt.html; Murphy (secondary); StockCharts"
+  },
+  {
+   "item": "Fill requirement",
+   "value": "Price must cross the pattern from side to side, with no white space",
+   "source": "thepatternsite.com/at.html"
+  },
+  {
+   "item": "Sloping line",
+   "value": "Ascending triangle: rising lows. Descending triangle: falling highs. No minimum slope found anywhere.",
+   "source": "Bulkowski at.html/dt.html"
+  },
+  {
+   "item": "Minimum duration",
+   "value": "No triangle minimum found from Bulkowski. Bierovic filter: >=15 bars from start to the day before the breakout (secondary). Brandt: 8-16 weeks preferred, 10-26 weeks for horizontal patterns.",
+   "source": "BierovicSetup.html; peterlbrandt.com"
+  },
+  {
+   "item": "Breakout location",
+   "value": "Ascending: 64% of the base-to-apex distance (median, both directions). Descending: 61-65%. Classical guidance: 1/2-3/4 (E&M via StockCharts) or 2/3-3/4 (Murphy, secondary).",
+   "source": "at.html; dt.html; StockCharts; Murphy summary"
+  },
+  {
+   "item": "Breakout definition",
+   "value": "A close beyond the line (Bulkowski). Optional E&M filter: close beyond the line by 3% of price for stocks (2% for the averages). Practitioner entry: buy-stop at line + $0.01, or the open if price gaps through.",
+   "source": "BustAscTriangles.html; E&M (secondary); ppAscTriangle.html"
+  },
+  {
+   "item": "Volume",
+   "value": "Volume recedes during the pattern in about 78% of cases (ascending and descending); scoring checks whether breakout volume is above its 30-day average",
+   "source": "at.html; dt.html; scat.html"
+  },
+  {
+   "item": "Upward breakout frequency",
+   "value": "Ascending: 63% up. Descending: 53% up on the current site (older secondary sources say ~54% down).",
+   "source": "at.html; dt.html"
+  },
+  {
+   "item": "Target",
+   "value": "Height (flat line to lowest valley for ascending; highest peak to flat line for descending) projected from the breakout. Bulkowski's current version scales the height by the share meeting target: 0.70 up / 0.44 down (ascending), 0.64 up / 0.50 down (descending).",
+   "source": "at.html; dt.html; scat.html"
+  },
+  {
+   "item": "Stop",
+   "value": "Bottom of the triangle - $0.01 (Bulkowski). Brandt's Last Day Rule: low of the last bar inside the pattern. Stops <4% away are hit within a month ~50% of the time; >=8% away hold 75% of the time.",
+   "source": "ppAscTriangle.html; Stoplocate.html; peterlbrandt.com"
+  },
+  {
+   "item": "Time stop",
+   "value": "Bulkowski's best ascending triangle setup exits at the close 3 days after entry (2%/trade, 65% win, 5-day hold, maxDD 16%)",
+   "source": "AscTriangleSetup.html"
+  },
+  {
+   "item": "Failure definition",
+   "value": "Move of less than 5% beyond the breakout before reversing",
+   "source": "thepatternsite.com id84.html / dt.html"
+  },
+  {
+   "item": "Throwback/pullback window",
+   "value": "Return to the breakout price within 30 calendar days",
+   "source": "throwbacks.html"
+  },
+  {
+   "item": "Bust definition",
+   "value": "Move of less than 10% after the breakout, then a close beyond the opposite side; a single bust also needs >=10% in the new direction",
+   "source": "BustAscTriangles.html; BustDescTriangles.html"
+  },
+  {
+   "item": "Bulkowski performance endpoint",
+   "value": "Ultimate high/low: the extreme reached before a 20% reversal or a close beyond the opposite side of the pattern. This uses hindsight and is not tradable.",
+   "source": "thepatternsite.com faq.html"
+  },
+  {
+   "item": "LMW triangle (contracting)",
+   "value": "TTOP: E1 max, E1>E3>E5, E2<E4. TBOT: E1 min, E1<E3<E5, E2>E4. Window 38 days (l=35, d=3 from memory). Conditional one-day return measured after completion.",
+   "source": "LMW (2000) Definition 3; MPRA 60825"
+  }
+ ],
+ "caveats": [
+  "Access limits: WebFetch failed on every domain tried (getaddrinfo ENOTFOUND, including thepatternsite.com, nber.org, web.mit.edu and wikipedia.org), and curl through the agent proxy got a 403 (policy denial) for thepatternsite.com. Following the proxy README I did not route around this. Every primary-source number above comes from text the WebSearch tool pulled from those pages. 'read excerpt' means a search-extracted excerpt of the primary page, not a full reading. No page was read in full.",
+  "No Bulkowski Encyclopedia book text (2nd ed. 2005 or 3rd ed. 2021) was accessed, so the edition-specific tables are unverified. The site figures may differ from the books; a secondary source dates the site's data refresh to 8/26/2020.",
+  "Kirkpatrick & Dahlquist: no excerpt or reliable secondary statement of their triangle rules was found, so nothing is reported for them. Edwards & Magee and Murphy rules are mostly via secondary paraphrase; treat the fractions (1/2-3/4, 2/3-3/4) and the 3%/2% filter as unverified wording.",
+  "Bulkowski's average rise/decline and 'percentage meeting target' come from visually selected patterns measured to a hindsight 'ultimate high/low', without costs. They are not comparable to a causal, fixed-rule backtest. His own tradable setup test (3-day hold, about 2%/trade) is far smaller, and his in-sample and out-of-sample rankings flipped. That argues for pre-registering exits.",
+  "No published statistics were found for ascending or descending triangles on weekly or monthly bars, from Bulkowski or anyone else. Brandt trades weekly-chart right-angle triangles but publishes no aggregate statistics.",
+  "Lo-Mamaysky-Wang triangles are contracting (symmetrical) triangles, not right-angle ones. Their NYSE/AMEX evidence for triangles is weak (TTOP not significant on either test; TBOT significant only on goodness-of-fit) and concerns a one-day conditional return distribution, not trading profit. The triangle-specific KS/GoF statistics and p-values were not retrieved; the counts come via Park & Irwin's review. The l=35/d=3 split, the 0.3x bandwidth and the subperiod structure are from memory.",
+  "Dawson & Steeley (2003): triangle-specific results not found; only the overall conclusion (market-adjusted returns negative) is reported.",
+  "Conflicts: the descending triangle breakout direction (53% up on the current site vs ~54% down in older secondary sources); the ascending triangle average rise (43% site vs 35% chartguys vs 44% QuantifiedStrategies' summary of older data). Use the site values with a version date.",
+  "Scope: the user also asked about horizontal support/resistance breakouts. This report covers triangles only. The closest anchor found for horizontal levels is LMW's rectangle definition (0.75% bands). Other relevant work, such as Brock-Lakonishok-LeBaron (1992) trading-range breakouts and Zapranis & Tsinaslanidis on horizontal S/R levels, was not researched here and no numbers are given for it."
+ ]
+}

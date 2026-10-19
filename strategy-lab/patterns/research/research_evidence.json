@@ -1,0 +1,359 @@
+{
+ "findings": [
+  {
+   "claim": "Osler (2000): support/resistance (S/R) levels that six FX firms published daily for DEM, JPY and GBP against USD, from Jan 1996 to Mar 1998, predicted intraday trend interruptions better than artificial levels. Price bounced off published levels more often than off artificial ones in all 16 firm-currency pairs.",
+   "source": "Osler, 'Support for Resistance: Technical Analysis and Intraday Exchange Rates', FRBNY Economic Policy Review, July 2000, pp. 53-68",
+   "url": "https://resources.newyorkfed.org/medialibrary/media/research/epr/00v06n2/0007osle.pdf",
+   "numbers": "Average bounce frequency: 60.8% at published levels vs 56.2% at artificial levels (Table 8). Published beat artificial in 16 of 16 firm-currency pairs. Data: 1-minute indicative quotes, 9am-4pm New York time.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Osler (2000) method: a bounce is a trend interruption after the price 'hits' a level, and bounce frequency is bounces divided by hits. The control was artificial levels drawn at random from rates within a set range of the day's opening rate. This random-level null is the S/R equivalent of a random-entry control.",
+   "source": "Osler 2000, as above (quoted text surfaced by search)",
+   "url": "https://www.researchgate.net/publication/5050393_Support_for_Resistance_Technical_Analysis_and_Intraday_Exchange_Rates",
+   "numbers": "I could not get the exact width of the sampling range or the number of artificial replications.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Osler (2000) persistence: the predictive power of published levels is said to last at least five business days after publication. This comes from a third-party summary and is not verified against the paper's tables.",
+   "source": "Third-party summary page surfaced by search",
+   "url": "https://www.academia.edu/114030804/Support_for_Resistance_Technical_Analysis_and_Intraday_Exchange_Rates",
+   "numbers": "At least 5 business days; significant in 9 of 16 firm-currency cases (unverified)",
+   "confidence": "from memory/secondary"
+  },
+  {
+   "claim": "Osler (2003) explains the S/R effect through order clustering. Take-profit orders cluster at round numbers, so trends tend to reverse there. Stop-loss orders cluster just beyond round numbers, so trends tend to speed up once a round level is crossed. Buy stops sit just above round numbers and sell stops just below. This is the microstructure case for breakout continuation past a level.",
+   "source": "Osler, 'Currency Orders and Exchange Rate Dynamics: An Explanation for the Predictive Success of Technical Analysis', Journal of Finance 58(5), 2003 (published as FRBNY Staff Report 125)",
+   "url": "https://www.newyorkfed.org/medialibrary/media/research/staff_reports/sr125.pdf",
+   "numbers": "9.3% of take-profit orders sit exactly at a rate ending in 00, vs 4.4% of stop-loss orders. 'Round' means rates ending in 00 or 50. Sample of 9,655 orders worth over $55bn at one large dealing bank (third-party summary, unverified).",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "In Osler's staff report, round numbers raise bounce frequency by about 3.4 percentage points in one setting, comparable to an average 4.6 pp in actual exchange rates across three currencies. The search summary did not make clear what the 3.4 pp refers to (it may be a simulated or order-based setting).",
+   "source": "Osler, FRBNY Staff Report 125 (summary surfaced by search)",
+   "url": "https://www.newyorkfed.org/medialibrary/media/research/staff_reports/sr125.pdf",
+   "numbers": "+3.4 pp vs +4.6 pp bounce frequency at round numbers",
+   "confidence": "from memory/secondary"
+  },
+  {
+   "claim": "Kavajecz & Odders-White (2004): on NYSE limit order books, S/R levels coincide with peaks in book depth, and moving-average signals reveal where depth sits relative to price. The authors read technical analysis as locating liquidity already on the book, which is consistent with market efficiency, rather than as a source of abnormal returns.",
+   "source": "Kavajecz & Odders-White, 'Technical Analysis and Liquidity Provision', Review of Financial Studies 17(4):1043-1071, 2004 (abstract; 2002 working paper)",
+   "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=315660",
+   "numbers": "I could not get the sample size, sample period or effect sizes.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Garzarelli et al. (2014): prices bounce off S/R more often than they cross it. The probability of a bounce rises with the number of earlier bounces, while in shuffled series it stays nearly flat. The rise appears at 45, 60 and 90-second scales but not at 180 seconds, so this is tick-scale evidence and not evidence for daily bars.",
+   "source": "Garzarelli, Cristelli, Pompa, Zaccaria & Pietronero, 'Memory effects in stock price dynamics: evidences of technical trading', Scientific Reports 4:4487 (2014); arXiv 1110.5197",
+   "url": "https://www.nature.com/articles/srep04487",
+   "numbers": "9 LSE stocks, tick-by-tick, 2002 (251 trading days). Prices sampled every tau ticks. Chi-square test with 3 degrees of freedom. The built-in asymmetry of the null is at least an order of magnitude smaller than the measured effect. I could not get the exact p(b|b_prev) values.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Garzarelli et al. null models: shuffled returns and a fractional random walk. Persistence from a Hurst exponent below 0.5 could not explain the observed bounce probability. A level is a 'stripe' around a local extremum, with width gamma set to the average price increment of the series (per Chung & Bellotti's description).",
+   "source": "Garzarelli et al. 2014; Chung & Bellotti 2021 describing it",
+   "url": "https://arxiv.org/html/1110.5197",
+   "numbers": "Stripe width = average absolute price increment (gamma)",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Chung & Bellotti (2021): a heuristic algorithm finds and scores S/R levels in minute data. Levels with more earlier bounces are more likely to produce another bounce, and the bounce probability decays over time. The levels differ significantly from the same series with shuffled returns and are not explained by AR(1) processes. Results depend on the asset.",
+   "source": "Chung & Bellotti, 'Evidence and Behaviour of Support and Resistance Levels in Financial Time Series', arXiv 2101.07410 (2021)",
+   "url": "https://arxiv.org/abs/2101.07410",
+   "numbers": "1-minute intraday data for 2018: EURUSD, Lloyds (LLOY), Brent crude. A bounce on support means price enters the level's interval from the upper boundary and exits through the upper boundary. I could not get the bounce probabilities.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Donaldson & Kim (1993): support and resistance at multiples of 100 restrained the DJIA's rises and falls. After breaking a 100-level, the index moved further than otherwise expected. A Monte Carlo study and comparison indices confirmed this, and the broader Wilshire 5000 showed no such barriers.",
+   "source": "Donaldson & Kim, 'Price Barriers in the Dow Jones Industrial Average', JFQA 28(3):313-330, 1993",
+   "url": "https://ideas.repec.org/a/cup/jfinqa/v28y1993i03p313-330_00.html",
+   "numbers": "Barriers at 100-point multiples. About 15 years of closes from 1974 (secondary). Null: last digits uniformly distributed. I could not get the test statistics.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Ley & Varian (1994) dispute round-number barrier tests. Trailing digits of DJIA closes are not uniform even in simulation, because of Benford's law, so rejecting uniformity does not prove barriers exist. They use cyclic permutations of actual returns as the null and find little or no predictive power in DJIA closing levels. De Ceuster, Dhaene & Schatteman (1998) found no convincing barrier evidence, and Dorfleitner & Klein (2009) report the effect fading.",
+   "source": "Ley & Varian, 'Are There Psychological Barriers in the Dow-Jones Index?', Applied Financial Economics 4(3), 1994; later citing papers",
+   "url": "https://econwpa.ub.uni-muenchen.de/econ-wp/fin/papers/9401/9401002.pdf",
+   "numbers": "41 years of DJIA closes (per the abstract as surfaced). Null: cyclic permutations of actual returns.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Lo, Mamaysky & Wang (2000) detect 10 patterns with kernel regression on rolling windows, then compare return distributions conditional on a pattern with unconditional ones. The 10 patterns are head-and-shoulders and its inverse, broadening top/bottom, triangle top/bottom, rectangle top/bottom and double top/bottom. Several patterns carry incremental information.",
+   "source": "Lo, Mamaysky & Wang, 'Foundations of Technical Analysis', Journal of Finance 55(4):1705-1765, 2000; NBER w7613",
+   "url": "https://web.mit.edu/wangj/www/pap/LoMamayskyWang00.pdf",
+   "numbers": "US stocks 1962-1996, daily data. Rolling window l=35 plus lag d=3, so 38 trading days. Tests: chi-square goodness-of-fit and Kolmogorov-Smirnov. Distributions also conditioned on rising vs falling volume.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "LMW results by test, as summarised by Park & Irwin. NYSE/AMEX goodness-of-fit: significant for all patterns except broadening bottom, triangle top and double bottom. NYSE/AMEX Kolmogorov-Smirnov: significant for 5 patterns, including both rectangles but neither triangle. Nasdaq: all 10 significant. Triangles were the weakest patterns on NYSE/AMEX and rectangles among the stronger.",
+   "source": "Park & Irwin (2004) AgMAS 2004-04 working-paper review, summarising LMW",
+   "url": "https://farmdoc.illinois.edu/assets/marketing/agmas/AgMAS04_04.pdf",
+   "numbers": "NYSE/AMEX goodness-of-fit: 7 of 10 significant. NYSE/AMEX KS: 5 of 10. Nasdaq: 10 of 10 at 5%.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "LMW rectangle definition (directly relevant to horizontal S/R ranges): five consecutive extrema E1-E5. Tops lie within 0.75% of their average, bottoms within 0.75% of their average, and the lowest top is above the highest bottom. A rectangle top starts with a maximum and a rectangle bottom with a minimum. The exact triangle inequalities were garbled in the OCR copies and are not verified here.",
+   "source": "LMW 2000, Definition 4 (Rectangle), from OCR copies",
+   "url": "https://www.nber.org/system/files/working_papers/w7613/w7613.pdf",
+   "numbers": "Tolerance 0.75% for tops and bottoms; 5 extrema",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "LMW bandwidth: a reproduction report says LMW scale the cross-validated bandwidth by 0.3 (chosen by eye with professional technical analysts) to avoid oversmoothing. Another secondary source says 3.0 times h. This conflict is unresolved.",
+   "source": "'Reproducing the Foundations of Technical Analysis' reproduction report; another secondary summary",
+   "url": "https://letyourmoneygrow.com/wp-content/uploads/2018/03/report.pdf",
+   "numbers": "0.3 x h* (reproduction report) vs 3.0 x h (other secondary). From memory, 0.3 is the LMW value.",
+   "confidence": "from memory/secondary"
+  },
+  {
+   "claim": "Jegadeesh's published discussion of LMW: patterns that are best at detecting statistical anomalies need not be best at producing trading profits, and the reverse also holds. Traditional patterns such as head-and-shoulders may not be optimal.",
+   "source": "Jegadeesh, Discussion, Journal of Finance 55:1765-1770 (2000), via CFA Digest summary",
+   "url": "https://rpc.cfainstitute.org/research/cfa-digest/2001/02/foundations-of-technical-analysis-computational-algorithms-statistical-inference-and-empiric",
+   "numbers": "none",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Dawson & Steeley (2003) replicated LMW on UK stocks. Return distributions conditional on a pattern differ significantly from unconditional ones, yet average market-adjusted returns after the patterns are negative. Distributional significance does not translate into trading profit.",
+   "source": "Dawson & Steeley, 'On the Existence of Visual Technical Patterns in the UK Stock Market', JBFA 30(1-2):263-293, 2003",
+   "url": "https://onlinelibrary.wiley.com/doi/abs/10.1111/1468-5957.00492",
+   "numbers": "FTSE 100 and FTSE 250 stocks, 1986-2001",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Savin, Weller & Zvingelis (2007) used LMW's algorithm with filters drawn from a technical analyst's patterns. They found little or no support for a stand-alone head-and-shoulders trading strategy, but strong evidence that the pattern predicts excess returns. Part of the effect comes from picking negative-momentum stocks. Profits replicable in real time were tested with a bootstrap.",
+   "source": "Savin, Weller & Zvingelis, 'The Predictive Power of Head-and-Shoulders Price Patterns in the U.S. Stock Market', Journal of Financial Econometrics 5(2):243-265, 2007",
+   "url": "https://academic.oup.com/jfec/article-abstract/5/2/243/785044",
+   "numbers": "S&P 500 and Russell 2000, 1990-1999. Risk-adjusted excess return 5-7% per year (one secondary source attributes this to the Russell 2000). Rolling window 63 days. Horizon about 3 months / 60 days. Shorting S&P 500 stocks on the pattern was not profitable.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Osler & Chang (1995) applied an objective computer algorithm, built from criteria in published technical-analysis manuals, to find head-and-shoulders patterns in daily major-currency rates. Profits replicable in real time were compared with profits on 10,000 series bootstrapped under a random-walk null. The published version is Chang & Osler (1999). From memory, that paper found profits for the yen and DM but not the other currencies, and the rule was dominated by simpler trend rules; the results confirmed only that significant profits appeared in some markets.",
+   "source": "Osler & Chang, 'Head and Shoulders: Not Just a Flaky Pattern', FRBNY Staff Report 4 (1995); Chang & Osler, Economic Journal 109:636-661 (1999)",
+   "url": "https://www.newyorkfed.org/research/staff_reports/sr4.html",
+   "numbers": "March 1973 to June 1994. 10,000 bootstrap random-walk replications.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Lucke (2003): in FX, head-and-shoulders rule returns were not significantly positive (according to a citing paper).",
+   "source": "Lucke, 'Are technical trading rules profitable? Evidence for head-and-shoulder rules', Applied Economics 35(1):33-40, 2003",
+   "url": "https://ideas.repec.org/a/taf/applec/v35y2003i1p33-40.html",
+   "numbers": "I could not get any.",
+   "confidence": "from memory/secondary"
+  },
+  {
+   "claim": "Park & Irwin (2007) survey: early studies found technical profits in FX and futures but not in stocks. Modern studies show consistent profits in various markets until about the early 1990s. Most studies suffer from data snooping, ex post selection of rules or search technologies, and difficulty estimating risk and transaction costs.",
+   "source": "Park & Irwin, 'What Do We Know About the Profitability of Technical Analysis?', Journal of Economic Surveys 21(4):786-826, 2007",
+   "url": "https://onlinelibrary.wiley.com/doi/10.1111/j.1467-6419.2007.00519.x",
+   "numbers": "95 modern studies: 56 positive, 20 negative, 19 mixed",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Brock, Lakonishok & LeBaron (1992) tested moving-average and trading-range-break rules (TRB, i.e. a break above the prior max or below the prior min: a horizontal S/R breakout) on the DJIA. They used a model-based bootstrap: simulate series under fitted null models and compare rule returns. Buy signals earned more, with less volatility, than sell signals, and returns after sell signals were negative.",
+   "source": "Brock, Lakonishok & LeBaron, Journal of Finance 47(5):1731-1764, 1992",
+   "url": "https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1992.tb04681.x",
+   "numbers": "DJIA 1897-1986. Four null models: random walk, AR(1), GARCH-M, EGARCH. The TRB lookbacks (50/150/200 days), 0% or 1% band and 10-day holding period are from memory and unverified.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Sullivan, Timmermann & White (1999) expanded BLL's rules into a large universe and applied White's Reality Check to correct for data snooping. Over a 10-year post-sample period the best in-sample rule was not superior. On S&P 500 futures, no rule beat the benchmark after the data-snooping correction.",
+   "source": "Sullivan, Timmermann & White, 'Data-Snooping, Technical Trading Rule Performance, and the Bootstrap', Journal of Finance 54(5):1647-1691, 1999",
+   "url": "https://www.kevinsheppard.com/files/teaching/mfe/advanced-econometrics/Sullivan_Timmermann_White.pdf",
+   "numbers": "7,846 rules (per Bajgrowicz & Scaillet). About 100 years of DJIA. In-sample best rule about 16% a year vs DJIA 4.5% (per B&S working paper).",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Bajgrowicz & Scaillet (2012) controlled the false discovery rate across STW's rules. Persistence tests show an investor could never have picked the future best rules in advance. Low transaction costs wipe out the performance even in-sample, which calls into question the economic value of technical rules reported for early periods.",
+   "source": "Bajgrowicz & Scaillet, 'Technical trading revisited: False discoveries, persistence tests, and transaction costs', JFE 106(3):473-491, 2012",
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/S0304405X1200116X",
+   "numbers": "7,846 rules; DJIA January 1897 to July 2011",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Zapranis & Tsinaslanidis (2012a) is the closest academic test of the user's question: horizontal S/R levels identified by rule on daily US stocks. Support levels predicted trend interruptions better than resistance levels, but S/R trading did not beat buy-and-hold on NASDAQ and NYSE stocks.",
+   "source": "Zapranis & Tsinaslanidis, 'Identifying and evaluating horizontal support and resistance levels: an empirical study on US stock markets', Applied Financial Economics 22(19):1571-1585, 2012",
+   "url": "https://pure.canterbury.ac.uk/en/publications/identifying-and-evaluating-horizontal-support-and-resistance-leve-2/",
+   "numbers": "I could not get the sample size, period or test statistics.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Zapranis & Tsinaslanidis (2012b) traded saucers and resistance levels on seven US tech stocks. Positive excess returns appeared only in the first (1990s) subperiods, and transaction costs could eliminate them.",
+   "source": "Zapranis & Tsinaslanidis, Expert Systems with Applications 39(7):6301-6308, 2012 (via a 2024 review)",
+   "url": "https://onlinelibrary.wiley.com/doi/10.1002/ise3.62",
+   "numbers": "7 stocks; positive only in the 1990s",
+   "confidence": "from memory/secondary"
+  },
+  {
+   "claim": "Tsinaslanidis & Guijarro (2021) matched generic past-profitable patterns with dynamic time warping (UCR suite) instead of named patterns. The authors argue that identifying head-and-shoulders or flags by eye is highly subjective. With data-snooping and transaction-cost controls, the system on average dominated the market index in mean-variance terms.",
+   "source": "Tsinaslanidis & Guijarro, 'What makes trading strategies based on chart pattern recognition profitable?', Expert Systems 38(5):e12596, 2021",
+   "url": "https://onlinelibrary.wiley.com/doi/abs/10.1111/exsy.12596",
+   "numbers": "I could not get the effect sizes.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "George & Hwang (2004): nearness to the 52-week high, a long-horizon horizontal resistance, explains a large part of momentum profits and predicts returns better than past returns. Returns forecast this way do not reverse in the long run. The proposed mechanism is anchoring: investors are slow to bid prices through the reference point.",
+   "source": "George & Hwang, 'The 52-Week High and Momentum Investing', Journal of Finance 59(5):2145-2176, 2004",
+   "url": "https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1540-6261.2004.00695.x",
+   "numbers": "I could not get the return magnitudes.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "A later study cited by search reports that the 52-week-high strategy was insignificant over 1980-2014: significantly positive in 1980-2000 and significantly negative in 2001-2014. The citing paper was not identified.",
+   "source": "Unidentified citing paper surfaced by search",
+   "url": "https://epublications.marquette.edu/cgi/viewcontent.cgi?article=1168&context=fin_fac",
+   "numbers": "1980-2000 positive; 2001-2014 negative",
+   "confidence": "from memory/secondary"
+  },
+  {
+   "claim": "Huddart, Lang & Yetman (2009): trading volume jumps when price crosses either end of the 52-week range, more so for small firms and stocks with heavy retail interest. Returns after either crossing are reliably positive. This is direct evidence on breakouts above a 1-year horizontal high.",
+   "source": "Huddart, Lang & Yetman, 'Volume and Price Patterns Around a Stock's 52-Week Highs and Lows', Management Science 55(1):16-31, 2009",
+   "url": "https://pubsonline.informs.org/doi/10.1287/mnsc.1080.0920",
+   "numbers": "I could not get the return magnitudes.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Li & Yu (2012): at market level, nearness to the Dow's 52-week high predicts higher future returns, while nearness to its all-time high predicts lower returns. The level that is broken matters, and the 1-year high and the all-time high act in opposite directions.",
+   "source": "Li & Yu, 'Investor attention, psychological anchors, and stock return predictability', JFE 104(2):401-419, 2012",
+   "url": "https://academicnewsletter.sufe.edu.cn/info/356820",
+   "numbers": "I could not get the coefficients.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Bulkowski's headline gains are measured to the 'ultimate high': the highest peak before price falls at least 20%, or in some studies closes below the pattern bottom. The gain is measured from the close the day before the breakout, and in some studies from the next day's open. This exit is chosen with hindsight and is not a tradeable return.",
+   "source": "Bulkowski, thepatternsite.com methodology pages (Volume, High & Tight Flag studies)",
+   "url": "https://thepatternsite.com/Volume.html",
+   "numbers": "20% reversal threshold; base = prior close or next open depending on study",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Bulkowski ascending-triangle statistics (bull market). Upward breakouts happen 63% of the time. Up/down breakouts: average rise 43% and decline 13%, break-even failure rates 17% and 38%, performance rank 16/39 and 30/36. 46% of downward breakouts bust upward and rise an average 36%.",
+   "source": "Bulkowski, 'Ascending Triangles', thepatternsite.com",
+   "url": "https://thepatternsite.com/at.html",
+   "numbers": "63% up; 43%/13%; 17%/38%; rank 16/39 and 30/36; 46% busts, +36%",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Bulkowski descending-triangle statistics: upward breakouts happen 53% of the time. Up/down breakouts: average rise 38% and decline 15%, break-even failure 22% and 23%, price target met 64% and 50%, rank 33/39 and 15/36. A secondary source says Bulkowski noted performance has fallen by almost half since the 1990s.",
+   "source": "Bulkowski, 'Descending Triangles', thepatternsite.com",
+   "url": "https://thepatternsite.com/dt.html",
+   "numbers": "53% up; 38%/15%; 22%/23%; targets 64%/50%",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Bulkowski rectangle tops (horizontal S/R box) in bull markets. Upward breakouts: average rise 51%, break-even failure 15%, target met 78%, rank 4/39. Downward breakouts: decline 13%, failure 34%, target met 54%. In his 2009 article, upward-breakout failures in 1991 were a third of their 2007 level.",
+   "source": "Bulkowski, thepatternsite.com/recttops.html; Bulkowski, Technical Analysis of Stocks & Commodities, May 2009",
+   "url": "https://thepatternsite.com/recttops.html",
+   "numbers": "Up: 51% / 15% / 78% / rank 4. Down: 13% / 34% / 54%. Failures in 1991 = 1/3 of 2007.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Bulkowski's own entry study shows how selecting on confirmation changes results. Buying double bottoms immediately gave a 10% median rise with a 37.4% 5%-failure rate. Waiting for confirmation gave 22% and 17.9%, and only 52% of patterns ever confirmed. Statistics that count only confirmed patterns condition on a future event.",
+   "source": "Bulkowski, 'Best Entry', thepatternsite.com",
+   "url": "https://thepatternsite.com/BestEntry.html",
+   "numbers": "10% vs 22% median rise; 37.4% vs 17.9% failure; 52% confirm",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Critique of the LMW-style tests: the chi-square and KS tests assume i.i.d. data, which overlapping stock returns violate.",
+   "source": "'On the Statistical Validation of Technical Analysis' (Redalyc)",
+   "url": "https://www.redalyc.org/pdf/3058/305824757001.pdf",
+   "numbers": "none",
+   "confidence": "read excerpt"
+  }
+ ],
+ "rule_parameters": [
+  {
+   "item": "LMW pattern window (look-ahead guard)",
+   "value": "Rolling window of l=35 days plus lag d=3, so 38 trading days. A pattern must be complete within the window, and returns are taken after the d-day lag. From memory: a 1-day return d days after completion.",
+   "source": "Lo, Mamaysky & Wang 2000 (window confirmed by excerpt; return timing from memory)"
+  },
+  {
+   "item": "LMW kernel bandwidth",
+   "value": "0.3 x cross-validated h* (reproduction report and memory); another secondary source says 3.0 h. Unresolved.",
+   "source": "letyourmoneygrow.com reproduction report"
+  },
+  {
+   "item": "LMW rectangle (horizontal range) definition",
+   "value": "5 consecutive extrema. Tops within 0.75% of their mean, bottoms within 0.75% of their mean, lowest top above highest bottom.",
+   "source": "LMW 2000 Definition 4"
+  },
+  {
+   "item": "LMW conditioning tests",
+   "value": "Chi-square goodness-of-fit on deciles of the unconditional distribution, plus 2-sample Kolmogorov-Smirnov. Separate splits for rising and falling volume.",
+   "source": "LMW 2000; Park & Irwin 2004 summary"
+  },
+  {
+   "item": "Savin-Weller-Zvingelis window and horizon",
+   "value": "63-day window; excess returns over about 3 months (60 days); bootstrap significance",
+   "source": "SWZ 2007 via MPRA 60825 and the working paper"
+  },
+  {
+   "item": "Osler (2000) S/R control",
+   "value": "Artificial levels drawn at random within a range of the day's opening rate. Bounce frequency = bounces / hits. Published levels 60.8% vs artificial 56.2%.",
+   "source": "Osler 2000 FRBNY EPR"
+  },
+  {
+   "item": "Round-number definition",
+   "value": "Rates ending in 00 (strong) or 50. Take-profit orders sit at the round number; stop-loss orders sit just beyond it.",
+   "source": "Osler 2003 / FRBNY SR125"
+  },
+  {
+   "item": "Donaldson-Kim barrier",
+   "value": "DJIA multiples of 100. Null: uniform trailing digits, with a Monte Carlo check.",
+   "source": "Donaldson & Kim 1993"
+  },
+  {
+   "item": "Ley-Varian null for barriers",
+   "value": "Cyclic permutations of actual returns, not a uniform-digit null (Benford's law makes uniformity the wrong benchmark)",
+   "source": "Ley & Varian 1994"
+  },
+  {
+   "item": "Garzarelli S/R stripe and bounce",
+   "value": "Stripe width = average absolute price increment. A bounce is entering the stripe and exiting on the same side. Null: shuffled returns plus a fractional random walk.",
+   "source": "Garzarelli et al. 2014 (as described in Chung & Bellotti 2021)"
+  },
+  {
+   "item": "Chung-Bellotti bounce",
+   "value": "For support: enter the level interval from the upper boundary and exit through the upper boundary (mirror for resistance). Nulls: shuffled returns and AR(1).",
+   "source": "Chung & Bellotti 2021"
+  },
+  {
+   "item": "BLL trading range break",
+   "value": "Buy when price exceeds the prior n-day max (sell below the n-day min). From memory: n = 50, 150 or 200; band 0% or 1%; 10-day holding. Model bootstrap under RW, AR(1), GARCH-M and EGARCH.",
+   "source": "Brock, Lakonishok & LeBaron 1992 (null models confirmed; n, band and holding period from memory)"
+  },
+  {
+   "item": "Osler-Chang bootstrap size",
+   "value": "10,000 bootstrapped random-walk series",
+   "source": "Osler & Chang 1995 FRBNY SR4"
+  },
+  {
+   "item": "Multiple-testing universe sizes",
+   "value": "7,846 rules, Reality Check (STW 1999); FDR plus persistence tests plus costs (Bajgrowicz & Scaillet 2012)",
+   "source": "STW 1999; B&S 2012"
+  },
+  {
+   "item": "52-week horizontal breakout",
+   "value": "Crossing the 52-week (about 252 trading days) high or low. Volume spikes and positive subsequent returns (HLY 2009). Nearness to the 52-week high predicts returns (GH 2004). Nearness to the all-time high predicts negatively at index level (Li-Yu 2012).",
+   "source": "Huddart-Lang-Yetman 2009; George-Hwang 2004; Li-Yu 2012"
+  },
+  {
+   "item": "Bulkowski 'ultimate high' (NOT a tradeable exit)",
+   "value": "Highest peak before a decline of at least 20% (or a close below the pattern bottom), measured from the close the day before the breakout",
+   "source": "thepatternsite.com/Volume.html"
+  },
+  {
+   "item": "Bulkowski benchmark stats to replicate causally",
+   "value": "Ascending triangle up: 43% rise, 17% failure, 63% up-breakouts. Descending triangle down: 15% decline, 23% failure, 53% up-breakouts. Rectangle top up: 51% rise, 15% failure.",
+   "source": "thepatternsite.com at.html, dt.html, recttops.html"
+  }
+ ],
+ "caveats": [
+  "Tooling limits: WebFetch failed with DNS errors (ENOTFOUND) on every domain tried (newyorkfed.org, arxiv.org, nature.com, researchgate.net, ideas.repec.org, wikipedia.org), and curl from Bash was refused by the proxy (403). I therefore read no paper in full. Every 'read excerpt' finding rests on abstract or body text that the search tool surfaced and summarised from the named page. Check the exact numbers against the PDFs before they go into a pre-registration.",
+  "The 200-call web search budget for this turn ran out before I finished. I did not get LMW's exact table values or the volume splits, BLL's trading-range-break parameters and results, George & Hwang return sizes, Huddart et al. return sizes, or Chang & Osler 1999 currency-level results. The user can send a follow-up to continue.",
+  "I found no peer-reviewed study that tests ascending or descending triangles specifically on US stocks with weekly or monthly bars, random-entry controls, costs and held-out years. The closest academic evidence: LMW triangle top/bottom (symmetric-type, 38-day windows, 1-day returns), where triangles were the weakest patterns on NYSE/AMEX. Zapranis & Tsinaslanidis 2012 (horizontal S/R on daily NYSE/NASDAQ data) found no excess return over buy-and-hold. The 52-week-high literature (George-Hwang, Huddart et al., Li-Yu) gives the best long-horizon evidence that breaks of a horizontal 1-year high carry information.",
+  "Most of the evidence that S/R levels carry information (Osler, Garzarelli, Chung-Bellotti, Kavajecz-Odders-White) is intraday or tick-scale and comes from FX or order books. It shows bounce or liquidity effects, not tradeable breakout profits on daily or longer bars. Garzarelli's memory effect disappeared at the 180-second scale.",
+  "I found no published academic critique of Bulkowski. The critique implied by his own definitions: the 'ultimate high' is a hindsight exit (the maximum before a 20% decline), so the 'average rise' is positive by construction. There is no random-entry or base-rate control, and some studies count only confirmed patterns. A causal backtest should compute the same ultimate-high statistic for random entries in the same stocks and dates as a baseline.",
+  "Conflicting or unverified items: LMW bandwidth (0.3 vs 3.0 times h); Osler's 5-day persistence and 9-of-16 figure (third-party); Osler 2003 sample size of 9,655 orders / $55bn (third-party); the post-2000 sign flip of the 52-week-high strategy (citing paper not identified); Savin et al.'s 5-7% possibly specific to the Russell 2000.",
+  "Recurring pitfalls in these sources, for the protocol: (1) Distributional significance is not profit (Jegadeesh; Dawson-Steeley negative mean returns). (2) Kernel or extrema detection needs a lag so patterns are complete before entry (LMW d=3). (3) Counting only confirmed patterns conditions on the future (Bulkowski BestEntry). (4) Data snooping across rules needs Reality Check or FDR plus persistence tests (STW; Bajgrowicz-Scaillet). (5) Costs wipe out even in-sample profits (B&S). (6) Effects decay after about 1990 (Park-Irwin; Bulkowski 2009; Zapranis-Tsinaslanidis 1990s-only). (7) Null choice matters: uniform-digit nulls are wrong under Benford's law (Ley-Varian); prefer shuffled or bootstrapped returns, model-based bootstraps (BLL) or random levels and entries (Osler). (8) Chi-square and KS tests assume i.i.d. data, which overlapping returns violate. Survivorship was not explicitly addressed in any excerpt I found."
+ ]
+}

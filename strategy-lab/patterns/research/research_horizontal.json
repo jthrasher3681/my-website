@@ -1,0 +1,316 @@
+{
+ "findings": [
+  {
+   "claim": "Brock, Lakonishok & LeBaron (1992) tested moving-average and trading-range-break (TRB) rules on the DJIA from 1897 to 1986. Buy signals earned higher returns than sell signals and were less volatile, and returns after sell signals were negative. A bootstrap showed the results are inconsistent with random walk, AR(1), GARCH-M and EGARCH nulls. I could not retrieve the TRB rule-by-rule table (buy and sell returns, signal counts).",
+   "source": "Brock, Lakonishok & LeBaron, Journal of Finance 47(5):1731-1764 (abstract via RePEc/Wiley)",
+   "url": "https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1540-6261.1992.tb04681.x",
+   "numbers": "DJIA 1897-1986. TRB table numbers not found. For the MA rules only, an AAII summary gives an average 10-day buy return of 0.53%, an average 10-day sell return of -0.40% and an unconditional 10-day return of 0.17%.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Bessembinder & Chan (1998): the BLL rules break even at small one-way trading costs, and the break-even cost fell after 1975. Part of the forecast power comes from nonsynchronous-trading measurement error in the index.",
+   "source": "Bessembinder & Chan, Financial Management 27(2):5-17 (abstract, SSRN)",
+   "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=107672",
+   "numbers": "Break-even one-way cost: 0.39% over the full sample, 0.22% since 1975",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Sullivan, Timmermann & White (1999) widened BLL's 26 rules to 7,846 rules in five families: filters, moving averages, support/resistance (i.e. TRB), channel breakouts and OBV. They applied them to 100 years of daily DJIA data with White's Reality Check. The best rule looked significant in-sample after the data-snooping adjustment, but its return was not significant out of sample (1987-1996). I could not retrieve the exact best-rule returns or p-values.",
+   "source": "Sullivan, Timmermann & White, Journal of Finance 54(5):1647-1691; summaries in Bajgrowicz & Scaillet and a Monash study",
+   "url": "https://onlinelibrary.wiley.com/doi/10.1111/0022-1082.00163",
+   "numbers": "7,846 rules; 10-year out-of-sample period 1987-1996; returns and p-values not found",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Bajgrowicz & Scaillet (2012) re-ran the same 7,846 rules on the DJIA with false-discovery-rate control. Low transaction costs wipe out the performance, even in-sample. There is no persistence, so a trader could not have picked future winning rules in advance.",
+   "source": "Bajgrowicz & Scaillet, Journal of Financial Economics 106(3):473-491 (abstract)",
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/S0304405X1200116X",
+   "numbers": "DJIA January 1897 to July 2011; 7,846 rules",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "On individual US stocks, Marshall, Qian & Young (2009) found MA and trading-range-breakout rules generally unprofitable.",
+   "source": "Marshall, Qian & Young, Applied Financial Economics 19(15):1213-1221 (CXO Advisory summary)",
+   "url": "https://www.cxoadvisory.com/technical-trading/does-technical-trading-work-for-certain-kinds-of-stocks",
+   "numbers": "1,065 NYSE/NASDAQ stocks, 1990-2004; only about 3% of stocks showed significant profits",
+   "confidence": "from memory/secondary"
+  },
+  {
+   "claim": "Simple trading-range-breakout rules on NASDAQ daily closes showed no reliable predictive power.",
+   "source": "'Is the simple trading range break-out rule profitable?', Benchmarking: An International Journal 25(2) (abstract)",
+   "url": "https://www.emerald.com/bij/article/25/2/763/66180/Is-the-simple-trading-range-break-out-rule",
+   "numbers": "5 TRB rules; 9,311 daily closes, 1971-02-05 to 2007-12-12",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Tsinaslanidis & Zapranis (2012) built a rule-based detector for horizontal support and resistance levels from historical local extremes. Support levels predicted trend interruptions better than resistance levels, but the levels did not beat buy-and-hold.",
+   "source": "Zapranis & Tsinaslanidis, Applied Financial Economics 22(19):1571-1585 (abstract)",
+   "url": "https://www.tandfonline.com/doi/abs/10.1080/09603107.2012.663469",
+   "numbers": "Daily closes of NYSE/NASDAQ stocks, adjusted for dividends and splits, over about two decades; no return figures found",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Osler (2000): FX rates bounced off support/resistance levels published by trading firms more often than off arbitrary levels, and the effect faded within days. The data are intraday FX, so the result may not carry over to daily US stocks.",
+   "source": "Osler, FRBNY Economic Policy Review, July 2000",
+   "url": "https://www.newyorkfed.org/research/epr/00v06n2/0007osle",
+   "numbers": "Published levels bounced 60.8% of the time vs 56.2% for arbitrary levels; higher in all 16 firm-currency pairs; bootstrap with 10,000 random level sets, p about 1.8%; 5 days after publication the bounce rate was 1.7 percentage points lower; minute data, January 1996 to April 1998",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Osler (2003): take-profit orders cluster at round numbers, which would explain reversals at support/resistance. Stop-loss orders cluster just beyond round numbers, which would explain trends speeding up after a level is crossed (a mechanism for breakout follow-through).",
+   "source": "Osler, Journal of Finance 58:1791-1819 (abstract); NY Fed Staff Reports 125 and 150",
+   "url": "https://www.newyorkfed.org/medialibrary/media/research/staff_reports/sr125.pdf",
+   "numbers": "No numbers retrieved",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Kavajecz & Odders-White (2004): support and resistance levels coincide with depth peaks on the limit order book.",
+   "source": "Review of Financial Studies 17(4):1043-1071 (abstract)",
+   "url": "https://ideas.repec.org/a/oup/rfinst/v17y2004i4p1043-1071.html",
+   "numbers": "None",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Chung & Bellotti (2021) define the bounce probability conditional on price leaving a support/resistance band. A random walk gives 0.5, which is a usable null. Levels with more prior bounces are more likely to bounce again, and the effect decays over time. Garzarelli et al. (2014) also find that prices bounce off S/R levels more often than they cross them. Both use high-frequency data.",
+   "source": "Chung & Bellotti, arXiv 2101.07410; Garzarelli et al., Scientific Reports 4:4487",
+   "url": "https://arxiv.org/abs/2101.07410",
+   "numbers": "Random-walk benchmark p(bounce) = 0.5; point estimates not retrieved",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Lo, Mamaysky & Wang (2000) give a causal-codable rectangle definition built from five consecutive kernel-smoothed local extrema. They report that several patterns add incremental information on US stocks.",
+   "source": "Lo, Mamaysky & Wang, Journal of Finance 55(4) (MIT and NBER w7613 PDFs, via search excerpts)",
+   "url": "https://www.nber.org/system/files/working_papers/w7613/w7613.pdf",
+   "numbers": "Tops within 0.75% of their average; bottoms within 0.75% of their average; lowest top > highest bottom; US stocks 1962-1996. I did not verify the window length or lag (I recall a 38-day window with a 3-day lag).",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "George & Hwang (2004): nearness to the 52-week high (price / 52-week high) predicts returns better than past returns, and its profits do not reverse in the long run.",
+   "source": "George & Hwang, Journal of Finance 59:2145-2176; figures from replication summaries (Lob\u00e3o & Fernandes; jurf.org)",
+   "url": "https://www.bauer.uh.edu/tgeorge/papers/gh4-paper.pdf",
+   "numbers": "Sample 1963-2001. Monthly returns: 52-week-high strategy 0.45%, Jegadeesh-Titman 6/6 momentum 0.48%, industry momentum 0.45%. 52-week-high strategy excluding January: 1.23% per month. Portfolio construction (30% cutoffs, skip period) not verified.",
+   "confidence": "from memory/secondary"
+  },
+  {
+   "claim": "The 52-week-high effect appears to have decayed after 2000. Lob\u00e3o & Fernandes report a sharp split by subperiod, but the paper is inconsistent about whether 2001-2014 is significantly negative.",
+   "source": "Lob\u00e3o & Fernandes, Annals of Economics and Finance 18(2):349-376 (2017)",
+   "url": "https://ideas.repec.org/a/cuf/journl/y2017v18i2lobao.html",
+   "numbers": "1980-2014: positive but insignificant. 1980-2000: 0.43% per month, significant. 2001-2014: -0.34% per month. Medians: 0.72% (1980-2000) vs 0.16% (2001-2014). Market or sample not confirmed as US-only.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Ben-David, Li, Rossi & Song: US momentum-type factor profits collapsed after a June 2002 Morningstar rating reform; the decline was US-specific. One search excerpt says the 52-week-high factor declined in the same way, but a second search could not confirm it.",
+   "source": "JFQA 59(7):3062-3100 (2024); NBER w28624",
+   "url": "https://www.nber.org/papers/w28624",
+   "numbers": "Momentum factor about 0.90% per month before June 2002, negligible after",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "52-week-high momentum outside the US is positive in most markets, but after costs it is mostly not significant.",
+   "source": "Liu, Liu & Ma (2011), Journal of International Money and Finance (abstract)",
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/S0261560610001099",
+   "numbers": "20 markets: profitable in 18, significant in 10, mostly insignificant after trading costs",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Barroso & Wang report that the George & Hwang result is concentrated in small stocks and that price momentum explains 52-week-high predictability. George, Hwang & Li (2018) find the Hou-Xue-Zhang q-factor model captures the price-to-high anomaly.",
+   "source": "Barroso & Wang (working paper; via a search summary); George, Hwang & Li, JFE 128(1):148-163",
+   "url": "https://www.bauer.uh.edu/tgeorge/papers/GHL-52WHQ.pdf",
+   "numbers": "No numbers retrieved",
+   "confidence": "from memory/secondary"
+  },
+  {
+   "claim": "Li & Yu (2012): for the Dow index, nearness to its 52-week high predicts higher future market returns, while nearness to its historical (all-time) high predicts lower returns. This is aggregate-level evidence, not a test on individual stocks.",
+   "source": "Li & Yu, Journal of Financial Economics 104(2):401-419; working paper at UMN",
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/S0304405X11002121",
+   "numbers": "Sample period and coefficients not retrieved. The working paper reports R\u00b2 of 46% at a 1-year horizon when the two signals are combined with macro predictors.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Huddart, Lang & Yetman (2009): trading volume is much higher when a stock crosses its 52-week high or low. CXO's summary says crossings are followed by positive returns over the next week and month, mainly in small stocks, but the summary's figures contradict each other.",
+   "source": "Management Science 55(1):16-31; CXO Advisory summary",
+   "url": "https://www.cxoadvisory.com/technical-trading/trading-after-52-week-highs-and-lows/",
+   "numbers": "About 2,000 stocks, November 1982 to December 2006. CXO's figures: about 5% weekly abnormal return after 52-week lows vs about 0.6% after highs in the smallest-cap quartile (internally inconsistent)",
+   "confidence": "from memory/secondary"
+  },
+  {
+   "claim": "Chen & Yu (2016): the 52-week-high and 52-week-low effects are distinct from momentum.",
+   "source": "CXO Advisory summary of Chen & Yu",
+   "url": "https://www.cxoadvisory.com/technical-trading/implications-of-52-week-highs-and-lows-for-stock-returns/",
+   "numbers": "July 1962 to December 2014, value-weighted. 52-week-low portfolio: 0.43% gross per month, Sharpe 0.48. Momentum: 1.36% per month, Sharpe 0.66. 50/50 combination: gross Sharpe 0.98",
+   "confidence": "from memory/secondary"
+  },
+  {
+   "claim": "Wilcox & Crittenden (2005): buying US stocks at all-time-high closes with a wide ATR trailing stop had positive expectancy after costs, with heavily right-skewed returns.",
+   "source": "'Does Trend Following Work on Stocks?' (Blackstar Funds)",
+   "url": "https://www.cis.upenn.edu/~mkearns/finread/trend.pdf",
+   "numbers": "24,000+ securities; 22 years; 18,000+ trades; 0.5% round-trip costs. 17% of trades gained at least 50%; under 3% lost 50% or more. 10-ATR stop averaged 27% below entry. Stops from 8 to 12 ATR gave similar results.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Zarattini, Pagani & Wilcox (2025) updated the all-time-high entry on survivorship-free US data. The edge held out of sample (2005-2024) with somewhat lower per-trade profit. Profits come from a few trades, and the base strategy was not consistently viable net of costs without turnover control.",
+   "source": "'Does Trend-Following Still Work on Stocks?', SSRN 5084316",
+   "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5084316",
+   "numbers": "1950 to November 2024; 66,000+ trades; under 7% of trades drive profits. Portfolio 1991-2024: CAGR 15.19%, alpha 6.18% (gross). Win rate 43.9% comes only from a secondary blog.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "O'Neil Global Advisors' own quant study: breakouts from O'Neil base patterns earn modest excess returns, and more so on large volume surges. It used daily patterns only; weekly patterns were not tested.",
+   "source": "'Breakouts: Pump up the Volume', O'Neil Global Advisors, May 2022",
+   "url": "https://www.oneilglobaladvisors.com/documents/FG/oneil/research/617948_OGA_Breakouts-OGA.pdf",
+   "numbers": "US universe 1995-2021. All breakouts: 1.1% alpha and 3.2% return over 3 months. Volume up 150% or more: 2.8% alpha and 5.0% return. Effect lasts up to 63 trading days.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Bulkowski's failure-rate study: chart-pattern failure rates rose two- to four-fold from the 1990s to the 2000s.",
+   "source": "Bulkowski's Failure Rate Study, thepatternsite.com",
+   "url": "https://thepatternsite.com/FailureRates.html",
+   "numbers": "About 14,000 patterns, 1991-2008. Upward breakouts failing to rise 10%: 14% in the 1990s bull market vs 28% in 2003-2007. Downward breakouts: 26% vs 49%. Single years: 11% in 1991, 44% in 2007.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Bulkowski's rectangle and triangle statistics (bull market, daily charts, no costs). Rise is measured to the 'ultimate high', a hindsight endpoint.",
+   "source": "thepatternsite.com rectangle-top, ascending-triangle and descending-triangle pages",
+   "url": "https://thepatternsite.com/recttops.html",
+   "numbers": "Rectangle top: breaks upward 63% of the time; break-even failure (move under 5%) 15% up / 34% down; average rise 51%; ranked 4 of 39. Ascending triangle: failure 17% up / 38% down; based on 1,400+ trades. Descending triangle: failure 22% up / 23% down; performance roughly halved since the 1990s.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Bulkowski's numbers on failed breakouts: busts (a move of 10% or less, then a close beyond the opposite side of the pattern) and throwbacks after upward breakouts.",
+   "source": "thepatternsite.com Busted Performance and Throwbacks pages",
+   "url": "https://thepatternsite.com/throwbacks.html",
+   "numbers": "Bust rates: rectangle top 26% (up) / 51% (down); rectangle bottom 26% / 43%; ascending triangle 46% after downward breakouts. Throwbacks: 58% of 10,305 upward breakouts since 2000; about 6 days up and about 10 days for the round trip; about 70-74% when breakout volume is above average.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Bulkowski's overhead-resistance study: breakouts to new all-time highs rose far more than breakouts that later met overhead resistance. Caution: the 'ultimate high' endpoint is defined with hindsight, which partly builds in this result.",
+   "source": "Bulkowski's Overhead Resistance Study",
+   "url": "https://thepatternsite.com/Resistance.html",
+   "numbers": "16,530 patterns in 1,263 stocks, May 1988 to June 2014. Resistance at or above the ultimate high: 29% average gain vs 65% for breakouts to new all-time highs. Resistance in the prior month: 18% vs 49% with none.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Bulkowski on yearly range and pattern height. Many of his pattern pages find breakouts within the lowest third of the yearly range do best (rectangle tops among them), which cuts against buying at the highs. Tall patterns beat short ones.",
+   "source": "thepatternsite.com Height and Width Study, rectangle pages, monthly symmetrical triangles",
+   "url": "https://thepatternsite.com/heightwidth.html",
+   "numbers": "Median height / breakout price: rectangle top 7.9% (up breakouts), rectangle bottom 8.3%. Tall patterns win 89% of the time on upward breakouts. Monthly symmetrical triangles by yearly range: lowest third rose 182% (n=30), middle third 105% (n=76), top third 92% (n=18).",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "Higher-timeframe pattern evidence from Bulkowski is sparse and small-sample. He says weekly versions of several patterns beat daily ones. His monthly study shows big average rises, but these are measured to hindsight highs.",
+   "source": "thepatternsite.com Chart Pattern Setup page and Monthly Symmetrical Triangles page",
+   "url": "https://thepatternsite.com/msymtri.html",
+   "numbers": "Chart Pattern Setup: weekly break-even failure 3% vs daily 6%; average rise 60% vs 48%. Monthly symmetrical triangles: 147 patterns in 788 stocks, January 1988 to July 2006; bull-market average rise 121% (n=124), 83% rose more than 45%, only one failed to rise 15%.",
+   "confidence": "read excerpt"
+  },
+  {
+   "claim": "I found no rigorous published failure or success rate for weekly-chart horizontal or base breakouts, or for multi-year base breakouts, on US stocks. Online claims (for example '60-70% of breakouts fail within six weeks' or '60-65% success with volume') cite no data. A vendor's 34,312-trade flat-base test reports coin-flip results at its lowest score tier.",
+   "source": "Searches; Haase (Medium, vendor)",
+   "url": "https://medium.com/@haase.rene/i-tested-william-oneil-s-flat-base-rules-most-held-up-the-most-famous-didn-t-89343b62a079",
+   "numbers": "Haase, lowest score tier: win rate 48.2%, beat the market 46.3%, average trade return 0.10%",
+   "confidence": "from memory/secondary"
+  },
+  {
+   "claim": "One informal test of stocks making new all-time highs in 2024 found a higher mean return than the index but a median close to it. About half the trades beat SPX.",
+   "source": "Yahoo Finance article 'How All-Time Highs Impact Short-Term Stock Performance'",
+   "url": "https://finance.yahoo.com/news/time-highs-impact-short-term-120011710.html",
+   "numbers": "2-week return: 1.10% per trade vs 0.41% for SPX; about 50% beat SPX. Filters: first new high after at least 3 months, no earnings gaps, price above $8.",
+   "confidence": "from memory/secondary"
+  }
+ ],
+ "rule_parameters": [
+  {
+   "item": "Darvas box top and bottom",
+   "value": "Start from a new (12-month) high. The top is confirmed when the next 3 consecutive days do not exceed it. The bottom is the lowest low after the top, confirmed when the next 3 days do not undercut it. Buy on a close above the top (next open); exit on a close below the bottom. Sources say Darvas's own text is inconsistent (e.g. inside days).",
+   "source": "Secondary: MQL5 article, ShareScope tutorial, NinjaTrader forum (https://www.mql5.com/en/articles/24111)"
+  },
+  {
+   "item": "IBD cup-with-handle",
+   "value": "Cup with handle at least 7 weeks; cup without handle at least 6 weeks. Depth about 30-33% at most (deeper in bear markets). Handle usually falls 8-12% (up to 15%) and sits in the upper half of the base (handle midpoint above base midpoint). Buy point = handle high + $0.10. Breakout volume at least 40% above the 50-day average (O'Neil's book says 40-50% above normal). Cut losses at 7-8%. Buyable up to 5% above the buy point (secondary).",
+   "source": "IBD articles syndicated on nasdaq.com (https://www.nasdaq.com/articles/chart-reading-basics-how-find-correct-buy-point-leading-stocks-2017-10-02 ; https://www.nasdaq.com/article/the-basics-how-to-analyze-a-stocks-cup-with-handle-cm899932); investors.com is blocked to the search tool"
+  },
+  {
+   "item": "IBD flat base",
+   "value": "Depth no more than 10-15%; at least about 5 weeks; follows a prior advance of 20% (O'Neil, per one source) or 30% (others); buy point = base high + $0.10. Not confirmed from IBD's own text.",
+   "source": "Secondary: LuxAlgo, MarketSmith HK, tintintrading (https://www.luxalgo.com/library/concept/flat-base/)"
+  },
+  {
+   "item": "Minervini Trend Template",
+   "value": "Price above the 150-day and 200-day MAs; 150-day above 200-day; 200-day rising for at least 1 month; 50-day above the 150-day and 200-day; price above the 50-day; at least 30% above the 52-week low (some reproductions say 25%); within 25% of the 52-week high (closer is better). I recall an RS rating of at least 70 but did not verify it.",
+   "source": "ProRealCode reproduction of the book's rules (https://www.prorealcode.com/prorealtime-market-screeners/trend-template-mark-minervini/)"
+  },
+  {
+   "item": "Minervini VCP",
+   "value": "Usually 2-4 contractions (occasionally 5-6). Each pullback is roughly half the previous one, e.g. 20-25%, then 10-15%, then 3-8%. Volume dries up; buy the breakout through the pivot on rising volume; stop under the last contraction.",
+   "source": "Secondary recap of Trade Like a Stock Market Wizard ch. 10 (https://www.finermarketpoints.com/post/trade-like-stock-market-wizard-vcp-chapter); LuxAlgo"
+  },
+  {
+   "item": "Turtle / Donchian",
+   "value": "System 1: 20-day breakout, skipped if the previous System 1 signal would have won; exit on a 10-day opposite extreme. System 2: 55-day breakout, always taken; exit on a 20-day opposite extreme. N = 20-day ATR (smoothed). Stop at 2N; a unit is sized so that 1N is about 1% of equity (2N is about 2%).",
+   "source": "The Original Turtle Trading Rules (OriginalTurtles.org PDF, mirror https://oxfordstrat.com/coasdfASD32/uploads/2016/01/turtle-rules.pdf), via search excerpts"
+  },
+  {
+   "item": "Weinstein stage analysis (weekly charts)",
+   "value": "Buy a weekly close above the Stage 1 base resistance while the 30-week SMA is flat-to-rising; breakout volume at least 2x the recent average (sources range from 1.5x to 3x); exit below the 30-week MA.",
+   "source": "Secondary: MQL5, TraderLion (https://www.mql5.com/en/articles/22746)"
+  },
+  {
+   "item": "BLL trading-range break",
+   "value": "Buy when price exceeds the local maximum of the past n days, n \u2208 {50, 150, 200}, with a band of 0% or 1%. I recall a fixed 10-day holding period with overlapping signals ignored, but did not verify it. DJIA 1897-1986.",
+   "source": "BLL 1992 (abstract) plus my memory; band notation from the MA(5,150,0.01) convention in replications"
+  },
+  {
+   "item": "Lo-Mamaysky-Wang rectangle (RTOP/RBOT)",
+   "value": "Five consecutive local extrema of the kernel-smoothed price. Tops within 0.75% of their mean, bottoms within 0.75% of their mean, lowest top > highest bottom. RTOP starts with a maximum, RBOT with a minimum.",
+   "source": "LMW 2000 (NBER w7613; https://web.mit.edu/people/wangj/pap/LoMamayskyWang00.pdf), via excerpts"
+  },
+  {
+   "item": "Bulkowski rectangle and ascending triangle identification",
+   "value": "Two near-horizontal trendlines (the triangle's lower line slopes up). One line touched at least 3 times and the other at least twice (5-touch minimum), using distinct peaks and valleys. One of his pages says only 2 touches per line. No numeric tolerance is given. Breakout = a close outside the boundary.",
+   "source": "https://thepatternsite.com/rectbots.html ; https://thepatternsite.com/PatternReview6.html ; https://thepatternsite.com/at.html"
+  },
+  {
+   "item": "Bulkowski performance metrics",
+   "value": "Break-even failure = move under 5% in the breakout direction. Bust = a move of 10% or less, then a close beyond the opposite side. Ultimate high = highest high before a 20% decline or a close below the pattern bottom (hindsight). Rise measured from the close the day before breakout. Bull-market tables; no costs.",
+   "source": "https://www.thepatternsite.com/glossary.html ; https://thepatternsite.com/Resistance.html"
+  },
+  {
+   "item": "Bulkowski tall vs short",
+   "value": "Height = (highest peak \u2212 lowest valley) / breakout price, compared with the median for that pattern. Medians: rectangle top 7.9% (up breakouts) and 7.1% (down); rectangle bottom 8.3% (up) and 9.6% (down).",
+   "source": "https://thepatternsite.com/heightwidth.html"
+  },
+  {
+   "item": "All-time-high trend entry (Wilcox-Crittenden)",
+   "value": "Buy at the next open after a close at or above the highest close in the stock's entire history. Exit on a 10\u00d7ATR trailing stop at the next open; the ATR length is unstated in 2005 (later work uses 40 or 42 days). 0.5% round-trip cost; liquidity filters.",
+   "source": "https://www.cis.upenn.edu/~mkearns/finread/trend.pdf ; SSRN 5084316"
+  },
+  {
+   "item": "52-week-high signal (George-Hwang)",
+   "value": "PTH = price / 52-week high. Long the high-PTH group, short the low-PTH group, benchmarked against 6-month/6-month momentum. I recall 30% cutoffs and overlapping 6-month holdings but did not verify them.",
+   "source": "GH 2004 abstract plus replication summaries"
+  },
+  {
+   "item": "Breakout volume threshold (O'Neil quant)",
+   "value": "A volume increase of 150% or more on the breakout day separates the stronger alpha group.",
+   "source": "https://www.oneilglobaladvisors.com/documents/FG/oneil/research/617948_OGA_Breakouts-OGA.pdf"
+  },
+  {
+   "item": "Support/resistance bounce null",
+   "value": "Bounce probability conditional on exiting the S/R band equals 0.5 under a random walk. Osler compared published levels against 10,000 random level sets.",
+   "source": "Chung & Bellotti arXiv 2101.07410; Osler 2000"
+  }
+ ],
+ "caveats": [
+  "WebFetch failed with DNS errors on every domain tried (arXiv, SSRN, RePEc, Wikipedia, thepatternsite, CXO, AAII, LSE), and curl to arxiv.org got a 403 from the egress proxy. Every number above therefore comes from the WebSearch tool's summarized excerpts of the pages, not from my reading the PDFs. Nothing is 'read in full'. Check the key tables (BLL, STW, GH, Li-Yu, Bulkowski) against the originals before pre-registering.",
+  "Not found: BLL's TRB table (buy and sell returns, signal counts), STW's best-rule returns and Reality Check p-values, Li & Yu's sample period and coefficients, and George & Hwang's exact portfolio construction. I gave no numbers for these. I recall BLL used a fixed 10-day TRB holding period, but did not verify it.",
+  "Marshall, Nguyen & Visaltanachoti: I found no 52-week-high paper by them. Their related paper is 'Time series momentum and moving average trading rules', Quantitative Finance 17(3):405-421 (2016/17), which I did not read.",
+  "Bulkowski's statistics are descriptive, not tradeable backtests. They measure to a hindsight 'ultimate high', use bull-market-only tables, include no costs, and select patterns visually or with discretion. They cannot be compared with causal fixed-horizon returns. The 29% vs 65% overhead-resistance gap is partly built in by the ultimate-high definition.",
+  "Decay is a recurring theme: Bulkowski's failure rates roughly doubled from the 1990s to 2003-2007; 52-week-high profits weakened after 2000 (Lob\u00e3o & Fernandes); US momentum factors fell after 2002 (Ben-David et al.); ATH trend-following had a modest drop after 2005 (Zarattini et al.). Holding out post-2010 years is especially informative.",
+  "Higher-timeframe evidence is thin. Bulkowski's weekly and monthly samples are small (e.g. n=18 in the top-third bucket of monthly symmetrical triangles). The O'Neil quant study excluded weekly patterns. I found no rigorous weekly or monthly breakout failure rate for US stocks.",
+  "Bulkowski's own pages disagree on the touch count for rectangles and triangles (3+2 vs 2+2). Practitioner sources disagree on other thresholds: Minervini 25% vs 30% above the 52-week low, flat-base prior advance 20% vs 30%, and Weinstein's volume multiple from 1.5x to 3x. These must be fixed by pre-registration, not tuned.",
+  "investors.com is blocked to the search tool. The IBD rules come from IBD articles syndicated on nasdaq.com and from secondary summaries. Minervini, Darvas, Turtle and Weinstein rules are mostly secondary reproductions, not the books' own text.",
+  "The Osler, Chung-Bellotti and Garzarelli support/resistance evidence uses intraday or FX data, so it may not transfer to daily, weekly or monthly US stock bars.",
+  "The CXO summary of Huddart, Lang & Yetman gives inconsistent figures for which side (52-week highs vs lows) drives the abnormal returns. Treat it as unverified.",
+  "Bulkowski's yearly-range finding (breakouts near the yearly low often do best) conflicts with the 52-week-high and ATH literature (buying near highs does best in the cross-section). This tension is worth testing directly."
+ ]
+}
