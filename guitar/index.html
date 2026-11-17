@@ -11,10 +11,11 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./icon-192.png">
 <link rel="icon" href="./icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="./studio.css">
+<link rel="stylesheet" href="./studio.css?v=1.1.0">
 <title>Guitar Practice Studio · 32 lessons</title>
-<script defer src="./lessons.js"></script>
-<script defer src="./studio.js"></script>
+<script defer src="./lessons.js?v=1.1.0"></script>
+<script defer src="./studio.js?v=1.1.0"></script>
+<script defer src="./ui.js?v=1.1.0"></script>
 </head>
 <body>
 <a class="skip" href="#lessonTitle">Skip to lesson</a>
@@ -26,6 +27,13 @@
  <aside class="sidebar" aria-label="Lesson library">
   <div class="library-heading"><span class="eyebrow">YOUR PRACTICE LIBRARY</span><p>Small steps.<br><strong>More musical freedom.</strong></p></div>
   <div class="progress-summary"><span id="courseCount">0 of 32 completed</span><progress id="courseProgress" max="32" value="0" aria-label="Course completion"></progress></div>
+  <div class="library-search">
+   <label for="lessonSearch">Find a lesson</label>
+   <input id="lessonSearch" data-library-search type="search" placeholder="Triads, blues, fingerstyle…" autocomplete="off" aria-controls="courseNav">
+   <label class="visually-hidden" for="lessonFilter">Filter lessons by progress</label>
+   <select id="lessonFilter" data-library-filter aria-controls="courseNav"><option value="all">All lessons</option><option value="incomplete">Still to practice</option><option value="complete">Completed</option></select>
+   <div class="search-feedback"><span id="libraryResults" data-library-results role="status"></span><button data-library-clear class="subtle" hidden>Clear filters</button></div>
+  </div>
   <nav id="courseNav" aria-label="Subjects and lessons"></nav>
   <a class="back-site" href="/">← Thrasher Co</a>
  </aside>
@@ -56,6 +64,11 @@
    <div id="quizCard" class="card" hidden><span class="eyebrow">LISTEN FIRST</span><h2 id="quizTitle">Train your ear</h2><p>Hear the sound before choosing an answer. Replay is allowed; each new question counts once.</p><div class="button-row"><button id="newQuestion" class="primary">▶ New question</button><button id="replayQuestion" disabled>Replay sound</button><span id="quizScore" class="pill">0 / 0 correct</span></div><div id="quizAnswers" class="quiz-answers"></div><p id="quizFeedback" role="status">Ready when you are.</p></div>
    <div class="card tab-card"><div class="section-heading"><div><span class="eyebrow">PLAYABLE EXERCISE</span><h2 id="exerciseTitle">Practice phrase</h2></div><button id="hideTab" class="subtle" aria-expanded="true">Hide tab</button></div>
     <div id="patternButtons" class="pattern-buttons" aria-label="Choose a practice phrase"></div>
+    <div class="practice-tools">
+     <div class="loop-controls" role="group" aria-label="Choose bars to practice"><label for="loopStart">From bar <select id="loopStart"><option value="1">1</option></select></label><label for="loopEnd">Through bar <select id="loopEnd"><option value="1">1</option></select></label><button id="resetLoop" class="subtle">Full phrase</button></div>
+     <p id="loopSummary" class="micro"></p>
+     <details class="speed-trainer"><summary>Build speed gradually</summary><label class="trainer-toggle"><input id="speedTrainer" type="checkbox"> Use the tempo trainer</label><div class="trainer-controls"><label for="trainerStep">Increase by <select id="trainerStep"><option value="2">2 BPM</option><option value="5">5 BPM</option></select></label><label for="trainerPasses">Every <select id="trainerPasses"><option value="2">2 passes</option><option value="4">4 passes</option></select></label></div><p id="trainerStatus" class="micro" role="status"></p><p class="micro">The trainer advances after completed loops, up to this lesson's target tempo. Turn it off or slow down whenever you need more clean repetitions.</p></details>
+    </div>
     <div class="tab-controls"><label><input id="showNotes" type="checkbox" checked> Note names</label><span>Gold = focus note · tap a fret to hear it</span></div>
     <div id="tabHidden" class="hidden-tab" hidden>Tab hidden. Listen, hum, and find the notes before revealing.</div>
     <div id="tabContent"></div>
@@ -75,10 +88,11 @@
   </section>
   <section class="card chords-section"><div class="section-heading"><div><span class="eyebrow">COMFORTABLE VOICINGS</span><h2>Chord shapes & sounds</h2></div><span class="micro">No thumb-over grips</span></div><div id="chordButtons" class="chord-buttons"></div><div class="chord-detail"><div id="chordDiagram"></div><div><h3 id="chordName"></h3><p id="chordNotes"></p><p id="chordTip" class="micro"></p><p class="micro">Diagram: low E → high e, left to right.<br>○ open · × muted<br>Fingers: 1 index · 2 middle · 3 ring · 4 pinky</p></div></div></section>
   <section class="card practice-log"><div class="section-heading"><h2>Your practice log</h2><span id="saveStatus" class="micro">Saved on this device</span></div><label class="complete-label"><input id="complete" type="checkbox"> I've met this lesson's checkpoint</label><label for="notes" class="micro">What improved? What needs another pass?</label><textarea id="notes" rows="3" maxlength="4000" placeholder="For example: clean at 75 BPM; C to D still needs work."></textarea><div class="lesson-navigation"><button id="previousLesson">← Previous lesson</button><button id="nextLesson">Next lesson →</button></div></section>
-  <footer class="footer"><p>32 original studies · Guitar Studio <span id="version">1.0</span><br><span id="offlineStatus">Checking offline availability…</span></p><details><summary>Install, backup & privacy</summary><p>On iPhone, open this page in Safari, tap Share, then Add to Home Screen. Turn on Open as Web App when that option appears. Open the app online once to cache the course.</p><p>Notes and completion are saved in this browser only, not to an account. Safari and a Home Screen app may have separate storage. Clearing website data can remove progress. Export a backup before switching devices or browsers.</p><div class="button-row"><button id="exportProgress">Export progress</button><button id="importProgress">Import progress</button><input id="importFile" type="file" accept="application/json,.json" hidden></div><p>No login, analytics, microphone access or third-party audio downloads. Lessons and synthesized audio work offline after caching. The app does not assess your live guitar playing.</p></details><a href="/">Thrasher Co</a></footer>
+  <footer class="footer"><p>32 original studies · Guitar Studio <span id="version">1.1.0</span><br><span id="offlineStatus" role="status">Checking offline availability…</span></p><details><summary>Install, backup & privacy</summary><p>On iPhone, open this page in Safari, tap Share, then Add to Home Screen. Turn on Open as Web App when that option appears. Open the app online once to cache the course.</p><p>Notes, completion and practice settings are saved in this browser only, not to an account. Safari and a Home Screen app may have separate storage. Clearing website data can remove progress. Export a backup before switching devices or browsers.</p><div class="button-row"><button id="exportProgress">Export progress</button><button id="importProgress">Import progress</button><input id="importFile" type="file" accept="application/json,.json" hidden></div><p>No login, analytics, microphone access or third-party audio downloads. Lessons and synthesized audio work offline after caching. The app does not assess your live guitar playing.</p><p>When an update is ready, choose Update course after your practice. Your saved progress stays in place.</p></details><a href="/">Thrasher Co</a></footer>
  </main>
 </div>
-<dialog id="libraryDialog"><div class="dialog-header"><strong>All 32 lessons</strong><button id="closeLibrary" aria-label="Close lesson library">✕</button></div><div id="mobileProgress" class="progress-summary"></div><nav id="mobileCourseNav" aria-label="Choose a lesson"></nav></dialog>
+<dialog id="libraryDialog" aria-labelledby="libraryDialogTitle"><div class="dialog-header"><strong id="libraryDialogTitle">All 32 lessons</strong><button id="closeLibrary" aria-label="Close lesson library">✕</button></div><div id="mobileProgress" class="progress-summary"></div><div class="library-search"><label for="mobileLessonSearch">Find a lesson</label><input id="mobileLessonSearch" data-library-search type="search" placeholder="Triads, blues, fingerstyle…" autocomplete="off" aria-controls="mobileCourseNav"><label class="visually-hidden" for="mobileLessonFilter">Filter lessons by progress</label><select id="mobileLessonFilter" data-library-filter aria-controls="mobileCourseNav"><option value="all">All lessons</option><option value="incomplete">Still to practice</option><option value="complete">Completed</option></select><div class="search-feedback"><span id="mobileLibraryResults" data-library-results role="status"></span><button data-library-clear class="subtle" hidden>Clear filters</button></div></div><nav id="mobileCourseNav" aria-label="Choose a lesson"></nav></dialog>
+<aside id="courseUpdate" class="course-update" aria-label="Course update" hidden><div><strong>An updated course is ready</strong><p id="updateMessage">Apply it whenever you finish this pass. Your progress is kept.</p></div><button id="applyUpdate" class="primary">Update course</button><button id="dismissUpdate" class="subtle" aria-label="Remind me about the course update later">Later</button></aside>
 <div id="toast" class="toast" role="status" hidden></div>
 <div id="floatingPlayer" class="floating-player" hidden><span id="floatingStatus">Playing</span><button id="floatingStop">■ Stop</button></div>
 <noscript><div class="card">Enable JavaScript to use the lesson library and audio player. This app has no account or sign-in requirement.</div></noscript>

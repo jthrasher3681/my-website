@@ -20,15 +20,15 @@ const chords = {
  C:chord([-1,3,2,0,1,0],[0,3,2,0,1,0],48,[0,4,7]),
  Cmaj7:chord([-1,3,2,0,0,0],[0,3,2,0,0,0],48,[0,4,7,11]),
  C7:chord([-1,3,2,3,1,0],[0,3,2,4,1,0],48,[0,4,7,10],'The open shape omits the fifth G; it keeps C, E and B-flat, the defining tones.'),
- Cm7:chord([-1,3,5,3,4,3],[0,1,3,1,2,1],48,[0,3,7,10],'Index barre at fret 3 from A to high e; ring on D5 and middle on B4. Use the single-note exercise first if the barre is tiring.'),
- Cadd9:chord([-1,3,2,0,3,3],[0,2,1,0,3,4],48,[0,4,7,14]),
+ Cm7:chord([-1,3,5,3,4,-1],[0,1,4,2,3,0],48,[0,3,7,10],'Pick the four middle strings. Use index on A3, pinky on D5, middle on G3 and ring on B4. Each finger frets one note. Leave both E strings silent.'),
+ Cadd9:chord([-1,3,2,0,3,0],[0,3,2,0,4,0],48,[0,4,7,14],'Keep the open C shape. Add your pinky at B3 for D and let high e ring. Lift the pinky to hear C again at B1.'),
  D:chord([-1,-1,0,2,3,2],[0,0,0,1,3,2],50,[0,4,7]),
  Dm:chord([-1,-1,0,2,3,1],[0,0,0,2,3,1],50,[0,3,7]),
  D7:chord([-1,-1,0,2,1,2],[0,0,0,2,1,3],50,[0,4,7,10]),
  Dm7:chord([-1,-1,0,2,1,1],[0,0,0,2,1,1],50,[0,3,7,10],'Lightly barre B and high e at fret 1 with your index finger.'),
  Am:chord([-1,0,2,2,1,0],[0,0,2,3,1,0],45,[0,3,7]),
  Am7:chord([-1,0,2,0,1,0],[0,0,2,0,1,0],45,[0,3,7,10]),
- Asus2:chord([-1,0,2,2,0,0],[0,0,1,2,0,0],45,[0,2,7],'No third: the B replaces C-sharp or C.'),
+ Asus2:chord([-1,0,2,2,0,0],[0,0,2,3,0,0],45,[0,2,7],'From Am, keep middle on D2 and ring on G2. Lift your index from B1 to hear open B in place of the minor third C.'),
  A:chord([-1,0,2,2,2,0],[0,0,1,2,3,0],45,[0,4,7]),
  A7:chord([-1,0,2,0,2,0],[0,0,1,0,2,0],45,[0,4,7,10]),
  Em7:chord([0,2,2,0,3,0],[0,1,2,0,3,0],40,[0,3,7,10]),
@@ -59,7 +59,7 @@ add(0,'Major, minor & dominant 7','Hear how one changed note changes the charact
  p('Dm · minor third','4:0@1 3:2@1 2:3@1 1:1!@1','Dm'),
  p('D7 · hear C','4:0@1 3:2@1 2:1!@1 1:2@1','D7')]);
 add(0,'Three seventh-chord colors','Separate major 7, minor 7 and dominant 7 by ear and by notes.',
- 'Cmaj7 = C E G B. C7 = C E G B-flat. Cm7 = C E-flat G B-flat. Only maj7 has B; only Cm7 has E-flat. The Cm7 diagram uses an index barre, never a thumb-over grip.',
+ 'Cmaj7 = C E G B. C7 = C E G B-flat. Cm7 = C E-flat G B-flat. Play the three single-note patterns in the same register. First hear B drop to B-flat, then E drop to E-flat. For the Cm7 chord, use one finger on each of the four middle strings.',
  ['3 min · Hear the three chord buttons. Compare Cmaj7 with C7 first, then C7 with Cm7.', '5 min · Play root, third, fifth and seventh in the tab. Say “major third, major seventh” for Cmaj7; change the words for the other two.', '4 min · Jam Cmaj7, C7, Cm7, C7. Treat each bar as its own harmony; do not force one scale over all four.'],
  'Identify each color correctly three times, then play its arpeggio.',60,85,'Cmaj7 C7 Cm7 C7',[
  p('Cmaj7 · C E G B','5:3@1 4:2!@1 3:0@1 2:0!@1','Cmaj7'),
@@ -69,12 +69,12 @@ add(0,'Smooth seventh-chord changes','Keep common tones while your fretting hand
  'Cmaj7 and Am7 share C, E and G. Dm7 and G7 share D and F. You do not have to lift every finger at every change. The goal is an unbroken pulse, not a fast change followed by a pause.',
  ['3 min · Inspect the four chord diagrams. Practice Cmaj7 to Am7 slowly before adding Dm7 and G7.', '5 min · Pick the written four-note group for each bar. Prepare the next shape during beat 4.', '5 min · Use the backing jam: one downstroke on beat 1, then add beat 3. Keep unused bass strings muted.'],
  'Complete four cycles without stopping the beat, even if one chord is imperfect.',60,100,'Cmaj7 Am7 Dm7 G7',[
- p('Four-bar connection','5:3@1 4:2@1 3:0@1 2:0@1 5:0@1 4:2@1 3:0@1 2:1@1 4:0@1 3:2@1 2:1@1 1:1@1 6:3@1 4:0@1 3:0@1 1:1@1','Cmaj7')]);
+ p('Four-bar connection','5:3@1 4:2@1 3:0@1 2:0@1 5:0@1 4:2@1 3:0@1 2:1@1 4:0@1 3:2@1 2:1@1 1:1@1 6:3@1 4:0@1 2:0@1 1:1@1','Cmaj7',{barChords:['Cmaj7','Am7','Dm7','G7']})]);
 add(0,'Substitutions & added color','Hear Em7 as a relative-minor color and Cadd9 as an added-note color.',
  'G is G B D; Em7 is E G B D. They share three notes, but the bass changes the feeling. Cadd9 adds D to a C major triad; it does not contain a seventh. These are musical options, not universal replacements.',
  ['3 min · Alternate G and Em7, letting the common upper notes ring.', '5 min · Play the four-bar melody. The first note of each bar is a chord tone of the new harmony.', '4 min · Jam G–Em7–Cadd9–D7, then mentally compare the first two bars with holding G for both.'],
  'Explain why Em7 resembles G, and why Cadd9 is not C9.',65,100,'G Em7 Cadd9 D7',[
- p('Follow the bass, keep the melody','3:4!@1 2:3@1 1:3@1 2:3@1 4:2!@1 3:0@1 2:3@1 1:0@1 5:3!@1 4:2@1 2:3@1 1:3@1 4:0@1 3:2@1 2:1@1 1:2!@1','G')]);
+ p('Land with each chord change','3:4!@1 2:3@1 1:3@1 2:3@1 4:2!@1 3:0@1 2:3@1 1:0@1 5:3!@1 4:2@1 2:3@1 1:3@1 4:0!@1 3:2@1 2:1@1 1:2@1','G',{barChords:['G','Em7','Cadd9','D7']})]);
 add(1,'Connect pentatonic positions','Move out of one A minor pentatonic box without losing the sound.',
  'A minor pentatonic contains A C D E G. This route travels from the G string at fret 5 to high e at fret 12. Shift deliberately; there is no need to stretch one hand across the entire route.',
  ['3 min · Name C, D, E, G, A, C, D, E as you tap and hear the notes.', '5 min · Play up and back in eighth notes. Shift after high e8; keep your thumb relaxed behind the neck.', '5 min · Jam Am for four bars. Use only four notes at a time, but choose them from two neighboring positions.'],
@@ -89,28 +89,30 @@ add(1,'Mixolydian versus Dorian','Hear C-sharp versus C while keeping the same A
  p('A Dorian · minor third','3:2 3:4 2:1! 2:3 2:5 1:2 1:3 1:5','Am7',{progression:['Am7','D7','Am7','D7']})]);
 add(1,'Horizontal fretboard navigation','Play A Dorian along one string, then locate the same notes elsewhere.',
  'The high-e frets 5, 7, 8, 10, 12, 14, 15 and 17 spell A B C D E F-sharp G A. This is A Dorian, not A natural minor: its sixth is F-sharp. Position shifts matter more than speed.',
- ['3 min · Play the route as slow quarter notes and say every note name.', '5 min · Use the eighth-note tab. Shift your whole hand rather than reaching from fret 5 to fret 17.', '5 min · Jam Am7–D7. Make a four-note phrase on high e, then find those four pitches on B and G.'],
+ ['3 min · Play the route as slow quarter notes and say every note name.', '5 min · Use the eighth-note tab. Shift your whole hand rather than reaching from fret 5 to fret 17.', '5 min · Jam Am7–D7. Play A–B–C on high e at 5–7–8, then match those pitches on B at 10–12–13. Answer an octave lower on G at 2–4–5.'],
  'Find A, C and F-sharp on two strings without counting every fret.',55,95,'Am7 D7 Am7 D7',[
  p('One-string ascent','1:5! 1:7 1:8 1:10 1:12 1:14! 1:15 1:17','Am7'),
  p('One-string descent','1:17 1:15 1:14! 1:12 1:10 1:8 1:7 1:5!','Am7')]);
 add(1,'Find the thirds instantly','Locate B, E and F-sharp in two useful areas of the neck.',
- 'The major third of G is B; of C is E; of D is F-sharp. On the middle strings use G4, B5 and B7. On high e use frets 7, 12 and 14. The sound and harmonic job stay the same when the position changes.',
+ 'The major thirds of G, C and D are B, E and F-sharp. Play them on the G string at fret 4 and the B string at frets 5 and 7. High e at frets 7, 12 and 14 gives the same three note names one octave higher.',
  ['3 min · Tap the highlighted target notes. Say chord, note and location out loud.', '5 min · Hold each target for a full bar. Keep the rhythm going while you move.', '4 min · Jam G–C–D–G. Start with the middle-string targets, then try the high-e targets.'],
  'Land on all four changes in three consecutive cycles.',65,110,'G C D G',[
- p('Middle-string targets','3:4!@4 2:5!@4 2:7!@4 3:4!@4','G'),
- p('High-e targets','1:7!@4 1:12!@4 1:14!@4 1:7!@4','G')]);
+ p('Middle-string targets','3:4!@4 2:5!@4 2:7!@4 3:4!@4','G',{barChords:['G','C','D','G']}),
+ p('High-e targets','1:7!@4 1:12!@4 1:14!@4 1:7!@4','G',{barChords:['G','C','D','G']})]);
 add(2,'G–C–D: target the third','Make the chord change audible in a melodic lead line.',
- 'Start the G phrase on B, the C phrase on E and the D phrase on F-sharp. The remaining notes connect those targets inside G major. Play eight eighth notes per bar. These are original study phrases, not a song transcription.',
- ['3 min · Learn each one-bar lick separately at 70 BPM. The gold first note is the target third.', '5 min · Loop one phrase until it is relaxed, then connect G to C and C to D.', '6 min · Start the 16-bar jam for three rounds: first play only the target thirds; next play the study licks; finally improvise and leave space.'],
+ 'Start the G phrase on B, the C phrase on E and the D phrase on F-sharp. The three one-bar licks use eighth notes from G major. In the two-bar variation, play D, then E-flat on the last “&” of G, and land on E as C arrives.',
+ ['3 min · Learn each one-bar lick separately at 70 BPM. The gold first note is the target third.', '5 min · Connect G to C. For a Garcia-inspired variation, count “4 & 1” as you play frets 3–4–5 on the B string. Hold E so you can hear what the passing E-flat was leading to.', '6 min · Start the 16-bar jam for three rounds. Play only the thirds, then the one-bar licks, then your own answers. Try the two-bar variation across bars 2–3.'],
  'Finish a 48-bar jam and land on the third at every chord change.',70,120,'G G C C G G D D C C G G D C G G',[
  p('G · land on B','3:4! 2:3 3:4 3:2 4:5 3:2 3:4 2:3','G'),
  p('C · land on E','2:5! 2:3 3:5 3:4 3:5 2:3 2:5 1:3','C'),
- p('D · land on F-sharp','2:7! 2:5 2:3 3:4 3:2 3:4 2:3 2:7','D')],{featured:true});
+ p('D · land on F-sharp','2:7! 2:5 2:3 3:4 3:2 3:4 2:3 2:7','D'),
+ p('G → C · chromatic pickup','3:4!@1 2:3 2:5 1:3@1 2:3 2:4 2:5!@2 1:3@1 -@1','G',{barChords:['G','C']})],{featured:true});
 add(2,'Call and response','Make a short musical question, leave space, then answer it.',
  'A phrase does not have to fill every beat. Over Am7–D7, A Dorian supplies the notes; C marks the minor color and F-sharp identifies D7. The rests are part of the exercise, not empty time to fill.',
- ['3 min · Listen to the question and answer. Count through the rests instead of rushing into the next phrase.', '5 min · Play the two-bar example. On the D7 bar, let F-sharp announce the new harmony.', '5 min · Jam: keep the question the same for three cycles and change only the last two notes of the answer.'],
+ ['3 min · Listen to the question and answer. Count through the rests so the reply enters on time.', '5 min · Play the first example, then try the Knopfler-inspired fingerpicked reply. Use your picking thumb on G and index on B. In bar 2, pick B7 a little louder and sing its F-sharp through the following rest.', '5 min · Jam Am7–D7. Keep the question the same for three cycles and change only the last two notes of the answer.'],
  'Play three different answers while preserving the same rhythm and space.',70,105,'Am7 D7 Am7 D7',[
- p('Question / answer · two bars','3:2 2:1! 2:5@1 -@2 2:7! 2:5 2:3@1 -@2','Am7')]);
+ p('Question / answer · two bars','3:2 2:1! 2:5@1 -@2 2:7! 2:5 2:3@1 -@2','Am7',{barChords:['Am7','D7']}),
+ p('Fingerpicked reply · leave space','3:5!@1 -@1 2:5 2:8 2:5@1 2:7!@1 -@1 3:7 2:5 2:3@1','Am7',{barChords:['Am7','D7']})]);
 add(2,'A Mixolydian melodic jam','Use the flat seventh as color, not as a substitute for a landing note.',
  'A Mixolydian fits an A7 vamp: A B C-sharp D E F-sharp G. G is the flat seventh; C-sharp is the major third. A minor pentatonic has C instead, so do not automatically reuse every minor-pentatonic lick unchanged.',
  ['3 min · Tap C-sharp at B2 and G at high e3. Hear their different jobs against A7.', '5 min · Play the two-bar phrase, breathing during the second-bar rest.', '5 min · Jam A7. End one phrase on A, another on C-sharp, and another on G; compare the degree of rest.'],
@@ -158,7 +160,7 @@ add(4,'Controlled vibrato','Shape a sustained note instead of shaking it immedia
  'Hold the pitch steady first, then introduce an even, modest vibrato. A repeated bend-and-release motion should return to the intended pitch. The demo is a synthetic illustration, not a recording of a particular guitar technique.',
  ['3 min · Sustain B8 for four beats with no vibrato. Listen for a stable G.', '5 min · Play the phrase. Add vibrato only after the start of each marked long note.', '4 min · Jam G–C. Choose G over G and E over C, and make the ends of the phrases expressive.'],
  'Keep two sustained notes centered and even for an entire four-beat count.',60,90,'G C G C',[
- p('Hold, then add vibrato','2:8v!@4 2:5v!@4','G')]);
+ p('Hold, then add vibrato','2:8v!@4 2:5v!@4','G',{barChords:['G','C']})]);
 add(4,'Connect expressive techniques','Combine a slide, legato and a bend without losing the rhythm.',
  's means slide from the first fret to the second. b means bend toward the written target fret pitch. Plan the arrival time of the note, not just the motion of your finger. Leave a rest after the busy phrase.',
  ['3 min · Isolate B5s8, then high e5–h7–p5. Keep each motion small.', '5 min · Join the groups and the B8b10 bend. Do not rush the bend to make room for the rest.', '5 min · Jam Am. Use the complete phrase once, then answer it with only two plain notes.'],
@@ -168,11 +170,11 @@ add(5,'Three-string triads','Find compact G, C and D triads on the highest three
  'G: G4–B3–e3 = B D G, a first-inversion triad. C: G5–B5–e3 = C E G, root position. D: G7–B7–e5 = D F-sharp A, root position. The lowest note of a voicing is not always its root.',
  ['3 min · Tap and name each note in the three triads. Mute the lower three strings.', '5 min · Pick the four-note patterns with even quarter notes. Let each note be distinct.', '5 min · Jam G–C–D–G using only these small triads, then turn each into a short melody.'],
  'Name the inversion of the G shape and connect all three without a full barre chord.',60,105,'G C D G',[
- p('G triad · B D G','3:4!@1 2:3@1 1:3@1 2:3@1','G'),
- p('C triad · C E G','3:5@1 2:5!@1 1:3@1 2:5@1','C'),
- p('D triad · D F-sharp A','3:7@1 2:7!@1 1:5@1 2:7@1','D')]);
+ p('G triad · B D G','3:4!@1 2:3@1 1:3@1 2:3@1','G',{voicing:chord([-1,-1,-1,4,3,3],[0,0,0,2,1,1],43,[0,4,7],'Brush the three treble strings. Barre B3 and high e3 lightly with your index and fret G4 with your middle finger. B is the lowest note.')}),
+ p('C triad · C E G','3:5@1 2:5!@1 1:3@1 2:5@1','C',{voicing:chord([-1,-1,-1,5,5,3],[0,0,0,2,3,1],48,[0,4,7],'Keep index on high e3. Put middle on G5 and ring on B5. The melody can hold the same high G through the change from G to C.')}),
+ p('D triad · D F-sharp A','3:7@1 2:7!@1 1:5@1 2:7@1','D',{voicing:chord([-1,-1,-1,7,7,5],[0,0,0,2,3,1],50,[0,4,7],'Slide the entire C shape up two frets. From G through high e, the three notes are D, F-sharp and A.')})]);
 add(5,'Major 7 & minor 7 arpeggios','Spell seventh chords one note at a time.',
- 'An arpeggio plays the chord tones separately. Cmaj7 is 1–3–5–7; Am7 and Dm7 are 1–flat 3–5–flat 7. G7 is 1–3–5–flat 7. A major seventh is one semitone below the root; a minor seventh is two.',
+ 'An arpeggio plays the chord tones separately. Cmaj7 uses 1–3–5–7. Am7 and Dm7 use 1–flat 3–5–flat 7. G7 uses 1–3–5–flat 7. Count up from the root and the major seventh falls one fret short of the octave. The minor seventh falls two frets short.',
  ['3 min · Say the four notes of each chord before touching the guitar.', '5 min · Play the four quarter-note arpeggios. Gold highlights the third and seventh.', '5 min · Jam Cmaj7–Am7–Dm7–G7. Change the arpeggio on beat 1 rather than finishing an old shape late.'],
  'Play one full cycle with the chord names and another with the note names spoken aloud.',60,100,'Cmaj7 Am7 Dm7 G7',[
  p('Cmaj7','5:3@1 4:2!@1 3:0@1 2:0!@1','Cmaj7'),
@@ -183,7 +185,7 @@ add(5,'Guide-tone voice leading','Connect thirds and sevenths with the smallest 
  'Dm7 has F and C; G7 has B and F; Cmaj7 has E and B. Follow F–F–E on high e and C–B–B on the B string. These two short paths reveal the harmony with very little movement.',
  ['3 min · Play the high-e path F–F–E, then the B-string path C–B–B.', '5 min · Alternate the two guide tones in each bar of the written four-bar exercise.', '5 min · Jam Dm7–G7–Cmaj7–Cmaj7. Leave space and avoid filling every gap with a scale run.'],
  'Make the progression recognizable using only the guide tones.',60,100,'Dm7 G7 Cmaj7 Cmaj7',[
- p('Two compact guide-tone lines','1:1!@2 2:1!@2 1:1!@2 2:0!@2 1:0!@2 2:0!@2 1:0!@2 2:0!@2','Dm7')]);
+ p('Two compact guide-tone lines','1:1!@2 2:1!@2 1:1!@2 2:0!@2 1:0!@2 2:0!@2 1:0!@2 2:0!@2','Dm7',{barChords:['Dm7','G7','Cmaj7','Cmaj7']})]);
 add(5,'Arpeggios over ii–V–I','Follow Am7–D7–Gmaj7 without resetting your sense of time.',
  'In G major, Am7 is ii, D7 is V and Gmaj7 is I. Am7 = A C E G; D7 = D F-sharp A C; Gmaj7 = G B D F-sharp. The key stays the same, but the chord tones receiving emphasis change.',
  ['3 min · Name the four notes of each arpeggio. Check F-sharp in D7 and Gmaj7.', '5 min · Play the three patterns separately, then connect them one bar per chord.', '6 min · Jam Am7–D7–Gmaj7–Gmaj7. On the second Gmaj7 bar, turn the notes into a freer melodic answer.'],
@@ -195,7 +197,7 @@ add(6,'Hear major versus minor','Recognize the changed third without relying on 
  'A major triad contains a major third; a minor triad lowers that third by one semitone. The listening quiz uses the same root and register so the comparison is about quality rather than a different chord position.',
  ['3 min · Hear D and Dm, then play their F-sharp and F notes on high e.', '5 min · Open the listening quiz. Listen before choosing Major or Minor; replay as often as needed.', '4 min · Play the short comparison, then try identifying the qualities with your eyes closed.'],
  'Score 8 out of 10 on new questions before increasing the pace.',60,80,'D Dm D Dm',[
- p('Hear the third change','4:0@1 3:2@1 1:2!@2 4:0@1 3:2@1 1:1!@2','D')],{quiz:'quality'});
+ p('Hear the third change','4:0@1 3:2@1 1:2!@2 4:0@1 3:2@1 1:1!@2','D',{barChords:['D','Dm']})],{quiz:'quality'});
 add(6,'Hear seventh-chord colors','Recognize maj7, m7 and dominant 7 by sound.',
  'All three quiz sounds have the same C root. Cmaj7 has E and B; C7 has E and B-flat; Cm7 has E-flat and B-flat. Compare pairs before asking your ear to choose among all three.',
  ['3 min · Compare Cmaj7 and C7. Sing B descending to B-flat.', '5 min · Use the quiz. First decide whether the third is major or minor; then listen to the seventh.', '4 min · Play the arpeggio of whichever sound you just identified. Turn the ear answer into a fretboard answer.'],
@@ -211,10 +213,10 @@ add(6,'Sing the interval','Hear and sing a major third, perfect fifth and minor 
  p('C → G · perfect fifth','2:1@2 1:3!@2','C'),
  p('C → B-flat · minor seventh','2:1@2 1:6!@2','C7')],{quiz:'interval'});
 add(6,'Transcribe a short melody','Move from hearing a phrase to finding it without watching the tab.',
- 'Transcription begins with contour and rhythm, not fast note naming. This original phrase rises from G to B, comes back down, and ends on E. Hide the tab, listen, hum, then search for the notes.',
- ['3 min · Hide the tab before using Hear exercise. Hum the phrase and clap its rhythm.', '5 min · Find the first note, then reconstruct the phrase in small groups. Reveal only after making an attempt.', '5 min · Jam G–C. Play the phrase, then make an answer with a different final note.'],
+ 'On the first listen, trace the melody in the air when it rises or falls. On the second, clap where each note begins. Hum the phrase all the way through its final rest before finding the first note on your guitar.',
+ ['3 min · Leave the tab hidden and tap Hear exercise. Listen, hum and clap the rhythm.', '5 min · Find the first note and work out a few notes at a time. Reveal the tab after a full attempt. Check the spot where your version first sounds different.', '5 min · Jam G–C. Play the phrase, then make an answer with a different final note.'],
  'Rebuild the entire phrase from memory after a one-minute break.',65,100,'G C G C',[
- p('Listen · hum · find','1:3@1 1:5 1:7 1:5@1 1:3@1 2:5!@2 -@2','G')],{hideInitially:true});
+ p('Listen · hum · find','1:3@1 1:5 1:7 1:5@1 1:3@1 2:5!@2 -@2','G',{barChords:['G','C']})],{hideInitially:true});
 add(7,'Alternating-bass fingerpicking','Keep the thumb steady while the fingers play above it.',
  'Use thumb (T) on the bass, index (i) on G, middle (m) on B and ring (a) on high e. The eight-note Am pattern is T i m a T i m a, alternating open A and low E on beats 1 and 3.',
  ['3 min · Play only A and low E with your thumb on beats 1 and 3.', '5 min · Add i–m–a between the bass notes. Keep the thumb a little stronger than the upper notes.', '5 min · Jam Am. Sustain the chord without squeezing and keep the high notes even.'],
@@ -222,7 +224,7 @@ add(7,'Alternating-bass fingerpicking','Keep the thumb steady while the fingers 
  p('Am · alternating A / E bass','5:0! 3:2 2:1 1:0 6:0! 3:2 2:1 1:0','Am')]);
 add(7,'Fingerstyle through changes','Keep the picking pattern intact while the fretting hand moves.',
  'Use C–G–Am–Fmaj7, one bar each. C alternates C and G bass; G alternates G and D; Am alternates A and E. On Fmaj7, repeat F on the D string to keep the grip comfortable.',
- ['3 min · Practice only the first bass note of each bar: C, G, A, F.', '5 min · Learn each eight-note picking pattern separately. Begin Fmaj7 on D3, not on a low bass string.', '6 min · Jam the four changes. Prepare the next shape during the last high-e note without cutting the rhythm short.'],
+ ['3 min · Play the first bass note of each bar and say its name aloud — C, G, A, F.', '5 min · Learn each picking pattern separately. For C, move your fretting-hand ring finger from A3 to low E3 for beat 3. For Fmaj7, play D3 on both bass beats.', '6 min · Jam the four changes. Prepare the next shape during the last high-e note while keeping the picking hand moving.'],
  'Play four cycles with no pause at Fmaj7.',50,90,'C G Am Fmaj7',[
  p('C · C / G bass','5:3! 3:0 2:1 1:0 6:3! 3:0 2:1 1:0','C'),
  p('G · G / D bass','6:3! 3:0 2:0 1:3 4:0! 3:0 2:0 1:3','G'),
@@ -230,13 +232,13 @@ add(7,'Fingerstyle through changes','Keep the picking pattern intact while the f
  p('Fmaj7 · repeated F bass','4:3! 3:2 2:1 1:0 4:3! 3:2 2:1 1:0','Fmaj7')]);
 add(7,'Chord embellishments','Create small melodic changes inside open chord shapes.',
  'C to Cadd9 changes an upper C to D while keeping the C-major identity. Am to Asus2 replaces C with B, removing the minor third. Let your ear hear a small melody rather than treating each grip as an unrelated chord.',
- ['3 min · Compare the chord buttons. Name the changing B-string note: C–D and C–B.', '5 min · Play the four-bar study. Keep the bass and inner strings relaxed while the top note moves.', '5 min · Jam C–Cadd9–Am–Asus2. Add the embellishment only once per bar before making it busier.'],
+ ['3 min · Compare the chord buttons. Sing the B-string changes C–D and C–B.', '5 min · Play the four-bar study. Keep high e open across all four shapes. Listen for the B-string note on beat 3 of each bar.', '5 min · Jam C–Cadd9–Am–Asus2. Add the embellishment only once per bar before making it busier.'],
  'Sing the changing note while holding the rest of the chord steady.',60,100,'C Cadd9 Am Asus2',[
- p('One note changes the color','5:3@1 3:0@1 2:1!@1 1:0@1 5:3@1 3:0@1 2:3!@1 1:3@1 5:0@1 3:2@1 2:1!@1 1:0@1 5:0@1 3:2@1 2:0!@1 1:0@1','C')]);
+ p('One note changes the color','5:3@1 3:0@1 2:1!@1 1:0@1 5:3@1 3:0@1 2:3!@1 1:0@1 5:0@1 3:2@1 2:1!@1 1:0@1 5:0@1 3:2@1 2:0!@1 1:0@1','C',{barChords:['C','Cadd9','Am','Asus2']})]);
 add(7,'Arrange a melody over moving bass','Combine a descending bass line with a clear upper melody.',
  'C–G/B–Am7–Fmaj7 gives bass notes C–B–A–F. G/B means a G chord with B in the bass, not a new chord quality. In this study, the melody notes E–D–C–E sit above the bass; avoid adding an unwanted open high e over the C melody note.',
  ['3 min · Play the bass C–B–A–F alone, then the melody E–D–C–E alone.', '5 min · Play the four-bar picked arrangement. Bring out the gold melody notes and keep the inner notes softer.', '6 min · Jam the progression, then stop the backing and perform the arrangement solo. Let the bass establish the harmony.'],
  'Play a complete solo pass in which both the moving bass and upper melody remain easy to hear.',50,85,'C G/B Am7 Fmaj7',[
- p('Four-bar solo arrangement','5:3@1 3:0@1 1:0!@1 2:1@1 5:2@1 3:0@1 2:3!@1 4:0@1 5:0@1 3:0@1 2:1!@1 4:2@1 4:3@1 3:2@1 1:0!@1 2:1@1','C')]);
-window.GUITAR={version:'1.0.0',subjects,chords,lessons};
+ p('Four-bar solo arrangement','5:3@1 3:0@1 1:0!@1 2:1@1 5:2@1 3:0@1 2:3!@1 4:0@1 5:0@1 3:0@1 2:1!@1 4:2@1 4:3@1 3:2@1 1:0!@1 2:1@1','C',{barChords:['C','G/B','Am7','Fmaj7']})]);
+window.GUITAR={version:'1.1.0',subjects,chords,lessons};
 })();
