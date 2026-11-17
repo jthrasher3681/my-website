@@ -1,0 +1,123 @@
+name: Guitar Studio validation
+on:
+  push:
+    branches: [guitar-studio-32-lessons]
+    paths: ['guitar/**', '.github/workflows/guitar-studio-validation.yml']
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser test tools
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Validate lessons and interactive app
+        run: |
+          mkdir -p validation
+          cat > .guitar-validation.cjs <<'NODE'
+          const fs=require('fs'),vm=require('vm'),assert=require('node:assert/strict');
+          const {spawn}=require('child_process');
+          const {chromium}=require('playwright');
+          const checks=[],errors=[];let browser,server;
+          const check=(label)=>{checks.push(label);console.log('PASS:',label);};
+          (async()=>{
+            const sandbox={window:{}};vm.createContext(sandbox);vm.runInContext(fs.readFileSync('guitar/lessons.js','utf8'),sandbox);
+            const G=sandbox.window.GUITAR;
+            assert.equal(G.lessons.length,32);assert.equal(G.subjects.length,8);
+            for(let s=0;s<8;s++)assert.equal(G.lessons.filter(l=>l.subject===s).length,4);
+            check('32 complete lessons across eight subjects');
+            const tuning=[64,59,55,50,45,40];let phrases=0,notes=0;
+            for(const l of G.lessons){
+              assert.ok(l.goal&&l.why&&l.challenge&&l.steps.length===3&&l.patterns.length);
+              for(const c of l.progression)assert.ok(G.chords[c],c);
+              for(const p of l.patterns){phrases++;assert.ok(G.chords[p.chord]);let beats=0;
+                for(const n of p.notes){beats+=n.duration;assert.ok(n.duration>0&&Number.isInteger(n.duration*4));
+                  if(p.kind==='rhythm'){assert.ok(['D','U','X','-'].includes(n.action));continue;}
+                  if(n.rest)continue;notes++;assert.ok(n.string>=1&&n.string<=6&&n.fret>=0&&n.fret<=24&&n.to>=0&&n.to<=24);
+                }
+                assert.equal(beats%4,0,'Incomplete bar in '+l.title+' / '+p.title);
+                for(const c of p.progression||[])assert.ok(G.chords[c]);
+              }
+            }
+            for(const [name,c] of Object.entries(G.chords)){
+              assert.equal(c.frets.length,6);assert.equal(c.fingers.length,6);
+              c.frets.forEach((f,i)=>{if(f<0)return;const pc=(tuning[5-i]+f-c.root+120)%12;assert.ok(c.intervals.some(x=>x%12===pc),'Wrong chord tone in '+name);});
+            }
+            assert.deepEqual(Array.from(G.lessons[8].patterns,p=>(tuning[p.notes[0].string-1]+p.notes[0].fret)%12),[11,4,6]);
+            check(phrases+' complete-bar phrases; '+notes+' playable notes; all chord shapes and G-C-D thirds verified');
+            server=spawn('python3',['-m','http.server','8765','--bind','127.0.0.1'],{stdio:'ignore'});
+            for(let i=0;i<50;i++){try{const r=await fetch('http://127.0.0.1:8765/guitar/');if(r.ok)break;}catch(e){}await new Promise(r=>setTimeout(r,100));}
+            browser=await chromium.launch({headless:true});
+            const context=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:1,isMobile:true,hasTouch:true});
+            const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
+            await page.goto('http://127.0.0.1:8765/guitar/',{waitUntil:'networkidle'});
+            await page.waitForFunction(()=>window.GuitarStudio&&document.querySelector('#lessonTitle').textContent.includes('G–C–D'));
+            await page.click('#openLibrary');assert.ok(await page.locator('#libraryDialog').isVisible());
+            assert.equal(await page.locator('#mobileCourseNav [data-lesson]').count(),32);
+            await page.click('#mobileCourseNav [data-lesson="9"]');assert.equal(await page.evaluate(()=>GuitarStudio.lessonId),9);
+            check('Mobile library opens and selects a lesson');
+            for(let id=1;id<=32;id++){
+              await page.evaluate(id=>GuitarStudio.selectLesson(id,false),id);
+              assert.ok((await page.locator('#why').textContent()).length>80);
+              await page.click('#tabPlay');
+              const n=await page.locator('[data-pattern]').count();
+              for(let p=0;p<n;p++){
+                await page.click('[data-pattern="'+p+'"]');
+                assert.ok(await page.locator('#tabContent [data-note]').count()>0);
+                const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1);
+                assert.equal(overflow,false,'Horizontal page overflow in lesson '+id+' pattern '+p);
+              }
+              await page.click('#tabJam');assert.ok(await page.locator('[data-jambar]').count()>0);
+            }
+            check('All 32 lesson views, every phrase and every jam render at 390px with no page overflow');
+            await page.evaluate(()=>GuitarStudio.selectLesson(9,false));await page.click('#tabPlay');
+            await page.locator('.sound-options summary').click();await page.uncheck('#countIn');await page.uncheck('#loopExercise');
+            await page.locator('#tempo').fill('160');await page.locator('#tempo').dispatchEvent('input');
+            await page.click('#playExercise');await page.waitForFunction(()=>GuitarStudio.audioState==='running'&&GuitarStudio.scheduledVoices>0);
+            await page.waitForFunction(()=>document.querySelector('.sounding'));
+            await page.waitForFunction(()=>!GuitarStudio.playing,{},{timeout:4000});
+            check('Playable lead, scheduled audio, note highlighting and one-pass completion');
+            await page.click('#playClick');await page.waitForFunction(()=>GuitarStudio.playing==='click');await page.click('#stopAudio');
+            assert.equal(await page.evaluate(()=>GuitarStudio.playing),null);assert.equal(await page.evaluate(()=>GuitarStudio.scheduledVoices),0);
+            check('Metronome and immediate Stop');
+            await page.click('#tabJam');await page.selectOption('#rounds','1');await page.check('#guideTone');await page.click('#startJam');
+            await page.waitForFunction(()=>GuitarStudio.playing==='jam');await page.waitForFunction(()=>document.querySelector('[data-jambar="1"].active'),{},{timeout:4000});
+            await page.waitForFunction(()=>!GuitarStudio.playing,{},{timeout:30000});
+            assert.ok((await page.locator('#playStatus').textContent()).includes('Jam complete'));
+            check('Full 16-bar jam advances chords and stops after exactly one round');
+            await page.check('#complete');await page.fill('#notes','Validation: saved practice note.');await page.reload({waitUntil:'networkidle'});
+            assert.ok(await page.isChecked('#complete'));assert.equal(await page.inputValue('#notes'),'Validation: saved practice note.');assert.equal(await page.inputValue('#tempo'),'160');
+            check('Completion, notes, selected lesson and tempo survive reload');
+            for(const id of [25,26,27]){await page.evaluate(id=>GuitarStudio.selectLesson(id,false),id);await page.click('#tabPlay');await page.click('#newQuestion');await page.waitForFunction(()=>GuitarStudio.audioState==='running');await page.click('[data-answer="0"]');assert.ok((await page.locator('#quizScore').textContent()).includes('/ 1 correct'));assert.ok(await page.locator('[data-answer="0"]').isDisabled());}
+            check('All three randomized ear-training quizzes play and score once per question');
+            await page.evaluate(()=>{localStorage.removeItem('thrasher-guitar-studio-v1');GuitarStudio.stop();});
+            await page.goto('http://127.0.0.1:8765/guitar/#lesson-9',{waitUntil:'networkidle'});await page.click('#tabPlay');await page.locator('#tempo').fill('70');await page.locator('#tempo').dispatchEvent('input');
+            await page.evaluate(()=>window.scrollTo(0,0));await page.screenshot({path:'validation/mobile-play.png',fullPage:true});
+            await page.setViewportSize({width:1280,height:900});await page.evaluate(()=>window.scrollTo(0,0));await page.screenshot({path:'validation/desktop-play.png',fullPage:true});
+            await page.waitForFunction(()=>navigator.serviceWorker.controller,{},{timeout:10000});
+            await context.setOffline(true);await page.reload({waitUntil:'load'});await page.waitForFunction(()=>window.GuitarStudio);
+            assert.equal(await page.evaluate(()=>GUITAR.lessons.length),32);await page.click('#playExercise');await page.waitForFunction(()=>GuitarStudio.audioState==='running');await page.click('#stopAudio');
+            check('Offline reload retains all 32 lessons and synthesized playback');
+            assert.equal(errors.length,0,errors.join('\n'));check('No uncaught browser JavaScript errors');
+            fs.writeFileSync('validation/report.json',JSON.stringify({passed:true,checks,errors,lessonCount:32,phraseCount:phrases,noteCount:notes},null,2));
+          })().catch(error=>{console.error(error);fs.writeFileSync('validation/report.json',JSON.stringify({passed:false,checks,errors,error:error.stack},null,2));process.exitCode=1;}).finally(async()=>{if(browser)await browser.close();if(server)server.kill();});
+          NODE
+          node --check guitar/studio.js
+          node --check guitar/lessons.js
+          node .guitar-validation.cjs
+      - name: Save validation report, screenshots and exact app files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: guitar-studio-validation
+          path: |
+            guitar/
+            validation/
+          retention-days: 7
