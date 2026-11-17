@@ -1,0 +1,9 @@
+# Editable course sources belong only in the encrypted bundle.
+/lessons.js
+/studio.js
+/ui.js
+/studio.css
+/tests/
+/docs/
+/_qa/
+/*password*
