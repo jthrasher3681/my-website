@@ -1,0 +1,35 @@
+name: Verify published Guitar Studio
+on:
+  push:
+    branches: [guitar-studio-32-lessons]
+    paths: ['.github/workflows/guitar-live-check.yml']
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify public website and exact app assets
+        run: |
+          python3 - <<'PY'
+          import urllib.request, pathlib, hashlib, time
+          base='https://jthrashercompanies.com/'
+          paths=['guitar/','guitar/lessons.js','guitar/studio.js','guitar/studio.css','guitar/sw.js','guitar/manifest.webmanifest','guitar/icon-192.png','guitar/icon-512.png','']
+          for path in paths:
+              expected=pathlib.Path(path+'index.html' if path.endswith('/') or path=='' else path).read_bytes()
+              for attempt in range(6):
+                  try:
+                      req=urllib.request.Request(base+path+'?verify=55744256',headers={'User-Agent':'Guitar-Studio-Deployment-Check/1.0','Cache-Control':'no-cache'})
+                      with urllib.request.urlopen(req,timeout=20) as r:
+                          data=r.read(); code=r.status; url=r.url
+                      assert code==200, 'HTTP '+str(code)
+                      assert data==expected,'Published asset differs from tested source'
+                      print('PASS',code,url,'bytes='+str(len(data)),'sha256='+hashlib.sha256(data).hexdigest(),flush=True)
+                      break
+                  except Exception as e:
+                      if attempt==5:raise
+                      print('Retry',path,str(e),flush=True);time.sleep(5)
+          print('VERIFIED: live public course assets exactly match the tested app; homepage unchanged.',flush=True)
+          PY
