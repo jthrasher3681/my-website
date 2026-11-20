@@ -1,6 +1,6 @@
 'use strict';
 (() => {
- const RELEASE = '1.2.0';
+ const RELEASE = '1.3.0';
  const $ = id => document.getElementById(id);
  const form = $('unlockForm'), passwordInput = $('coursePassword'), button = $('unlockButton');
  const status = $('unlockStatus'), reveal = $('togglePassword'), reload = $('lockReload');

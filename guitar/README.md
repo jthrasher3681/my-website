@@ -1,6 +1,6 @@
 # Guitar Practice Studio — protected release
 
-The course at https://jthrashercompanies.com/guitar/ requires a password. Version 1.2.0 keeps the same lesson links and local progress format.
+The course at https://jthrashercompanies.com/guitar/ requires a password. Version 1.3.0 contains 38 lessons across nine subjects, including a six-lesson Knopfler Fingerstyle section with 13 original playable patterns. Existing lesson links, the password and the local progress format remain compatible.
 
 ## Published files
 
@@ -25,7 +25,7 @@ node tools/guitar-security/build.cjs unpack \
   --source guitar/course.enc.json \
   --output /private/path/guitar-source \
   --password-file /private/path/course-password.txt \
-  --release 1.2.0
+  --release 1.3.0
 ```
 
 The output must not exist. Edit and test that private source. To seal it, use a new output path:
@@ -35,7 +35,7 @@ node tools/guitar-security/build.cjs seal \
   --source /private/path/guitar-source \
   --output /private/path/course-next.enc.json \
   --password-file /private/path/course-password.txt \
-  --release 1.2.1
+  --release 1.3.1
 ```
 
 To generate a different password for a new release, replace `--password-file` with `--generate-password /private/path/new-password.txt`. The tool creates a new 0600 file; it never prints the password. A strong generated password is recommended because a downloadable encrypted bundle permits offline password guessing.

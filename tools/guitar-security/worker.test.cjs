@@ -11,10 +11,9 @@ const {MessageChannel} = require('node:worker_threads');
 const source = fs.readFileSync(path.join(__dirname, '../../guitar/sw.js'), 'utf8');
 const production = 'https://example.test/guitar/';
 const legacy = 'thrasher-guitar-studio-v1.0.0';
-const release = '1.2.0';
-const protectedFiles = ['index.html', 'lock.js?v=1.2.0', 'lock.css?v=1.2.0',
-  'crypto.js?v=1.2.0', 'course.enc.json?v=1.2.0', 'manifest.webmanifest',
-  'icon.svg', 'icon-192.png', 'icon-512.png'];
+const release = /const RELEASE = '([^']+)'/.exec(source)[1];
+const protectedFiles = ['index.html', ...['lock.js', 'lock.css', 'crypto.js', 'course.enc.json'].map(file => file + '?v=' + release),
+  'manifest.webmanifest', 'icon.svg', 'icon-192.png', 'icon-512.png'];
 
 function fixture(scope = production, script = source) {
   const stores = new Map();
@@ -84,13 +83,13 @@ test('fresh installation atomically precaches exactly the public shell and encry
   await f.fire('install');
   assert.deepEqual(f.state.requests.map(request => request.url).sort(), protectedFiles.map(f.href).sort());
   assert.ok(f.state.requests.every(request => request.cache === 'reload'));
-  assert.equal(f.state.skips, 1);
+  assert.equal(f.state.skips, 0);
   f.client('fresh', '', (message, ports) => {
     ports[0].postMessage({type: 'LOCK_SHELL_PRESENT', requestId: message.requestId});
   });
   await f.fire('activate');
   assert.equal(f.state.claims, 1);
-  assert.deepEqual(f.state.checked, ['fresh']);
+  assert.deepEqual(f.state.checked, []);
   assert.deepEqual(f.state.navigated, []);
   let reply;
   await f.fire('message', {data: {type: 'GET_COURSE_VERSION'}, ports: [{postMessage: value => { reply = value; }}]});
@@ -131,7 +130,7 @@ test('legacy asset URLs never return lessons, including from another cache or a 
 test('first protected upgrade drops all plaintext caches and reloads only old course clients', async () => {
   const f = fixture();
   const oldKeys = [legacy, f.key('1.0.0'), f.key('1.1.0')];
-  const preservedKeys = ['unrelated-app', 'thrasher-guitar-studio-/other/-v1.1.0', f.key('debug'), f.key('1.3.0')];
+  const preservedKeys = ['unrelated-app', 'thrasher-guitar-studio-/other/-v1.1.0', f.key('debug'), f.key('99.0.0')];
   for (const name of [...oldKeys, ...preservedKeys]) f.seed(name);
   f.client('old', '#lesson-9', message => {
     // A reply from another window cannot mark this old one as protected.
@@ -154,8 +153,9 @@ test('first protected upgrade drops all plaintext caches and reloads only old co
   assert.deepEqual(f.state.navigated, [['old', f.href('index.html#lesson-9')]]);
 });
 
-test('an open plaintext tab is replaced even when all prior caches were evicted', async () => {
-  const f = fixture();
+test('the initial password rollout replaced plaintext tabs even after cache eviction', async () => {
+  const firstRollout = source.replace("const RELEASE = '" + release + "'", "const RELEASE = '1.2.0'");
+  const f = fixture(production, firstRollout);
   f.client('plaintext', 'index.html?ref=practice#lesson-6');
   await f.fire('install');
   assert.equal(f.state.skips, 1);
@@ -175,15 +175,16 @@ test('preview installation only migrates its own prior caches', async () => {
 });
 
 test('subsequent protected releases wait for deliberate activation', async () => {
-  const f = fixture(production, source.replace("const RELEASE = '1.2.0'", "const RELEASE = '1.3.0'"));
-  f.seed(f.key(release));
+  const f = fixture();
+  const prior = '1.2.0';
+  f.seed(f.key(prior));
   f.client('protected', '');
   await f.fire('install');
   assert.equal(f.state.skips, 0);
   await f.fire('message', {data: {type: 'ACTIVATE_COURSE_UPDATE'}});
   assert.equal(f.state.skips, 1);
   await f.fire('activate');
-  assert.equal(f.stores.has(f.key(release)), false);
+  assert.equal(f.stores.has(f.key(prior)), false);
   assert.deepEqual(f.state.navigated, []);
 });
 

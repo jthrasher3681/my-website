@@ -1,6 +1,6 @@
 'use strict';
 
-const RELEASE = '1.2.0';
+const RELEASE = '1.3.0';
 const FIRST_LOCKED_RELEASE = '1.2.0';
 const SCOPE = new URL(self.registration.scope);
 const CACHE_PREFIX = 'thrasher-guitar-studio-' + SCOPE.pathname + '-v';
