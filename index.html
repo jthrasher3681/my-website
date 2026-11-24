@@ -3,578 +3,310 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thrasher Co</title>
+  <title>Thrasher Co.</title>
+  <meta name="description" content="Thrasher Co. is a personal holding for independent projects: industry briefings, market notes and an animated opera in production." />
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0a'/%3E%3Cpath d='M8 9h16v3.2h-6.2V24h-3.6V12.2H8z' fill='%23fff'/%3E%3Ccircle cx='24' cy='22.2' r='1.9' fill='%23fff'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #fafaf7;
-      --surface: #ffffff;
-      --ink: #111111;
-      --ink-soft: #4b4b4b;
-      --ink-mute: #8a8a85;
-      --line: #e8e6df;
-      --accent: #c75c2e;
-      --accent-soft: #f5e9df;
+      --bg: #ffffff;
+      --fg: #0a0a0a;
+      --muted: #666666;
+      --faint: #a1a1a1;
+      --line: #eaeaea;
+      --hover: #f5f5f5;
+      --sans: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+      --pad: clamp(20px, 4vw, 48px);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0a0a0a;
+        --fg: #ededed;
+        --muted: #8f8f8f;
+        --faint: #525252;
+        --line: #1f1f1f;
+        --hover: #131313;
+      }
+    }
 
-    html { scroll-behavior: smooth; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { -webkit-text-size-adjust: 100%; }
 
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-family: var(--sans);
       background: var(--bg);
-      color: var(--ink);
-      line-height: 1.55;
+      color: var(--fg);
+      line-height: 1.5;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
     }
 
     a { color: inherit; text-decoration: none; }
 
-    .wrap {
-      width: min(1180px, 92%);
-      margin: 0 auto;
+    :focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+
+    .mono {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--muted);
     }
 
-    /* Header */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(250, 250, 247, 0.85);
-      backdrop-filter: saturate(140%) blur(10px);
-      -webkit-backdrop-filter: saturate(140%) blur(10px);
-      border-bottom: 1px solid var(--line);
-    }
+    .shell { padding: 0 var(--pad); max-width: 1440px; margin: 0 auto; }
 
-    .nav {
+    /* Top bar */
+    .top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 18px 0;
+      height: 64px;
+      border-bottom: 1px solid var(--line);
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-    }
+    .wordmark { font-weight: 600; letter-spacing: -0.02em; font-size: 15px; }
 
-    .brand-mark {
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
-      background: var(--ink);
-      color: var(--bg);
+    .top nav { display: flex; gap: 24px; }
+    .top nav a { transition: color 0.15s; }
+    .top nav a:hover { color: var(--fg); }
+
+    /* Intro */
+    .intro {
       display: grid;
-      place-items: center;
-      font-family: 'Instrument Serif', serif;
-      font-size: 1.1rem;
-      font-weight: 400;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 0 24px;
+      padding: clamp(72px, 14vh, 160px) 0 clamp(56px, 10vh, 112px);
     }
 
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      font-size: 0.92rem;
-      color: var(--ink-soft);
+    .intro h1 {
+      grid-column: 1 / span 10;
+      font-weight: 500;
+      font-size: clamp(40px, 6.4vw, 92px);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
     }
 
-    .nav-links a {
-      transition: color 0.2s ease;
-    }
+    .intro h1 span { color: var(--faint); }
 
-    .nav-links a:hover { color: var(--ink); }
-
-    /* Hero */
-    .hero {
-      padding: 120px 0 90px;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.82rem;
-      color: var(--ink-soft);
-      margin-bottom: 28px;
-      padding: 6px 12px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: var(--surface);
-    }
-
-    .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #16a34a;
-      box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.18);
-    }
-
-    h1 {
-      font-family: 'Instrument Serif', serif;
-      font-weight: 400;
-      font-size: clamp(2.8rem, 6vw, 5.2rem);
-      line-height: 1.02;
-      letter-spacing: -0.02em;
-      max-width: 14ch;
-      margin-bottom: 24px;
-    }
-
-    h1 em {
-      font-style: italic;
-      color: var(--accent);
-    }
-
-    .hero-sub {
-      font-size: 1.1rem;
-      color: var(--ink-soft);
-      max-width: 52ch;
-      margin-bottom: 36px;
-    }
-
-    .button-row {
+    .intro .meta {
+      grid-column: 1 / -1;
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px 32px;
+      margin-top: 40px;
     }
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 20px;
-      border-radius: 999px;
-      font-size: 0.95rem;
-      font-weight: 500;
-      transition: all 0.2s ease;
-      border: 1px solid transparent;
-    }
-
-    .btn-primary {
-      background: var(--ink);
-      color: var(--bg);
-    }
-
-    .btn-primary:hover {
-      background: #000;
-      transform: translateY(-1px);
-    }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--ink);
-      border-color: var(--line);
-    }
-
-    .btn-ghost:hover {
-      background: var(--surface);
-      border-color: var(--ink-mute);
-    }
-
-    .arrow {
-      display: inline-block;
-      transition: transform 0.2s ease;
-    }
-
-    .btn:hover .arrow { transform: translateX(3px); }
-
-    /* Section structure */
-    section {
-      padding: 80px 0;
-    }
-
-    .section-head {
+    /* Section headers */
+    .label-row {
       display: flex;
       justify-content: space-between;
-      align-items: flex-end;
-      gap: 24px;
-      margin-bottom: 40px;
-      padding-bottom: 18px;
+      align-items: baseline;
+      padding: 14px 0;
       border-bottom: 1px solid var(--line);
     }
 
-    .section-head h2 {
-      font-family: 'Instrument Serif', serif;
-      font-weight: 400;
-      font-size: clamp(1.8rem, 3vw, 2.4rem);
-      letter-spacing: -0.01em;
-    }
+    /* Project index */
+    .index { list-style: none; }
 
-    .section-label {
-      font-size: 0.82rem;
-      color: var(--ink-mute);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    /* Tile grid — the main hub */
-    .tiles {
+    .row {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .tile {
+      grid-template-columns: 3fr 5fr 2fr 24px;
+      gap: 24px;
+      align-items: baseline;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--line);
       position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 240px;
-      padding: 24px;
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-      overflow: hidden;
+      isolation: isolate;
     }
 
-    .tile:hover {
-      transform: translateY(-3px);
-      border-color: var(--ink);
-      box-shadow: 0 18px 40px -20px rgba(17, 17, 17, 0.18);
-    }
-
-    .tile-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 60px;
-    }
-
-    .tile-tag {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--ink-mute);
-    }
-
-    .tile-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      display: grid;
-      place-items: center;
-      font-family: 'Instrument Serif', serif;
-      font-size: 1.2rem;
-    }
-
-    .tile h3 {
-      font-size: 1.15rem;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      margin-bottom: 6px;
-    }
-
-    .tile p {
-      font-size: 0.92rem;
-      color: var(--ink-soft);
-      margin-bottom: 16px;
-    }
-
-    .tile-go {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.88rem;
-      color: var(--ink);
-      font-weight: 500;
-    }
-
-    .tile-go .arrow { transition: transform 0.2s ease; }
-    .tile:hover .tile-go .arrow { transform: translateX(4px); }
-
-    .tile.placeholder {
-      background: transparent;
-      border-style: dashed;
-      color: var(--ink-mute);
-      display: grid;
-      place-items: center;
-      text-align: center;
-      min-height: 240px;
-    }
-
-    .tile.placeholder:hover {
-      transform: none;
-      box-shadow: none;
-    }
-
-    /* About */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: start;
-    }
-
-    .about-text p {
-      color: var(--ink-soft);
-      margin-bottom: 16px;
-      font-size: 1.02rem;
-    }
-
-    .about-list {
-      list-style: none;
-      display: grid;
-      gap: 1px;
-      background: var(--line);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      overflow: hidden;
-    }
-
-    .about-list li {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 22px;
-      background: var(--surface);
-    }
-
-    .about-list .k {
-      font-size: 0.82rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--ink-mute);
-    }
-
-    .about-list .v {
-      font-weight: 500;
-    }
-
-    /* Contact CTA */
-    .contact {
-      padding: 100px 0 120px;
-    }
-
-    .contact-inner {
-      background: var(--ink);
-      color: var(--bg);
-      border-radius: 24px;
-      padding: 64px 48px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .contact-inner::before {
+    .row::before {
       content: "";
       position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 80% 0%, rgba(199, 92, 46, 0.35), transparent 50%);
-      pointer-events: none;
+      inset: 0 calc(var(--pad) * -0.5);
+      background: var(--hover);
+      opacity: 0;
+      transition: opacity 0.2s;
+      z-index: -1;
     }
 
-    .contact h2 {
-      font-family: 'Instrument Serif', serif;
-      font-weight: 400;
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      line-height: 1.05;
-      letter-spacing: -0.01em;
-      margin-bottom: 16px;
-      position: relative;
+    .row:hover::before { opacity: 1; }
+
+    .row-title {
+      font-size: clamp(20px, 2.1vw, 28px);
+      font-weight: 500;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
-    .contact p {
-      color: #c9c9c4;
-      max-width: 48ch;
-      margin: 0 auto 32px;
-      position: relative;
+    .row:hover .row-title { transform: translateX(6px); }
+
+    .row-desc { color: var(--muted); font-size: 15px; max-width: 52ch; }
+
+    .row-arrow {
+      justify-self: end;
+      font-size: 18px;
+      transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
-    .contact .btn-primary {
-      background: var(--bg);
-      color: var(--ink);
-      position: relative;
+    .row:hover .row-arrow { transform: translate(3px, -3px); }
+
+    /* About */
+    .about {
+      display: grid;
+      grid-template-columns: 3fr 5fr 2fr 24px;
+      gap: 24px;
+      padding: clamp(72px, 12vh, 140px) 0;
     }
 
-    .contact .btn-primary:hover {
-      background: #fff;
+    .about p {
+      grid-column: 2 / span 2;
+      font-size: clamp(18px, 1.7vw, 22px);
+      line-height: 1.45;
+      letter-spacing: -0.015em;
     }
+
+    .about p + p { color: var(--muted); }
+
+    .facts {
+      grid-column: 2 / span 2;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px 56px;
+      margin-top: 24px;
+    }
+
+    .facts div { display: grid; gap: 6px; }
+
+    .facts dd { font-size: 15px; }
 
     /* Footer */
-    footer {
-      border-top: 1px solid var(--line);
-      padding: 28px 0;
-    }
+    footer { border-top: 1px solid var(--line); overflow: hidden; }
 
-    .footer-row {
+    .foot-row {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      font-size: 0.88rem;
-      color: var(--ink-mute);
+      flex-wrap: wrap;
+      gap: 8px 24px;
+      padding: 20px 0;
     }
 
-    .footer-links {
-      display: flex;
-      gap: 22px;
+    .bigmark {
+      font-weight: 600;
+      font-size: clamp(64px, 17.5vw, 260px);
+      line-height: 0.8;
+      letter-spacing: -0.05em;
+      white-space: nowrap;
+      color: var(--fg);
+      margin: 8px 0 -0.06em -0.04em;
+      user-select: none;
     }
 
-    .footer-links a:hover { color: var(--ink); }
-
-    /* Responsive */
-    @media (max-width: 900px) {
-      .tiles { grid-template-columns: repeat(2, 1fr); }
-      .about-grid { grid-template-columns: 1fr; gap: 32px; }
-      .hero { padding: 80px 0 60px; }
-      .section-head { flex-direction: column; align-items: flex-start; }
-      .contact-inner { padding: 48px 28px; }
+    /* Load-in */
+    @media (prefers-reduced-motion: no-preference) {
+      .rise { opacity: 0; transform: translateY(12px); animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+      .d1 { animation-delay: 0.08s; }
+      .d2 { animation-delay: 0.16s; }
+      .d3 { animation-delay: 0.24s; }
+      @keyframes rise { to { opacity: 1; transform: none; } }
     }
 
-    @media (max-width: 580px) {
-      .tiles { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-      .footer-row { flex-direction: column; gap: 12px; }
+    @media (max-width: 860px) {
+      .intro h1 { grid-column: 1 / -1; }
+      .row { grid-template-columns: 1fr 24px; gap: 6px 16px; padding: 24px 0; }
+      .row-title { grid-column: 1; }
+      .row-arrow { grid-column: 2; grid-row: 1; }
+      .row-desc, .row-kind { grid-column: 1 / -1; }
+      .about { grid-template-columns: 1fr; gap: 16px; }
+      .about p, .facts { grid-column: 1; }
+    }
+
+    @media (max-width: 480px) {
+      .top nav { gap: 16px; }
+      .facts { gap: 16px 28px; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="wrap nav">
-      <a class="brand" href="#">
-        <span class="brand-mark">T</span>
-        <span>Thrasher Co</span>
-      </a>
-    </div>
-  </header>
+  <div class="shell">
+    <header class="top">
+      <a class="wordmark" href="/">Thrasher Co.</a>
+      <nav class="mono">
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+      </nav>
+    </header>
 
-  <main>
-    <section class="hero">
-      <div class="wrap">
-        <h1>A home for the things <em>I'm building.</em></h1>
-        <p class="hero-sub">
-          Thrasher Co is the umbrella for my projects, products, and side experiments. Pick a tile below to jump into whatever's running today.
-        </p>
-        <div class="button-row">
-          <a class="btn btn-primary" href="#projects">
-            Browse projects <span class="arrow">→</span>
-          </a>
+    <main>
+      <section class="intro">
+        <h1 class="rise">Industry briefings, market notes and an animated opera. <span>Built on weekends.</span></h1>
+        <div class="meta mono rise d2">
+          <span>Personal holding company</span>
+          <span>Est. 2025</span>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="projects">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <div class="section-label">01 — Projects</div>
-            <h2>What's live right now</h2>
-          </div>
-          <div class="section-label">Updated continuously</div>
+      <section id="work" aria-labelledby="work-label">
+        <div class="label-row mono rise d3">
+          <span id="work-label">Work</span>
+          <span>03</span>
         </div>
+        <ul class="index">
+          <li>
+            <a class="row" href="/tobacco-briefing/">
+              <span class="row-title">Weekly Tobacco Briefing</span>
+              <span class="row-desc">ITG, Altria and RJR news and pricing, with a focus on Alabama and the Southeast.</span>
+              <span class="row-kind mono">Briefing</span>
+              <span class="row-arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+          <li>
+            <a class="row" href="/daily-market-brief/">
+              <span class="row-title">Daily Market Brief</span>
+              <span class="row-desc">Macro, sector rotation and ticker news across AI, semis and growth, grouped by week.</span>
+              <span class="row-kind mono">Markets</span>
+              <span class="row-arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+          <li>
+            <a class="row" href="/quest/">
+              <span class="row-title">The Quest</span>
+              <span class="row-desc">Production tracker and media inventory for an animated opera about the Children's Crusade.</span>
+              <span class="row-kind mono">Production</span>
+              <span class="row-arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+        </ul>
+      </section>
 
-        <div class="tiles">
-          <a class="tile" href="/calorie-tracker/">
-            <div class="tile-top">
-              <span class="tile-tag">Web App</span>
-              <span class="tile-icon">C</span>
-            </div>
-            <div>
-              <h3>Calorie Tracker</h3>
-              <p>Log meals and track daily intake against your targets.</p>
-              <span class="tile-go">Open <span class="arrow">→</span></span>
-            </div>
-          </a>
-
-          <a class="tile" href="/tobacco-briefing/">
-            <div class="tile-top">
-              <span class="tile-tag">Briefing</span>
-              <span class="tile-icon">T</span>
-            </div>
-            <div>
-              <h3>Weekly Tobacco Briefing</h3>
-              <p>ITG, Altria, and RJR news & pricing — Alabama-focused, Southeast coverage.</p>
-              <span class="tile-go">Open <span class="arrow">→</span></span>
-            </div>
-          </a>
-
-          <a class="tile" href="/daily-market-brief/">
-            <div class="tile-top">
-              <span class="tile-tag">Briefing</span>
-              <span class="tile-icon">M</span>
-            </div>
-            <div>
-              <h3>Daily Market Brief</h3>
-              <p>Daily macro, sector rotation &amp; ticker news across AI, semis, and growth — grouped by week.</p>
-              <span class="tile-go">Open <span class="arrow">→</span></span>
-            </div>
-          </a>
-
-          <a class="tile" href="/quest/">
-            <div class="tile-top">
-              <span class="tile-tag">Production</span>
-              <span class="tile-icon">Q</span>
-            </div>
-            <div>
-              <h3>The Quest — Production Tracker</h3>
-              <p>Live media inventory for an animated opera about the Children's Crusade.</p>
-              <span class="tile-go">Open <span class="arrow">→</span></span>
-            </div>
-          </a>
-
-          <a class="tile" href="/rectangle-screener/">
-            <div class="tile-top">
-              <span class="tile-tag">Screener</span>
-              <span class="tile-icon">R</span>
-            </div>
-            <div>
-              <h3>Rectangle Screener</h3>
-              <p>Daily-chart trading ranges — stocks still inside the box, or fresh breakouts up and down.</p>
-              <span class="tile-go">Open <span class="arrow">→</span></span>
-            </div>
-          </a>
-          <div class="tile placeholder">
-            <div>
-              <div style="font-size: 1.6rem; margin-bottom: 6px;">+</div>
-              <div style="font-size: 0.9rem;">More coming soon</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="about">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <div class="section-label">02 — About</div>
-            <h2>A bit about Thrasher Co</h2>
-          </div>
-        </div>
-
-        <div class="about-grid">
-          <div class="about-text">
-            <p>
-              Thrasher Co is a personal holding for the work I do for fun — occasional weekend experiments.
-            </p>
-          </div>
-
-          <ul class="about-list">
-            <li><span class="k">Focus</span><span class="v">Web apps & products</span></li>
-            <li><span class="k">Started</span><span class="v">2025</span></li>
-            <li><span class="k">Status</span><span class="v">Active</span></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-  </main>
+      <section id="about" class="about" aria-labelledby="about-label">
+        <span id="about-label" class="mono">About</span>
+        <p>Thrasher Co. is a personal holding for the work I do for fun.</p>
+        <p>Occasional weekend experiments: web apps, research and the odd creative project.</p>
+        <dl class="facts">
+          <div><dt class="mono">Focus</dt><dd>Web apps &amp; products</dd></div>
+          <div><dt class="mono">Started</dt><dd>2025</dd></div>
+          <div><dt class="mono">Status</dt><dd>Active</dd></div>
+        </dl>
+      </section>
+    </main>
+  </div>
 
   <footer>
-    <div class="wrap footer-row">
-      <div>© 2026 Thrasher Co</div>
-      <div class="footer-links">
-        <a href="#projects">Projects</a>
-        <a href="#about">About</a>
+    <div class="shell">
+      <div class="foot-row mono">
+        <span>© 2026 Thrasher Co.</span>
+        <span>jthrashercompanies.com</span>
       </div>
+      <div class="bigmark" aria-hidden="true">Thrasher Co.</div>
     </div>
   </footer>
 </body>

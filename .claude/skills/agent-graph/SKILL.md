@@ -13,7 +13,7 @@ how to run it in this repo.
 
 Use it when **any** of these is true:
 - 3 or more distinct steps, or parts that could run in parallel
-- Changes span more than one sub-site (`calorie-tracker`, `daily-market-brief`,
+- Changes span more than one sub-site (`daily-market-brief`, `guitar`, `local`,
   `perkpoints`, `quest`, `tobacco-briefing`, root `index.html`) or many files
 - The output needs real verification (pages render, a pipeline produces
   the right files, a timeline matches the takes)

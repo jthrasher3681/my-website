@@ -1,4 +1,0 @@
-# Versions the screener is tested with; bump deliberately.
-numpy==2.5.3
-pandas==3.0.5
-yfinance==1.7.0
