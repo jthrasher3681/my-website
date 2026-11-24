@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d1920">
+<meta name="description" content="Your password-protected guitar practice studio.">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Guitar Studio">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="./lock.css?v=1.4.0">
+<title>Unlock · Guitar Practice Studio</title>
+<script defer src="./crypto.js?v=1.4.0"></script>
+<script defer src="./lock.js?v=1.4.0"></script>
+</head>
+<body>
+<header class="lock-header"><a class="brand" href="./" aria-label="Guitar Studio home"><span class="brandmark" aria-hidden="true">♮</span><span>GUITAR STUDIO<small>THE DAILY PRACTICE</small></span></a><a class="back-link" href="/">Thrasher Co <span aria-hidden="true">↗</span></a></header>
+<main class="lock-main">
+ <section class="lock-card" aria-labelledby="lockTitle">
+  <div class="lock-emblem" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M10 14V10a6 6 0 0 1 12 0v4M9 14h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V16a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M16 20v3" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></div>
+  <p class="eyebrow">YOUR PRACTICE SPACE</p>
+  <h1 id="lockTitle">A little practice.<br>A little more freedom.</h1>
+  <p class="lock-intro">Enter your course password to pick up where you left off.</p>
+  <form id="unlockForm" method="post" aria-describedby="unlockStatus" autocomplete="on">
+   <label for="coursePassword">Course password</label>
+   <div class="password-field"><input id="coursePassword" type="password" autocomplete="current-password" autocapitalize="none" spellcheck="false" maxlength="512" required aria-describedby="unlockStatus"><button id="togglePassword" type="button" aria-label="Show password" aria-pressed="false">Show</button></div>
+   <button id="unlockButton" class="primary" type="submit" disabled>Unlock course <span aria-hidden="true">→</span></button>
+   <p id="unlockStatus" class="unlock-status" role="status" aria-live="polite"></p>
+  </form>
+  <button id="lockReload" class="reload" type="button" hidden>Reload course</button>
+  <div class="lock-note"><span aria-hidden="true">○</span><p>Use <strong>Lock course</strong> when you finish.<br>Your saved practice progress stays on this device.</p></div>
+  <noscript><p class="unlock-status error">JavaScript is needed to unlock the encrypted course.</p></noscript>
+ </section>
+ <p id="lockOfflineStatus" class="offline-note" role="status">Preparing offline access…</p>
+</main>
+<footer class="lock-footer">GUITAR PRACTICE STUDIO <span aria-hidden="true">·</span> A DAILY HABIT, AT YOUR OWN PACE</footer>
+</body>
+</html>
