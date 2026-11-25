@@ -1,0 +1,15 @@
+# This repo is public. Keep local and secret files out of it.
+.DS_Store
+._*
+Thumbs.db
+.env
+.env.*
+*.pem
+*.key
+*.p12
+id_rsa*
+*password*
+*secret*
+.agent-graph/
+node_modules/
+__pycache__/
