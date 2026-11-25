@@ -5,34 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Thrasher Co.</title>
   <meta name="description" content="Thrasher Co. is a personal holding for independent projects: industry briefings, market notes and an animated opera in production." />
-  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0a'/%3E%3Cpath d='M8 9h16v3.2h-6.2V24h-3.6V12.2H8z' fill='%23fff'/%3E%3Ccircle cx='24' cy='22.2' r='1.9' fill='%23fff'/%3E%3C/svg%3E" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0a'/%3E%3Crect x='.5' y='.5' width='31' height='31' fill='none' stroke='%23333'/%3E%3Cpath d='M8 9h16v3.2h-6.2V24h-3.6V12.2H8z' fill='%23fff'/%3E%3Ccircle cx='24' cy='22.2' r='1.9' fill='%23fff'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #ffffff;
-      --fg: #0a0a0a;
-      --muted: #666666;
-      --faint: #a1a1a1;
-      --line: #eaeaea;
-      --hover: #f5f5f5;
+      color-scheme: dark;
+      --bg: #0a0a0a;
+      --fg: #ededed;
+      --muted: #8f8f8f;
+      --faint: #525252;
+      --line: #1f1f1f;
+      --hover: #131313;
       --sans: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
       --mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
       --pad: clamp(20px, 4vw, 48px);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #0a0a0a;
-        --fg: #ededed;
-        --muted: #8f8f8f;
-        --faint: #525252;
-        --line: #1f1f1f;
-        --hover: #131313;
-      }
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
