@@ -141,6 +141,28 @@
 
     .row-desc { color: var(--muted); font-size: 15px; max-width: 52ch; }
 
+    .strip {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .strip img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      background: var(--line);
+      filter: saturate(0.85) brightness(0.92);
+      transition: filter 0.4s, transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    .row:hover .strip img { filter: none; }
+    .strip img:hover { transform: scale(1.03); }
+
     .row-arrow {
       justify-self: end;
       font-size: 18px;
@@ -215,6 +237,7 @@
       .row-title { grid-column: 1; }
       .row-arrow { grid-column: 2; grid-row: 1; }
       .row-desc, .row-kind { grid-column: 1 / -1; }
+      .strip { grid-template-columns: repeat(3, 1fr); gap: 6px; }
       .about { grid-template-columns: 1fr; gap: 16px; }
       .about p, .facts { grid-column: 1; }
     }
@@ -269,9 +292,17 @@
           <li>
             <a class="row" href="/quest/">
               <span class="row-title">The Quest</span>
-              <span class="row-desc">Production tracker and media inventory for an animated opera about the Children's Crusade.</span>
-              <span class="row-kind mono">Production</span>
+              <span class="row-desc">An animated opera about the Children's Crusade. The first full cut is finished: 84 minutes, rendered November 24.</span>
+              <span class="row-kind mono">Film</span>
               <span class="row-arrow" aria-hidden="true">↗</span>
+              <span class="strip">
+                <img src="/quest/stills/nicholas-hillside.jpg" alt="Nicholas on the hillside above the sleeping village" width="960" height="540" loading="lazy" decoding="async">
+                <img src="/quest/stills/village-street.jpg" alt="Nicholas in the village street" width="720" height="405" loading="lazy" decoding="async">
+                <img src="/quest/stills/candlelight.jpg" alt="Nicholas singing by candlelight" width="720" height="405" loading="lazy" decoding="async">
+                <img src="/quest/stills/chorus.jpg" alt="The village women singing" width="720" height="405" loading="lazy" decoding="async">
+                <img src="/quest/stills/father-harbour.jpg" alt="Nicholas's father at the harbour" width="720" height="405" loading="lazy" decoding="async">
+                <img src="/quest/stills/ships-at-sunset.jpg" alt="The ships sailing into the sunset" width="720" height="405" loading="lazy" decoding="async">
+              </span>
             </a>
           </li>
         </ul>

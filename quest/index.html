@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset='utf-8'>
+<!DOCTYPE html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'>
 <title>The Quest — Media Inventory</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#12131a;color:#e8e8ee;
@@ -10,7 +10,7 @@ margin:36px 0 6px;font-weight:700;border-bottom:1px solid #262936;padding-bottom
 .hint{color:#6b7085;font-size:12.5px;margin:0 0 14px}
 .stats{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 10px}
 .stat{background:#1b1d27;border:1px solid #282b38;border-radius:9px;padding:11px 16px;min-width:110px}
-.stat .n{font-size:22px;font-weight:700}.stat .l{font-size:11px;color:#8b8fa3;text-transform:uppercase}
+.stat .n{font-size:22px;font-weight:700;color:#e8e8ee}.stat .l{font-size:11px;color:#8b8fa3;text-transform:uppercase}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
 .card{background:#1b1d27;border:1px solid #282b38;border-radius:10px;overflow:hidden;
 transition:border-color .12s,transform .12s}
@@ -38,6 +38,10 @@ tr:hover td{background:#171922}
 .warn{background:#2a1f14;border-left:3px solid #d98324;padding:12px 16px;
 border-radius:6px;margin:14px 0;color:#f0d9bd;font-size:14px}
 .folder{background:#161822;border:1px solid #242735;border-radius:9px;padding:12px 15px;margin:6px 0}
+.stills{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:18px 0 4px}
+.stills img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;border-radius:6px;background:#0a0a0e;transition:transform .2s}
+.stills a:hover img{transform:translateY(-2px)}
+@media (max-width:760px){.stills{grid-template-columns:repeat(3,1fr);gap:6px}body{padding:20px 16px 60px}}
 .folder b{color:#e8e8ee}.folder span{color:#8b8fa3;font-size:13px}
 #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#2d7a51;
 color:#fff;padding:9px 18px;border-radius:7px;font-size:13.5px;opacity:0;
@@ -50,17 +54,20 @@ t.classList.add('show');clearTimeout(window._tt);
 window._tt=setTimeout(()=>t.classList.remove('show'),1600);}
 </script></head><body>
 <h1>The Quest — media inventory</h1>
-<p class='sub'><span id='age' data-built='1787608323'>Rebuilt 24 Aug, 21:52</span> · 197 scenes, 190 with singing · <b>click any image to open it · click any path to copy it</b></p>
+<p class='sub'><span>Updated 24 Nov 2026</span> · 197 scenes, 190 with singing · <b>click any image to open it · click any path to copy it</b></p>
 <p class='sub'><a href='clips.html' style='color:#e8a854;font-weight:600'>▶ Watch the footage so far →</a> &nbsp;·&nbsp; <a href='review.html' style='color:#e8a854;font-weight:600'>✓ Review &amp; vote on the quality sweep →</a></p>
+<a class='stills' href='clips.html' title='Watch the footage'><img src='stills/nicholas-hillside.jpg' alt="Nicholas on the hillside above the sleeping village" loading='lazy'><img src='stills/village-street.jpg' alt="Nicholas in the village street" loading='lazy'><img src='stills/candlelight.jpg' alt="Nicholas singing by candlelight" loading='lazy'><img src='stills/chorus.jpg' alt="The village women singing" loading='lazy'><img src='stills/father-harbour.jpg' alt="Nicholas's father at the harbour" loading='lazy'><img src='stills/ships-at-sunset.jpg' alt="The ships sailing into the sunset" loading='lazy'></a>
 <h2>Where things stand</h2>
 <div class='stats'>
-<div class='stat'><div class='n'>58</div><div class='l'>long takes (~20.5s each)</div></div>
-<div class='stat'><div class='n'>20 min</div><div class='l'>long-take footage</div></div>
-<div class='stat'><div class='n'>268</div><div class='l'>MJ clips on disk</div></div>
-<div class='stat'><div class='n'>v25</div><div class='l'>current timeline</div></div>
+<div class='stat'><div class='n'>84:35</div><div class='l'>running time</div></div>
+<div class='stat'><div class='n'>1080p</div><div class='l'>master</div></div>
+<div class='stat'><div class='n'>v1.35</div><div class='l'>current cut</div></div>
+<div class='stat'><div class='n'>Nov 24</div><div class='l'>rendered</div></div>
 </div>
+<div class='folder'><b>Nov 24 — the first full master</b><br><span>The whole opera is cut together, from the overture to the final harbour shot: an 84-minute, 1080p master (<b>v1.35</b>) with opening credits and an end card marked "A work in progress". It was rendered and checked on Nov 24: frames match the render at eight points with the sound in sync at each, a full decode found no errors, and the only black is at the five planned fades.</span></div>
+<div class='folder'><b>Next</b><br><span>An unlisted YouTube upload for review. Then a December round of shot fixes from the Nov 22 notes, and the credit lines still missing (libretto, conductor, AI tools).</span></div>
 <div class='folder'><b>Aug 24 — the long-take build</b><br><span>The 5-second-cut problem is beaten: every scene block from the overture to the final harbour shot now has ~20.5-second continuous takes, built by chaining Midjourney extends with sung-line continuation beats (about 130 extends, all on included Fast hours, $0 extra). Timeline <b>v25</b> places all 58 takes in story order — one placement each — with the harbour re-staged to the locked ending: Nicholas boards while his father is lost in the gold, and only after the ships are gone does he understand what he has done.</span></div>
-<div class='folder'><b>Still open</b><br><span>Crowd shots stay as 5-second clips by design (faces do not survive extension). The crag scene runs on temporary placeholder clips until its re-render is approved. Next: fine-cut pass in Resolve on v25, then lip-sync passes on the hero singing shots.</span></div>
+<p class='hint' style='margin-top:14px'>Everything below is the August snapshot of the working files.</p>
 <div class='stats'>
 <div class='stat'><div class='n'>11</div><div class='l'>anime stills</div></div>
 <div class='stat'><div class='n'>0</div><div class='l'>painterly stills</div></div>
