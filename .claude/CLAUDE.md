@@ -53,8 +53,9 @@ John works in three sessions and sometimes starts work in the wrong one. He
 asked for a tripwire in each of them:
 
 - **1 · HEDGE FUND (trading)**: investing and markets.
-- **2 · LOCAL MOTIVE + website**: the Local Motive service, its business cards
-  and this website.
+- **2 · LOCAL MOTIVE (Google biz) + website**: the Local Motive service (the
+  Google Business Profile work), its business cards and this website. These
+  belong together in one session.
 - **3 · SALES**: his sales work.
 
 Find out which session you are from the session's own title (ask for this
