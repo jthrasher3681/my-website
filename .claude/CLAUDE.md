@@ -34,8 +34,9 @@ must keep working:
 - **The QR code** ends in `/card/`. It arrives here as `/card/`. That page
   (`card/index.html`) only forwards the visitor to the current page.
 
-Both are printed on a short domain that redirects every address to the same
-path on this site.
+Both are printed on the short domain `jthrasherco.com` (registered 2026-11-27),
+which redirects every address to the same path on this site. The redirect is
+set at the domain's DNS provider, not in this repository.
 
 Rules:
 
