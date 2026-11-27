@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Page not found</title>
+<script>
+// The address /localmotive is printed on business cards, and people type it by hand.
+// Web addresses here are case-sensitive, so "/LocalMotive", "/local-motive" or
+// "/localmotive/localmotive" would otherwise end on this error page. Send them, and
+// mistyped forms of the two older short addresses, to the real page instead.
+(function () {
+  var path = location.pathname;
+  if (path === "/localmotive/") return; // already there: never loop
+  try { path = decodeURIComponent(path); } catch (e) {}
+  var first = path.toLowerCase().replace(/^\/+/, "").split("/")[0].replace(/[^a-z]/g, "");
+  if (first.indexOf("localmotiv") === 0 || first === "local" || first === "card") {
+    location.replace("/localmotive/");
+  }
+})();
+</script>
+<style>
+body{font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;margin:3rem 1.25rem;color:#111;background:#fff}
+a{color:#111}
+@media (prefers-color-scheme: dark){body{color:#eee;background:#111}a{color:#eee}}
+</style>
+</head>
+<body>
+<h1 style="font-size:1.25rem;margin:0 0 .5rem">Page not found</h1>
+<p>There is nothing at this address. <a href="/">Go to the home page</a>.</p>
+</body>
+</html>
