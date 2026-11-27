@@ -30,10 +30,13 @@ Two addresses are printed on the card. Printed cards cannot be changed, so both
 must keep working:
 
 - **The printed text** ends in `/localmotive`. It is typed by hand and arrives
-  here as `/localmotive` (the service page, `localmotive/index.html`), either
-  directly or forwarded from the short domain on the card.
-- **The QR code** points to `https://jthrashercompanies.com/card/`. That page
+  here as `/localmotive` (the service page, `localmotive/index.html`).
+- **The QR code** ends in `/card/`. It arrives here as `/card/`. That page
   (`card/index.html`) only forwards the visitor to the current page.
+
+Both are printed on a short domain that redirects every address to the same
+path on this site. Until the card file of 2026-11-27 the QR code used this
+site's own domain, so `/card/` has to answer on both.
 
 Rules:
 
@@ -44,8 +47,10 @@ Rules:
 - **Whenever the business website moves** (a new page, a new domain), keep
   `/localmotive/` and `/card/` working: make them forward to the new place in the
   same change, then type the printed address and scan the QR code to test.
-- Tell John if jthrashercompanies.com, or the short domain printed on the card,
-  is ever to be dropped or left to expire: the printed cards would stop working.
+- Tell John if the short domain printed on the card is ever to be dropped or
+  left to expire, or if this site is to move off jthrashercompanies.com before
+  the short domain's redirect has been pointed at the new place: the printed
+  cards would stop working.
 
 ## How to approach work
 
