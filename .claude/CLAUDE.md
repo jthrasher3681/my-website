@@ -65,6 +65,24 @@ says which session it belongs in and asks whether to switch or carry on here;
 do the work only after he answers. A quick question that can be answered in a
 line or two is simply answered, with the same one-line note.
 
+## Standing reminder: Local Motive (John, 2026-11-25; moved here 2026-11-27)
+
+John: "let's really build on this idea. don't let me forget about this idea.
+remind me about it everytime i visit this project unless i specifically tell
+you to stop." On 2026-11-27 he asked for the reminder to live with the Local
+Motive work instead of the trading project.
+
+In the session titled **2 · LOCAL MOTIVE (Google biz) + website**, open the
+first reply of every conversation with John, and the first reply of each new
+day he writes, with one or two lines on Local Motive: where it stands and what
+is waiting on him. Other sessions do not give this reminder.
+
+The status is kept in the private notes file `ideas/local-audience.md` in the
+alpha-screener repository, which that session has attached. Keep that file
+current, and never copy its contents into this public repository. Stop only
+when John specifically says so; then remove this section and note the date in
+that file.
+
 ## How to approach work
 
 - For multi-step tasks, use the `agent-graph` skill
