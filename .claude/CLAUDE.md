@@ -47,6 +47,23 @@ Rules:
 - Tell John if jthrashercompanies.com, or the short domain printed on the card,
   is ever to be dropped or left to expire: the printed cards would stop working.
 
+## Which session is this? (John, 2026-11-27)
+
+John works in three sessions and sometimes starts work in the wrong one. He
+asked for a tripwire in each of them:
+
+- **1 · HEDGE FUND (trading)**: investing and markets.
+- **2 · LOCAL MOTIVE + website**: the Local Motive service, its business cards
+  and this website.
+- **3 · SALES**: his sales work.
+
+Find out which session you are from the session's own title (ask for this
+session's details if you have a tool for it; otherwise ask John once). When
+John starts work that belongs in another session, the first line of the reply
+says which session it belongs in and asks whether to switch or carry on here;
+do the work only after he answers. A quick question that can be answered in a
+line or two is simply answered, with the same one-line note.
+
 ## How to approach work
 
 - For multi-step tasks, use the `agent-graph` skill
