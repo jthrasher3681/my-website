@@ -35,8 +35,7 @@ must keep working:
   (`card/index.html`) only forwards the visitor to the current page.
 
 Both are printed on a short domain that redirects every address to the same
-path on this site. Until the card file of 2026-11-27 the QR code used this
-site's own domain, so `/card/` has to answer on both.
+path on this site.
 
 Rules:
 
