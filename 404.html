@@ -16,7 +16,7 @@
   try { path = decodeURIComponent(path); } catch (e) {}
   var first = path.toLowerCase().replace(/^\/+/, "").split("/")[0].replace(/[^a-z]/g, "");
   if (first.indexOf("localmotiv") === 0 || first === "local" || first === "card") {
-    location.replace("/localmotive/");
+    location.replace("/localmotive/" + location.search + location.hash);
   }
 })();
 </script>
@@ -28,6 +28,8 @@ a{color:#111}
 </head>
 <body>
 <h1 style="font-size:1.25rem;margin:0 0 .5rem">Page not found</h1>
-<p>There is nothing at this address. <a href="/">Go to the home page</a>.</p>
+<p>There is nothing at this address.</p>
+<p><a href="/">Go to the home page</a></p>
+<p><a href="/localmotive/">Local Motive: Google listing help</a></p>
 </body>
 </html>
