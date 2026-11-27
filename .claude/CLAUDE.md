@@ -20,18 +20,32 @@ here may compromise John's local machines or accounts:
 - Pages generated on John's Mac (such as the Quest tracker) get the same check
   before they are pushed.
 
-## Business card QR code (John, 2026-11-27)
+## Business card addresses (John, 2026-11-27)
 
 John: "add a qr code to the business card that takes them to our website, and
-remember to update this if/when we change to a different website".
+remember to update this if/when we change to a different website". The same
+evening he asked for a shorter printed address ending in `/localmotive`.
 
-- The QR code on the printed card points to `https://jthrashercompanies.com/card/`.
-  That page (`card/index.html`) only forwards the visitor to the current website.
-- Printed cards cannot be changed. Never delete, rename or move `card/`.
-- **Whenever the business website moves** (a new page, a new domain, a rename of
-  `local/`), update the forward target in `card/index.html` in the same change,
-  then scan-test it. Tell John if the domain jthrashercompanies.com itself is
-  ever to be dropped: every printed card would stop working.
+Two addresses are printed on the card. Printed cards cannot be changed, so both
+must keep working:
+
+- **The printed text** ends in `/localmotive`. It is typed by hand and arrives
+  here as `/localmotive` (the service page, `localmotive/index.html`), either
+  directly or forwarded from the short domain on the card.
+- **The QR code** points to `https://jthrashercompanies.com/card/`. That page
+  (`card/index.html`) only forwards the visitor to the current page.
+
+Rules:
+
+- Never delete, rename or move `card/` or `localmotive/`. `local/` was the page's
+  first address and forwards to `/localmotive/`; keep it too.
+- `404.html` sends mistyped forms (capital letters, a hyphen, a doubled path) to
+  `/localmotive/`. Keep that script if the 404 page is ever redesigned.
+- **Whenever the business website moves** (a new page, a new domain), keep
+  `/localmotive/` and `/card/` working: make them forward to the new place in the
+  same change, then type the printed address and scan the QR code to test.
+- Tell John if jthrashercompanies.com, or the short domain printed on the card,
+  is ever to be dropped or left to expire: the printed cards would stop working.
 
 ## How to approach work
 
