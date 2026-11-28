@@ -82,6 +82,11 @@ first reply of every conversation with John, and the first reply of each new
 day he writes, with one or two lines on Local Motive: where it stands and what
 is waiting on him. Other sessions do not give this reminder.
 
+From 2026-11-28 (John: "put all those changes into effect"), the reminder opens with the outreach
+count: "Checks delivered this week: N; total N of 15." Until 15 free checks are in owners' hands,
+Claude proposes no new builds, reviews or research for Local Motive unless John asks; the plan is
+`ideas/plan-2026-11-28-will-they-diy.md` in the alpha-screener repository.
+
 The status is kept in the private notes file `ideas/local-audience.md` in the
 alpha-screener repository, which that session has attached. Keep that file
 current, and never copy its contents into this public repository. Stop only
